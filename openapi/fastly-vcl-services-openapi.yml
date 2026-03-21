@@ -1,0 +1,949 @@
+openapi: 3.1.0
+info:
+  title: Fastly VCL Services API
+  description: >-
+    The Fastly VCL Services API provides programmatic access to configure
+    Varnish Configuration Language (VCL) objects that power most Fastly
+    services. Developers can upload custom VCL code or use the API to generate
+    VCL through configuration objects including backends, conditions, cache
+    settings, request settings, response objects, headers, and VCL snippets.
+    This API is central to defining how Fastly processes, routes, and caches
+    HTTP requests at the edge.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly VCL Services API Documentation
+  url: https://www.fastly.com/documentation/reference/api/vcl-services/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: Backend
+    description: >-
+      Operations for managing backends (origin servers) that a Fastly service
+      routes requests to.
+  - name: Condition
+    description: >-
+      Operations for managing conditions that control when configuration
+      objects are applied during request processing.
+  - name: Cache Settings
+    description: >-
+      Operations for managing cache settings that control cache lifetimes and
+      behavior at the edge.
+  - name: Request Settings
+    description: >-
+      Operations for managing request settings that modify inbound requests
+      at the edge.
+  - name: Response Object
+    description: >-
+      Operations for managing synthetic response objects that can be served
+      directly from the edge without contacting an origin.
+  - name: Header
+    description: >-
+      Operations for managing header manipulation rules that add, modify, or
+      remove HTTP headers during request and response processing.
+  - name: VCL Snippet
+    description: >-
+      Operations for managing VCL snippets, which are small pieces of VCL
+      code that can be inserted into specific subroutines.
+  - name: Custom VCL
+    description: >-
+      Operations for uploading and managing full custom VCL files.
+security:
+  - apiKeyAuth: []
+paths:
+  /service/{service_id}/version/{version_id}/backend:
+    get:
+      operationId: listBackends
+      summary: List backends
+      description: >-
+        Retrieves a list of all backends configured for a specific version
+        of a Fastly service.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of backends.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Backend'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createBackend
+      summary: Create a backend
+      description: >-
+        Creates a new backend for a specific version of a Fastly service.
+        Backends define the origin servers that Fastly routes requests to.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Backend'
+      responses:
+        '200':
+          description: Successfully created the backend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/backend/{backend_name}:
+    get:
+      operationId: getBackend
+      summary: Get a backend
+      description: >-
+        Retrieves the details of a specific backend for a version of a
+        Fastly service.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - $ref: '#/components/parameters/backendName'
+      responses:
+        '200':
+          description: Successfully retrieved the backend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Backend not found.
+    put:
+      operationId: updateBackend
+      summary: Update a backend
+      description: >-
+        Updates a specific backend for a version of a Fastly service.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - $ref: '#/components/parameters/backendName'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Backend'
+      responses:
+        '200':
+          description: Successfully updated the backend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Backend not found.
+    delete:
+      operationId: deleteBackend
+      summary: Delete a backend
+      description: >-
+        Deletes a specific backend from a version of a Fastly service.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - $ref: '#/components/parameters/backendName'
+      responses:
+        '200':
+          description: Successfully deleted the backend.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Backend not found.
+  /service/{service_id}/version/{version_id}/condition:
+    get:
+      operationId: listConditions
+      summary: List conditions
+      description: >-
+        Retrieves a list of all conditions configured for a specific version
+        of a Fastly service.
+      tags:
+        - Condition
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of conditions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Condition'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createCondition
+      summary: Create a condition
+      description: >-
+        Creates a new condition for a specific version of a Fastly service.
+        Conditions use VCL syntax to define when configuration objects should
+        be applied during request processing.
+      tags:
+        - Condition
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Condition'
+      responses:
+        '200':
+          description: Successfully created the condition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Condition'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/cache_settings:
+    get:
+      operationId: listCacheSettings
+      summary: List cache settings
+      description: >-
+        Retrieves a list of all cache settings configured for a specific
+        version of a Fastly service.
+      tags:
+        - Cache Settings
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of cache settings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CacheSettings'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createCacheSettings
+      summary: Create cache settings
+      description: >-
+        Creates new cache settings for a specific version of a Fastly service.
+        Cache settings configure cache lifetime for objects stored in the
+        Fastly cache, overriding cache freshness information from HTTP headers.
+      tags:
+        - Cache Settings
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CacheSettings'
+      responses:
+        '200':
+          description: Successfully created the cache settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CacheSettings'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/header:
+    get:
+      operationId: listHeaders
+      summary: List header objects
+      description: >-
+        Retrieves a list of all header manipulation rules configured for a
+        specific version of a Fastly service.
+      tags:
+        - Header
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of headers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Header'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createHeader
+      summary: Create a header object
+      description: >-
+        Creates a new header manipulation rule for a specific version of a
+        Fastly service. Header objects add, modify, or remove HTTP headers
+        during request and response processing.
+      tags:
+        - Header
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Header'
+      responses:
+        '200':
+          description: Successfully created the header object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Header'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/snippet:
+    get:
+      operationId: listSnippets
+      summary: List VCL snippets
+      description: >-
+        Retrieves a list of all VCL snippets configured for a specific version
+        of a Fastly service.
+      tags:
+        - VCL Snippet
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of VCL snippets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Snippet'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createSnippet
+      summary: Create a VCL snippet
+      description: >-
+        Creates a new VCL snippet for a specific version of a Fastly service.
+        Snippets are small pieces of VCL code that can be inserted into
+        specific VCL subroutines.
+      tags:
+        - VCL Snippet
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+      responses:
+        '200':
+          description: Successfully created the VCL snippet.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/vcl:
+    get:
+      operationId: listCustomVcl
+      summary: List custom VCL files
+      description: >-
+        Retrieves a list of all custom VCL files uploaded for a specific
+        version of a Fastly service.
+      tags:
+        - Custom VCL
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of custom VCL files.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomVcl'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createCustomVcl
+      summary: Upload custom VCL
+      description: >-
+        Uploads a full custom VCL file for a specific version of a Fastly
+        service.
+      tags:
+        - Custom VCL
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomVcl'
+      responses:
+        '200':
+          description: Successfully uploaded the custom VCL file.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomVcl'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/request_settings:
+    get:
+      operationId: listRequestSettings
+      summary: List request settings
+      description: >-
+        Retrieves a list of all request settings configured for a specific
+        version of a Fastly service.
+      tags:
+        - Request Settings
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of request settings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RequestSettings'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createRequestSettings
+      summary: Create request settings
+      description: >-
+        Creates new request settings for a specific version of a Fastly
+        service. Request settings modify inbound requests at the edge before
+        they are processed or forwarded to origin.
+      tags:
+        - Request Settings
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RequestSettings'
+      responses:
+        '200':
+          description: Successfully created the request settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestSettings'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/response_object:
+    get:
+      operationId: listResponseObjects
+      summary: List response objects
+      description: >-
+        Retrieves a list of all response objects configured for a specific
+        version of a Fastly service.
+      tags:
+        - Response Object
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of response objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseObject'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createResponseObject
+      summary: Create a response object
+      description: >-
+        Creates a new response object for a specific version of a Fastly
+        service. Response objects allow serving synthetic responses directly
+        from the edge without contacting an origin server.
+      tags:
+        - Response Object
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ResponseObject'
+      responses:
+        '200':
+          description: Successfully created the response object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseObject'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: >-
+        The integer identifying the service version.
+      schema:
+        type: integer
+    backendName:
+      name: backend_name
+      in: path
+      required: true
+      description: >-
+        The name of the backend.
+      schema:
+        type: string
+  schemas:
+    Backend:
+      type: object
+      description: >-
+        A backend represents an origin server that a Fastly service routes
+        requests to for content that is not cached at the edge.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the backend.
+        address:
+          type: string
+          description: >-
+            The hostname or IPv4 address of the backend.
+        port:
+          type: integer
+          description: >-
+            The port number on the backend.
+          default: 80
+        use_ssl:
+          type: boolean
+          description: >-
+            Whether to use SSL/TLS to connect to the backend.
+        ssl_hostname:
+          type: string
+          description: >-
+            The hostname to verify for SSL certificate validation.
+        ssl_cert_hostname:
+          type: string
+          description: >-
+            The hostname to use when checking the backend certificate.
+        ssl_sni_hostname:
+          type: string
+          description: >-
+            The SNI hostname to use for the backend connection.
+        shield:
+          type: string
+          description: >-
+            The data center to use as a shield POP.
+        weight:
+          type: integer
+          description: >-
+            The weight assigned to this backend for load balancing.
+          minimum: 1
+          maximum: 100
+        connect_timeout:
+          type: integer
+          description: >-
+            Maximum duration in milliseconds to wait for a connection.
+        first_byte_timeout:
+          type: integer
+          description: >-
+            Maximum duration in milliseconds to wait for the first byte.
+        between_bytes_timeout:
+          type: integer
+          description: >-
+            Maximum duration in milliseconds to wait between bytes.
+        max_conn:
+          type: integer
+          description: >-
+            Maximum number of connections to the backend.
+        healthcheck:
+          type: string
+          description: >-
+            The name of the healthcheck to use with the backend.
+        auto_loadbalance:
+          type: boolean
+          description: >-
+            Whether to auto-load-balance this backend.
+        request_condition:
+          type: string
+          description: >-
+            The name of a condition to apply to route requests to this backend.
+        comment:
+          type: string
+          description: >-
+            A freeform descriptive note about the backend.
+    Condition:
+      type: object
+      description: >-
+        A condition uses VCL syntax to define when a configuration object
+        should be applied during request processing.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the condition.
+        statement:
+          type: string
+          description: >-
+            A VCL conditional expression that defines when the condition
+            evaluates to true.
+        type:
+          type: string
+          description: >-
+            The type of condition, determining when it is evaluated.
+          enum:
+            - REQUEST
+            - CACHE
+            - RESPONSE
+            - PREFETCH
+        priority:
+          type: integer
+          description: >-
+            The priority of the condition, with lower numbers evaluated first.
+          default: 10
+        comment:
+          type: string
+          description: >-
+            A freeform descriptive note about the condition.
+    CacheSettings:
+      type: object
+      description: >-
+        Cache settings configure cache lifetime for objects stored in the
+        Fastly cache, overriding cache freshness information from HTTP
+        response headers.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the cache settings rule.
+        action:
+          type: string
+          description: >-
+            The action to take when the cache settings are applied.
+          enum:
+            - pass
+            - cache
+            - restart
+            - deliver
+        ttl:
+          type: integer
+          description: >-
+            The maximum time in seconds that the object should be cached.
+        stale_ttl:
+          type: integer
+          description: >-
+            The maximum time in seconds that a stale object can be served.
+        cache_condition:
+          type: string
+          description: >-
+            The name of the condition that triggers these cache settings.
+    RequestSettings:
+      type: object
+      description: >-
+        Request settings modify inbound requests at the edge before they
+        are processed or forwarded to origin servers.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the request settings rule.
+        action:
+          type: string
+          description: >-
+            The action to take when request settings are applied.
+          enum:
+            - lookup
+            - pass
+        force_miss:
+          type: boolean
+          description: >-
+            Whether to force a cache miss for matching requests.
+        force_ssl:
+          type: boolean
+          description: >-
+            Whether to force SSL for matching requests.
+        bypass_busy_wait:
+          type: boolean
+          description: >-
+            Whether to disable collapsed forwarding for matching requests.
+        max_stale_age:
+          type: integer
+          description: >-
+            The maximum stale age in seconds.
+        hash_keys:
+          type: string
+          description: >-
+            A list of items to use as the cache hash key.
+        xff:
+          type: string
+          description: >-
+            How to handle the X-Forwarded-For header.
+          enum:
+            - clear
+            - leave
+            - append
+            - append_all
+            - overwrite
+        timer_support:
+          type: boolean
+          description: >-
+            Whether to inject Fastly-specific timing headers.
+        geo_headers:
+          type: boolean
+          description: >-
+            Whether to add geographic headers based on client IP.
+        default_host:
+          type: string
+          description: >-
+            Sets the host header sent to the backend.
+        request_condition:
+          type: string
+          description: >-
+            The name of the condition that triggers these request settings.
+    ResponseObject:
+      type: object
+      description: >-
+        A response object allows serving synthetic responses directly from
+        the edge without contacting an origin server.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the response object.
+        status:
+          type: integer
+          description: >-
+            The HTTP status code for the synthetic response.
+          minimum: 100
+          maximum: 599
+        response:
+          type: string
+          description: >-
+            The HTTP status text for the synthetic response.
+        content:
+          type: string
+          description: >-
+            The content body to return in the synthetic response.
+        content_type:
+          type: string
+          description: >-
+            The MIME type of the content body.
+        request_condition:
+          type: string
+          description: >-
+            The name of the condition that triggers the response object.
+        cache_condition:
+          type: string
+          description: >-
+            The name of the condition that determines caching.
+    Header:
+      type: object
+      description: >-
+        A header object manipulates HTTP headers during request and response
+        processing at the edge.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the header rule.
+        action:
+          type: string
+          description: >-
+            The action to take on the header.
+          enum:
+            - set
+            - append
+            - delete
+            - regex
+            - regex_repeat
+        type:
+          type: string
+          description: >-
+            The type of header manipulation.
+          enum:
+            - request
+            - fetch
+            - cache
+            - response
+        dst:
+          type: string
+          description: >-
+            The name of the header to modify.
+        src:
+          type: string
+          description: >-
+            A variable expression used to derive the value.
+        regex:
+          type: string
+          description: >-
+            A regular expression used for regex-based actions.
+        substitution:
+          type: string
+          description: >-
+            The substitution string for regex-based actions.
+        priority:
+          type: integer
+          description: >-
+            The priority of the header rule.
+          default: 100
+        ignore_if_set:
+          type: boolean
+          description: >-
+            Whether to skip the header rule if the header is already set.
+        request_condition:
+          type: string
+          description: >-
+            The name of the condition that triggers the header rule.
+        response_condition:
+          type: string
+          description: >-
+            The name of the condition that triggers the header rule on responses.
+        cache_condition:
+          type: string
+          description: >-
+            The name of the condition that triggers the header rule on cache.
+    Snippet:
+      type: object
+      description: >-
+        A VCL snippet is a small piece of VCL code that can be inserted into
+        a specific VCL subroutine without uploading a full custom VCL file.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the VCL snippet.
+        content:
+          type: string
+          description: >-
+            The VCL code for the snippet.
+        type:
+          type: string
+          description: >-
+            The VCL subroutine to insert the snippet into.
+          enum:
+            - init
+            - recv
+            - hash
+            - hit
+            - miss
+            - pass
+            - fetch
+            - error
+            - deliver
+            - log
+            - none
+        dynamic:
+          type: integer
+          description: >-
+            Whether this snippet is dynamic (0 = versioned, 1 = dynamic).
+          enum:
+            - 0
+            - 1
+        priority:
+          type: integer
+          description: >-
+            The priority of the snippet, determining its order of execution.
+          default: 100
+    CustomVcl:
+      type: object
+      description: >-
+        A full custom VCL file uploaded for a service version.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the custom VCL file.
+        content:
+          type: string
+          description: >-
+            The VCL source code.
+        main:
+          type: boolean
+          description: >-
+            Whether this is the main VCL file for the service version.

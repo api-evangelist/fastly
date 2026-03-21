@@ -1,0 +1,381 @@
+openapi: 3.1.0
+info:
+  title: Fastly Products API
+  description: >-
+    The Fastly Products API provides endpoints for enabling and managing
+    Fastly product features on services, including Bot Management, DDoS
+    Protection, Image Optimizer, API Discovery, and other add-on capabilities.
+    Developers can use this API to check which products are enabled for a
+    service, enable or disable product features, and configure product-specific
+    settings. The API Discovery product, for example, allows automated
+    identification and cataloging of API endpoints in traffic flowing through
+    Fastly services.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Products API Documentation
+  url: https://www.fastly.com/documentation/reference/api/products/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: Bot Management
+    description: >-
+      Operations for enabling and managing the Bot Management product on
+      Fastly services.
+  - name: DDoS Protection
+    description: >-
+      Operations for enabling, configuring, and managing DDoS Protection
+      on Fastly services.
+  - name: Image Optimizer
+    description: >-
+      Operations for enabling and managing the Image Optimizer product on
+      Fastly services.
+  - name: API Discovery
+    description: >-
+      Operations for enabling and managing the API Discovery product that
+      identifies API endpoints in service traffic.
+security:
+  - apiKeyAuth: []
+paths:
+  /enabled-products/v1/bot_management/services/{service_id}:
+    get:
+      operationId: getBotManagementStatus
+      summary: Get Bot Management status
+      description: >-
+        Checks the enablement status of the Bot Management product on a
+        specific service.
+      tags:
+        - Bot Management
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully retrieved the Bot Management status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+    put:
+      operationId: enableBotManagement
+      summary: Enable Bot Management
+      description: >-
+        Enables the Bot Management product on a specific service.
+      tags:
+        - Bot Management
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully enabled Bot Management.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+    delete:
+      operationId: disableBotManagement
+      summary: Disable Bot Management
+      description: >-
+        Disables the Bot Management product on a specific service.
+      tags:
+        - Bot Management
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '204':
+          description: Successfully disabled Bot Management.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+  /enabled-products/v1/ddos_protection/services/{service_id}:
+    get:
+      operationId: getDdosProtectionStatus
+      summary: Get DDoS Protection status
+      description: >-
+        Checks the enablement status of the DDoS Protection product on a
+        specific service.
+      tags:
+        - DDoS Protection
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully retrieved the DDoS Protection status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+    put:
+      operationId: enableDdosProtection
+      summary: Enable DDoS Protection
+      description: >-
+        Enables the DDoS Protection product on a specific service.
+      tags:
+        - DDoS Protection
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully enabled DDoS Protection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+    delete:
+      operationId: disableDdosProtection
+      summary: Disable DDoS Protection
+      description: >-
+        Disables the DDoS Protection product on a specific service.
+      tags:
+        - DDoS Protection
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '204':
+          description: Successfully disabled DDoS Protection.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+  /enabled-products/v1/ddos_protection/services/{service_id}/configuration:
+    get:
+      operationId: getDdosProtectionConfiguration
+      summary: Get DDoS Protection configuration
+      description: >-
+        Retrieves the DDoS Protection configuration for a specific service.
+      tags:
+        - DDoS Protection
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully retrieved the DDoS Protection configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DdosProtectionConfiguration'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or DDoS Protection not enabled.
+  /enabled-products/v1/image_optimizer/services/{service_id}:
+    get:
+      operationId: getImageOptimizerStatus
+      summary: Get Image Optimizer status
+      description: >-
+        Checks the enablement status of the Image Optimizer product on a
+        specific service.
+      tags:
+        - Image Optimizer
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully retrieved the Image Optimizer status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+    put:
+      operationId: enableImageOptimizer
+      summary: Enable Image Optimizer
+      description: >-
+        Enables the Image Optimizer product on a specific service.
+      tags:
+        - Image Optimizer
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully enabled Image Optimizer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+    delete:
+      operationId: disableImageOptimizer
+      summary: Disable Image Optimizer
+      description: >-
+        Disables the Image Optimizer product on a specific service.
+      tags:
+        - Image Optimizer
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '204':
+          description: Successfully disabled Image Optimizer.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+  /enabled-products/v1/api_discovery/services/{service_id}:
+    get:
+      operationId: getApiDiscoveryStatus
+      summary: Get API Discovery status
+      description: >-
+        Checks the enablement status of the API Discovery product on a
+        specific service.
+      tags:
+        - API Discovery
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully retrieved the API Discovery status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+    put:
+      operationId: enableApiDiscovery
+      summary: Enable API Discovery
+      description: >-
+        Enables the API Discovery product on a specific service.
+      tags:
+        - API Discovery
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully enabled API Discovery.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+    delete:
+      operationId: disableApiDiscovery
+      summary: Disable API Discovery
+      description: >-
+        Disables the API Discovery product on a specific service.
+      tags:
+        - API Discovery
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '204':
+          description: Successfully disabled API Discovery.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+  schemas:
+    ProductStatus:
+      type: object
+      description: >-
+        The enablement status of a Fastly product on a service.
+      properties:
+        product:
+          type: object
+          description: >-
+            Details about the product.
+          properties:
+            id:
+              type: string
+              description: >-
+                The product identifier.
+            object:
+              type: string
+              description: >-
+                The resource type.
+        service:
+          type: object
+          description: >-
+            Details about the service.
+          properties:
+            id:
+              type: string
+              description: >-
+                The alphanumeric string identifying the service.
+            object:
+              type: string
+              description: >-
+                The resource type.
+        _links:
+          type: object
+          description: >-
+            Links to related resources.
+          properties:
+            self:
+              type: string
+              description: >-
+                A link to the current resource.
+            service:
+              type: string
+              description: >-
+                A link to the associated service.
+    DdosProtectionConfiguration:
+      type: object
+      description: >-
+        The DDoS Protection configuration for a Fastly service.
+      properties:
+        product:
+          type: object
+          description: >-
+            Details about the DDoS Protection product.
+          properties:
+            id:
+              type: string
+              description: >-
+                The product identifier.
+        configuration:
+          type: object
+          description: >-
+            The DDoS Protection configuration settings.
+          properties:
+            mode:
+              type: string
+              description: >-
+                The operating mode of DDoS Protection.

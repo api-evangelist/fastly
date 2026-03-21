@@ -1,0 +1,317 @@
+openapi: 3.1.0
+info:
+  title: Fastly Domain Management API
+  description: >-
+    The Fastly Domain Management API allows developers to programmatically
+    associate domain names with Fastly services. Domains serve as the entry
+    point for traffic routed through Fastly's edge network. The API supports
+    adding, listing, and removing domains from service versions, checking
+    domain DNS configurations, and validating that domains are correctly
+    pointed to Fastly. It is essential for managing the routing configuration
+    that connects end-user requests to the appropriate Fastly service.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Domain Management API Documentation
+  url: https://www.fastly.com/documentation/reference/api/services/domain/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: Domain
+    description: >-
+      Operations for managing domain associations with Fastly service versions,
+      including DNS validation and configuration checks.
+security:
+  - apiKeyAuth: []
+paths:
+  /service/{service_id}/version/{version_id}/domain:
+    get:
+      operationId: listDomains
+      summary: List domains
+      description: >-
+        Retrieves a list of all domains associated with a specific version
+        of a Fastly service.
+      tags:
+        - Domain
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of domains.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Domain'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createDomain
+      summary: Create a domain
+      description: >-
+        Associates a new domain name with a specific version of a Fastly
+        service.
+      tags:
+        - Domain
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The domain name to associate with the service.
+                comment:
+                  type: string
+                  description: >-
+                    A freeform descriptive note about the domain.
+      responses:
+        '200':
+          description: Successfully created the domain association.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Domain'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/domain/{domain_name}:
+    get:
+      operationId: getDomain
+      summary: Get a domain
+      description: >-
+        Retrieves the details of a specific domain for a version of a
+        Fastly service.
+      tags:
+        - Domain
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - $ref: '#/components/parameters/domainName'
+      responses:
+        '200':
+          description: Successfully retrieved the domain.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Domain'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Domain not found.
+    put:
+      operationId: updateDomain
+      summary: Update a domain
+      description: >-
+        Updates a specific domain for a version of a Fastly service.
+      tags:
+        - Domain
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - $ref: '#/components/parameters/domainName'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The domain name.
+                comment:
+                  type: string
+                  description: >-
+                    A freeform descriptive note about the domain.
+      responses:
+        '200':
+          description: Successfully updated the domain.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Domain'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Domain not found.
+    delete:
+      operationId: deleteDomain
+      summary: Delete a domain
+      description: >-
+        Removes a domain from a version of a Fastly service.
+      tags:
+        - Domain
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - $ref: '#/components/parameters/domainName'
+      responses:
+        '200':
+          description: Successfully deleted the domain.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Domain not found.
+  /service/{service_id}/version/{version_id}/domain/{domain_name}/check:
+    get:
+      operationId: checkDomain
+      summary: Check domain DNS configuration
+      description: >-
+        Validates the DNS configuration for a single domain on a service
+        version. Returns the domain details, the current CNAME record, and
+        a boolean indicating whether the domain is correctly configured to
+        use Fastly.
+      tags:
+        - Domain
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - $ref: '#/components/parameters/domainName'
+      responses:
+        '200':
+          description: Successfully checked the domain DNS configuration.
+          content:
+            application/json:
+              schema:
+                type: array
+                description: >-
+                  An array of three items: domain details, current CNAME, and
+                  whether DNS is properly configured.
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/Domain'
+                    - type: string
+                    - type: boolean
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Domain not found.
+  /service/{service_id}/version/{version_id}/domain/check_all:
+    get:
+      operationId: checkDomains
+      summary: Check all domains DNS configuration
+      description: >-
+        Validates the DNS configuration for all domains on a service version.
+        Returns an array of results, each containing domain details, the
+        current CNAME record, and whether the domain is correctly configured.
+      tags:
+        - Domain
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully checked all domain DNS configurations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  description: >-
+                    An array of three items per domain: domain details,
+                    current CNAME, and whether DNS is properly configured.
+                  items:
+                    oneOf:
+                      - $ref: '#/components/schemas/Domain'
+                      - type: string
+                      - type: boolean
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: >-
+        The integer identifying the service version.
+      schema:
+        type: integer
+    domainName:
+      name: domain_name
+      in: path
+      required: true
+      description: >-
+        The domain name.
+      schema:
+        type: string
+  schemas:
+    Domain:
+      type: object
+      description: >-
+        A domain associated with a Fastly service, serving as the entry point
+        for traffic routed through Fastly's edge network.
+      properties:
+        name:
+          type: string
+          description: >-
+            The domain name.
+        comment:
+          type: string
+          description: >-
+            A freeform descriptive note about the domain.
+        service_id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the service.
+        version:
+          type: integer
+          description: >-
+            The version number the domain is associated with.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the domain was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the domain was last updated.
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            The date and time the domain was deleted.

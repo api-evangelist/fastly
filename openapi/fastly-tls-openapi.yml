@@ -1,0 +1,991 @@
+openapi: 3.1.0
+info:
+  title: Fastly TLS API
+  description: >-
+    The Fastly TLS API enables developers to manage TLS certificates, private
+    keys, and domain configurations for securing traffic delivered through
+    Fastly's edge network. It supports both platform TLS (managed certificates)
+    and custom TLS configurations where customers bring their own certificates.
+    The API allows uploading certificates, managing bulk certificate operations,
+    configuring TLS activations, and managing mutual TLS authentication for
+    origin connections.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly TLS API Documentation
+  url: https://www.fastly.com/documentation/reference/api/tls/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: TLS Certificates
+    description: >-
+      Operations for managing custom TLS certificates that are used to
+      terminate TLS traffic for one or more fully qualified domain names.
+  - name: TLS Private Keys
+    description: >-
+      Operations for managing private keys used to sign TLS certificates.
+  - name: TLS Activations
+    description: >-
+      Operations for managing TLS activations that enable TLS traffic
+      termination for specific domains using custom certificates.
+  - name: Platform TLS
+    description: >-
+      Operations for managing platform TLS bulk certificates where Fastly
+      manages certificate deployment across the edge network.
+security:
+  - apiKeyAuth: []
+paths:
+  /tls/certificates:
+    get:
+      operationId: listTlsCertificates
+      summary: List TLS certificates
+      description: >-
+        Retrieves a list of all custom TLS certificates associated with the
+        account.
+      tags:
+        - TLS Certificates
+      parameters:
+        - name: page[number]
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+        - name: page[size]
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: filter[tls_domains.id]
+          in: query
+          description: >-
+            Filter certificates by TLS domain ID.
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: >-
+            The field to sort results by.
+          schema:
+            type: string
+            enum:
+              - created_at
+              - -created_at
+      responses:
+        '200':
+          description: Successfully retrieved the list of TLS certificates.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TlsCertificate'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createTlsCertificate
+      summary: Create a TLS certificate
+      description: >-
+        Uploads a new custom TLS certificate. Uploading a new certificate
+        automatically enables TLS for all domains listed as Subject
+        Alternative Names (SAN entries) on the certificate. Certificate
+        deployment takes approximately 20 minutes on average but may take
+        up to an hour.
+      tags:
+        - TLS Certificates
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - tls_certificate
+                    attributes:
+                      type: object
+                      properties:
+                        cert_blob:
+                          type: string
+                          description: >-
+                            The PEM-encoded certificate.
+                        name:
+                          type: string
+                          description: >-
+                            A customizable name for the certificate.
+                    relationships:
+                      type: object
+                      properties:
+                        tls_domains:
+                          type: object
+                          description: >-
+                            The TLS domains associated with the certificate.
+      responses:
+        '201':
+          description: Successfully created the TLS certificate.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsCertificate'
+        '400':
+          description: Bad request. Missing or invalid certificate data.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /tls/certificates/{tls_certificate_id}:
+    get:
+      operationId: getTlsCertificate
+      summary: Get a TLS certificate
+      description: >-
+        Retrieves the details of a specific custom TLS certificate.
+      tags:
+        - TLS Certificates
+      parameters:
+        - name: tls_certificate_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the TLS certificate.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the TLS certificate.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsCertificate'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS certificate not found.
+    patch:
+      operationId: updateTlsCertificate
+      summary: Update a TLS certificate
+      description: >-
+        Replaces a TLS certificate with a new one. The new certificate must
+        cover the same domains as the original.
+      tags:
+        - TLS Certificates
+      parameters:
+        - name: tls_certificate_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the TLS certificate.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - tls_certificate
+                    attributes:
+                      type: object
+                      properties:
+                        cert_blob:
+                          type: string
+                          description: >-
+                            The PEM-encoded replacement certificate.
+                        name:
+                          type: string
+                          description: >-
+                            A customizable name for the certificate.
+      responses:
+        '200':
+          description: Successfully updated the TLS certificate.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsCertificate'
+        '400':
+          description: Bad request. Missing or invalid certificate data.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS certificate not found.
+    delete:
+      operationId: deleteTlsCertificate
+      summary: Delete a TLS certificate
+      description: >-
+        Deletes a custom TLS certificate. The certificate must not have any
+        active TLS activations.
+      tags:
+        - TLS Certificates
+      parameters:
+        - name: tls_certificate_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the TLS certificate.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully deleted the TLS certificate.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS certificate not found.
+  /tls/private_keys:
+    get:
+      operationId: listTlsPrivateKeys
+      summary: List TLS private keys
+      description: >-
+        Retrieves a list of all TLS private keys associated with the account.
+      tags:
+        - TLS Private Keys
+      parameters:
+        - name: page[number]
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+        - name: page[size]
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: filter[in_use]
+          in: query
+          description: >-
+            Filter to show only keys currently in use.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of TLS private keys.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TlsPrivateKey'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createTlsPrivateKey
+      summary: Create a TLS private key
+      description: >-
+        Uploads a new TLS private key. A key can be used to sign multiple
+        certificates.
+      tags:
+        - TLS Private Keys
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - tls_private_key
+                    attributes:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                          description: >-
+                            The PEM-encoded private key.
+                        name:
+                          type: string
+                          description: >-
+                            A customizable name for the private key.
+      responses:
+        '201':
+          description: Successfully created the TLS private key.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsPrivateKey'
+        '400':
+          description: Bad request. Missing or invalid key data.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /tls/private_keys/{tls_private_key_id}:
+    get:
+      operationId: getTlsPrivateKey
+      summary: Get a TLS private key
+      description: >-
+        Retrieves the details of a specific TLS private key.
+      tags:
+        - TLS Private Keys
+      parameters:
+        - name: tls_private_key_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the TLS private key.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the TLS private key.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsPrivateKey'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS private key not found.
+    delete:
+      operationId: deleteTlsPrivateKey
+      summary: Delete a TLS private key
+      description: >-
+        Deletes a TLS private key. The key must not be associated with any
+        active certificates.
+      tags:
+        - TLS Private Keys
+      parameters:
+        - name: tls_private_key_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the TLS private key.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully deleted the TLS private key.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS private key not found.
+  /tls/activations:
+    get:
+      operationId: listTlsActivations
+      summary: List TLS activations
+      description: >-
+        Retrieves a list of all TLS activations that enable TLS traffic
+        termination for specific domains.
+      tags:
+        - TLS Activations
+      parameters:
+        - name: page[number]
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+        - name: page[size]
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: filter[tls_certificate.id]
+          in: query
+          description: >-
+            Filter activations by TLS certificate ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of TLS activations.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TlsActivation'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createTlsActivation
+      summary: Create a TLS activation
+      description: >-
+        Enables TLS traffic termination for a specific domain using the
+        specified certificate and configuration.
+      tags:
+        - TLS Activations
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - tls_activation
+                    relationships:
+                      type: object
+                      properties:
+                        tls_certificate:
+                          type: object
+                          description: >-
+                            The TLS certificate to use for the activation.
+                        tls_configuration:
+                          type: object
+                          description: >-
+                            The TLS configuration to use for the activation.
+                        tls_domain:
+                          type: object
+                          description: >-
+                            The TLS domain to activate.
+      responses:
+        '201':
+          description: Successfully created the TLS activation.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsActivation'
+        '400':
+          description: Bad request. Missing or invalid activation data.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /tls/activations/{tls_activation_id}:
+    get:
+      operationId: getTlsActivation
+      summary: Get a TLS activation
+      description: >-
+        Retrieves the details of a specific TLS activation.
+      tags:
+        - TLS Activations
+      parameters:
+        - name: tls_activation_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the TLS activation.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the TLS activation.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsActivation'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS activation not found.
+    patch:
+      operationId: updateTlsActivation
+      summary: Update a TLS activation
+      description: >-
+        Updates a TLS activation, such as changing the certificate used for
+        the domain.
+      tags:
+        - TLS Activations
+      parameters:
+        - name: tls_activation_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the TLS activation.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - tls_activation
+                    relationships:
+                      type: object
+                      properties:
+                        tls_certificate:
+                          type: object
+                          description: >-
+                            The TLS certificate to use.
+      responses:
+        '200':
+          description: Successfully updated the TLS activation.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsActivation'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS activation not found.
+    delete:
+      operationId: deleteTlsActivation
+      summary: Delete a TLS activation
+      description: >-
+        Disables TLS for the domain by removing the TLS activation.
+      tags:
+        - TLS Activations
+      parameters:
+        - name: tls_activation_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the TLS activation.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully deleted the TLS activation.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS activation not found.
+  /tls/bulk/certificates:
+    get:
+      operationId: listBulkTlsCertificates
+      summary: List platform TLS bulk certificates
+      description: >-
+        Retrieves a list of all platform TLS bulk certificates. Available to
+        Platform TLS customers for streamlined upload, deployment, and
+        management of large numbers of TLS certificates.
+      tags:
+        - Platform TLS
+      parameters:
+        - name: page[number]
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+        - name: page[size]
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: >-
+            The field to sort results by.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of bulk certificates.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BulkTlsCertificate'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createBulkTlsCertificate
+      summary: Upload a platform TLS bulk certificate
+      description: >-
+        Uploads a new platform TLS bulk certificate and corresponding
+        intermediates for deployment across Fastly's edge network.
+      tags:
+        - Platform TLS
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - tls_bulk_certificate
+                    attributes:
+                      type: object
+                      properties:
+                        cert_blob:
+                          type: string
+                          description: >-
+                            The PEM-encoded certificate.
+                        intermediates_blob:
+                          type: string
+                          description: >-
+                            The PEM-encoded intermediate certificates.
+                    relationships:
+                      type: object
+                      properties:
+                        tls_configurations:
+                          type: object
+                          description: >-
+                            The TLS configurations to use with the certificate.
+      responses:
+        '201':
+          description: Successfully created the bulk TLS certificate.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BulkTlsCertificate'
+        '400':
+          description: Bad request. Missing or invalid certificate data.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /tls/bulk/certificates/{tls_bulk_certificate_id}:
+    get:
+      operationId: getBulkTlsCertificate
+      summary: Get a platform TLS bulk certificate
+      description: >-
+        Retrieves the details of a specific platform TLS bulk certificate.
+      tags:
+        - Platform TLS
+      parameters:
+        - name: tls_bulk_certificate_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the bulk TLS certificate.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the bulk TLS certificate.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BulkTlsCertificate'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Bulk TLS certificate not found.
+    patch:
+      operationId: updateBulkTlsCertificate
+      summary: Update a platform TLS bulk certificate
+      description: >-
+        Replaces a platform TLS bulk certificate with a new one.
+      tags:
+        - Platform TLS
+      parameters:
+        - name: tls_bulk_certificate_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the bulk TLS certificate.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - tls_bulk_certificate
+                    attributes:
+                      type: object
+                      properties:
+                        cert_blob:
+                          type: string
+                          description: >-
+                            The PEM-encoded replacement certificate.
+                        intermediates_blob:
+                          type: string
+                          description: >-
+                            The PEM-encoded intermediate certificates.
+      responses:
+        '200':
+          description: Successfully updated the bulk TLS certificate.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BulkTlsCertificate'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Bulk TLS certificate not found.
+    delete:
+      operationId: deleteBulkTlsCertificate
+      summary: Delete a platform TLS bulk certificate
+      description: >-
+        Deletes a platform TLS bulk certificate.
+      tags:
+        - Platform TLS
+      parameters:
+        - name: tls_bulk_certificate_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the bulk TLS certificate.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully deleted the bulk TLS certificate.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Bulk TLS certificate not found.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  schemas:
+    TlsCertificate:
+      type: object
+      description: >-
+        A custom TLS certificate used to terminate TLS traffic for one or more
+        fully qualified domain names.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the TLS certificate.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - tls_certificate
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: >-
+                A customizable name for the certificate.
+            cert_blob:
+              type: string
+              description: >-
+                The PEM-encoded certificate.
+            issued_to:
+              type: string
+              description: >-
+                The common name of the entity the certificate was issued to.
+            issuer:
+              type: string
+              description: >-
+                The certificate authority that issued the certificate.
+            serial_number:
+              type: string
+              description: >-
+                The serial number of the certificate.
+            signature_algorithm:
+              type: string
+              description: >-
+                The algorithm used to sign the certificate.
+            not_before:
+              type: string
+              format: date-time
+              description: >-
+                The date the certificate is valid from.
+            not_after:
+              type: string
+              format: date-time
+              description: >-
+                The date the certificate expires.
+            created_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the certificate was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the certificate was last updated.
+    TlsPrivateKey:
+      type: object
+      description: >-
+        A private key used to sign one or more TLS certificates.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the TLS private key.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - tls_private_key
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: >-
+                A customizable name for the private key.
+            key_length:
+              type: integer
+              description: >-
+                The key length in bits.
+            key_type:
+              type: string
+              description: >-
+                The type of the key.
+              enum:
+                - RSA
+                - ECDSA
+            public_key_sha1:
+              type: string
+              description: >-
+                The SHA-1 hash of the public key.
+            created_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the key was created.
+    TlsActivation:
+      type: object
+      description: >-
+        A TLS activation that enables TLS traffic termination for a specific
+        domain using a custom certificate and configuration.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the TLS activation.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - tls_activation
+        attributes:
+          type: object
+          properties:
+            created_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the activation was created.
+        relationships:
+          type: object
+          properties:
+            tls_certificate:
+              type: object
+              description: >-
+                The TLS certificate used for the activation.
+            tls_configuration:
+              type: object
+              description: >-
+                The TLS configuration used for the activation.
+            tls_domain:
+              type: object
+              description: >-
+                The domain the activation is for.
+    BulkTlsCertificate:
+      type: object
+      description: >-
+        A platform TLS bulk certificate for streamlined management of
+        large numbers of certificates.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the bulk TLS certificate.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - tls_bulk_certificate
+        attributes:
+          type: object
+          properties:
+            not_before:
+              type: string
+              format: date-time
+              description: >-
+                The date the certificate is valid from.
+            not_after:
+              type: string
+              format: date-time
+              description: >-
+                The date the certificate expires.
+            created_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the certificate was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the certificate was last updated.

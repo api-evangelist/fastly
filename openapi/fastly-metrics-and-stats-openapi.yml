@@ -1,0 +1,541 @@
+openapi: 3.1.0
+info:
+  title: Fastly Metrics and Stats API
+  description: >-
+    The Fastly Metrics and Stats API provides access to both real-time and
+    historical analytics data for Fastly services. The real-time analytics
+    endpoint, served on rt.fastly.com, delivers second-by-second stats
+    including request counts, bandwidth, cache hit ratios, and error rates.
+    Historical stats provide aggregated data over longer time periods. The API
+    also includes the Domain Inspector for per-domain metrics and the Origin
+    Inspector for origin-level performance data.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Metrics and Stats API Documentation
+  url: https://www.fastly.com/documentation/reference/api/metrics-stats/
+servers:
+  - url: https://rt.fastly.com
+    description: Fastly Real-Time Analytics Server
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: Real-Time Analytics
+    description: >-
+      Real-time analytics endpoints providing second-by-second stats for
+      Fastly services, served from rt.fastly.com.
+  - name: Historical Stats
+    description: >-
+      Historical statistics endpoints providing aggregated analytics data
+      for Fastly services over configurable time ranges.
+  - name: Domain Inspector
+    description: >-
+      Domain-level analytics endpoints providing per-domain metrics for
+      Fastly services.
+  - name: Origin Inspector
+    description: >-
+      Origin-level analytics endpoints providing metrics about requests
+      to origin servers behind Fastly services.
+security:
+  - apiKeyAuth: []
+paths:
+  /v1/channel/{service_id}/ts/{start_timestamp}:
+    get:
+      operationId: getRealtimeStats
+      summary: Get real-time analytics
+      description: >-
+        Retrieves real-time analytics data for a Fastly service starting from
+        the specified Unix timestamp. Returns a list of records, each
+        representing one second of time, with measurement data grouped in
+        various ways. The real-time analytics API is rate limited internally
+        and is cached behind Fastly with a 1-second expiration time.
+      tags:
+        - Real-Time Analytics
+      servers:
+        - url: https://rt.fastly.com
+          description: Fastly Real-Time Analytics Server
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: start_timestamp
+          in: path
+          required: true
+          description: >-
+            The Unix timestamp to start retrieving analytics data from.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved real-time analytics data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /v1/channel/{service_id}/ts/h:
+    get:
+      operationId: getRealtimeStatsLast120Seconds
+      summary: Get real-time analytics for the last 120 seconds
+      description: >-
+        Retrieves real-time analytics data for the last 120 seconds for the
+        specified Fastly service.
+      tags:
+        - Real-Time Analytics
+      servers:
+        - url: https://rt.fastly.com
+          description: Fastly Real-Time Analytics Server
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully retrieved real-time analytics data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /v1/channel/{service_id}/ts/h/limit/{max_entries}:
+    get:
+      operationId: getRealtimeStatsLastSecond
+      summary: Get real-time analytics with a limit
+      description: >-
+        Retrieves real-time analytics data for the specified Fastly service
+        limited to the most recent entries up to the specified maximum.
+      tags:
+        - Real-Time Analytics
+      servers:
+        - url: https://rt.fastly.com
+          description: Fastly Real-Time Analytics Server
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: max_entries
+          in: path
+          required: true
+          description: >-
+            The maximum number of entries to return.
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: Successfully retrieved real-time analytics data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /stats:
+    get:
+      operationId: getHistoricalStats
+      summary: Get historical stats
+      description: >-
+        Retrieves historical statistics for all Fastly services associated
+        with the account. Data with day resolution is bucketed based on UTC
+        days and becomes available around 2 AM the following day. Hour
+        resolution becomes available approximately 15 minutes after the end
+        of each hour. Minute data usually becomes available two minutes after
+        the end of the minute. Minutely data older than 35 days and hourly
+        data older than 375 days are not available.
+      tags:
+        - Historical Stats
+      servers:
+        - url: https://api.fastly.com
+          description: Fastly API Production Server
+      parameters:
+        - name: from
+          in: query
+          description: >-
+            The start date/time for the query in ISO 8601 or Unix timestamp
+            format.
+          schema:
+            type: string
+        - name: to
+          in: query
+          description: >-
+            The end date/time for the query in ISO 8601 or Unix timestamp
+            format.
+          schema:
+            type: string
+        - name: by
+          in: query
+          description: >-
+            The duration of each time bucket in the response.
+          schema:
+            type: string
+            enum:
+              - minute
+              - hour
+              - day
+        - name: region
+          in: query
+          description: >-
+            Filter results by Fastly POP region.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved historical statistics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalStatsResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /stats/service/{service_id}:
+    get:
+      operationId: getHistoricalStatsByService
+      summary: Get historical stats for a service
+      description: >-
+        Retrieves historical statistics for a specific Fastly service over
+        the specified time range and resolution.
+      tags:
+        - Historical Stats
+      servers:
+        - url: https://api.fastly.com
+          description: Fastly API Production Server
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: from
+          in: query
+          description: >-
+            The start date/time for the query.
+          schema:
+            type: string
+        - name: to
+          in: query
+          description: >-
+            The end date/time for the query.
+          schema:
+            type: string
+        - name: by
+          in: query
+          description: >-
+            The duration of each time bucket in the response.
+          schema:
+            type: string
+            enum:
+              - minute
+              - hour
+              - day
+        - name: region
+          in: query
+          description: >-
+            Filter results by Fastly POP region.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved historical statistics for the service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalStatsResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /stats/field/{field}:
+    get:
+      operationId: getHistoricalStatsByField
+      summary: Get historical stats for a specific field
+      description: >-
+        Retrieves a single historical statistics field for all services
+        associated with the account.
+      tags:
+        - Historical Stats
+      servers:
+        - url: https://api.fastly.com
+          description: Fastly API Production Server
+      parameters:
+        - name: field
+          in: path
+          required: true
+          description: >-
+            The stats field to retrieve.
+          schema:
+            type: string
+        - name: from
+          in: query
+          description: >-
+            The start date/time for the query.
+          schema:
+            type: string
+        - name: to
+          in: query
+          description: >-
+            The end date/time for the query.
+          schema:
+            type: string
+        - name: by
+          in: query
+          description: >-
+            The duration of each time bucket in the response.
+          schema:
+            type: string
+            enum:
+              - minute
+              - hour
+              - day
+        - name: region
+          in: query
+          description: >-
+            Filter results by Fastly POP region.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved historical statistics for the field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalStatsResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /v1/channel/{service_id}/ts/h/domains/{domain}/limit/{max_entries}:
+    get:
+      operationId: getDomainInspectorRealtimeStats
+      summary: Get real-time domain metrics
+      description: >-
+        Retrieves real-time per-domain analytics data for a specific domain
+        on a Fastly service.
+      tags:
+        - Domain Inspector
+      servers:
+        - url: https://rt.fastly.com
+          description: Fastly Real-Time Analytics Server
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: domain
+          in: path
+          required: true
+          description: >-
+            The domain to retrieve metrics for.
+          schema:
+            type: string
+        - name: max_entries
+          in: path
+          required: true
+          description: >-
+            The maximum number of entries to return.
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: Successfully retrieved domain inspector real-time data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service or domain not found.
+  /v1/channel/{service_id}/ts/h/origins/{origin}/limit/{max_entries}:
+    get:
+      operationId: getOriginInspectorRealtimeStats
+      summary: Get real-time origin metrics
+      description: >-
+        Retrieves real-time per-origin analytics data for a specific origin
+        on a Fastly service.
+      tags:
+        - Origin Inspector
+      servers:
+        - url: https://rt.fastly.com
+          description: Fastly Real-Time Analytics Server
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: origin
+          in: path
+          required: true
+          description: >-
+            The origin host to retrieve metrics for.
+          schema:
+            type: string
+        - name: max_entries
+          in: path
+          required: true
+          description: >-
+            The maximum number of entries to return.
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: Successfully retrieved origin inspector real-time data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service or origin not found.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+  schemas:
+    RealtimeResponse:
+      type: object
+      description: >-
+        A response containing real-time analytics data with records
+        representing one-second time intervals.
+      properties:
+        Timestamp:
+          type: integer
+          description: >-
+            The Unix timestamp of the latest data point.
+        AggregateDelay:
+          type: integer
+          description: >-
+            The offset of the latest data point from the current time.
+        Data:
+          type: array
+          description: >-
+            A list of analytics records, each representing one second of data.
+          items:
+            $ref: '#/components/schemas/RealtimeRecord'
+    RealtimeRecord:
+      type: object
+      description: >-
+        A single second of real-time analytics data with measurements grouped
+        by data center.
+      properties:
+        datacenter:
+          type: object
+          description: >-
+            A map of data center names to their respective measurement data.
+          additionalProperties:
+            $ref: '#/components/schemas/RealtimeMeasurements'
+        aggregated:
+          $ref: '#/components/schemas/RealtimeMeasurements'
+        recorded:
+          type: integer
+          description: >-
+            The Unix timestamp when this record was recorded.
+    RealtimeMeasurements:
+      type: object
+      description: >-
+        A set of measurements for a specific time period and data center or
+        aggregated across all data centers.
+      properties:
+        requests:
+          type: integer
+          description: >-
+            The total number of requests received.
+        hits:
+          type: integer
+          description: >-
+            The number of cache hits.
+        miss:
+          type: integer
+          description: >-
+            The number of cache misses.
+        pass:
+          type: integer
+          description: >-
+            The number of requests that passed through to origin.
+        errors:
+          type: integer
+          description: >-
+            The total number of errors.
+        bandwidth:
+          type: integer
+          description: >-
+            The total bandwidth in bytes.
+        header_size:
+          type: integer
+          description: >-
+            The total header size in bytes.
+        body_size:
+          type: integer
+          description: >-
+            The total body size in bytes.
+        status_1xx:
+          type: integer
+          description: >-
+            The number of responses with 1xx status codes.
+        status_2xx:
+          type: integer
+          description: >-
+            The number of responses with 2xx status codes.
+        status_3xx:
+          type: integer
+          description: >-
+            The number of responses with 3xx status codes.
+        status_4xx:
+          type: integer
+          description: >-
+            The number of responses with 4xx status codes.
+        status_5xx:
+          type: integer
+          description: >-
+            The number of responses with 5xx status codes.
+        hit_ratio:
+          type: number
+          format: float
+          description: >-
+            The ratio of cache hits to total requests.
+    HistoricalStatsResponse:
+      type: object
+      description: >-
+        A response containing historical statistics data for the requested
+        time range and resolution.
+      properties:
+        status:
+          type: string
+          description: >-
+            The status of the request.
+        meta:
+          type: object
+          description: >-
+            Metadata about the query including the time range and filters.
+          properties:
+            to:
+              type: string
+              description: >-
+                The end time of the query.
+            from:
+              type: string
+              description: >-
+                The start time of the query.
+            by:
+              type: string
+              description: >-
+                The time bucket duration used.
+            region:
+              type: string
+              description: >-
+                The region filter applied, if any.
+        data:
+          type: array
+          description: >-
+            A list of data points with measurements for each time bucket.
+          items:
+            type: object
+            additionalProperties: true

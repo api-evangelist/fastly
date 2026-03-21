@@ -1,0 +1,757 @@
+openapi: 3.1.0
+info:
+  title: Fastly Real-Time Logging API
+  description: >-
+    The Fastly Real-Time Logging API allows developers to configure and manage
+    logging endpoints that receive streamed log data from Fastly's edge network.
+    Fastly supports logging to a variety of formats and platforms including
+    syslog, Amazon S3, Google Cloud Storage, BigQuery, Datadog, Splunk,
+    Elasticsearch, and many other providers. Developers can create, update, and
+    delete logging configurations per service version, controlling the format,
+    placement, and conditions under which log entries are generated.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Real-Time Logging API Documentation
+  url: https://www.fastly.com/documentation/reference/api/logging/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: Logging Syslog
+    description: >-
+      Operations for managing syslog logging endpoints on Fastly services.
+  - name: Logging S3
+    description: >-
+      Operations for managing Amazon S3 logging endpoints on Fastly services.
+  - name: Logging Datadog
+    description: >-
+      Operations for managing Datadog logging endpoints on Fastly services.
+  - name: Logging Splunk
+    description: >-
+      Operations for managing Splunk logging endpoints on Fastly services.
+  - name: Logging HTTPS
+    description: >-
+      Operations for managing HTTPS logging endpoints on Fastly services.
+  - name: Logging BigQuery
+    description: >-
+      Operations for managing Google BigQuery logging endpoints on Fastly
+      services.
+security:
+  - apiKeyAuth: []
+paths:
+  /service/{service_id}/version/{version_id}/logging/syslog:
+    get:
+      operationId: listLogSyslog
+      summary: List syslog logging endpoints
+      description: >-
+        Retrieves a list of all syslog logging endpoints configured for a
+        specific version of a Fastly service.
+      tags:
+        - Logging Syslog
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of syslog logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingSyslog'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogSyslog
+      summary: Create a syslog logging endpoint
+      description: >-
+        Creates a new syslog logging endpoint for a specific version of a
+        Fastly service.
+      tags:
+        - Logging Syslog
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingSyslog'
+      responses:
+        '200':
+          description: Successfully created the syslog logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingSyslog'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/logging/syslog/{logging_syslog_name}:
+    get:
+      operationId: getLogSyslog
+      summary: Get a syslog logging endpoint
+      description: >-
+        Retrieves the details of a specific syslog logging endpoint for a
+        version of a Fastly service.
+      tags:
+        - Logging Syslog
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - name: logging_syslog_name
+          in: path
+          required: true
+          description: >-
+            The name of the syslog logging endpoint.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the syslog logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingSyslog'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Logging endpoint not found.
+    put:
+      operationId: updateLogSyslog
+      summary: Update a syslog logging endpoint
+      description: >-
+        Updates a specific syslog logging endpoint for a version of a
+        Fastly service.
+      tags:
+        - Logging Syslog
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - name: logging_syslog_name
+          in: path
+          required: true
+          description: >-
+            The name of the syslog logging endpoint.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingSyslog'
+      responses:
+        '200':
+          description: Successfully updated the syslog logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingSyslog'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Logging endpoint not found.
+    delete:
+      operationId: deleteLogSyslog
+      summary: Delete a syslog logging endpoint
+      description: >-
+        Deletes a specific syslog logging endpoint for a version of a
+        Fastly service.
+      tags:
+        - Logging Syslog
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - name: logging_syslog_name
+          in: path
+          required: true
+          description: >-
+            The name of the syslog logging endpoint.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted the syslog logging endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Logging endpoint not found.
+  /service/{service_id}/version/{version_id}/logging/s3:
+    get:
+      operationId: listLogS3
+      summary: List S3 logging endpoints
+      description: >-
+        Retrieves a list of all Amazon S3 logging endpoints configured for a
+        specific version of a Fastly service.
+      tags:
+        - Logging S3
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of S3 logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingS3'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogS3
+      summary: Create an S3 logging endpoint
+      description: >-
+        Creates a new Amazon S3 logging endpoint for a specific version of a
+        Fastly service.
+      tags:
+        - Logging S3
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingS3'
+      responses:
+        '200':
+          description: Successfully created the S3 logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingS3'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/logging/datadog:
+    get:
+      operationId: listLogDatadog
+      summary: List Datadog logging endpoints
+      description: >-
+        Retrieves a list of all Datadog logging endpoints configured for a
+        specific version of a Fastly service.
+      tags:
+        - Logging Datadog
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of Datadog logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingDatadog'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogDatadog
+      summary: Create a Datadog logging endpoint
+      description: >-
+        Creates a new Datadog logging endpoint for a specific version of a
+        Fastly service.
+      tags:
+        - Logging Datadog
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingDatadog'
+      responses:
+        '200':
+          description: Successfully created the Datadog logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingDatadog'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/logging/splunk:
+    get:
+      operationId: listLogSplunk
+      summary: List Splunk logging endpoints
+      description: >-
+        Retrieves a list of all Splunk logging endpoints configured for a
+        specific version of a Fastly service.
+      tags:
+        - Logging Splunk
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of Splunk logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingSplunk'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogSplunk
+      summary: Create a Splunk logging endpoint
+      description: >-
+        Creates a new Splunk logging endpoint for a specific version of a
+        Fastly service.
+      tags:
+        - Logging Splunk
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingSplunk'
+      responses:
+        '200':
+          description: Successfully created the Splunk logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingSplunk'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/logging/https:
+    get:
+      operationId: listLogHttps
+      summary: List HTTPS logging endpoints
+      description: >-
+        Retrieves a list of all HTTPS logging endpoints configured for a
+        specific version of a Fastly service.
+      tags:
+        - Logging HTTPS
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of HTTPS logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingHttps'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogHttps
+      summary: Create an HTTPS logging endpoint
+      description: >-
+        Creates a new HTTPS logging endpoint for a specific version of a
+        Fastly service.
+      tags:
+        - Logging HTTPS
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingHttps'
+      responses:
+        '200':
+          description: Successfully created the HTTPS logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingHttps'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/logging/bigquery:
+    get:
+      operationId: listLogBigQuery
+      summary: List BigQuery logging endpoints
+      description: >-
+        Retrieves a list of all Google BigQuery logging endpoints configured
+        for a specific version of a Fastly service.
+      tags:
+        - Logging BigQuery
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of BigQuery logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingBigQuery'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogBigQuery
+      summary: Create a BigQuery logging endpoint
+      description: >-
+        Creates a new Google BigQuery logging endpoint for a specific version
+        of a Fastly service.
+      tags:
+        - Logging BigQuery
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingBigQuery'
+      responses:
+        '200':
+          description: Successfully created the BigQuery logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingBigQuery'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: >-
+        The integer identifying the service version.
+      schema:
+        type: integer
+  schemas:
+    LoggingCommon:
+      type: object
+      description: >-
+        Common properties shared across all logging endpoint types.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name for the real-time logging configuration.
+        placement:
+          type: string
+          description: >-
+            Where in the generated VCL the logging call should be placed.
+          enum:
+            - none
+            - waf_debug
+            - null
+        format_version:
+          type: integer
+          description: >-
+            The version of the custom logging format used for the configured
+            endpoint.
+          enum:
+            - 1
+            - 2
+        response_condition:
+          type: string
+          description: >-
+            The name of an existing condition in the configured endpoint, or
+            leave blank to always execute.
+        format:
+          type: string
+          description: >-
+            A Fastly log format string. Supports Apache Common Log variables.
+    LoggingSyslog:
+      allOf:
+        - $ref: '#/components/schemas/LoggingCommon'
+        - type: object
+          description: >-
+            Configuration for a syslog logging endpoint.
+          properties:
+            address:
+              type: string
+              description: >-
+                A hostname or IPv4 address of the syslog endpoint.
+            port:
+              type: integer
+              description: >-
+                The port number of the syslog endpoint.
+              default: 514
+            use_tls:
+              type: integer
+              description: >-
+                Whether to use TLS for the syslog connection.
+              enum:
+                - 0
+                - 1
+              default: 0
+            tls_hostname:
+              type: string
+              description: >-
+                The hostname to verify the server certificate against.
+            tls_ca_cert:
+              type: string
+              description: >-
+                A secure certificate to authenticate a server with.
+            tls_client_cert:
+              type: string
+              description: >-
+                The client certificate used to make authenticated requests.
+            tls_client_key:
+              type: string
+              description: >-
+                The client private key used to make authenticated requests.
+            token:
+              type: string
+              description: >-
+                A token to prepend to the syslog message.
+            message_type:
+              type: string
+              description: >-
+                How the message should be formatted.
+              enum:
+                - classic
+                - loggly
+                - logplex
+                - blank
+              default: classic
+    LoggingS3:
+      allOf:
+        - $ref: '#/components/schemas/LoggingCommon'
+        - type: object
+          description: >-
+            Configuration for an Amazon S3 logging endpoint.
+          properties:
+            bucket_name:
+              type: string
+              description: >-
+                The name of the S3 bucket to send logs to.
+            access_key:
+              type: string
+              description: >-
+                The AWS access key ID used to authenticate.
+            secret_key:
+              type: string
+              description: >-
+                The AWS secret access key used to authenticate.
+            iam_role:
+              type: string
+              description: >-
+                The Amazon Resource Name of an IAM role to assume for S3 access.
+            domain:
+              type: string
+              description: >-
+                The domain of the S3 endpoint.
+            path:
+              type: string
+              description: >-
+                The path to store logs in the S3 bucket.
+            period:
+              type: integer
+              description: >-
+                How frequently in seconds log files are finalized and sent.
+              default: 3600
+            gzip_level:
+              type: integer
+              description: >-
+                The level of gzip encoding when sending logs.
+              minimum: 0
+              maximum: 9
+              default: 0
+            redundancy:
+              type: string
+              description: >-
+                The S3 redundancy level.
+              enum:
+                - standard
+                - reduced_redundancy
+    LoggingDatadog:
+      allOf:
+        - $ref: '#/components/schemas/LoggingCommon'
+        - type: object
+          description: >-
+            Configuration for a Datadog logging endpoint.
+          properties:
+            token:
+              type: string
+              description: >-
+                The Datadog API key for authentication.
+            region:
+              type: string
+              description: >-
+                The Datadog region to send logs to.
+              enum:
+                - US
+                - EU
+              default: US
+    LoggingSplunk:
+      allOf:
+        - $ref: '#/components/schemas/LoggingCommon'
+        - type: object
+          description: >-
+            Configuration for a Splunk logging endpoint.
+          properties:
+            url:
+              type: string
+              format: uri
+              description: >-
+                The URL to send logs to for the Splunk HTTP Event Collector.
+            token:
+              type: string
+              description: >-
+                The Splunk HEC token for authentication.
+            use_tls:
+              type: integer
+              description: >-
+                Whether to use TLS for the connection.
+              enum:
+                - 0
+                - 1
+              default: 0
+            tls_hostname:
+              type: string
+              description: >-
+                The hostname to verify the server certificate against.
+            tls_ca_cert:
+              type: string
+              description: >-
+                A secure certificate to authenticate a server with.
+    LoggingHttps:
+      allOf:
+        - $ref: '#/components/schemas/LoggingCommon'
+        - type: object
+          description: >-
+            Configuration for an HTTPS logging endpoint.
+          properties:
+            url:
+              type: string
+              format: uri
+              description: >-
+                The URL to send logs to via HTTPS.
+            request_max_entries:
+              type: integer
+              description: >-
+                The maximum number of log entries per batch.
+              default: 0
+            request_max_bytes:
+              type: integer
+              description: >-
+                The maximum number of bytes per batch.
+              default: 0
+            content_type:
+              type: string
+              description: >-
+                The content type of the log payload.
+            header_name:
+              type: string
+              description: >-
+                Name of the custom header sent with the log payload.
+            header_value:
+              type: string
+              description: >-
+                Value of the custom header sent with the log payload.
+            method:
+              type: string
+              description: >-
+                The HTTP method used for sending logs.
+              enum:
+                - POST
+                - PUT
+              default: POST
+            json_format:
+              type: string
+              description: >-
+                Enforces valid JSON formatting for log entries.
+              enum:
+                - '0'
+                - '1'
+                - '2'
+            tls_hostname:
+              type: string
+              description: >-
+                The hostname to verify the server certificate against.
+            tls_ca_cert:
+              type: string
+              description: >-
+                A secure certificate to authenticate a server with.
+    LoggingBigQuery:
+      allOf:
+        - $ref: '#/components/schemas/LoggingCommon'
+        - type: object
+          description: >-
+            Configuration for a Google BigQuery logging endpoint.
+          properties:
+            project_id:
+              type: string
+              description: >-
+                The Google Cloud project ID where the BigQuery dataset is located.
+            dataset:
+              type: string
+              description: >-
+                The BigQuery dataset to send logs to.
+            table:
+              type: string
+              description: >-
+                The BigQuery table to send logs to.
+            user:
+              type: string
+              description: >-
+                The Google Cloud service account email address.
+            secret_key:
+              type: string
+              description: >-
+                The Google Cloud service account private key.
+            template_suffix:
+              type: string
+              description: >-
+                A BigQuery table name suffix for date-partitioned tables.
+            account_name:
+              type: string
+              description: >-
+                The name of the Google Cloud Platform service account.

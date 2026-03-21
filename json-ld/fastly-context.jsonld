@@ -1,0 +1,246 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "fastly": "https://api.fastly.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Service": {
+      "@id": "fastly:Service",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "serviceType": "fastly:serviceType",
+        "customerId": "fastly:customerId",
+        "activeVersion": "fastly:activeVersion",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "versions": {
+          "@id": "fastly:versions",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "ServiceVersion": {
+      "@id": "fastly:ServiceVersion",
+      "@context": {
+        "number": "fastly:versionNumber",
+        "active": "fastly:active",
+        "locked": "fastly:locked",
+        "deployed": "fastly:deployed",
+        "comment": "schema:comment",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Backend": {
+      "@id": "fastly:Backend",
+      "@context": {
+        "name": "schema:name",
+        "address": "fastly:address",
+        "port": "fastly:port",
+        "useSSL": "fastly:useSSL",
+        "sslHostname": "fastly:sslHostname",
+        "shield": "fastly:shield",
+        "weight": "fastly:weight",
+        "connectTimeout": "fastly:connectTimeout",
+        "firstByteTimeout": "fastly:firstByteTimeout",
+        "betweenBytesTimeout": "fastly:betweenBytesTimeout",
+        "maxConn": "fastly:maxConn",
+        "healthcheck": "fastly:healthcheck"
+      }
+    },
+
+    "Domain": {
+      "@id": "fastly:Domain",
+      "@context": {
+        "name": "schema:name",
+        "comment": "schema:comment",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ACL": {
+      "@id": "fastly:ACL",
+      "@context": {
+        "name": "schema:name",
+        "entries": {
+          "@id": "fastly:entries",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ACLEntry": {
+      "@id": "fastly:ACLEntry",
+      "@context": {
+        "ip": "fastly:ipAddress",
+        "subnet": "fastly:subnet",
+        "negated": "fastly:negated",
+        "comment": "schema:comment"
+      }
+    },
+
+    "Dictionary": {
+      "@id": "fastly:Dictionary",
+      "@context": {
+        "name": "schema:name",
+        "writeOnly": "fastly:writeOnly",
+        "items": {
+          "@id": "fastly:items",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "DictionaryItem": {
+      "@id": "fastly:DictionaryItem",
+      "@context": {
+        "itemKey": "fastly:itemKey",
+        "itemValue": "fastly:itemValue"
+      }
+    },
+
+    "TLSCertificate": {
+      "@id": "fastly:TLSCertificate",
+      "@context": {
+        "name": "schema:name",
+        "issuedTo": "fastly:issuedTo",
+        "issuer": "fastly:issuer",
+        "serialNumber": "fastly:serialNumber",
+        "signatureAlgorithm": "fastly:signatureAlgorithm",
+        "notBefore": {
+          "@id": "fastly:notBefore",
+          "@type": "xsd:dateTime"
+        },
+        "notAfter": {
+          "@id": "fastly:notAfter",
+          "@type": "xsd:dateTime"
+        },
+        "domains": {
+          "@id": "fastly:domains",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "KVStore": {
+      "@id": "fastly:KVStore",
+      "@context": {
+        "name": "schema:name",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Token": {
+      "@id": "fastly:Token",
+      "@context": {
+        "name": "schema:name",
+        "scope": "fastly:scope",
+        "services": {
+          "@id": "fastly:services",
+          "@container": "@set"
+        },
+        "expiresAt": {
+          "@id": "fastly:expiresAt",
+          "@type": "xsd:dateTime"
+        },
+        "lastUsedAt": {
+          "@id": "fastly:lastUsedAt",
+          "@type": "xsd:dateTime"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Customer": {
+      "@id": "fastly:Customer",
+      "@context": {
+        "name": "schema:name",
+        "pricingPlan": "fastly:pricingPlan",
+        "ownerId": "fastly:ownerId",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "User": {
+      "@id": "fastly:User",
+      "@context": {
+        "name": "schema:name",
+        "login": {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+        },
+        "role": "fastly:role",
+        "twoFactorAuthEnabled": "fastly:twoFactorAuthEnabled",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

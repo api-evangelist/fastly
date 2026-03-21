@@ -1,0 +1,762 @@
+openapi: 3.1.0
+info:
+  title: Fastly Compute API
+  description: >-
+    The Fastly Compute platform enables developers to build and deploy
+    serverless applications that run on Fastly's global edge network using
+    WebAssembly. Compute services support custom application logic written in
+    Rust, JavaScript, or Go using official Fastly SDKs. The platform provides
+    access to edge primitives including KV stores, config stores, secret
+    stores, dynamic backends, and real-time messaging, enabling developers to
+    build full-featured applications that execute close to end users with
+    sub-millisecond startup times.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Compute Documentation
+  url: https://www.fastly.com/documentation/guides/compute/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: Package
+    description: >-
+      Operations for managing Compute service packages (WebAssembly binaries).
+  - name: KV Store
+    description: >-
+      Operations for managing KV stores that provide persistent key-value
+      storage accessible from Compute services.
+  - name: KV Store Item
+    description: >-
+      Operations for managing individual items within a KV store.
+  - name: Config Store
+    description: >-
+      Operations for managing config stores that provide low-latency
+      read access to configuration data from Compute services.
+  - name: Secret Store
+    description: >-
+      Operations for managing secret stores that provide encrypted storage
+      for credentials and tokens accessible from Compute services.
+security:
+  - apiKeyAuth: []
+paths:
+  /service/{service_id}/version/{version_id}/package:
+    get:
+      operationId: getPackage
+      summary: Get a Compute package
+      description: >-
+        Retrieves the details of the Compute package associated with a specific
+        version of a Fastly service.
+      tags:
+        - Package
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the package details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Package not found.
+    put:
+      operationId: uploadPackage
+      summary: Upload a Compute package
+      description: >-
+        Uploads a Compute package (WebAssembly binary) for a specific version
+        of a Fastly service.
+      tags:
+        - Package
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - package
+              properties:
+                package:
+                  type: string
+                  format: binary
+                  description: >-
+                    The Compute package binary file (.tar.gz).
+      responses:
+        '200':
+          description: Successfully uploaded the package.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+        '400':
+          description: Bad request. Invalid package format.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /resources/stores/kv:
+    get:
+      operationId: listKvStores
+      summary: List KV stores
+      description: >-
+        Retrieves a list of all KV stores associated with the account.
+      tags:
+        - KV Store
+      parameters:
+        - name: cursor
+          in: query
+          description: >-
+            A cursor for pagination.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            The maximum number of items to return.
+          schema:
+            type: integer
+            maximum: 1000
+      responses:
+        '200':
+          description: Successfully retrieved the list of KV stores.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KvStore'
+                  meta:
+                    type: object
+                    properties:
+                      next_cursor:
+                        type: string
+                        description: >-
+                          A cursor for fetching the next page of results.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createKvStore
+      summary: Create a KV store
+      description: >-
+        Creates a new KV store for persistent key-value storage accessible
+        from Compute services.
+      tags:
+        - KV Store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the KV store.
+      responses:
+        '201':
+          description: Successfully created the KV store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvStore'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /resources/stores/kv/{store_id}:
+    get:
+      operationId: getKvStore
+      summary: Get a KV store
+      description: >-
+        Retrieves the details of a specific KV store.
+      tags:
+        - KV Store
+      parameters:
+        - $ref: '#/components/parameters/storeId'
+      responses:
+        '200':
+          description: Successfully retrieved the KV store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvStore'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: KV store not found.
+    delete:
+      operationId: deleteKvStore
+      summary: Delete a KV store
+      description: >-
+        Deletes a specific KV store and all of its items.
+      tags:
+        - KV Store
+      parameters:
+        - $ref: '#/components/parameters/storeId'
+      responses:
+        '204':
+          description: Successfully deleted the KV store.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: KV store not found.
+  /resources/stores/kv/{store_id}/keys:
+    get:
+      operationId: listKvStoreKeys
+      summary: List keys in a KV store
+      description: >-
+        Retrieves a list of all keys stored in a specific KV store.
+      tags:
+        - KV Store Item
+      parameters:
+        - $ref: '#/components/parameters/storeId'
+        - name: cursor
+          in: query
+          description: >-
+            A cursor for pagination.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            The maximum number of keys to return.
+          schema:
+            type: integer
+            maximum: 1000
+        - name: prefix
+          in: query
+          description: >-
+            A prefix to filter keys by.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of keys.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: string
+                  meta:
+                    type: object
+                    properties:
+                      next_cursor:
+                        type: string
+                        description: >-
+                          A cursor for fetching the next page of results.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: KV store not found.
+  /resources/stores/kv/{store_id}/keys/{key_name}:
+    get:
+      operationId: getKvStoreItem
+      summary: Get a KV store item
+      description: >-
+        Retrieves the value and metadata of a specific item in a KV store.
+      tags:
+        - KV Store Item
+      parameters:
+        - $ref: '#/components/parameters/storeId'
+        - name: key_name
+          in: path
+          required: true
+          description: >-
+            The key name of the item.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the KV store item value.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: KV store item not found.
+    put:
+      operationId: upsertKvStoreItem
+      summary: Insert or update a KV store item
+      description: >-
+        Creates or updates an item in a KV store.
+      tags:
+        - KV Store Item
+      parameters:
+        - $ref: '#/components/parameters/storeId'
+        - name: key_name
+          in: path
+          required: true
+          description: >-
+            The key name of the item.
+          schema:
+            type: string
+        - name: time_to_live_sec
+          in: query
+          description: >-
+            The time to live in seconds for the item.
+          schema:
+            type: integer
+        - name: metadata
+          in: query
+          description: >-
+            Optional metadata to attach to the item.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+              description: >-
+                The value to store.
+      responses:
+        '200':
+          description: Successfully upserted the KV store item.
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    delete:
+      operationId: deleteKvStoreItem
+      summary: Delete a KV store item
+      description: >-
+        Deletes a specific item from a KV store.
+      tags:
+        - KV Store Item
+      parameters:
+        - $ref: '#/components/parameters/storeId'
+        - name: key_name
+          in: path
+          required: true
+          description: >-
+            The key name of the item.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully deleted the KV store item.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: KV store item not found.
+  /resources/stores/config:
+    get:
+      operationId: listConfigStores
+      summary: List config stores
+      description: >-
+        Retrieves a list of all config stores associated with the account.
+      tags:
+        - Config Store
+      responses:
+        '200':
+          description: Successfully retrieved the list of config stores.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConfigStore'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createConfigStore
+      summary: Create a config store
+      description: >-
+        Creates a new config store for storing small amounts of textual
+        configuration data accessible from Compute services.
+      tags:
+        - Config Store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the config store.
+      responses:
+        '201':
+          description: Successfully created the config store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigStore'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /resources/stores/config/{config_store_id}:
+    get:
+      operationId: getConfigStore
+      summary: Get a config store
+      description: >-
+        Retrieves the details of a specific config store.
+      tags:
+        - Config Store
+      parameters:
+        - name: config_store_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the config store.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the config store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigStore'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Config store not found.
+    put:
+      operationId: updateConfigStore
+      summary: Update a config store
+      description: >-
+        Updates the details of a specific config store.
+      tags:
+        - Config Store
+      parameters:
+        - name: config_store_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the config store.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The new name of the config store.
+      responses:
+        '200':
+          description: Successfully updated the config store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigStore'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Config store not found.
+    delete:
+      operationId: deleteConfigStore
+      summary: Delete a config store
+      description: >-
+        Deletes a specific config store and all of its items.
+      tags:
+        - Config Store
+      parameters:
+        - name: config_store_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the config store.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully deleted the config store.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Config store not found.
+  /resources/stores/secret:
+    get:
+      operationId: listSecretStores
+      summary: List secret stores
+      description: >-
+        Retrieves a list of all secret stores associated with the account.
+      tags:
+        - Secret Store
+      parameters:
+        - name: cursor
+          in: query
+          description: >-
+            A cursor for pagination.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            The maximum number of items to return.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of secret stores.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SecretStore'
+                  meta:
+                    type: object
+                    properties:
+                      next_cursor:
+                        type: string
+                        description: >-
+                          A cursor for fetching the next page of results.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createSecretStore
+      summary: Create a secret store
+      description: >-
+        Creates a new secret store for encrypted storage of credentials and
+        tokens accessible from Compute services.
+      tags:
+        - Secret Store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the secret store.
+      responses:
+        '201':
+          description: Successfully created the secret store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecretStore'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /resources/stores/secret/{store_id}:
+    get:
+      operationId: getSecretStore
+      summary: Get a secret store
+      description: >-
+        Retrieves the details of a specific secret store.
+      tags:
+        - Secret Store
+      parameters:
+        - $ref: '#/components/parameters/storeId'
+      responses:
+        '200':
+          description: Successfully retrieved the secret store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecretStore'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Secret store not found.
+    delete:
+      operationId: deleteSecretStore
+      summary: Delete a secret store
+      description: >-
+        Deletes a specific secret store and all of its secrets.
+      tags:
+        - Secret Store
+      parameters:
+        - $ref: '#/components/parameters/storeId'
+      responses:
+        '204':
+          description: Successfully deleted the secret store.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Secret store not found.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: >-
+        The integer identifying the service version.
+      schema:
+        type: integer
+    storeId:
+      name: store_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the store.
+      schema:
+        type: string
+  schemas:
+    Package:
+      type: object
+      description: >-
+        A Compute package containing the WebAssembly binary for a Fastly
+        Compute service.
+      properties:
+        service_id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the service.
+        version:
+          type: integer
+          description: >-
+            The version number the package is associated with.
+        metadata:
+          type: object
+          description: >-
+            Metadata about the package.
+          properties:
+            name:
+              type: string
+              description: >-
+                The name of the package.
+            description:
+              type: string
+              description: >-
+                A description of the package.
+            authors:
+              type: array
+              description: >-
+                The authors of the package.
+              items:
+                type: string
+            language:
+              type: string
+              description: >-
+                The programming language used.
+            size:
+              type: integer
+              description: >-
+                The size of the package in bytes.
+            hashsum:
+              type: string
+              description: >-
+                The hash checksum of the package.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the package was created.
+    KvStore:
+      type: object
+      description: >-
+        A KV store providing persistent key-value storage accessible from
+        Fastly Compute services.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the KV store.
+        name:
+          type: string
+          description: >-
+            The name of the KV store.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the KV store was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the KV store was last updated.
+    ConfigStore:
+      type: object
+      description: >-
+        A config store providing low-latency read access to configuration
+        data from Fastly Compute services.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the config store.
+        name:
+          type: string
+          description: >-
+            The name of the config store.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the config store was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the config store was last updated.
+    SecretStore:
+      type: object
+      description: >-
+        A secret store providing encrypted storage for credentials and tokens
+        accessible from Fastly Compute services.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the secret store.
+        name:
+          type: string
+          description: >-
+            The name of the secret store.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the secret store was created.

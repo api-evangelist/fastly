@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/fastly/service.json",
+  "title": "Fastly Service",
+  "description": "A Fastly service represents the configuration for a website, app, API, or anything else to be served through Fastly's global edge network. Services are the primary organizational unit in Fastly, containing domain mappings, backend configurations, and VCL or Compute logic.",
+  "type": "object",
+  "required": ["id", "name", "customer_id", "type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the service."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the service.",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the customer account that owns the service."
+    },
+    "comment": {
+      "type": "string",
+      "description": "A freeform descriptive note about the service."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of service, either VCL for traditional Varnish-based services or wasm for Compute services.",
+      "enum": ["vcl", "wasm"]
+    },
+    "active_version": {
+      "type": ["integer", "null"],
+      "description": "The currently active version number for the service."
+    },
+    "versions": {
+      "type": "array",
+      "description": "A list of version objects associated with the service.",
+      "items": {
+        "$ref": "#/$defs/ServiceVersion"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time in ISO 8601 format when the service was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time in ISO 8601 format when the service was last updated."
+    },
+    "deleted_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "The date and time in ISO 8601 format when the service was deleted, or null if not deleted."
+    }
+  },
+  "$defs": {
+    "ServiceVersion": {
+      "type": "object",
+      "description": "A version of a Fastly service representing a distinct configuration snapshot that can be activated or deactivated independently.",
+      "required": ["number", "service_id"],
+      "properties": {
+        "number": {
+          "type": "integer",
+          "description": "The version number.",
+          "minimum": 1
+        },
+        "service_id": {
+          "type": "string",
+          "description": "The alphanumeric string identifying the service."
+        },
+        "active": {
+          "type": "boolean",
+          "description": "Whether this version is currently active and serving traffic."
+        },
+        "locked": {
+          "type": "boolean",
+          "description": "Whether this version is locked and cannot be modified."
+        },
+        "deployed": {
+          "type": "boolean",
+          "description": "Whether this version has been deployed."
+        },
+        "staging": {
+          "type": "boolean",
+          "description": "Whether this version is in the staging environment."
+        },
+        "testing": {
+          "type": "boolean",
+          "description": "Whether this version is in the testing environment."
+        },
+        "comment": {
+          "type": "string",
+          "description": "A freeform descriptive note about the version."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the version was created."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the version was last updated."
+        },
+        "deleted_at": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "The date and time the version was deleted."
+        }
+      }
+    }
+  }
+}

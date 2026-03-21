@@ -1,0 +1,803 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account API
+  description: >-
+    The Fastly Account API provides endpoints for managing customer accounts,
+    users, and identity and access management (IAM) resources. Developers can
+    programmatically manage user invitations, roles, permissions, and service
+    groups to control access to Fastly resources. The API supports retrieving
+    and updating customer information, managing user profiles, and configuring
+    organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: Customer
+    description: >-
+      Operations for retrieving and updating customer account information.
+  - name: User
+    description: >-
+      Operations for managing user accounts including invitations and profiles.
+  - name: IAM Roles
+    description: >-
+      Operations for managing identity and access management roles that
+      define sets of permissions for users.
+  - name: IAM Service Groups
+    description: >-
+      Operations for managing service groups that organize services for
+      access control purposes.
+  - name: IAM User Groups
+    description: >-
+      Operations for managing user groups that organize users and assign
+      them roles and service group access.
+security:
+  - apiKeyAuth: []
+paths:
+  /current_customer:
+    get:
+      operationId: getCurrentCustomer
+      summary: Get the current customer
+      description: >-
+        Retrieves the customer account information for the authenticated user.
+      tags:
+        - Customer
+      responses:
+        '200':
+          description: Successfully retrieved the customer information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /customer/{customer_id}:
+    get:
+      operationId: getCustomer
+      summary: Get a customer
+      description: >-
+        Retrieves the account information for a specific customer.
+      tags:
+        - Customer
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the customer.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the customer information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Customer not found.
+    put:
+      operationId: updateCustomer
+      summary: Update a customer
+      description: >-
+        Updates the account information for a specific customer.
+      tags:
+        - Customer
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the customer.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the customer account.
+      responses:
+        '200':
+          description: Successfully updated the customer information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Customer not found.
+  /current_user:
+    get:
+      operationId: getCurrentUser
+      summary: Get the current user
+      description: >-
+        Retrieves the profile information for the authenticated user.
+      tags:
+        - User
+      responses:
+        '200':
+          description: Successfully retrieved the user profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /user/{user_id}:
+    get:
+      operationId: getUser
+      summary: Get a user
+      description: >-
+        Retrieves the profile information for a specific user.
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the user.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the user profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: User not found.
+    put:
+      operationId: updateUser
+      summary: Update a user
+      description: >-
+        Updates the profile information for a specific user.
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the user.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the user.
+                role:
+                  type: string
+                  description: >-
+                    The role assigned to the user.
+                  enum:
+                    - user
+                    - billing
+                    - engineer
+                    - superuser
+      responses:
+        '200':
+          description: Successfully updated the user profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: User not found.
+    delete:
+      operationId: deleteUser
+      summary: Delete a user
+      description: >-
+        Removes a user from the customer account.
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the user.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted the user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: User not found.
+  /customer/{customer_id}/users:
+    get:
+      operationId: listCustomerUsers
+      summary: List users for a customer
+      description: >-
+        Retrieves a list of all users associated with a specific customer
+        account.
+      tags:
+        - User
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the customer.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Customer not found.
+  /invitations:
+    post:
+      operationId: createInvitation
+      summary: Create a user invitation
+      description: >-
+        Creates an invitation to join the customer account. The invited user
+        will receive an email with a link to accept the invitation.
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - invitation
+                    attributes:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          format: email
+                          description: >-
+                            The email address of the user to invite.
+                        role:
+                          type: string
+                          description: >-
+                            The role to assign to the invited user.
+                          enum:
+                            - user
+                            - billing
+                            - engineer
+                            - superuser
+      responses:
+        '201':
+          description: Successfully created the invitation.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Invitation'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /roles:
+    get:
+      operationId: listRoles
+      summary: List IAM roles
+      description: >-
+        Retrieves a list of all identity and access management roles. Supports
+        cursor-based pagination.
+      tags:
+        - IAM Roles
+      parameters:
+        - name: per_page
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: cursor
+          in: query
+          description: >-
+            The cursor for pagination.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of IAM roles.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /roles/{role_id}:
+    get:
+      operationId: getRole
+      summary: Get an IAM role
+      description: >-
+        Retrieves the details of a specific IAM role, optionally including
+        its associated permissions.
+      tags:
+        - IAM Roles
+      parameters:
+        - name: role_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the IAM role.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the IAM role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: IAM role not found.
+  /service-groups:
+    get:
+      operationId: listServiceGroups
+      summary: List IAM service groups
+      description: >-
+        Retrieves a list of all service groups used for access control.
+      tags:
+        - IAM Service Groups
+      parameters:
+        - name: per_page
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: cursor
+          in: query
+          description: >-
+            The cursor for pagination.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of service groups.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceGroup'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createServiceGroup
+      summary: Create an IAM service group
+      description: >-
+        Creates a new service group for organizing services.
+      tags:
+        - IAM Service Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the service group.
+                description:
+                  type: string
+                  description: >-
+                    A description of the service group.
+                services:
+                  type: array
+                  description: >-
+                    A list of service IDs to include in the group.
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: Successfully created the service group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceGroup'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /user-groups:
+    get:
+      operationId: listUserGroups
+      summary: List IAM user groups
+      description: >-
+        Retrieves a list of all user groups used for organizing users and
+        assigning roles.
+      tags:
+        - IAM User Groups
+      parameters:
+        - name: per_page
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: cursor
+          in: query
+          description: >-
+            The cursor for pagination.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of user groups.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserGroup'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createUserGroup
+      summary: Create an IAM user group
+      description: >-
+        Creates a new user group for organizing users and assigning roles.
+      tags:
+        - IAM User Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the user group.
+                description:
+                  type: string
+                  description: >-
+                    A description of the user group.
+      responses:
+        '201':
+          description: Successfully created the user group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  schemas:
+    Customer:
+      type: object
+      description: >-
+        A customer account in Fastly that owns services and manages users.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the customer.
+        name:
+          type: string
+          description: >-
+            The name of the customer account.
+        owner_id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the account owner.
+        pricing_plan:
+          type: string
+          description: >-
+            The pricing plan associated with the customer.
+        can_configure_wordpress:
+          type: boolean
+          description: >-
+            Whether the customer can configure WordPress.
+        legal_contact_id:
+          type: string
+          nullable: true
+          description: >-
+            The ID of the legal contact for the account.
+        technical_contact_id:
+          type: string
+          nullable: true
+          description: >-
+            The ID of the technical contact for the account.
+        security_contact_id:
+          type: string
+          nullable: true
+          description: >-
+            The ID of the security contact for the account.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the customer was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the customer was last updated.
+    User:
+      type: object
+      description: >-
+        A user within a Fastly customer account.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the user.
+        login:
+          type: string
+          format: email
+          description: >-
+            The email address of the user, used as the login.
+        name:
+          type: string
+          description: >-
+            The name of the user.
+        role:
+          type: string
+          description: >-
+            The role assigned to the user.
+          enum:
+            - user
+            - billing
+            - engineer
+            - superuser
+        customer_id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the customer the user belongs to.
+        email_hash:
+          type: string
+          description: >-
+            The hash of the user's email for Gravatar integration.
+        two_factor_auth_enabled:
+          type: boolean
+          description: >-
+            Whether two-factor authentication is enabled for the user.
+        limit_services:
+          type: boolean
+          description: >-
+            Whether the user's access is limited to specific services.
+        locked:
+          type: boolean
+          description: >-
+            Whether the user account is locked.
+        require_new_password:
+          type: boolean
+          description: >-
+            Whether the user must set a new password on next login.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the user was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the user was last updated.
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            The date and time the user was deleted.
+    Invitation:
+      type: object
+      description: >-
+        An invitation to join a Fastly customer account.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the invitation.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - invitation
+        attributes:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+              description: >-
+                The email address of the invited user.
+            role:
+              type: string
+              description: >-
+                The role assigned to the invited user.
+            status:
+              type: string
+              description: >-
+                The current status of the invitation.
+              enum:
+                - pending
+                - accepted
+                - expired
+            created_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the invitation was created.
+    Role:
+      type: object
+      description: >-
+        An IAM role that defines a set of permissions for Fastly resources.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the role.
+        name:
+          type: string
+          description: >-
+            The name of the role.
+        description:
+          type: string
+          description: >-
+            A description of the role.
+        custom:
+          type: boolean
+          description: >-
+            Whether this is a custom role.
+        permissions_count:
+          type: integer
+          description: >-
+            The number of permissions associated with the role.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the role was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the role was last updated.
+    ServiceGroup:
+      type: object
+      description: >-
+        An IAM service group that organizes services for access control.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the service group.
+        name:
+          type: string
+          description: >-
+            The name of the service group.
+        description:
+          type: string
+          description: >-
+            A description of the service group.
+        services_count:
+          type: integer
+          description: >-
+            The number of services in the group.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the service group was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the service group was last updated.
+    UserGroup:
+      type: object
+      description: >-
+        An IAM user group that organizes users and assigns roles and
+        service group access.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the user group.
+        name:
+          type: string
+          description: >-
+            The name of the user group.
+        description:
+          type: string
+          description: >-
+            A description of the user group.
+        users_count:
+          type: integer
+          description: >-
+            The number of users in the group.
+        roles_count:
+          type: integer
+          description: >-
+            The number of roles assigned to the group.
+        service_groups_count:
+          type: integer
+          description: >-
+            The number of service groups associated with the user group.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the user group was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the user group was last updated.

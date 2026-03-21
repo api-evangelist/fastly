@@ -1,0 +1,739 @@
+openapi: 3.1.0
+info:
+  title: Fastly Next-Gen WAF API
+  description: >-
+    The Fastly Next-Gen WAF API provides programmatic access to configure and
+    manage web application firewall rules that protect applications delivered
+    through Fastly's edge network. It enables developers to manage WAF
+    firewall configurations, rule sets, and exclusions to defend against
+    common web attacks including SQL injection, cross-site scripting, and
+    other OWASP Top 10 vulnerabilities. The API supports managing active
+    rules, reviewing firewall events, and configuring response behaviors for
+    detected threats.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Next-Gen WAF API Documentation
+  url: https://www.fastly.com/documentation/reference/api/waf/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: WAF Firewalls
+    description: >-
+      Operations for managing WAF firewall instances associated with Fastly
+      services.
+  - name: WAF Rules
+    description: >-
+      Operations for managing WAF rules that define detection and response
+      behaviors for web attacks.
+  - name: WAF Active Rules
+    description: >-
+      Operations for managing which WAF rules are actively enforced on a
+      firewall.
+  - name: WAF Exclusions
+    description: >-
+      Operations for managing WAF exclusions that prevent specific requests
+      from being flagged by the firewall.
+  - name: WAF Events
+    description: >-
+      Operations for reviewing WAF events that record detected threats and
+      firewall actions.
+security:
+  - apiKeyAuth: []
+paths:
+  /waf/firewalls:
+    get:
+      operationId: listWafFirewalls
+      summary: List WAF firewalls
+      description: >-
+        Retrieves a list of all WAF firewall instances associated with the
+        account.
+      tags:
+        - WAF Firewalls
+      parameters:
+        - name: page[number]
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+        - name: page[size]
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: filter[service_id]
+          in: query
+          description: >-
+            Filter firewalls by service ID.
+          schema:
+            type: string
+        - name: include
+          in: query
+          description: >-
+            Related resources to include in the response.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of WAF firewalls.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WafFirewall'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createWafFirewall
+      summary: Create a WAF firewall
+      description: >-
+        Creates a new WAF firewall instance associated with a Fastly service.
+      tags:
+        - WAF Firewalls
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - waf_firewall
+                    attributes:
+                      type: object
+                      properties:
+                        service_id:
+                          type: string
+                          description: >-
+                            The ID of the service to attach the firewall to.
+                        service_version_number:
+                          type: integer
+                          description: >-
+                            The version number of the service.
+                        prefetch_condition:
+                          type: string
+                          description: >-
+                            The condition that controls when the firewall is
+                            applied.
+                        response:
+                          type: string
+                          description: >-
+                            The name of the response object for blocked
+                            requests.
+      responses:
+        '201':
+          description: Successfully created the WAF firewall.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafFirewall'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /waf/firewalls/{firewall_id}:
+    get:
+      operationId: getWafFirewall
+      summary: Get a WAF firewall
+      description: >-
+        Retrieves the details of a specific WAF firewall instance.
+      tags:
+        - WAF Firewalls
+      parameters:
+        - $ref: '#/components/parameters/firewallId'
+      responses:
+        '200':
+          description: Successfully retrieved the WAF firewall.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafFirewall'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: WAF firewall not found.
+    patch:
+      operationId: updateWafFirewall
+      summary: Update a WAF firewall
+      description: >-
+        Updates the configuration of a specific WAF firewall instance.
+      tags:
+        - WAF Firewalls
+      parameters:
+        - $ref: '#/components/parameters/firewallId'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - waf_firewall
+                    attributes:
+                      type: object
+                      properties:
+                        service_version_number:
+                          type: integer
+                          description: >-
+                            The version number of the service.
+                        prefetch_condition:
+                          type: string
+                          description: >-
+                            The condition that controls when the firewall is
+                            applied.
+                        response:
+                          type: string
+                          description: >-
+                            The name of the response object for blocked
+                            requests.
+      responses:
+        '200':
+          description: Successfully updated the WAF firewall.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafFirewall'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: WAF firewall not found.
+    delete:
+      operationId: deleteWafFirewall
+      summary: Delete a WAF firewall
+      description: >-
+        Deletes a specific WAF firewall instance.
+      tags:
+        - WAF Firewalls
+      parameters:
+        - $ref: '#/components/parameters/firewallId'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - waf_firewall
+                    attributes:
+                      type: object
+                      properties:
+                        service_version_number:
+                          type: integer
+                          description: >-
+                            The version number of the service.
+      responses:
+        '204':
+          description: Successfully deleted the WAF firewall.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: WAF firewall not found.
+  /waf/rules:
+    get:
+      operationId: listWafRules
+      summary: List WAF rules
+      description: >-
+        Retrieves a list of all available WAF rules.
+      tags:
+        - WAF Rules
+      parameters:
+        - name: page[number]
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+        - name: page[size]
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: filter[waf_tags][name]
+          in: query
+          description: >-
+            Filter rules by tag name.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of WAF rules.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WafRule'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /waf/rules/{waf_rule_id}:
+    get:
+      operationId: getWafRule
+      summary: Get a WAF rule
+      description: >-
+        Retrieves the details of a specific WAF rule.
+      tags:
+        - WAF Rules
+      parameters:
+        - name: waf_rule_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the WAF rule.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the WAF rule.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafRule'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: WAF rule not found.
+  /waf/firewalls/{firewall_id}/versions/{firewall_version_number}/active-rules:
+    get:
+      operationId: listWafActiveRules
+      summary: List active WAF rules
+      description: >-
+        Retrieves a list of all active WAF rules for a specific firewall
+        version.
+      tags:
+        - WAF Active Rules
+      parameters:
+        - $ref: '#/components/parameters/firewallId'
+        - $ref: '#/components/parameters/firewallVersionNumber'
+        - name: page[number]
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+        - name: page[size]
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved the list of active WAF rules.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WafActiveRule'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createWafActiveRule
+      summary: Add an active WAF rule
+      description: >-
+        Adds a WAF rule to the active rule set for a specific firewall version.
+      tags:
+        - WAF Active Rules
+      parameters:
+        - $ref: '#/components/parameters/firewallId'
+        - $ref: '#/components/parameters/firewallVersionNumber'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - waf_active_rule
+                    attributes:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                          description: >-
+                            The status of the active rule.
+                          enum:
+                            - log
+                            - block
+                        modsec_rule_id:
+                          type: integer
+                          description: >-
+                            The ModSecurity rule ID.
+                        revision:
+                          type: integer
+                          description: >-
+                            The revision number of the rule.
+                    relationships:
+                      type: object
+                      properties:
+                        waf_rule_revision:
+                          type: object
+                          description: >-
+                            The WAF rule revision to activate.
+      responses:
+        '201':
+          description: Successfully added the active WAF rule.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafActiveRule'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /waf/firewalls/{firewall_id}/versions/{firewall_version_number}/exclusions:
+    get:
+      operationId: listWafExclusions
+      summary: List WAF exclusions
+      description: >-
+        Retrieves a list of all WAF exclusions for a specific firewall version.
+        Exclusions prevent requests matching a particular pattern from being
+        flagged by the firewall.
+      tags:
+        - WAF Exclusions
+      parameters:
+        - $ref: '#/components/parameters/firewallId'
+        - $ref: '#/components/parameters/firewallVersionNumber'
+        - name: page[number]
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+        - name: page[size]
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved the list of WAF exclusions.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WafExclusion'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createWafExclusion
+      summary: Create a WAF exclusion
+      description: >-
+        Creates a new WAF exclusion for a specific firewall version.
+      tags:
+        - WAF Exclusions
+      parameters:
+        - $ref: '#/components/parameters/firewallId'
+        - $ref: '#/components/parameters/firewallVersionNumber'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - waf_exclusion
+                    attributes:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: >-
+                            The name of the exclusion.
+                        exclusion_type:
+                          type: string
+                          description: >-
+                            The type of exclusion.
+                          enum:
+                            - rule
+                            - variable
+                            - waf
+                        condition:
+                          type: string
+                          description: >-
+                            The VCL condition expression for the exclusion.
+      responses:
+        '201':
+          description: Successfully created the WAF exclusion.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafExclusion'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  parameters:
+    firewallId:
+      name: firewall_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the WAF firewall.
+      schema:
+        type: string
+    firewallVersionNumber:
+      name: firewall_version_number
+      in: path
+      required: true
+      description: >-
+        The version number of the WAF firewall.
+      schema:
+        type: integer
+  schemas:
+    WafFirewall:
+      type: object
+      description: >-
+        A WAF firewall instance associated with a Fastly service.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the WAF firewall.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - waf_firewall
+        attributes:
+          type: object
+          properties:
+            service_id:
+              type: string
+              description: >-
+                The ID of the associated service.
+            service_version_number:
+              type: integer
+              description: >-
+                The service version number.
+            active_rules_fastly_block_count:
+              type: integer
+              description: >-
+                The number of active rules in block mode managed by Fastly.
+            active_rules_fastly_log_count:
+              type: integer
+              description: >-
+                The number of active rules in log mode managed by Fastly.
+            active_rules_owasp_block_count:
+              type: integer
+              description: >-
+                The number of active OWASP rules in block mode.
+            active_rules_owasp_log_count:
+              type: integer
+              description: >-
+                The number of active OWASP rules in log mode.
+            created_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the firewall was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the firewall was last updated.
+    WafRule:
+      type: object
+      description: >-
+        A WAF rule that defines detection logic for a specific type of
+        web attack.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the WAF rule.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - waf_rule
+        attributes:
+          type: object
+          properties:
+            modsec_rule_id:
+              type: integer
+              description: >-
+                The ModSecurity rule ID.
+            type:
+              type: string
+              description: >-
+                The type of the rule.
+            severity:
+              type: integer
+              description: >-
+                The severity level of the rule.
+            source:
+              type: string
+              description: >-
+                The source of the rule.
+    WafActiveRule:
+      type: object
+      description: >-
+        An active WAF rule that is currently enforced on a firewall.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the active rule.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - waf_active_rule
+        attributes:
+          type: object
+          properties:
+            status:
+              type: string
+              description: >-
+                The enforcement status of the rule.
+              enum:
+                - log
+                - block
+            modsec_rule_id:
+              type: integer
+              description: >-
+                The ModSecurity rule ID.
+            revision:
+              type: integer
+              description: >-
+                The revision number of the rule.
+            created_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the active rule was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the active rule was last updated.
+    WafExclusion:
+      type: object
+      description: >-
+        A WAF exclusion that prevents specific requests from being flagged
+        by the firewall.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the exclusion.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - waf_exclusion
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: >-
+                The name of the exclusion.
+            exclusion_type:
+              type: string
+              description: >-
+                The type of exclusion.
+              enum:
+                - rule
+                - variable
+                - waf
+            condition:
+              type: string
+              description: >-
+                The VCL condition expression for the exclusion.
+            number:
+              type: integer
+              description: >-
+                The exclusion number.
+            created_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the exclusion was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: >-
+                The date and time the exclusion was last updated.

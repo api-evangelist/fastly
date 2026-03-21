@@ -1,0 +1,581 @@
+openapi: 3.1.0
+info:
+  title: Fastly Access Control Lists API
+  description: >-
+    The Fastly Access Control Lists API allows developers to create and manage
+    ACLs that can be used to control access to content at the edge. ACLs
+    contain entries of IP addresses or CIDR ranges that can be referenced in
+    VCL to allow or deny requests. The API supports creating ACL containers,
+    adding and removing individual entries, and performing bulk updates to
+    efficiently manage large IP allowlists or blocklists without requiring
+    a new service version deployment.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Access Control Lists API Documentation
+  url: https://www.fastly.com/documentation/reference/api/acls/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: ACL
+    description: >-
+      Operations for managing ACL containers within a service version.
+  - name: ACL Entry
+    description: >-
+      Operations for managing individual entries within an ACL, including
+      IP addresses and CIDR ranges. Entries are versionless and take
+      effect immediately.
+security:
+  - apiKeyAuth: []
+paths:
+  /service/{service_id}/version/{version_id}/acl:
+    get:
+      operationId: listAcls
+      summary: List ACLs
+      description: >-
+        Retrieves a list of all ACL containers configured for a specific
+        version of a Fastly service.
+      tags:
+        - ACL
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of ACLs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Acl'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createAcl
+      summary: Create an ACL
+      description: >-
+        Creates a new ACL container for a specific version of a Fastly
+        service. Once the service version is activated, entries within the
+        ACL become versionless and can be updated without requiring a new
+        service version.
+      tags:
+        - ACL
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the ACL.
+      responses:
+        '200':
+          description: Successfully created the ACL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acl'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/acl/{acl_name}:
+    get:
+      operationId: getAcl
+      summary: Get an ACL
+      description: >-
+        Retrieves the details of a specific ACL container for a version of
+        a Fastly service.
+      tags:
+        - ACL
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - name: acl_name
+          in: path
+          required: true
+          description: >-
+            The name of the ACL.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the ACL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acl'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: ACL not found.
+    put:
+      operationId: updateAcl
+      summary: Update an ACL
+      description: >-
+        Updates a specific ACL container for a version of a Fastly service.
+      tags:
+        - ACL
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - name: acl_name
+          in: path
+          required: true
+          description: >-
+            The name of the ACL.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The new name of the ACL.
+      responses:
+        '200':
+          description: Successfully updated the ACL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acl'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: ACL not found.
+    delete:
+      operationId: deleteAcl
+      summary: Delete an ACL
+      description: >-
+        Deletes a specific ACL container from a version of a Fastly service.
+      tags:
+        - ACL
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/versionId'
+        - name: acl_name
+          in: path
+          required: true
+          description: >-
+            The name of the ACL.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted the ACL.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: ACL not found.
+  /service/{service_id}/acl/{acl_id}/entries:
+    get:
+      operationId: listAclEntries
+      summary: List ACL entries
+      description: >-
+        Retrieves a list of all entries within a specific ACL. ACL entries
+        are versionless and any updates take effect immediately.
+      tags:
+        - ACL Entry
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: acl_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL.
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved the list of ACL entries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AclEntry'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createAclEntry
+      summary: Create an ACL entry
+      description: >-
+        Creates a new entry within a specific ACL. The entry takes effect
+        immediately without requiring a new service version.
+      tags:
+        - ACL Entry
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: acl_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AclEntry'
+      responses:
+        '200':
+          description: Successfully created the ACL entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AclEntry'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/acl/{acl_id}/entry/{acl_entry_id}:
+    get:
+      operationId: getAclEntry
+      summary: Get an ACL entry
+      description: >-
+        Retrieves the details of a specific ACL entry.
+      tags:
+        - ACL Entry
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: acl_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL.
+          schema:
+            type: string
+        - name: acl_entry_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL entry.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the ACL entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AclEntry'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: ACL entry not found.
+    patch:
+      operationId: updateAclEntry
+      summary: Update an ACL entry
+      description: >-
+        Updates a specific ACL entry. The update takes effect immediately
+        without requiring a new service version.
+      tags:
+        - ACL Entry
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: acl_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL.
+          schema:
+            type: string
+        - name: acl_entry_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL entry.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AclEntry'
+      responses:
+        '200':
+          description: Successfully updated the ACL entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AclEntry'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: ACL entry not found.
+    delete:
+      operationId: deleteAclEntry
+      summary: Delete an ACL entry
+      description: >-
+        Deletes a specific ACL entry. The deletion takes effect immediately
+        without requiring a new service version.
+      tags:
+        - ACL Entry
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: acl_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL.
+          schema:
+            type: string
+        - name: acl_entry_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL entry.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted the ACL entry.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: ACL entry not found.
+  /service/{service_id}/acl/{acl_id}/entries:
+    patch:
+      operationId: bulkUpdateAclEntries
+      summary: Bulk update ACL entries
+      description: >-
+        Updates multiple ACL entries in a single request. Supports create,
+        update, and delete operations in the same batch. Maximum batch size
+        is 1000 entries.
+      tags:
+        - ACL Entry
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: acl_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  description: >-
+                    A list of ACL entry operations to perform. Maximum 1000.
+                  maxItems: 1000
+                  items:
+                    type: object
+                    properties:
+                      op:
+                        type: string
+                        description: >-
+                          The operation to perform on the entry.
+                        enum:
+                          - create
+                          - update
+                          - delete
+                      id:
+                        type: string
+                        description: >-
+                          The ID of the entry (required for update and delete).
+                      ip:
+                        type: string
+                        description: >-
+                          The IP address for the entry.
+                      subnet:
+                        type: integer
+                        description: >-
+                          The CIDR subnet mask.
+                      negated:
+                        type: integer
+                        description: >-
+                          Whether the entry is negated.
+                        enum:
+                          - 0
+                          - 1
+                      comment:
+                        type: string
+                        description: >-
+                          A freeform comment about the entry.
+      responses:
+        '200':
+          description: Successfully performed bulk update on ACL entries.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      The status of the bulk operation.
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: >-
+        The integer identifying the service version.
+      schema:
+        type: integer
+  schemas:
+    Acl:
+      type: object
+      description: >-
+        An ACL container that holds a list of IP address and CIDR range
+        entries used for access control at the edge.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the ACL.
+        name:
+          type: string
+          description: >-
+            The name of the ACL.
+        service_id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the service.
+        version:
+          type: integer
+          description: >-
+            The version number the ACL is associated with.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the ACL was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the ACL was last updated.
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            The date and time the ACL was deleted.
+    AclEntry:
+      type: object
+      description: >-
+        An individual entry within an ACL, representing an IP address or
+        CIDR range used for access control.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the ACL entry.
+        acl_id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the ACL.
+        ip:
+          type: string
+          description: >-
+            An IP address or CIDR range.
+        subnet:
+          type: integer
+          description: >-
+            The CIDR subnet mask for IP ranges.
+          minimum: 0
+          maximum: 128
+        negated:
+          type: integer
+          description: >-
+            Whether the entry is negated (0 = not negated, 1 = negated).
+          enum:
+            - 0
+            - 1
+        comment:
+          type: string
+          description: >-
+            A freeform descriptive note about the entry.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the entry was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the entry was last updated.
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            The date and time the entry was deleted.

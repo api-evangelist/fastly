@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/fastly/tls-certificate.json",
+  "title": "Fastly TLS Certificate",
+  "description": "A custom TLS certificate used to terminate TLS traffic for one or more fully qualified domain names on Fastly's edge network. Certificates can be managed via the Custom TLS or Platform TLS APIs.",
+  "type": "object",
+  "required": ["id", "type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the TLS certificate."
+    },
+    "type": {
+      "type": "string",
+      "description": "The resource type identifier.",
+      "enum": ["tls_certificate"]
+    },
+    "attributes": {
+      "type": "object",
+      "description": "The certificate attributes.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "A customizable name for the certificate."
+        },
+        "cert_blob": {
+          "type": "string",
+          "description": "The PEM-encoded certificate data."
+        },
+        "issued_to": {
+          "type": "string",
+          "description": "The common name of the entity the certificate was issued to."
+        },
+        "issuer": {
+          "type": "string",
+          "description": "The certificate authority that issued the certificate."
+        },
+        "serial_number": {
+          "type": "string",
+          "description": "The serial number of the certificate."
+        },
+        "signature_algorithm": {
+          "type": "string",
+          "description": "The algorithm used to sign the certificate."
+        },
+        "not_before": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date the certificate becomes valid."
+        },
+        "not_after": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date the certificate expires."
+        },
+        "replace": {
+          "type": "boolean",
+          "description": "Whether the certificate is a replacement for another."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the certificate was created."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the certificate was last updated."
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "description": "Related resources for the certificate.",
+      "properties": {
+        "tls_domains": {
+          "type": "object",
+          "description": "The TLS domains associated with the certificate.",
+          "properties": {
+            "data": {
+              "type": "array",
+              "description": "A list of TLS domain references.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "The domain name."
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "The resource type.",
+                    "enum": ["tls_domain"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

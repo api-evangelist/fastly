@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/fastly/acl-entry.json",
+  "title": "Fastly ACL Entry",
+  "description": "An individual entry within a Fastly Access Control List (ACL), representing an IP address or CIDR range used for edge access control. ACL entries are versionless and take effect immediately without requiring a new service version.",
+  "type": "object",
+  "required": ["ip"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the ACL entry."
+    },
+    "acl_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the parent ACL."
+    },
+    "ip": {
+      "type": "string",
+      "description": "An IP address or the first address of a CIDR range.",
+      "format": "ipv4"
+    },
+    "subnet": {
+      "type": "integer",
+      "description": "The CIDR subnet mask for IP ranges. A value of 32 indicates a single IP address.",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "negated": {
+      "type": "integer",
+      "description": "Whether the entry is negated (0 = match, 1 = do not match).",
+      "enum": [0, 1]
+    },
+    "comment": {
+      "type": "string",
+      "description": "A freeform descriptive note about the ACL entry.",
+      "maxLength": 1024
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the entry was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the entry was last updated."
+    },
+    "deleted_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "The date and time the entry was deleted."
+    }
+  }
+}

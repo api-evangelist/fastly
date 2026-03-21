@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/fastly/backend.json",
+  "title": "Fastly Backend",
+  "description": "A backend represents an origin server that a Fastly service routes requests to for content that is not cached at the edge. Backends define the address, port, SSL configuration, health checks, and load balancing parameters for origin connections.",
+  "type": "object",
+  "required": ["name", "address"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the backend, used as a unique identifier within the service version.",
+      "minLength": 1
+    },
+    "address": {
+      "type": "string",
+      "description": "The hostname or IPv4 address of the backend origin server."
+    },
+    "port": {
+      "type": "integer",
+      "description": "The port number on the backend origin server.",
+      "minimum": 1,
+      "maximum": 65535,
+      "default": 80
+    },
+    "use_ssl": {
+      "type": "boolean",
+      "description": "Whether to use SSL/TLS to connect to the backend."
+    },
+    "ssl_hostname": {
+      "type": "string",
+      "description": "The hostname to verify for SSL certificate validation."
+    },
+    "ssl_cert_hostname": {
+      "type": "string",
+      "description": "The hostname to use when checking the backend SSL certificate."
+    },
+    "ssl_sni_hostname": {
+      "type": "string",
+      "description": "The SNI hostname to use for the backend TLS connection."
+    },
+    "shield": {
+      "type": "string",
+      "description": "The data center identifier to use as a shield POP for this backend."
+    },
+    "weight": {
+      "type": "integer",
+      "description": "The weight assigned to this backend for load balancing purposes.",
+      "minimum": 1,
+      "maximum": 100
+    },
+    "connect_timeout": {
+      "type": "integer",
+      "description": "Maximum duration in milliseconds to wait for a connection to the backend.",
+      "minimum": 0
+    },
+    "first_byte_timeout": {
+      "type": "integer",
+      "description": "Maximum duration in milliseconds to wait for the first byte from the backend.",
+      "minimum": 0
+    },
+    "between_bytes_timeout": {
+      "type": "integer",
+      "description": "Maximum duration in milliseconds to wait between bytes received from the backend.",
+      "minimum": 0
+    },
+    "max_conn": {
+      "type": "integer",
+      "description": "Maximum number of simultaneous connections to the backend.",
+      "minimum": 0
+    },
+    "healthcheck": {
+      "type": "string",
+      "description": "The name of the healthcheck to use with the backend."
+    },
+    "auto_loadbalance": {
+      "type": "boolean",
+      "description": "Whether to auto-load-balance this backend with others that share the same healthcheck."
+    },
+    "request_condition": {
+      "type": "string",
+      "description": "The name of a condition to apply to route requests to this backend."
+    },
+    "comment": {
+      "type": "string",
+      "description": "A freeform descriptive note about the backend."
+    }
+  }
+}

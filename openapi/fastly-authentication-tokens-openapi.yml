@@ -1,0 +1,482 @@
+openapi: 3.1.0
+info:
+  title: Fastly Authentication Tokens API
+  description: >-
+    The Fastly Authentication Tokens API enables developers to create and manage
+    API tokens used to authenticate requests to the Fastly API. Tokens can be
+    scoped to specific services and permissions, allowing fine-grained access
+    control for users and automated systems. The API supports creating user
+    tokens, automation tokens for CI/CD pipelines, and managing token lifecycle
+    including listing, revoking, and expiring tokens.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Authentication Tokens API Documentation
+  url: https://www.fastly.com/documentation/reference/api/auth-tokens/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: User Tokens
+    description: >-
+      Operations for managing user API tokens that authenticate requests
+      to the Fastly API on behalf of a specific user.
+  - name: Automation Tokens
+    description: >-
+      Operations for managing automation tokens used by non-human clients
+      such as CI/CD pipelines and build systems.
+security:
+  - apiKeyAuth: []
+paths:
+  /tokens:
+    get:
+      operationId: listTokens
+      summary: List API tokens
+      description: >-
+        Retrieves a list of all API tokens associated with the authenticated
+        user.
+      tags:
+        - User Tokens
+      responses:
+        '200':
+          description: Successfully retrieved the list of tokens.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createToken
+      summary: Create an API token
+      description: >-
+        Creates a new API token for the authenticated user. Tokens can be
+        scoped to specific services and permissions.
+      tags:
+        - User Tokens
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - name
+                - scope
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the token.
+                scope:
+                  type: string
+                  description: >-
+                    A space-delimited list of authorization scopes.
+                services:
+                  type: array
+                  description: >-
+                    A list of service IDs the token is scoped to.
+                  items:
+                    type: string
+                expires_at:
+                  type: string
+                  format: date-time
+                  description: >-
+                    The expiration date and time of the token.
+      responses:
+        '200':
+          description: Successfully created the token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /tokens/{token_id}:
+    get:
+      operationId: getToken
+      summary: Get an API token
+      description: >-
+        Retrieves the details of a specific API token.
+      tags:
+        - User Tokens
+      parameters:
+        - name: token_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the token.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Token not found.
+    delete:
+      operationId: revokeToken
+      summary: Revoke an API token
+      description: >-
+        Revokes a specific API token, immediately invalidating it for future
+        API requests.
+      tags:
+        - User Tokens
+      parameters:
+        - name: token_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the token.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully revoked the token.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Token not found.
+  /tokens/self:
+    get:
+      operationId: getTokenCurrent
+      summary: Get the current token
+      description: >-
+        Retrieves the details of the API token used to authenticate the
+        current request.
+      tags:
+        - User Tokens
+      responses:
+        '200':
+          description: Successfully retrieved the current token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    delete:
+      operationId: revokeTokenCurrent
+      summary: Revoke the current token
+      description: >-
+        Revokes the API token used to authenticate the current request.
+      tags:
+        - User Tokens
+      responses:
+        '204':
+          description: Successfully revoked the current token.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /customer/{customer_id}/tokens:
+    get:
+      operationId: listCustomerTokens
+      summary: List customer tokens
+      description: >-
+        Retrieves a list of all API tokens for a specific customer. Requires
+        superuser access.
+      tags:
+        - User Tokens
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the customer.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of customer tokens.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '403':
+          description: Forbidden. Superuser access required.
+  /automation-tokens:
+    get:
+      operationId: listAutomationTokens
+      summary: List automation tokens
+      description: >-
+        Retrieves a list of all automation tokens for the customer account.
+        Automation tokens are not tied to a specific user and are designed for
+        CI/CD pipelines and build systems.
+      tags:
+        - Automation Tokens
+      parameters:
+        - name: per_page
+          in: query
+          description: >-
+            The number of items per page.
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: >-
+            The page number to retrieve.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved the list of automation tokens.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AutomationToken'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createAutomationToken
+      summary: Create an automation token
+      description: >-
+        Creates a new automation token. Only users with the superuser role
+        can create automation tokens and must be in sudo mode. Automation
+        tokens can remain active indefinitely because they are not tied
+        to a human user.
+      tags:
+        - Automation Tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - scope
+                - role
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the automation token.
+                role:
+                  type: string
+                  description: >-
+                    The role for the automation token.
+                  enum:
+                    - billing
+                    - engineer
+                    - user
+                scope:
+                  type: string
+                  description: >-
+                    A space-delimited list of authorization scopes.
+                services:
+                  type: array
+                  description: >-
+                    A list of service IDs the token is scoped to.
+                  items:
+                    type: string
+                expires_at:
+                  type: string
+                  format: date-time
+                  description: >-
+                    The expiration date and time of the token.
+      responses:
+        '201':
+          description: Successfully created the automation token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationToken'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '403':
+          description: Forbidden. Superuser access in sudo mode required.
+  /automation-tokens/{automation_token_id}:
+    get:
+      operationId: getAutomationToken
+      summary: Get an automation token
+      description: >-
+        Retrieves the details of a specific automation token.
+      tags:
+        - Automation Tokens
+      parameters:
+        - name: automation_token_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the automation token.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the automation token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationToken'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Automation token not found.
+    delete:
+      operationId: revokeAutomationToken
+      summary: Revoke an automation token
+      description: >-
+        Revokes a specific automation token, immediately invalidating it.
+      tags:
+        - Automation Tokens
+      parameters:
+        - name: automation_token_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the automation token.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully revoked the automation token.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Automation token not found.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  schemas:
+    Token:
+      type: object
+      description: >-
+        An API token used to authenticate requests to the Fastly API on
+        behalf of a specific user.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the token.
+        name:
+          type: string
+          description: >-
+            The name of the token.
+        user_id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the user the token belongs to.
+        customer_id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the customer.
+        scope:
+          type: string
+          description: >-
+            A space-delimited list of authorization scopes.
+        services:
+          type: array
+          description: >-
+            A list of service IDs the token is scoped to.
+          items:
+            type: string
+        access_token:
+          type: string
+          description: >-
+            The token value used for authentication. Only returned on creation.
+        ip:
+          type: string
+          description: >-
+            The IP address of the client that last used the token.
+        last_used_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the token was last used.
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            The date and time the token expires.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the token was created.
+    AutomationToken:
+      type: object
+      description: >-
+        An automation token used by non-human clients such as CI/CD pipelines
+        and build systems to authenticate requests to the Fastly API.
+      properties:
+        id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the automation token.
+        name:
+          type: string
+          description: >-
+            The name of the automation token.
+        customer_id:
+          type: string
+          description: >-
+            The alphanumeric string identifying the customer.
+        role:
+          type: string
+          description: >-
+            The role assigned to the automation token.
+          enum:
+            - billing
+            - engineer
+            - user
+        scope:
+          type: string
+          description: >-
+            A space-delimited list of authorization scopes.
+        services:
+          type: array
+          description: >-
+            A list of service IDs the token is scoped to.
+          items:
+            type: string
+        ip:
+          type: string
+          description: >-
+            The IP address of the client that last used the token.
+        last_used_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the token was last used.
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            The date and time the token expires.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the token was created.
+        sudo_expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            The date and time the sudo mode expires.
