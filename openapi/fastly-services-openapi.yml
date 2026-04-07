@@ -20,11 +20,6 @@ servers:
   - url: https://api.fastly.com
     description: Fastly API Production Server
 tags:
-  - name: Service
-    description: >-
-      Operations for creating, reading, updating, and deleting Fastly services.
-      A service represents the configuration for a website, app, API, or
-      anything else to be served through Fastly.
   - name: Service Version
     description: >-
       Operations for managing versions of a Fastly service. Each change to a
@@ -41,8 +36,7 @@ paths:
         Retrieves a list of all services associated with the authenticated
         account. Returns basic information about each service including its
         name, ID, and current active version.
-      tags:
-        - Service
+      tags: []
       parameters:
         - $ref: '#/components/parameters/pageNumber'
         - $ref: '#/components/parameters/perPage'
@@ -85,8 +79,7 @@ paths:
         Creates a new Fastly service. A service represents the configuration
         for a website, application, API, or other resource to be served
         through Fastly's edge network.
-      tags:
-        - Service
+      tags: []
       requestBody:
         required: true
         content:
@@ -131,8 +124,7 @@ paths:
       description: >-
         Retrieves detailed information about a specific Fastly service
         identified by its service ID.
-      tags:
-        - Service
+      tags: []
       parameters:
         - $ref: '#/components/parameters/serviceId'
       responses:
@@ -152,8 +144,7 @@ paths:
       description: >-
         Updates the details of a specific Fastly service, such as its name
         or comment.
-      tags:
-        - Service
+      tags: []
       parameters:
         - $ref: '#/components/parameters/serviceId'
       requestBody:
@@ -190,8 +181,7 @@ paths:
       description: >-
         Permanently deletes a specific Fastly service. This action cannot be
         undone and the service must be deactivated before deletion.
-      tags:
-        - Service
+      tags: []
       parameters:
         - $ref: '#/components/parameters/serviceId'
       responses:
@@ -217,8 +207,7 @@ paths:
       description: >-
         Retrieves detailed information about a specific service including all
         of its versions and their associated settings.
-      tags:
-        - Service
+      tags: []
       parameters:
         - $ref: '#/components/parameters/serviceId'
       responses:
@@ -239,8 +228,7 @@ paths:
       description: >-
         Searches for a service by its name and returns the matching service
         details.
-      tags:
-        - Service
+      tags: []
       parameters:
         - name: name
           in: query
