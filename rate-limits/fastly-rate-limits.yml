@@ -1,0 +1,41 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Fastly
+providerId: fastly
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - CDN
+description: Fastly REST API enforces per-token rate limits.
+sources:
+  - https://www.fastly.com/pricing
+  - https://docs.fastly.com/en/guides/api-rate-limiting
+headers:
+  limit: Fastly-RateLimit-Limit
+  remaining: Fastly-RateLimit-Remaining
+  reset: Fastly-RateLimit-Reset
+responseCodes:
+  throttled: 429
+limits:
+  - name: Read API
+    scope: token
+    metric: requests_per_hour
+    limit: 1000
+    timeFrame: hour
+  - name: Write/POST/PUT API
+    scope: token
+    metric: requests_per_hour
+    limit: 1000
+    timeFrame: hour
+  - name: Logging configuration
+    scope: service
+    metric: endpoints
+    limit: 100
+    timeFrame: service
+  - name: Purge
+    scope: service
+    metric: purges_per_second
+    limit: high

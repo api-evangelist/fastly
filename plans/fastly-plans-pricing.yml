@@ -1,0 +1,209 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Fastly
+providerId: fastly
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - CDN
+  - Edge Compute
+  - Security
+description: Fastly usage-based pricing for CDN, Compute, DDoS, Object Storage. Volume discounts.
+sources:
+  - https://www.fastly.com/pricing
+plans:
+  - id: fastly-cdn-free
+    name: CDN Free Tier
+    type: freemium
+    description: 100 GB bandwidth + 1M requests/month free.
+    entries:
+      - label: Bandwidth
+        name: bandwidth
+        type: quota
+        metric: GB
+        limit: 100
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Requests
+        name: requests
+        type: quota
+        metric: request
+        limit: 1000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Full Site Delivery
+      - name: Configuration via VCL
+      - name: Logging via syslog/S3
+  - id: fastly-cdn-payg
+    name: CDN Pay-As-You-Go
+    type: usage-based
+    description: $0.08-$0.28/GB and $0.0095-$0.01 per 10K requests, region/volume-based.
+    entries:
+      - label: Bandwidth tier 1 (100GB-10TB)
+        name: bw_t1
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 0.08-0.28
+        userMultiplied: false
+      - label: Bandwidth tier 2 (10TB+)
+        name: bw_t2
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 0.08-0.24
+        userMultiplied: false
+      - label: Requests tier 1 (1M-100M)
+        name: req_t1
+        type: metered
+        metric: 10K_requests
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 10000
+        price: '0.01'
+        userMultiplied: false
+      - label: Requests tier 2 (100M+)
+        name: req_t2
+        type: metered
+        metric: 10K_requests
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 10000
+        price: '0.0095'
+        userMultiplied: false
+    elements:
+      - name: Region-specific pricing
+      - name: Volume discounts
+  - id: fastly-compute
+    name: Compute@Edge
+    type: usage-based
+    description: $0.50/M requests, $0.05/M vCPU ms; 10M requests + 100M vCPU ms free.
+    entries:
+      - label: Requests free
+        name: req_free
+        type: quota
+        metric: request
+        limit: 10000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Requests tier 1 (10M-500M)
+        name: req_t1
+        type: metered
+        metric: million
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000000
+        price: '0.50'
+        userMultiplied: false
+      - label: Requests tier 2 (500M+)
+        name: req_t2
+        type: metered
+        metric: million
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000000
+        price: 0.20-0.49
+        userMultiplied: false
+      - label: vCPU ms free
+        name: cpu_free
+        type: quota
+        metric: ms
+        limit: 100000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: vCPU ms (per 1M)
+        name: cpu_meter
+        type: metered
+        metric: million_ms
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000000
+        price: '0.05'
+        userMultiplied: false
+    elements:
+      - name: WebAssembly serverless
+      - name: Sub-millisecond cold start
+      - name: Rust/Go/JS runtime
+  - id: fastly-package-basic
+    name: 'Package: Basic'
+    type: paid
+    description: '$1,500/mo: 100M requests, 20 TLS domains, 30M image requests.'
+    entries:
+      - label: Monthly
+        name: monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '1500.00'
+        userMultiplied: false
+    elements:
+      - name: 100M requests
+      - name: 20 TLS domains
+      - name: 30M image requests
+  - id: fastly-package-starter
+    name: 'Package: Starter'
+    type: paid
+    description: '$6,000/mo: 500M requests, 40 TLS domains, 150M image requests.'
+    entries:
+      - label: Monthly
+        name: monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '6000.00'
+        userMultiplied: false
+    elements:
+      - name: 500M requests
+      - name: 40 TLS domains
+      - name: 150M image requests
+  - id: fastly-enterprise
+    name: Enterprise
+    type: enterprise
+    description: Custom pricing.
+    entries:
+      - label: Annual (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: Volume committed
+      - name: SLA enhancements
+      - name: Dedicated support

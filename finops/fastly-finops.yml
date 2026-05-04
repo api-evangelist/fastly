@@ -1,0 +1,65 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Fastly
+providerId: fastly
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Edge Network
+description: FOCUS-aligned FinOps for Fastly.
+sources:
+  - https://www.fastly.com/pricing
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Fastly
+serviceCategory: Edge Network
+billingModel:
+  pricingCategory: Usage-Based with Volume Discounts
+  billingFrequency: Monthly
+  billingCurrency: USD
+focusColumns:
+  ServiceName: Fastly
+  ServiceCategory: Edge Network
+  ProviderName: Fastly
+  PublisherName: Fastly
+  BillingCurrency: USD
+meters:
+  - name: bandwidth_delivered
+    unit: GB
+    aggregation: sum
+    dimensions:
+      - region
+  - name: requests_delivered
+    unit: request
+    aggregation: sum
+    dimensions:
+      - region
+  - name: compute_requests
+    unit: request
+    aggregation: sum
+  - name: compute_vcpu_ms
+    unit: ms
+    aggregation: sum
+  - name: object_storage
+    unit: GB-month
+    aggregation: max
+  - name: image_optimization_requests
+    unit: request
+    aggregation: sum
+principles:
+  - name: Visibility
+    description: Track Fastly consumption monthly.
+  - name: Allocation
+    description: Tag usage to teams/cost centers.
+  - name: Optimization
+    description: Right-size tier; reclaim unused entitlements.
+  - name: Accountability
+    description: Set spend alerts; quarterly review.
