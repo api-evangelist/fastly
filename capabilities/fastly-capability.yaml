@@ -1,0 +1,652 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Account API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management
+    (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control
+    access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and
+    configuring organizational settings for enterprise accounts.
+  tags:
+  - Fastly
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: fastly
+    baseUri: https://api.fastly.com
+    description: Fastly Account API HTTP API.
+    authentication:
+      type: apikey
+      in: header
+      name: Fastly-Key
+      value: '{{FASTLY_TOKEN}}'
+    resources:
+    - name: current-customer
+      path: /current_customer
+      operations:
+      - name: getcurrentcustomer
+        method: GET
+        description: Get the current customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customer-customer-id
+      path: /customer/{customer_id}
+      operations:
+      - name: getcustomer
+        method: GET
+        description: Get a customer
+        inputParameters:
+        - name: customer_id
+          in: path
+          type: string
+          required: true
+          description: The alphanumeric string identifying the customer.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecustomer
+        method: PUT
+        description: Update a customer
+        inputParameters:
+        - name: customer_id
+          in: path
+          type: string
+          required: true
+          description: The alphanumeric string identifying the customer.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: current-user
+      path: /current_user
+      operations:
+      - name: getcurrentuser
+        method: GET
+        description: Get the current user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: user-user-id
+      path: /user/{user_id}
+      operations:
+      - name: getuser
+        method: GET
+        description: Get a user
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: The alphanumeric string identifying the user.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateuser
+        method: PUT
+        description: Update a user
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: The alphanumeric string identifying the user.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteuser
+        method: DELETE
+        description: Delete a user
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: The alphanumeric string identifying the user.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customer-customer-id-users
+      path: /customer/{customer_id}/users
+      operations:
+      - name: listcustomerusers
+        method: GET
+        description: List users for a customer
+        inputParameters:
+        - name: customer_id
+          in: path
+          type: string
+          required: true
+          description: The alphanumeric string identifying the customer.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invitations
+      path: /invitations
+      operations:
+      - name: createinvitation
+        method: POST
+        description: Create a user invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: roles
+      path: /roles
+      operations:
+      - name: listroles
+        method: GET
+        description: List IAM roles
+        inputParameters:
+        - name: per_page
+          in: query
+          type: integer
+          description: The number of items per page.
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor for pagination.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: roles-role-id
+      path: /roles/{role_id}
+      operations:
+      - name: getrole
+        method: GET
+        description: Get an IAM role
+        inputParameters:
+        - name: role_id
+          in: path
+          type: string
+          required: true
+          description: The alphanumeric string identifying the IAM role.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: service-groups
+      path: /service-groups
+      operations:
+      - name: listservicegroups
+        method: GET
+        description: List IAM service groups
+        inputParameters:
+        - name: per_page
+          in: query
+          type: integer
+          description: The number of items per page.
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor for pagination.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createservicegroup
+        method: POST
+        description: Create an IAM service group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: user-groups
+      path: /user-groups
+      operations:
+      - name: listusergroups
+        method: GET
+        description: List IAM user groups
+        inputParameters:
+        - name: per_page
+          in: query
+          type: integer
+          description: The number of items per page.
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor for pagination.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createusergroup
+        method: POST
+        description: Create an IAM user group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: fastly-rest
+    description: REST adapter for Fastly Account API.
+    resources:
+    - path: /current_customer
+      name: getcurrentcustomer
+      operations:
+      - method: GET
+        name: getcurrentcustomer
+        description: Get the current customer
+        call: fastly.getcurrentcustomer
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customer/{customer_id}
+      name: getcustomer
+      operations:
+      - method: GET
+        name: getcustomer
+        description: Get a customer
+        call: fastly.getcustomer
+        with:
+          customer_id: rest.customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customer/{customer_id}
+      name: updatecustomer
+      operations:
+      - method: PUT
+        name: updatecustomer
+        description: Update a customer
+        call: fastly.updatecustomer
+        with:
+          customer_id: rest.customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /current_user
+      name: getcurrentuser
+      operations:
+      - method: GET
+        name: getcurrentuser
+        description: Get the current user
+        call: fastly.getcurrentuser
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /user/{user_id}
+      name: getuser
+      operations:
+      - method: GET
+        name: getuser
+        description: Get a user
+        call: fastly.getuser
+        with:
+          user_id: rest.user_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /user/{user_id}
+      name: updateuser
+      operations:
+      - method: PUT
+        name: updateuser
+        description: Update a user
+        call: fastly.updateuser
+        with:
+          user_id: rest.user_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /user/{user_id}
+      name: deleteuser
+      operations:
+      - method: DELETE
+        name: deleteuser
+        description: Delete a user
+        call: fastly.deleteuser
+        with:
+          user_id: rest.user_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customer/{customer_id}/users
+      name: listcustomerusers
+      operations:
+      - method: GET
+        name: listcustomerusers
+        description: List users for a customer
+        call: fastly.listcustomerusers
+        with:
+          customer_id: rest.customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invitations
+      name: createinvitation
+      operations:
+      - method: POST
+        name: createinvitation
+        description: Create a user invitation
+        call: fastly.createinvitation
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /roles
+      name: listroles
+      operations:
+      - method: GET
+        name: listroles
+        description: List IAM roles
+        call: fastly.listroles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /roles/{role_id}
+      name: getrole
+      operations:
+      - method: GET
+        name: getrole
+        description: Get an IAM role
+        call: fastly.getrole
+        with:
+          role_id: rest.role_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /service-groups
+      name: listservicegroups
+      operations:
+      - method: GET
+        name: listservicegroups
+        description: List IAM service groups
+        call: fastly.listservicegroups
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /service-groups
+      name: createservicegroup
+      operations:
+      - method: POST
+        name: createservicegroup
+        description: Create an IAM service group
+        call: fastly.createservicegroup
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /user-groups
+      name: listusergroups
+      operations:
+      - method: GET
+        name: listusergroups
+        description: List IAM user groups
+        call: fastly.listusergroups
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /user-groups
+      name: createusergroup
+      operations:
+      - method: POST
+        name: createusergroup
+        description: Create an IAM user group
+        call: fastly.createusergroup
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: fastly-mcp
+    transport: http
+    description: MCP adapter for Fastly Account API for AI agent use.
+    tools:
+    - name: getcurrentcustomer
+      description: Get the current customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fastly.getcurrentcustomer
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcustomer
+      description: Get a customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fastly.getcustomer
+      with:
+        customer_id: tools.customer_id
+      inputParameters:
+      - name: customer_id
+        type: string
+        description: The alphanumeric string identifying the customer.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatecustomer
+      description: Update a customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: fastly.updatecustomer
+      with:
+        customer_id: tools.customer_id
+      inputParameters:
+      - name: customer_id
+        type: string
+        description: The alphanumeric string identifying the customer.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcurrentuser
+      description: Get the current user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fastly.getcurrentuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getuser
+      description: Get a user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fastly.getuser
+      with:
+        user_id: tools.user_id
+      inputParameters:
+      - name: user_id
+        type: string
+        description: The alphanumeric string identifying the user.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateuser
+      description: Update a user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: fastly.updateuser
+      with:
+        user_id: tools.user_id
+      inputParameters:
+      - name: user_id
+        type: string
+        description: The alphanumeric string identifying the user.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteuser
+      description: Delete a user
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: fastly.deleteuser
+      with:
+        user_id: tools.user_id
+      inputParameters:
+      - name: user_id
+        type: string
+        description: The alphanumeric string identifying the user.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listcustomerusers
+      description: List users for a customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fastly.listcustomerusers
+      with:
+        customer_id: tools.customer_id
+      inputParameters:
+      - name: customer_id
+        type: string
+        description: The alphanumeric string identifying the customer.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createinvitation
+      description: Create a user invitation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: fastly.createinvitation
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listroles
+      description: List IAM roles
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fastly.listroles
+      with:
+        per_page: tools.per_page
+        cursor: tools.cursor
+      inputParameters:
+      - name: per_page
+        type: integer
+        description: The number of items per page.
+      - name: cursor
+        type: string
+        description: The cursor for pagination.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getrole
+      description: Get an IAM role
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fastly.getrole
+      with:
+        role_id: tools.role_id
+      inputParameters:
+      - name: role_id
+        type: string
+        description: The alphanumeric string identifying the IAM role.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listservicegroups
+      description: List IAM service groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fastly.listservicegroups
+      with:
+        per_page: tools.per_page
+        cursor: tools.cursor
+      inputParameters:
+      - name: per_page
+        type: integer
+        description: The number of items per page.
+      - name: cursor
+        type: string
+        description: The cursor for pagination.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createservicegroup
+      description: Create an IAM service group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: fastly.createservicegroup
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listusergroups
+      description: List IAM user groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fastly.listusergroups
+      with:
+        per_page: tools.per_page
+        cursor: tools.cursor
+      inputParameters:
+      - name: per_page
+        type: integer
+        description: The number of items per page.
+      - name: cursor
+        type: string
+        description: The cursor for pagination.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createusergroup
+      description: Create an IAM user group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: fastly.createusergroup
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    FASTLY_TOKEN: FASTLY_TOKEN
