@@ -1,0 +1,107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Real-Time Logging API — Logging BigQuery
+  description: 'Fastly Real-Time Logging API — Logging BigQuery. 2 operations. Lead operation: List BigQuery logging endpoints.
+    Self-contained Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Logging BigQuery
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: logging-logging-bigquery
+    baseUri: https://api.fastly.com
+    description: Fastly Real-Time Logging API — Logging BigQuery business capability. Self-contained, no shared references.
+    resources:
+    - name: service-service_id-version-version_id-logging-bigquery
+      path: /service/{service_id}/version/{version_id}/logging/bigquery
+      operations:
+      - name: listlogbigquery
+        method: GET
+        description: List BigQuery logging endpoints
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createlogbigquery
+        method: POST
+        description: Create a BigQuery logging endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: logging-logging-bigquery-rest
+    port: 8080
+    description: REST adapter for Fastly Real-Time Logging API — Logging BigQuery. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/service/{service-id}/version/{version-id}/logging/bigquery
+      name: service-service-id-version-version-id-logging-bigquery
+      description: REST surface for service-service_id-version-version_id-logging-bigquery.
+      operations:
+      - method: GET
+        name: listlogbigquery
+        description: List BigQuery logging endpoints
+        call: logging-logging-bigquery.listlogbigquery
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createlogbigquery
+        description: Create a BigQuery logging endpoint
+        call: logging-logging-bigquery.createlogbigquery
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: logging-logging-bigquery-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Real-Time Logging API — Logging BigQuery. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-bigquery-logging-endpoints
+      description: List BigQuery logging endpoints
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: logging-logging-bigquery.listlogbigquery
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-bigquery-logging-endpoint
+      description: Create a BigQuery logging endpoint
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: logging-logging-bigquery.createlogbigquery
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

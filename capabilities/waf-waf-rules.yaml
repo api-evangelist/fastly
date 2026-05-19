@@ -1,0 +1,135 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Next-Gen WAF API — WAF Rules
+  description: 'Fastly Next-Gen WAF API — WAF Rules. 2 operations. Lead operation: List WAF rules. Self-contained Naftiko
+    capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - WAF Rules
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: waf-waf-rules
+    baseUri: https://api.fastly.com
+    description: Fastly Next-Gen WAF API — WAF Rules business capability. Self-contained, no shared references.
+    resources:
+    - name: waf-rules
+      path: /waf/rules
+      operations:
+      - name: listwafrules
+        method: GET
+        description: List WAF rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page[number]
+          in: query
+          type: integer
+          description: The page number to retrieve.
+        - name: page[size]
+          in: query
+          type: integer
+          description: The number of items per page.
+        - name: filter[waf_tags][name]
+          in: query
+          type: string
+          description: Filter rules by tag name.
+    - name: waf-rules-waf_rule_id
+      path: /waf/rules/{waf_rule_id}
+      operations:
+      - name: getwafrule
+        method: GET
+        description: Get a WAF rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: waf_rule_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the WAF rule.
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: waf-waf-rules-rest
+    port: 8080
+    description: REST adapter for Fastly Next-Gen WAF API — WAF Rules. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/waf/rules
+      name: waf-rules
+      description: REST surface for waf-rules.
+      operations:
+      - method: GET
+        name: listwafrules
+        description: List WAF rules
+        call: waf-waf-rules.listwafrules
+        with:
+          page[number]: rest.page[number]
+          page[size]: rest.page[size]
+          filter[waf_tags][name]: rest.filter[waf_tags][name]
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/waf/rules/{waf-rule-id}
+      name: waf-rules-waf-rule-id
+      description: REST surface for waf-rules-waf_rule_id.
+      operations:
+      - method: GET
+        name: getwafrule
+        description: Get a WAF rule
+        call: waf-waf-rules.getwafrule
+        with:
+          waf_rule_id: rest.waf_rule_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: waf-waf-rules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Next-Gen WAF API — WAF Rules. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-waf-rules
+      description: List WAF rules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: waf-waf-rules.listwafrules
+      with:
+        page[number]: tools.page[number]
+        page[size]: tools.page[size]
+        filter[waf_tags][name]: tools.filter[waf_tags][name]
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-waf-rule
+      description: Get a WAF rule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: waf-waf-rules.getwafrule
+      with:
+        waf_rule_id: tools.waf_rule_id
+      outputParameters:
+      - type: object
+        mapping: $.

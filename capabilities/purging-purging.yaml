@@ -1,0 +1,204 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Purging API — Purging
+  description: 'Fastly Purging API — Purging. 4 operations. Lead operation: Purge a URL. Self-contained Naftiko capability
+    covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Purging
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: purging-purging
+    baseUri: https://api.fastly.com
+    description: Fastly Purging API — Purging business capability. Self-contained, no shared references.
+    resources:
+    - name: purge-cached_url
+      path: /purge/{cached_url}
+      operations:
+      - name: purgesingleurl
+        method: POST
+        description: Purge a URL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: cached_url
+          in: path
+          type: string
+          description: The full URL of the cached object to purge.
+          required: true
+    - name: service-service_id-purge
+      path: /service/{service_id}/purge
+      operations:
+      - name: bulkpurgebysurrogatekey
+        method: POST
+        description: Bulk purge by surrogate key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Surrogate-Key
+          in: header
+          type: string
+          description: Space-separated list of surrogate keys to purge. Alternative to sending keys in the request body.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: service-service_id-purge-surrogate_key
+      path: /service/{service_id}/purge/{surrogate_key}
+      operations:
+      - name: purgebysurrogatekey
+        method: POST
+        description: Purge by surrogate key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: surrogate_key
+          in: path
+          type: string
+          description: The surrogate key tag to purge.
+          required: true
+    - name: service-service_id-purge_all
+      path: /service/{service_id}/purge_all
+      operations:
+      - name: purgeall
+        method: POST
+        description: Purge all cached content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: purging-purging-rest
+    port: 8080
+    description: REST adapter for Fastly Purging API — Purging. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/purge/{cached-url}
+      name: purge-cached-url
+      description: REST surface for purge-cached_url.
+      operations:
+      - method: POST
+        name: purgesingleurl
+        description: Purge a URL
+        call: purging-purging.purgesingleurl
+        with:
+          cached_url: rest.cached_url
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/purge
+      name: service-service-id-purge
+      description: REST surface for service-service_id-purge.
+      operations:
+      - method: POST
+        name: bulkpurgebysurrogatekey
+        description: Bulk purge by surrogate key
+        call: purging-purging.bulkpurgebysurrogatekey
+        with:
+          Surrogate-Key: rest.Surrogate-Key
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/purge/{surrogate-key}
+      name: service-service-id-purge-surrogate-key
+      description: REST surface for service-service_id-purge-surrogate_key.
+      operations:
+      - method: POST
+        name: purgebysurrogatekey
+        description: Purge by surrogate key
+        call: purging-purging.purgebysurrogatekey
+        with:
+          surrogate_key: rest.surrogate_key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/purge-all
+      name: service-service-id-purge-all
+      description: REST surface for service-service_id-purge_all.
+      operations:
+      - method: POST
+        name: purgeall
+        description: Purge all cached content
+        call: purging-purging.purgeall
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: purging-purging-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Purging API — Purging. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: purge-url
+      description: Purge a URL
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: purging-purging.purgesingleurl
+      with:
+        cached_url: tools.cached_url
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bulk-purge-surrogate-key
+      description: Bulk purge by surrogate key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: purging-purging.bulkpurgebysurrogatekey
+      with:
+        Surrogate-Key: tools.Surrogate-Key
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: purge-surrogate-key
+      description: Purge by surrogate key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: purging-purging.purgebysurrogatekey
+      with:
+        surrogate_key: tools.surrogate_key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: purge-all-cached-content
+      description: Purge all cached content
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: purging-purging.purgeall
+      outputParameters:
+      - type: object
+        mapping: $.

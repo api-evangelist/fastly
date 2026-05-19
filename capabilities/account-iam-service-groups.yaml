@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Account API — IAM Service Groups
+  description: 'Fastly Account API — IAM Service Groups. 2 operations. Lead operation: List IAM service groups. Self-contained
+    Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - IAM Service Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-iam-service-groups
+    baseUri: https://api.fastly.com
+    description: Fastly Account API — IAM Service Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: service-groups
+      path: /service-groups
+      operations:
+      - name: listservicegroups
+        method: GET
+        description: List IAM service groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: per_page
+          in: query
+          type: integer
+          description: The number of items per page.
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor for pagination.
+      - name: createservicegroup
+        method: POST
+        description: Create an IAM service group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: account-iam-service-groups-rest
+    port: 8080
+    description: REST adapter for Fastly Account API — IAM Service Groups. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/service-groups
+      name: service-groups
+      description: REST surface for service-groups.
+      operations:
+      - method: GET
+        name: listservicegroups
+        description: List IAM service groups
+        call: account-iam-service-groups.listservicegroups
+        with:
+          per_page: rest.per_page
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createservicegroup
+        description: Create an IAM service group
+        call: account-iam-service-groups.createservicegroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-iam-service-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Account API — IAM Service Groups. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-iam-service-groups
+      description: List IAM service groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-iam-service-groups.listservicegroups
+      with:
+        per_page: tools.per_page
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-iam-service-group
+      description: Create an IAM service group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: account-iam-service-groups.createservicegroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

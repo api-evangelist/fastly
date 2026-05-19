@@ -1,0 +1,89 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Metrics and Stats API — Origin Inspector
+  description: 'Fastly Metrics and Stats API — Origin Inspector. 1 operations. Lead operation: Get real-time origin metrics.
+    Self-contained Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Origin Inspector
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: metrics-and-stats-origin-inspector
+    baseUri: https://rt.fastly.com
+    description: Fastly Metrics and Stats API — Origin Inspector business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-channel-service_id-ts-h-origins-origin-limit-max_entries
+      path: /v1/channel/{service_id}/ts/h/origins/{origin}/limit/{max_entries}
+      operations:
+      - name: getorigininspectorrealtimestats
+        method: GET
+        description: Get real-time origin metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: origin
+          in: path
+          type: string
+          description: The origin host to retrieve metrics for.
+          required: true
+        - name: max_entries
+          in: path
+          type: integer
+          description: The maximum number of entries to return.
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: metrics-and-stats-origin-inspector-rest
+    port: 8080
+    description: REST adapter for Fastly Metrics and Stats API — Origin Inspector. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v1/channel/{service-id}/ts/h/origins/{origin}/limit/{max-entries}
+      name: v1-channel-service-id-ts-h-origins-origin-limit-max-entries
+      description: REST surface for v1-channel-service_id-ts-h-origins-origin-limit-max_entries.
+      operations:
+      - method: GET
+        name: getorigininspectorrealtimestats
+        description: Get real-time origin metrics
+        call: metrics-and-stats-origin-inspector.getorigininspectorrealtimestats
+        with:
+          origin: rest.origin
+          max_entries: rest.max_entries
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: metrics-and-stats-origin-inspector-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Metrics and Stats API — Origin Inspector. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-real-time-origin-metrics
+      description: Get real-time origin metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: metrics-and-stats-origin-inspector.getorigininspectorrealtimestats
+      with:
+        origin: tools.origin
+        max_entries: tools.max_entries
+      outputParameters:
+      - type: object
+        mapping: $.

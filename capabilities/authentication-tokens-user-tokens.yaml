@@ -1,0 +1,283 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Authentication Tokens API — User Tokens
+  description: 'Fastly Authentication Tokens API — User Tokens. 7 operations. Lead operation: List customer tokens. Self-contained
+    Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - User Tokens
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: authentication-tokens-user-tokens
+    baseUri: https://api.fastly.com
+    description: Fastly Authentication Tokens API — User Tokens business capability. Self-contained, no shared references.
+    resources:
+    - name: customer-customer_id-tokens
+      path: /customer/{customer_id}/tokens
+      operations:
+      - name: listcustomertokens
+        method: GET
+        description: List customer tokens
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customer_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the customer.
+          required: true
+    - name: tokens
+      path: /tokens
+      operations:
+      - name: listtokens
+        method: GET
+        description: List API tokens
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtoken
+        method: POST
+        description: Create an API token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: tokens-self
+      path: /tokens/self
+      operations:
+      - name: gettokencurrent
+        method: GET
+        description: Get the current token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: revoketokencurrent
+        method: DELETE
+        description: Revoke the current token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: tokens-token_id
+      path: /tokens/{token_id}
+      operations:
+      - name: gettoken
+        method: GET
+        description: Get an API token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the token.
+          required: true
+      - name: revoketoken
+        method: DELETE
+        description: Revoke an API token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the token.
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: authentication-tokens-user-tokens-rest
+    port: 8080
+    description: REST adapter for Fastly Authentication Tokens API — User Tokens. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/customer/{customer-id}/tokens
+      name: customer-customer-id-tokens
+      description: REST surface for customer-customer_id-tokens.
+      operations:
+      - method: GET
+        name: listcustomertokens
+        description: List customer tokens
+        call: authentication-tokens-user-tokens.listcustomertokens
+        with:
+          customer_id: rest.customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/tokens
+      name: tokens
+      description: REST surface for tokens.
+      operations:
+      - method: GET
+        name: listtokens
+        description: List API tokens
+        call: authentication-tokens-user-tokens.listtokens
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtoken
+        description: Create an API token
+        call: authentication-tokens-user-tokens.createtoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/tokens/self
+      name: tokens-self
+      description: REST surface for tokens-self.
+      operations:
+      - method: GET
+        name: gettokencurrent
+        description: Get the current token
+        call: authentication-tokens-user-tokens.gettokencurrent
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: revoketokencurrent
+        description: Revoke the current token
+        call: authentication-tokens-user-tokens.revoketokencurrent
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/tokens/{token-id}
+      name: tokens-token-id
+      description: REST surface for tokens-token_id.
+      operations:
+      - method: GET
+        name: gettoken
+        description: Get an API token
+        call: authentication-tokens-user-tokens.gettoken
+        with:
+          token_id: rest.token_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: revoketoken
+        description: Revoke an API token
+        call: authentication-tokens-user-tokens.revoketoken
+        with:
+          token_id: rest.token_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: authentication-tokens-user-tokens-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Authentication Tokens API — User Tokens. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-customer-tokens
+      description: List customer tokens
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: authentication-tokens-user-tokens.listcustomertokens
+      with:
+        customer_id: tools.customer_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-api-tokens
+      description: List API tokens
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: authentication-tokens-user-tokens.listtokens
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-api-token
+      description: Create an API token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: authentication-tokens-user-tokens.createtoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-token
+      description: Get the current token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: authentication-tokens-user-tokens.gettokencurrent
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: revoke-current-token
+      description: Revoke the current token
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: authentication-tokens-user-tokens.revoketokencurrent
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-api-token
+      description: Get an API token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: authentication-tokens-user-tokens.gettoken
+      with:
+        token_id: tools.token_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: revoke-api-token
+      description: Revoke an API token
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: authentication-tokens-user-tokens.revoketoken
+      with:
+        token_id: tools.token_id
+      outputParameters:
+      - type: object
+        mapping: $.

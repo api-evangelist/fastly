@@ -1,0 +1,205 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly TLS API — TLS Private Keys
+  description: 'Fastly TLS API — TLS Private Keys. 4 operations. Lead operation: List TLS private keys. Self-contained Naftiko
+    capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - TLS Private Keys
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tls-tls-private-keys
+    baseUri: https://api.fastly.com
+    description: Fastly TLS API — TLS Private Keys business capability. Self-contained, no shared references.
+    resources:
+    - name: tls-private_keys
+      path: /tls/private_keys
+      operations:
+      - name: listtlsprivatekeys
+        method: GET
+        description: List TLS private keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page[number]
+          in: query
+          type: integer
+          description: The page number to retrieve.
+        - name: page[size]
+          in: query
+          type: integer
+          description: The number of items per page.
+        - name: filter[in_use]
+          in: query
+          type: string
+          description: Filter to show only keys currently in use.
+      - name: createtlsprivatekey
+        method: POST
+        description: Create a TLS private key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: tls-private_keys-tls_private_key_id
+      path: /tls/private_keys/{tls_private_key_id}
+      operations:
+      - name: gettlsprivatekey
+        method: GET
+        description: Get a TLS private key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tls_private_key_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the TLS private key.
+          required: true
+      - name: deletetlsprivatekey
+        method: DELETE
+        description: Delete a TLS private key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tls_private_key_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the TLS private key.
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: tls-tls-private-keys-rest
+    port: 8080
+    description: REST adapter for Fastly TLS API — TLS Private Keys. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/tls/private-keys
+      name: tls-private-keys
+      description: REST surface for tls-private_keys.
+      operations:
+      - method: GET
+        name: listtlsprivatekeys
+        description: List TLS private keys
+        call: tls-tls-private-keys.listtlsprivatekeys
+        with:
+          page[number]: rest.page[number]
+          page[size]: rest.page[size]
+          filter[in_use]: rest.filter[in_use]
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtlsprivatekey
+        description: Create a TLS private key
+        call: tls-tls-private-keys.createtlsprivatekey
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/tls/private-keys/{tls-private-key-id}
+      name: tls-private-keys-tls-private-key-id
+      description: REST surface for tls-private_keys-tls_private_key_id.
+      operations:
+      - method: GET
+        name: gettlsprivatekey
+        description: Get a TLS private key
+        call: tls-tls-private-keys.gettlsprivatekey
+        with:
+          tls_private_key_id: rest.tls_private_key_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetlsprivatekey
+        description: Delete a TLS private key
+        call: tls-tls-private-keys.deletetlsprivatekey
+        with:
+          tls_private_key_id: rest.tls_private_key_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tls-tls-private-keys-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly TLS API — TLS Private Keys. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-tls-private-keys
+      description: List TLS private keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tls-tls-private-keys.listtlsprivatekeys
+      with:
+        page[number]: tools.page[number]
+        page[size]: tools.page[size]
+        filter[in_use]: tools.filter[in_use]
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-tls-private-key
+      description: Create a TLS private key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tls-tls-private-keys.createtlsprivatekey
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-tls-private-key
+      description: Get a TLS private key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tls-tls-private-keys.gettlsprivatekey
+      with:
+        tls_private_key_id: tools.tls_private_key_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tls-private-key
+      description: Delete a TLS private key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tls-tls-private-keys.deletetlsprivatekey
+      with:
+        tls_private_key_id: tools.tls_private_key_id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,226 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Real-Time Logging API — Logging Syslog
+  description: 'Fastly Real-Time Logging API — Logging Syslog. 5 operations. Lead operation: List syslog logging endpoints.
+    Self-contained Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Logging Syslog
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: logging-logging-syslog
+    baseUri: https://api.fastly.com
+    description: Fastly Real-Time Logging API — Logging Syslog business capability. Self-contained, no shared references.
+    resources:
+    - name: service-service_id-version-version_id-logging-syslog
+      path: /service/{service_id}/version/{version_id}/logging/syslog
+      operations:
+      - name: listlogsyslog
+        method: GET
+        description: List syslog logging endpoints
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createlogsyslog
+        method: POST
+        description: Create a syslog logging endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: service-service_id-version-version_id-logging-syslog-logging_syslog_name
+      path: /service/{service_id}/version/{version_id}/logging/syslog/{logging_syslog_name}
+      operations:
+      - name: getlogsyslog
+        method: GET
+        description: Get a syslog logging endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: logging_syslog_name
+          in: path
+          type: string
+          description: The name of the syslog logging endpoint.
+          required: true
+      - name: updatelogsyslog
+        method: PUT
+        description: Update a syslog logging endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: logging_syslog_name
+          in: path
+          type: string
+          description: The name of the syslog logging endpoint.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletelogsyslog
+        method: DELETE
+        description: Delete a syslog logging endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: logging_syslog_name
+          in: path
+          type: string
+          description: The name of the syslog logging endpoint.
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: logging-logging-syslog-rest
+    port: 8080
+    description: REST adapter for Fastly Real-Time Logging API — Logging Syslog. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/service/{service-id}/version/{version-id}/logging/syslog
+      name: service-service-id-version-version-id-logging-syslog
+      description: REST surface for service-service_id-version-version_id-logging-syslog.
+      operations:
+      - method: GET
+        name: listlogsyslog
+        description: List syslog logging endpoints
+        call: logging-logging-syslog.listlogsyslog
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createlogsyslog
+        description: Create a syslog logging endpoint
+        call: logging-logging-syslog.createlogsyslog
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/version/{version-id}/logging/syslog/{logging-syslog-name}
+      name: service-service-id-version-version-id-logging-syslog-logging-syslog-name
+      description: REST surface for service-service_id-version-version_id-logging-syslog-logging_syslog_name.
+      operations:
+      - method: GET
+        name: getlogsyslog
+        description: Get a syslog logging endpoint
+        call: logging-logging-syslog.getlogsyslog
+        with:
+          logging_syslog_name: rest.logging_syslog_name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatelogsyslog
+        description: Update a syslog logging endpoint
+        call: logging-logging-syslog.updatelogsyslog
+        with:
+          logging_syslog_name: rest.logging_syslog_name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletelogsyslog
+        description: Delete a syslog logging endpoint
+        call: logging-logging-syslog.deletelogsyslog
+        with:
+          logging_syslog_name: rest.logging_syslog_name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: logging-logging-syslog-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Real-Time Logging API — Logging Syslog. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-syslog-logging-endpoints
+      description: List syslog logging endpoints
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: logging-logging-syslog.listlogsyslog
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-syslog-logging-endpoint
+      description: Create a syslog logging endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: logging-logging-syslog.createlogsyslog
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-syslog-logging-endpoint
+      description: Get a syslog logging endpoint
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: logging-logging-syslog.getlogsyslog
+      with:
+        logging_syslog_name: tools.logging_syslog_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-syslog-logging-endpoint
+      description: Update a syslog logging endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: logging-logging-syslog.updatelogsyslog
+      with:
+        logging_syslog_name: tools.logging_syslog_name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-syslog-logging-endpoint
+      description: Delete a syslog logging endpoint
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: logging-logging-syslog.deletelogsyslog
+      with:
+        logging_syslog_name: tools.logging_syslog_name
+      outputParameters:
+      - type: object
+        mapping: $.

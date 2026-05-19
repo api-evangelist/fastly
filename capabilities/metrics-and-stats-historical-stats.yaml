@@ -1,0 +1,224 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Metrics and Stats API — Historical Stats
+  description: 'Fastly Metrics and Stats API — Historical Stats. 3 operations. Lead operation: Get historical stats. Self-contained
+    Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Historical Stats
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: metrics-and-stats-historical-stats
+    baseUri: https://rt.fastly.com
+    description: Fastly Metrics and Stats API — Historical Stats business capability. Self-contained, no shared references.
+    resources:
+    - name: stats
+      path: /stats
+      operations:
+      - name: gethistoricalstats
+        method: GET
+        description: Get historical stats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: from
+          in: query
+          type: string
+          description: The start date/time for the query in ISO 8601 or Unix timestamp format.
+        - name: to
+          in: query
+          type: string
+          description: The end date/time for the query in ISO 8601 or Unix timestamp format.
+        - name: by
+          in: query
+          type: string
+          description: The duration of each time bucket in the response.
+        - name: region
+          in: query
+          type: string
+          description: Filter results by Fastly POP region.
+    - name: stats-field-field
+      path: /stats/field/{field}
+      operations:
+      - name: gethistoricalstatsbyfield
+        method: GET
+        description: Get historical stats for a specific field
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: field
+          in: path
+          type: string
+          description: The stats field to retrieve.
+          required: true
+        - name: from
+          in: query
+          type: string
+          description: The start date/time for the query.
+        - name: to
+          in: query
+          type: string
+          description: The end date/time for the query.
+        - name: by
+          in: query
+          type: string
+          description: The duration of each time bucket in the response.
+        - name: region
+          in: query
+          type: string
+          description: Filter results by Fastly POP region.
+    - name: stats-service-service_id
+      path: /stats/service/{service_id}
+      operations:
+      - name: gethistoricalstatsbyservice
+        method: GET
+        description: Get historical stats for a service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: from
+          in: query
+          type: string
+          description: The start date/time for the query.
+        - name: to
+          in: query
+          type: string
+          description: The end date/time for the query.
+        - name: by
+          in: query
+          type: string
+          description: The duration of each time bucket in the response.
+        - name: region
+          in: query
+          type: string
+          description: Filter results by Fastly POP region.
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: metrics-and-stats-historical-stats-rest
+    port: 8080
+    description: REST adapter for Fastly Metrics and Stats API — Historical Stats. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/stats
+      name: stats
+      description: REST surface for stats.
+      operations:
+      - method: GET
+        name: gethistoricalstats
+        description: Get historical stats
+        call: metrics-and-stats-historical-stats.gethistoricalstats
+        with:
+          from: rest.from
+          to: rest.to
+          by: rest.by
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/stats/field/{field}
+      name: stats-field-field
+      description: REST surface for stats-field-field.
+      operations:
+      - method: GET
+        name: gethistoricalstatsbyfield
+        description: Get historical stats for a specific field
+        call: metrics-and-stats-historical-stats.gethistoricalstatsbyfield
+        with:
+          field: rest.field
+          from: rest.from
+          to: rest.to
+          by: rest.by
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/stats/service/{service-id}
+      name: stats-service-service-id
+      description: REST surface for stats-service-service_id.
+      operations:
+      - method: GET
+        name: gethistoricalstatsbyservice
+        description: Get historical stats for a service
+        call: metrics-and-stats-historical-stats.gethistoricalstatsbyservice
+        with:
+          from: rest.from
+          to: rest.to
+          by: rest.by
+          region: rest.region
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: metrics-and-stats-historical-stats-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Metrics and Stats API — Historical Stats. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-historical-stats
+      description: Get historical stats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: metrics-and-stats-historical-stats.gethistoricalstats
+      with:
+        from: tools.from
+        to: tools.to
+        by: tools.by
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-historical-stats-specific-field
+      description: Get historical stats for a specific field
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: metrics-and-stats-historical-stats.gethistoricalstatsbyfield
+      with:
+        field: tools.field
+        from: tools.from
+        to: tools.to
+        by: tools.by
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-historical-stats-service
+      description: Get historical stats for a service
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: metrics-and-stats-historical-stats.gethistoricalstatsbyservice
+      with:
+        from: tools.from
+        to: tools.to
+        by: tools.by
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.

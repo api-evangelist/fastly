@@ -1,0 +1,263 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Domain Management API — Domain
+  description: 'Fastly Domain Management API — Domain. 7 operations. Lead operation: List domains. Self-contained Naftiko
+    capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Domain
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: domain-management-domain
+    baseUri: https://api.fastly.com
+    description: Fastly Domain Management API — Domain business capability. Self-contained, no shared references.
+    resources:
+    - name: service-service_id-version-version_id-domain
+      path: /service/{service_id}/version/{version_id}/domain
+      operations:
+      - name: listdomains
+        method: GET
+        description: List domains
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdomain
+        method: POST
+        description: Create a domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: service-service_id-version-version_id-domain-check_all
+      path: /service/{service_id}/version/{version_id}/domain/check_all
+      operations:
+      - name: checkdomains
+        method: GET
+        description: Check all domains DNS configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: service-service_id-version-version_id-domain-domain_name
+      path: /service/{service_id}/version/{version_id}/domain/{domain_name}
+      operations:
+      - name: getdomain
+        method: GET
+        description: Get a domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatedomain
+        method: PUT
+        description: Update a domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletedomain
+        method: DELETE
+        description: Delete a domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: service-service_id-version-version_id-domain-domain_name-check
+      path: /service/{service_id}/version/{version_id}/domain/{domain_name}/check
+      operations:
+      - name: checkdomain
+        method: GET
+        description: Check domain DNS configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: domain-management-domain-rest
+    port: 8080
+    description: REST adapter for Fastly Domain Management API — Domain. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/service/{service-id}/version/{version-id}/domain
+      name: service-service-id-version-version-id-domain
+      description: REST surface for service-service_id-version-version_id-domain.
+      operations:
+      - method: GET
+        name: listdomains
+        description: List domains
+        call: domain-management-domain.listdomains
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdomain
+        description: Create a domain
+        call: domain-management-domain.createdomain
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/version/{version-id}/domain/check-all
+      name: service-service-id-version-version-id-domain-check-all
+      description: REST surface for service-service_id-version-version_id-domain-check_all.
+      operations:
+      - method: GET
+        name: checkdomains
+        description: Check all domains DNS configuration
+        call: domain-management-domain.checkdomains
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/version/{version-id}/domain/{domain-name}
+      name: service-service-id-version-version-id-domain-domain-name
+      description: REST surface for service-service_id-version-version_id-domain-domain_name.
+      operations:
+      - method: GET
+        name: getdomain
+        description: Get a domain
+        call: domain-management-domain.getdomain
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatedomain
+        description: Update a domain
+        call: domain-management-domain.updatedomain
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedomain
+        description: Delete a domain
+        call: domain-management-domain.deletedomain
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/version/{version-id}/domain/{domain-name}/check
+      name: service-service-id-version-version-id-domain-domain-name-check
+      description: REST surface for service-service_id-version-version_id-domain-domain_name-check.
+      operations:
+      - method: GET
+        name: checkdomain
+        description: Check domain DNS configuration
+        call: domain-management-domain.checkdomain
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: domain-management-domain-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Domain Management API — Domain. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-domains
+      description: List domains
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: domain-management-domain.listdomains
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-domain
+      description: Create a domain
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: domain-management-domain.createdomain
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-all-domains-dns-configuration
+      description: Check all domains DNS configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: domain-management-domain.checkdomains
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-domain
+      description: Get a domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: domain-management-domain.getdomain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-domain
+      description: Update a domain
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: domain-management-domain.updatedomain
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-domain
+      description: Delete a domain
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: domain-management-domain.deletedomain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-domain-dns-configuration
+      description: Check domain DNS configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: domain-management-domain.checkdomain
+      outputParameters:
+      - type: object
+        mapping: $.

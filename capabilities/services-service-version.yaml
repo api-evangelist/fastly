@@ -1,0 +1,260 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Services API — Service Version
+  description: 'Fastly Services API — Service Version. 7 operations. Lead operation: List versions of a service. Self-contained
+    Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Service Version
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: services-service-version
+    baseUri: https://api.fastly.com
+    description: Fastly Services API — Service Version business capability. Self-contained, no shared references.
+    resources:
+    - name: service-service_id-version
+      path: /service/{service_id}/version
+      operations:
+      - name: listserviceversions
+        method: GET
+        description: List versions of a service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createserviceversion
+        method: POST
+        description: Create a service version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: service-service_id-version-version_id
+      path: /service/{service_id}/version/{version_id}
+      operations:
+      - name: getserviceversion
+        method: GET
+        description: Get a service version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateserviceversion
+        method: PUT
+        description: Update a service version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: service-service_id-version-version_id-activate
+      path: /service/{service_id}/version/{version_id}/activate
+      operations:
+      - name: activateserviceversion
+        method: PUT
+        description: Activate a service version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: service-service_id-version-version_id-clone
+      path: /service/{service_id}/version/{version_id}/clone
+      operations:
+      - name: cloneserviceversion
+        method: PUT
+        description: Clone a service version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: service-service_id-version-version_id-deactivate
+      path: /service/{service_id}/version/{version_id}/deactivate
+      operations:
+      - name: deactivateserviceversion
+        method: PUT
+        description: Deactivate a service version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: services-service-version-rest
+    port: 8080
+    description: REST adapter for Fastly Services API — Service Version. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/service/{service-id}/version
+      name: service-service-id-version
+      description: REST surface for service-service_id-version.
+      operations:
+      - method: GET
+        name: listserviceversions
+        description: List versions of a service
+        call: services-service-version.listserviceversions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createserviceversion
+        description: Create a service version
+        call: services-service-version.createserviceversion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/version/{version-id}
+      name: service-service-id-version-version-id
+      description: REST surface for service-service_id-version-version_id.
+      operations:
+      - method: GET
+        name: getserviceversion
+        description: Get a service version
+        call: services-service-version.getserviceversion
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateserviceversion
+        description: Update a service version
+        call: services-service-version.updateserviceversion
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/version/{version-id}/activate
+      name: service-service-id-version-version-id-activate
+      description: REST surface for service-service_id-version-version_id-activate.
+      operations:
+      - method: PUT
+        name: activateserviceversion
+        description: Activate a service version
+        call: services-service-version.activateserviceversion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/version/{version-id}/clone
+      name: service-service-id-version-version-id-clone
+      description: REST surface for service-service_id-version-version_id-clone.
+      operations:
+      - method: PUT
+        name: cloneserviceversion
+        description: Clone a service version
+        call: services-service-version.cloneserviceversion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/version/{version-id}/deactivate
+      name: service-service-id-version-version-id-deactivate
+      description: REST surface for service-service_id-version-version_id-deactivate.
+      operations:
+      - method: PUT
+        name: deactivateserviceversion
+        description: Deactivate a service version
+        call: services-service-version.deactivateserviceversion
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: services-service-version-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Services API — Service Version. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-versions-service
+      description: List versions of a service
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: services-service-version.listserviceversions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-service-version
+      description: Create a service version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: services-service-version.createserviceversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-service-version
+      description: Get a service version
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: services-service-version.getserviceversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-service-version
+      description: Update a service version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: services-service-version.updateserviceversion
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: activate-service-version
+      description: Activate a service version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: services-service-version.activateserviceversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: clone-service-version
+      description: Clone a service version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: services-service-version.cloneserviceversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deactivate-service-version
+      description: Deactivate a service version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: services-service-version.deactivateserviceversion
+      outputParameters:
+      - type: object
+        mapping: $.

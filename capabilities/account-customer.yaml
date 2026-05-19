@@ -1,0 +1,156 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Account API — Customer
+  description: 'Fastly Account API — Customer. 3 operations. Lead operation: Get the current customer. Self-contained Naftiko
+    capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Customer
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-customer
+    baseUri: https://api.fastly.com
+    description: Fastly Account API — Customer business capability. Self-contained, no shared references.
+    resources:
+    - name: current_customer
+      path: /current_customer
+      operations:
+      - name: getcurrentcustomer
+        method: GET
+        description: Get the current customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customer-customer_id
+      path: /customer/{customer_id}
+      operations:
+      - name: getcustomer
+        method: GET
+        description: Get a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customer_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the customer.
+          required: true
+      - name: updatecustomer
+        method: PUT
+        description: Update a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customer_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the customer.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: account-customer-rest
+    port: 8080
+    description: REST adapter for Fastly Account API — Customer. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/current-customer
+      name: current-customer
+      description: REST surface for current_customer.
+      operations:
+      - method: GET
+        name: getcurrentcustomer
+        description: Get the current customer
+        call: account-customer.getcurrentcustomer
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customer/{customer-id}
+      name: customer-customer-id
+      description: REST surface for customer-customer_id.
+      operations:
+      - method: GET
+        name: getcustomer
+        description: Get a customer
+        call: account-customer.getcustomer
+        with:
+          customer_id: rest.customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecustomer
+        description: Update a customer
+        call: account-customer.updatecustomer
+        with:
+          customer_id: rest.customer_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-customer-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Account API — Customer. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-current-customer
+      description: Get the current customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-customer.getcurrentcustomer
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-customer
+      description: Get a customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-customer.getcustomer
+      with:
+        customer_id: tools.customer_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-customer
+      description: Update a customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: account-customer.updatecustomer
+      with:
+        customer_id: tools.customer_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

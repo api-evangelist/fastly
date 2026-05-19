@@ -1,0 +1,107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly VCL Services API — Condition
+  description: 'Fastly VCL Services API — Condition. 2 operations. Lead operation: List conditions. Self-contained Naftiko
+    capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Condition
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: vcl-services-condition
+    baseUri: https://api.fastly.com
+    description: Fastly VCL Services API — Condition business capability. Self-contained, no shared references.
+    resources:
+    - name: service-service_id-version-version_id-condition
+      path: /service/{service_id}/version/{version_id}/condition
+      operations:
+      - name: listconditions
+        method: GET
+        description: List conditions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcondition
+        method: POST
+        description: Create a condition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: vcl-services-condition-rest
+    port: 8080
+    description: REST adapter for Fastly VCL Services API — Condition. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/service/{service-id}/version/{version-id}/condition
+      name: service-service-id-version-version-id-condition
+      description: REST surface for service-service_id-version-version_id-condition.
+      operations:
+      - method: GET
+        name: listconditions
+        description: List conditions
+        call: vcl-services-condition.listconditions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcondition
+        description: Create a condition
+        call: vcl-services-condition.createcondition
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: vcl-services-condition-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly VCL Services API — Condition. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-conditions
+      description: List conditions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vcl-services-condition.listconditions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-condition
+      description: Create a condition
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: vcl-services-condition.createcondition
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

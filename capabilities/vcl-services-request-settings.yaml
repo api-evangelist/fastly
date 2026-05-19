@@ -1,0 +1,107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly VCL Services API — Request Settings
+  description: 'Fastly VCL Services API — Request Settings. 2 operations. Lead operation: List request settings. Self-contained
+    Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Request Settings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: vcl-services-request-settings
+    baseUri: https://api.fastly.com
+    description: Fastly VCL Services API — Request Settings business capability. Self-contained, no shared references.
+    resources:
+    - name: service-service_id-version-version_id-request_settings
+      path: /service/{service_id}/version/{version_id}/request_settings
+      operations:
+      - name: listrequestsettings
+        method: GET
+        description: List request settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createrequestsettings
+        method: POST
+        description: Create request settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: vcl-services-request-settings-rest
+    port: 8080
+    description: REST adapter for Fastly VCL Services API — Request Settings. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/service/{service-id}/version/{version-id}/request-settings
+      name: service-service-id-version-version-id-request-settings
+      description: REST surface for service-service_id-version-version_id-request_settings.
+      operations:
+      - method: GET
+        name: listrequestsettings
+        description: List request settings
+        call: vcl-services-request-settings.listrequestsettings
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createrequestsettings
+        description: Create request settings
+        call: vcl-services-request-settings.createrequestsettings
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: vcl-services-request-settings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly VCL Services API — Request Settings. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-request-settings
+      description: List request settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: vcl-services-request-settings.listrequestsettings
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-request-settings
+      description: Create request settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: vcl-services-request-settings.createrequestsettings
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

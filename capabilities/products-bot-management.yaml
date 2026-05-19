@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Products API — Bot Management
+  description: 'Fastly Products API — Bot Management. 3 operations. Lead operation: Get Bot Management status. Self-contained
+    Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - Bot Management
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: products-bot-management
+    baseUri: https://api.fastly.com
+    description: Fastly Products API — Bot Management business capability. Self-contained, no shared references.
+    resources:
+    - name: enabled-products-v1-bot_management-services-service_id
+      path: /enabled-products/v1/bot_management/services/{service_id}
+      operations:
+      - name: getbotmanagementstatus
+        method: GET
+        description: Get Bot Management status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: enablebotmanagement
+        method: PUT
+        description: Enable Bot Management
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: disablebotmanagement
+        method: DELETE
+        description: Disable Bot Management
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: products-bot-management-rest
+    port: 8080
+    description: REST adapter for Fastly Products API — Bot Management. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/enabled-products/v1/bot-management/services/{service-id}
+      name: enabled-products-v1-bot-management-services-service-id
+      description: REST surface for enabled-products-v1-bot_management-services-service_id.
+      operations:
+      - method: GET
+        name: getbotmanagementstatus
+        description: Get Bot Management status
+        call: products-bot-management.getbotmanagementstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: enablebotmanagement
+        description: Enable Bot Management
+        call: products-bot-management.enablebotmanagement
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: disablebotmanagement
+        description: Disable Bot Management
+        call: products-bot-management.disablebotmanagement
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: products-bot-management-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Products API — Bot Management. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-bot-management-status
+      description: Get Bot Management status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: products-bot-management.getbotmanagementstatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: enable-bot-management
+      description: Enable Bot Management
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: products-bot-management.enablebotmanagement
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: disable-bot-management
+      description: Disable Bot Management
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: products-bot-management.disablebotmanagement
+      outputParameters:
+      - type: object
+        mapping: $.

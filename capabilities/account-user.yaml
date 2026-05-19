@@ -1,0 +1,275 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Account API — User
+  description: 'Fastly Account API — User. 6 operations. Lead operation: Get the current user. Self-contained Naftiko capability
+    covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - User
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-user
+    baseUri: https://api.fastly.com
+    description: Fastly Account API — User business capability. Self-contained, no shared references.
+    resources:
+    - name: current_user
+      path: /current_user
+      operations:
+      - name: getcurrentuser
+        method: GET
+        description: Get the current user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customer-customer_id-users
+      path: /customer/{customer_id}/users
+      operations:
+      - name: listcustomerusers
+        method: GET
+        description: List users for a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customer_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the customer.
+          required: true
+    - name: invitations
+      path: /invitations
+      operations:
+      - name: createinvitation
+        method: POST
+        description: Create a user invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: user-user_id
+      path: /user/{user_id}
+      operations:
+      - name: getuser
+        method: GET
+        description: Get a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the user.
+          required: true
+      - name: updateuser
+        method: PUT
+        description: Update a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the user.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deleteuser
+        method: DELETE
+        description: Delete a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          description: The alphanumeric string identifying the user.
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: account-user-rest
+    port: 8080
+    description: REST adapter for Fastly Account API — User. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/current-user
+      name: current-user
+      description: REST surface for current_user.
+      operations:
+      - method: GET
+        name: getcurrentuser
+        description: Get the current user
+        call: account-user.getcurrentuser
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customer/{customer-id}/users
+      name: customer-customer-id-users
+      description: REST surface for customer-customer_id-users.
+      operations:
+      - method: GET
+        name: listcustomerusers
+        description: List users for a customer
+        call: account-user.listcustomerusers
+        with:
+          customer_id: rest.customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/invitations
+      name: invitations
+      description: REST surface for invitations.
+      operations:
+      - method: POST
+        name: createinvitation
+        description: Create a user invitation
+        call: account-user.createinvitation
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/user/{user-id}
+      name: user-user-id
+      description: REST surface for user-user_id.
+      operations:
+      - method: GET
+        name: getuser
+        description: Get a user
+        call: account-user.getuser
+        with:
+          user_id: rest.user_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateuser
+        description: Update a user
+        call: account-user.updateuser
+        with:
+          user_id: rest.user_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteuser
+        description: Delete a user
+        call: account-user.deleteuser
+        with:
+          user_id: rest.user_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-user-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Account API — User. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-current-user
+      description: Get the current user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-user.getcurrentuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-users-customer
+      description: List users for a customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-user.listcustomerusers
+      with:
+        customer_id: tools.customer_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-user-invitation
+      description: Create a user invitation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: account-user.createinvitation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user
+      description: Get a user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-user.getuser
+      with:
+        user_id: tools.user_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-user
+      description: Update a user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: account-user.updateuser
+      with:
+        user_id: tools.user_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-user
+      description: Delete a user
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: account-user.deleteuser
+      with:
+        user_id: tools.user_id
+      outputParameters:
+      - type: object
+        mapping: $.

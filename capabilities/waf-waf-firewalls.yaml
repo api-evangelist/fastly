@@ -1,0 +1,236 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Next-Gen WAF API — WAF Firewalls
+  description: 'Fastly Next-Gen WAF API — WAF Firewalls. 5 operations. Lead operation: List WAF firewalls. Self-contained
+    Naftiko capability covering one Fastly business surface.'
+  tags:
+  - Fastly
+  - WAF Firewalls
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: waf-waf-firewalls
+    baseUri: https://api.fastly.com
+    description: Fastly Next-Gen WAF API — WAF Firewalls business capability. Self-contained, no shared references.
+    resources:
+    - name: waf-firewalls
+      path: /waf/firewalls
+      operations:
+      - name: listwaffirewalls
+        method: GET
+        description: List WAF firewalls
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page[number]
+          in: query
+          type: integer
+          description: The page number to retrieve.
+        - name: page[size]
+          in: query
+          type: integer
+          description: The number of items per page.
+        - name: filter[service_id]
+          in: query
+          type: string
+          description: Filter firewalls by service ID.
+        - name: include
+          in: query
+          type: string
+          description: Related resources to include in the response.
+      - name: createwaffirewall
+        method: POST
+        description: Create a WAF firewall
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: waf-firewalls-firewall_id
+      path: /waf/firewalls/{firewall_id}
+      operations:
+      - name: getwaffirewall
+        method: GET
+        description: Get a WAF firewall
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatewaffirewall
+        method: PATCH
+        description: Update a WAF firewall
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletewaffirewall
+        method: DELETE
+        description: Delete a WAF firewall
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: waf-waf-firewalls-rest
+    port: 8080
+    description: REST adapter for Fastly Next-Gen WAF API — WAF Firewalls. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/waf/firewalls
+      name: waf-firewalls
+      description: REST surface for waf-firewalls.
+      operations:
+      - method: GET
+        name: listwaffirewalls
+        description: List WAF firewalls
+        call: waf-waf-firewalls.listwaffirewalls
+        with:
+          page[number]: rest.page[number]
+          page[size]: rest.page[size]
+          filter[service_id]: rest.filter[service_id]
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createwaffirewall
+        description: Create a WAF firewall
+        call: waf-waf-firewalls.createwaffirewall
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/waf/firewalls/{firewall-id}
+      name: waf-firewalls-firewall-id
+      description: REST surface for waf-firewalls-firewall_id.
+      operations:
+      - method: GET
+        name: getwaffirewall
+        description: Get a WAF firewall
+        call: waf-waf-firewalls.getwaffirewall
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatewaffirewall
+        description: Update a WAF firewall
+        call: waf-waf-firewalls.updatewaffirewall
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewaffirewall
+        description: Delete a WAF firewall
+        call: waf-waf-firewalls.deletewaffirewall
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: waf-waf-firewalls-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Next-Gen WAF API — WAF Firewalls. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-waf-firewalls
+      description: List WAF firewalls
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: waf-waf-firewalls.listwaffirewalls
+      with:
+        page[number]: tools.page[number]
+        page[size]: tools.page[size]
+        filter[service_id]: tools.filter[service_id]
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-waf-firewall
+      description: Create a WAF firewall
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: waf-waf-firewalls.createwaffirewall
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-waf-firewall
+      description: Get a WAF firewall
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: waf-waf-firewalls.getwaffirewall
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-waf-firewall
+      description: Update a WAF firewall
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: waf-waf-firewalls.updatewaffirewall
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-waf-firewall
+      description: Delete a WAF firewall
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: waf-waf-firewalls.deletewaffirewall
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

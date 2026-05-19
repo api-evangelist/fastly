@@ -1,0 +1,287 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Services API
+  description: 'Fastly Services API. 7 operations. Lead operation: List services. Self-contained Naftiko capability covering
+    one Fastly business surface.'
+  tags:
+  - Fastly
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: services-general
+    baseUri: https://api.fastly.com
+    description: Fastly Services API business capability. Self-contained, no shared references.
+    resources:
+    - name: service
+      path: /service
+      operations:
+      - name: listservices
+        method: GET
+        description: List services
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sort
+          in: query
+          type: string
+          description: The field to sort results by.
+        - name: direction
+          in: query
+          type: string
+          description: The direction to sort results in.
+      - name: createservice
+        method: POST
+        description: Create a service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: service-search
+      path: /service/search
+      operations:
+      - name: searchservice
+        method: GET
+        description: Search for a service by name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: query
+          type: string
+          description: The name of the service to search for.
+          required: true
+    - name: service-service_id
+      path: /service/{service_id}
+      operations:
+      - name: getservice
+        method: GET
+        description: Get a service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateservice
+        method: PUT
+        description: Update a service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteservice
+        method: DELETE
+        description: Delete a service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: service-service_id-details
+      path: /service/{service_id}/details
+      operations:
+      - name: getservicedetails
+        method: GET
+        description: Get service details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: services-general-rest
+    port: 8080
+    description: REST adapter for Fastly Services API. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/service
+      name: service
+      description: REST surface for service.
+      operations:
+      - method: GET
+        name: listservices
+        description: List services
+        call: services-general.listservices
+        with:
+          sort: rest.sort
+          direction: rest.direction
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createservice
+        description: Create a service
+        call: services-general.createservice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/search
+      name: service-search
+      description: REST surface for service-search.
+      operations:
+      - method: GET
+        name: searchservice
+        description: Search for a service by name
+        call: services-general.searchservice
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}
+      name: service-service-id
+      description: REST surface for service-service_id.
+      operations:
+      - method: GET
+        name: getservice
+        description: Get a service
+        call: services-general.getservice
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateservice
+        description: Update a service
+        call: services-general.updateservice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteservice
+        description: Delete a service
+        call: services-general.deleteservice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/service/{service-id}/details
+      name: service-service-id-details
+      description: REST surface for service-service_id-details.
+      operations:
+      - method: GET
+        name: getservicedetails
+        description: Get service details
+        call: services-general.getservicedetails
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: services-general-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Services API. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-services
+      description: List services
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: services-general.listservices
+      with:
+        sort: tools.sort
+        direction: tools.direction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-service
+      description: Create a service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: services-general.createservice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-service-name
+      description: Search for a service by name
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: services-general.searchservice
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-service
+      description: Get a service
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: services-general.getservice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-service
+      description: Update a service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: services-general.updateservice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-service
+      description: Delete a service
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: services-general.deleteservice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-service-details
+      description: Get service details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: services-general.getservicedetails
+      outputParameters:
+      - type: object
+        mapping: $.
