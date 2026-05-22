@@ -1,0 +1,59 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Observability — Custom Dashboards
+  description: Manage Fastly custom observability dashboards.
+  tags: [Fastly, Observability, Dashboards]
+  created: '2026-05-22'
+  modified: '2026-05-22'
+binds:
+- namespace: env
+  keys: { FASTLY_API_KEY: FASTLY_API_KEY }
+capability:
+  consumes:
+  - type: http
+    namespace: observability-custom-dashboards
+    baseUri: https://api.fastly.com
+    description: Fastly custom dashboards CRUD.
+    resources:
+    - name: dashboards
+      path: /observability/dashboards
+      operations:
+      - { name: listdashboards, method: GET, description: List custom dashboards, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+      - { name: createdashboard, method: POST, description: Create custom dashboard, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    - name: dashboard
+      path: /observability/dashboards/{dashboard_id}
+      operations:
+      - { name: getdashboard, method: GET, description: Get custom dashboard, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+      - { name: updatedashboard, method: PATCH, description: Update custom dashboard, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+      - { name: deletedashboard, method: DELETE, description: Delete custom dashboard, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    authentication: { type: apikey, key: Fastly-Key, value: '{{env.FASTLY_API_KEY}}', placement: header }
+  exposes:
+  - type: rest
+    namespace: observability-custom-dashboards-rest
+    port: 8080
+    description: REST adapter.
+    resources:
+    - path: /v1/observability/dashboards
+      name: dashboards
+      description: Dashboards collection.
+      operations:
+      - { method: GET, name: listdashboards, description: List custom dashboards, call: observability-custom-dashboards.listdashboards, outputParameters: [ { type: object, mapping: $. } ] }
+      - { method: POST, name: createdashboard, description: Create custom dashboard, call: observability-custom-dashboards.createdashboard, outputParameters: [ { type: object, mapping: $. } ] }
+    - path: /v1/observability/dashboards/{dashboard-id}
+      name: dashboard
+      description: Single dashboard.
+      operations:
+      - { method: GET, name: getdashboard, description: Get custom dashboard, call: observability-custom-dashboards.getdashboard, outputParameters: [ { type: object, mapping: $. } ] }
+      - { method: PATCH, name: updatedashboard, description: Update custom dashboard, call: observability-custom-dashboards.updatedashboard, outputParameters: [ { type: object, mapping: $. } ] }
+      - { method: DELETE, name: deletedashboard, description: Delete custom dashboard, call: observability-custom-dashboards.deletedashboard, outputParameters: [ { type: object, mapping: $. } ] }
+  - type: mcp
+    namespace: observability-custom-dashboards-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter.
+    tools:
+    - { name: list-dashboards, description: List Fastly custom dashboards, hints: { readOnly: true, destructive: false, idempotent: true }, call: observability-custom-dashboards.listdashboards, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: create-dashboard, description: Create a Fastly custom dashboard, hints: { readOnly: false, destructive: false, idempotent: false }, call: observability-custom-dashboards.createdashboard, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: get-dashboard, description: Get a Fastly custom dashboard, hints: { readOnly: true, destructive: false, idempotent: true }, call: observability-custom-dashboards.getdashboard, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: update-dashboard, description: Update a Fastly custom dashboard, hints: { readOnly: false, destructive: false, idempotent: true }, call: observability-custom-dashboards.updatedashboard, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: delete-dashboard, description: Delete a Fastly custom dashboard, hints: { readOnly: false, destructive: true, idempotent: true }, call: observability-custom-dashboards.deletedashboard, outputParameters: [ { type: object, mapping: $. } ] }

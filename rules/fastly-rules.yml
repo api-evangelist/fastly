@@ -1,0 +1,72 @@
+extends: ["spectral:oas"]
+
+documentationUrl: https://github.com/api-evangelist/fastly/blob/main/rules/fastly-rules.yml
+
+rules:
+  # Fastly conventions
+  fastly-operation-tag-required:
+    description: Every operation must have at least one tag matching a Fastly API surface.
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch,head,options]
+    then:
+      field: tags
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+
+  fastly-operation-summary-title-case:
+    description: Operation summaries must use Title Case.
+    severity: warn
+    given: $.paths[*][get,put,post,delete,patch,head,options].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][a-zA-Z0-9]*)( [A-Z][a-zA-Z0-9]*)*$"
+
+  fastly-operationid-camel-case:
+    description: operationId must be lowerCamelCase.
+    severity: warn
+    given: $.paths[*][get,put,post,delete,patch,head,options].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  fastly-fastly-key-security:
+    description: Operations should be secured via the Fastly-Key API key header.
+    severity: info
+    given: $
+    then:
+      field: components.securitySchemes
+      function: truthy
+
+  fastly-no-numeric-status-keys-without-description:
+    description: Every response must have a description.
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch,head,options].responses[*]
+    then:
+      field: description
+      function: truthy
+
+  fastly-server-url-https:
+    description: Servers must use https.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  fastly-info-required:
+    description: Every spec must define info.title, info.description, and info.version.
+    severity: error
+    given: $.info
+    then:
+      - field: title
+        function: truthy
+      - field: description
+        function: truthy
+      - field: version
+        function: truthy

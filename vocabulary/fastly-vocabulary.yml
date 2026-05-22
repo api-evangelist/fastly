@@ -1,0 +1,79 @@
+vocabulary: Fastly
+version: '1.0'
+provider: Fastly
+providerId: fastly
+description: Vocabulary mapping Fastly's edge cloud platform — CDN, Compute, AI, Security, Storage, Observability — into a consistent set of terms used across the API Evangelist apis.yml, capabilities, schemas, and JSON-LD context.
+sources:
+  - https://www.fastly.com/documentation/reference/api/
+  - https://www.fastly.com/products
+  - https://www.fastly.com/pricing
+modified: '2026-05-22'
+
+domains:
+  - name: Edge Network
+    description: Global content delivery and origin protection.
+    terms:
+      - { term: Service, definition: A Fastly configuration that maps domains to backends. }
+      - { term: ServiceVersion, definition: A snapshot of a service configuration. Active versions handle live traffic. }
+      - { term: Backend, definition: An origin server reachable from Fastly. }
+      - { term: Domain, definition: A hostname routed through a service. }
+      - { term: POP, definition: Point of Presence — a Fastly data center serving edge traffic. }
+      - { term: Shield, definition: A regional caching POP used to reduce origin traffic. }
+      - { term: Purge, definition: Invalidate cached content by URL or surrogate key. }
+      - { term: SurrogateKey, definition: A tag applied to objects to enable grouped cache invalidation. }
+  - name: Edge Compute
+    description: WebAssembly serverless platform.
+    terms:
+      - { term: ComputePackage, definition: A WebAssembly bundle deployed to Fastly Compute. }
+      - { term: KVStore, definition: Edge key-value storage usable from Compute services. }
+      - { term: ConfigStore, definition: Edge configuration data store, formerly Edge Dictionaries. }
+      - { term: SecretStore, definition: Encrypted secret store accessible from Compute services. }
+      - { term: DynamicBackend, definition: A backend defined at runtime by a Compute service. }
+  - name: Security
+    description: NGWAF, DDoS, Bot Management, API Security, CSP, AI Bot Management.
+    terms:
+      - { term: Workspace, definition: NGWAF tenant boundary for sites and rules. }
+      - { term: Signal, definition: NGWAF detection categorization applied to a request. }
+      - { term: VirtualPatch, definition: NGWAF blocking rule for a specific vulnerability. }
+      - { term: DDoSEvent, definition: A detected and mitigated denial-of-service attack. }
+      - { term: BotManagement, definition: Behavioral detection of automated traffic. }
+      - { term: AIBotManagement, definition: Targeted blocking and monetization of AI crawlers and scrapers. }
+      - { term: CSP, definition: Client-Side Protection — script inventory and security policy management. }
+      - { term: APISecurityOperation, definition: An auto-discovered API endpoint in the Fastly catalog. }
+  - name: AI
+    description: AI Accelerator and MCP Server.
+    terms:
+      - { term: AIAccelerator, definition: Semantic caching proxy for LLM APIs (OpenAI, Google Gemini). }
+      - { term: SemanticCache, definition: Cache keyed by vector similarity of prompts rather than exact-string match. }
+      - { term: MCPServer, definition: Model Context Protocol server for AI-driven Fastly service management. }
+  - name: Storage
+    description: Object Storage.
+    terms:
+      - { term: ObjectStorageBucket, definition: S3-compatible bucket in Fastly Object Storage. }
+      - { term: ObjectStorageObject, definition: Stored object identified by bucket and key. }
+      - { term: ZeroEgress, definition: Pricing model where data transferred out of Object Storage is not metered. }
+  - name: Observability
+    description: Alerts, dashboards, logs, timeseries.
+    terms:
+      - { term: AlertDefinition, definition: A rule that evaluates a metric and notifies integrations on breach. }
+      - { term: NotificationIntegration, definition: A target endpoint (Slack, PagerDuty, webhook) that receives alert events. }
+      - { term: CustomDashboard, definition: A user-defined collection of charts for service observability. }
+      - { term: Timeseries, definition: A queryable time-bucketed metric stream. }
+  - name: Identity and Access
+    description: Customer, user, IAM.
+    terms:
+      - { term: Customer, definition: A Fastly account at the top of the resource hierarchy. }
+      - { term: User, definition: A human or service account scoped to a customer. }
+      - { term: Token, definition: A scoped API credential for authenticating to api.fastly.com. }
+      - { term: IAMRole, definition: A named permission set. }
+      - { term: UserGroup, definition: A group of users sharing roles. }
+      - { term: ServiceGroup, definition: A group of services for scoped permissioning. }
+
+axes:
+  operational:
+    - { axis: Deployment, values: [SaaS, Edge, Multi-Region] }
+    - { axis: Pricing, values: [Free Tier, Usage-Based, Package, Enterprise] }
+    - { axis: Authentication, values: [API Key, IAM Roles, Sudo Mode] }
+  capability:
+    - { axis: Surface, values: [REST, MCP, Fanout WebSocket, S3-Compatible] }
+    - { axis: Concern, values: [Delivery, Compute, Security, Storage, AI, Observability] }

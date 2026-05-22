@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.fastly.ai/openai/v1/chat/completions",
+    "headers": {
+      "Fastly-Key": "FASTLY_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "gpt-4o-mini",
+      "messages": [
+        { "role": "system", "content": "You are a helpful assistant." },
+        { "role": "user", "content": "What is the capital of France?" }
+      ],
+      "temperature": 0.2,
+      "max_tokens": 50
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "X-Fastly-AI-Cache": "HIT",
+      "X-Fastly-AI-Similarity": "0.984"
+    },
+    "body": {
+      "id": "chatcmpl-9oXa9w0",
+      "object": "chat.completion",
+      "created": 1747900000,
+      "model": "gpt-4o-mini",
+      "choices": [
+        {
+          "index": 0,
+          "message": { "role": "assistant", "content": "The capital of France is Paris." },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": { "prompt_tokens": 22, "completion_tokens": 8, "total_tokens": 30 },
+      "x_fastly_cache": { "status": "HIT", "similarity": 0.984 }
+    }
+  }
+}

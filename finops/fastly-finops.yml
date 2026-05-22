@@ -4,15 +4,17 @@ schema: https://www.finops.org/framework/
 provider: Fastly
 providerId: fastly
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-22'
 reconciled: true
 tags:
   - FinOps
   - FOCUS
   - Edge Network
-description: FOCUS-aligned FinOps for Fastly.
+  - AI
+description: FOCUS-aligned FinOps inventory for Fastly. Covers CDN bandwidth and requests, Compute@Edge requests and vCPU ms, Object Storage usage and operations, AI Accelerator request volume, Image Optimizer requests, and security product add-ons.
 sources:
   - https://www.fastly.com/pricing
+  - https://www.fastly.com/products
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -32,34 +34,23 @@ focusColumns:
   PublisherName: Fastly
   BillingCurrency: USD
 meters:
-  - name: bandwidth_delivered
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - region
-  - name: requests_delivered
-    unit: request
-    aggregation: sum
-    dimensions:
-      - region
-  - name: compute_requests
-    unit: request
-    aggregation: sum
-  - name: compute_vcpu_ms
-    unit: ms
-    aggregation: sum
-  - name: object_storage
-    unit: GB-month
-    aggregation: max
-  - name: image_optimization_requests
-    unit: request
-    aggregation: sum
+  - { name: bandwidth_delivered, unit: GB, aggregation: sum, dimensions: [region] }
+  - { name: requests_delivered, unit: request, aggregation: sum, dimensions: [region] }
+  - { name: compute_requests, unit: request, aggregation: sum }
+  - { name: compute_vcpu_ms, unit: ms, aggregation: sum }
+  - { name: object_storage_capacity, unit: GB-month, aggregation: max }
+  - { name: object_storage_class_a_ops, unit: operation, aggregation: sum }
+  - { name: object_storage_class_b_ops, unit: operation, aggregation: sum }
+  - { name: image_optimizer_requests, unit: request, aggregation: sum }
+  - { name: ai_accelerator_requests, unit: request, aggregation: sum }
+  - { name: domain_research_requests, unit: request, aggregation: sum }
+  - { name: tls_domains, unit: domain, aggregation: max }
+costAllocationTags:
+  - { name: service_id, source: fastly_service_id, description: Tag spend by Fastly service ID }
+  - { name: project, source: customer_tagging, description: Customer-defined project tag }
+  - { name: team, source: customer_tagging, description: Customer-defined team/owner tag }
 principles:
-  - name: Visibility
-    description: Track Fastly consumption monthly.
-  - name: Allocation
-    description: Tag usage to teams/cost centers.
-  - name: Optimization
-    description: Right-size tier; reclaim unused entitlements.
-  - name: Accountability
-    description: Set spend alerts; quarterly review.
+  - { name: Visibility, description: Track Fastly consumption monthly across CDN, Compute, AI, Storage, Security. }
+  - { name: Allocation, description: Tag usage by service, team, and cost center using Fastly service IDs and customer tags. }
+  - { name: Optimization, description: Right-size CDN package vs PAYG; lean on AI Accelerator semantic caching to cut LLM token spend; use Object Storage zero-egress to displace alternative providers. }
+  - { name: Accountability, description: Set spend alerts via Observability Alerts API; conduct quarterly tier reviews. }

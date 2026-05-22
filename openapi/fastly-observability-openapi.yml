@@ -1,0 +1,184 @@
+openapi: 3.0.3
+info:
+  title: Fastly Observability API
+  description: |
+    The Fastly Observability APIs enable you to setup and manage Fastly's
+    Observability features on your site, product or service across all Network
+    Services, Compute and Security product lines. Sub-resources include Alerts,
+    Custom Dashboards, Insights, Log Aggregations, Log Explorer, Notification
+    Service, and Timeseries.
+  version: '1.0.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+servers:
+  - url: https://api.fastly.com
+    description: Fastly Production API
+security:
+  - FastlyKey: []
+tags:
+  - name: Alerts
+  - name: Custom Dashboards
+  - name: Insights
+  - name: Log Aggregations
+  - name: Log Explorer
+  - name: Notification Service
+  - name: Timeseries
+paths:
+  /alerts/definitions:
+    get:
+      tags: [Alerts]
+      summary: List Alert Definitions
+      operationId: listAlertDefinitions
+      responses:
+        '200': { description: A list of alert definitions }
+    post:
+      tags: [Alerts]
+      summary: Create Alert Definition
+      operationId: createAlertDefinition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AlertDefinition' }
+      responses:
+        '201': { description: Alert definition created }
+  /alerts/definitions/{definition_id}:
+    parameters:
+      - { in: path, name: definition_id, required: true, schema: { type: string } }
+    get:
+      tags: [Alerts]
+      summary: Get Alert Definition
+      operationId: getAlertDefinition
+      responses:
+        '200': { description: An alert definition }
+    patch:
+      tags: [Alerts]
+      summary: Update Alert Definition
+      operationId: updateAlertDefinition
+      responses:
+        '200': { description: Updated alert definition }
+    delete:
+      tags: [Alerts]
+      summary: Delete Alert Definition
+      operationId: deleteAlertDefinition
+      responses:
+        '204': { description: Deleted }
+  /alerts/history:
+    get:
+      tags: [Alerts]
+      summary: List Alert History
+      operationId: listAlertHistory
+      responses:
+        '200': { description: Alert history entries }
+  /observability/dashboards:
+    get:
+      tags: [Custom Dashboards]
+      summary: List Custom Dashboards
+      operationId: listCustomDashboards
+      responses:
+        '200': { description: A list of custom dashboards }
+    post:
+      tags: [Custom Dashboards]
+      summary: Create Custom Dashboard
+      operationId: createCustomDashboard
+      responses:
+        '201': { description: Dashboard created }
+  /observability/dashboards/{dashboard_id}:
+    parameters:
+      - { in: path, name: dashboard_id, required: true, schema: { type: string } }
+    get:
+      tags: [Custom Dashboards]
+      summary: Get Custom Dashboard
+      operationId: getCustomDashboard
+      responses:
+        '200': { description: A custom dashboard }
+    patch:
+      tags: [Custom Dashboards]
+      summary: Update Custom Dashboard
+      operationId: updateCustomDashboard
+      responses:
+        '200': { description: Updated }
+    delete:
+      tags: [Custom Dashboards]
+      summary: Delete Custom Dashboard
+      operationId: deleteCustomDashboard
+      responses:
+        '204': { description: Deleted }
+  /observability/aggregations/logs:
+    post:
+      tags: [Log Aggregations]
+      summary: Aggregate Log Data
+      operationId: aggregateLogData
+      responses:
+        '200': { description: Aggregated log results }
+  /observability/logs:
+    post:
+      tags: [Log Explorer]
+      summary: Search Logs
+      operationId: searchLogs
+      responses:
+        '200': { description: Log search results }
+  /notifications/integrations:
+    get:
+      tags: [Notification Service]
+      summary: List Notification Integrations
+      operationId: listNotificationIntegrations
+      responses:
+        '200': { description: A list of integrations }
+    post:
+      tags: [Notification Service]
+      summary: Create Notification Integration
+      operationId: createNotificationIntegration
+      responses:
+        '201': { description: Created }
+  /notifications/integrations/{integration_id}:
+    parameters:
+      - { in: path, name: integration_id, required: true, schema: { type: string } }
+    get:
+      tags: [Notification Service]
+      summary: Get Notification Integration
+      operationId: getNotificationIntegration
+      responses:
+        '200': { description: An integration }
+    delete:
+      tags: [Notification Service]
+      summary: Delete Notification Integration
+      operationId: deleteNotificationIntegration
+      responses:
+        '204': { description: Deleted }
+  /observability/timeseries:
+    get:
+      tags: [Timeseries]
+      summary: Query Timeseries
+      operationId: queryTimeseries
+      responses:
+        '200': { description: Timeseries data }
+  /observability/insights:
+    get:
+      tags: [Insights]
+      summary: List Insights
+      operationId: listInsights
+      responses:
+        '200': { description: Insight summaries }
+components:
+  securitySchemes:
+    FastlyKey:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+  schemas:
+    AlertDefinition:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        service_id: { type: string }
+        type: { type: string, enum: [stats, domains, origins] }
+        metric: { type: string }
+        evaluation_strategy: { type: object }
+        integration_ids:
+          type: array
+          items: { type: string }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }

@@ -1,0 +1,136 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly AI Accelerator — Chat Completions
+  description: Fastly AI Accelerator semantic-caching proxy for LLM chat completions. Provides OpenAI- and Google Gemini-compatible endpoints served from the Fastly edge, returning cached responses for semantically similar prompts.
+  tags:
+  - Fastly
+  - AI Accelerator
+  - AI
+  - LLM
+  - Semantic Caching
+  created: '2026-05-22'
+  modified: '2026-05-22'
+binds:
+- namespace: env
+  keys:
+    FASTLY_API_KEY: FASTLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ai-accelerator
+    baseUri: https://api.fastly.ai
+    description: Fastly AI Accelerator semantic-caching proxy for LLM chat completions.
+    resources:
+    - name: openai-v1-chat-completions
+      path: /openai/v1/chat/completions
+      operations:
+      - name: createopenaichatcompletion
+        method: POST
+        description: Create chat completion via OpenAI (semantically cached)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: gemini-v1-models-model-generate-content
+      path: /gemini/v1/models/{model}:generateContent
+      operations:
+      - name: generategeminicontent
+        method: POST
+        description: Generate content via Google Gemini (semantically cached)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: openai-v1-embeddings
+      path: /openai/v1/embeddings
+      operations:
+      - name: createembeddings
+        method: POST
+        description: Create embeddings via OpenAI
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Fastly-Key
+      value: '{{env.FASTLY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: ai-accelerator-rest
+    port: 8080
+    description: REST adapter for Fastly AI Accelerator.
+    resources:
+    - path: /v1/openai/v1/chat/completions
+      name: openai-v1-chat-completions
+      description: REST surface for OpenAI-compatible chat completions through AI Accelerator.
+      operations:
+      - method: POST
+        name: createopenaichatcompletion
+        description: Create chat completion via OpenAI
+        call: ai-accelerator.createopenaichatcompletion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/gemini/v1/models/{model}/generate-content
+      name: gemini-v1-models-model-generate-content
+      description: REST surface for Google Gemini generateContent through AI Accelerator.
+      operations:
+      - method: POST
+        name: generategeminicontent
+        description: Generate content via Google Gemini
+        call: ai-accelerator.generategeminicontent
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/openai/v1/embeddings
+      name: openai-v1-embeddings
+      description: REST surface for OpenAI embeddings through AI Accelerator.
+      operations:
+      - method: POST
+        name: createembeddings
+        description: Create embeddings
+        call: ai-accelerator.createembeddings
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ai-accelerator-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly AI Accelerator.
+    tools:
+    - name: openai-chat-completion
+      description: Create OpenAI-compatible chat completion via Fastly AI Accelerator semantic cache
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ai-accelerator.createopenaichatcompletion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gemini-generate-content
+      description: Generate Google Gemini content via Fastly AI Accelerator
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ai-accelerator.generategeminicontent
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: openai-embeddings
+      description: Create OpenAI embeddings via Fastly AI Accelerator
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ai-accelerator.createembeddings
+      outputParameters:
+      - type: object
+        mapping: $.

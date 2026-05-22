@@ -4,14 +4,16 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Fastly
 providerId: fastly
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-22'
 reconciled: true
 tags:
   - Rate Limiting
   - CDN
-description: Fastly REST API enforces per-token rate limits.
+  - Purging
+description: Fastly REST API rate limits per token, with separate quota for purging (URL and surrogate-key) operations and product-level free-tier ceilings.
 sources:
   - https://www.fastly.com/pricing
+  - https://www.fastly.com/documentation/reference/api/purging/
   - https://docs.fastly.com/en/guides/api-rate-limiting
 headers:
   limit: Fastly-RateLimit-Limit
@@ -20,22 +22,16 @@ headers:
 responseCodes:
   throttled: 429
 limits:
-  - name: Read API
-    scope: token
-    metric: requests_per_hour
-    limit: 1000
-    timeFrame: hour
-  - name: Write/POST/PUT API
-    scope: token
-    metric: requests_per_hour
-    limit: 1000
-    timeFrame: hour
-  - name: Logging configuration
-    scope: service
-    metric: endpoints
-    limit: 100
-    timeFrame: service
-  - name: Purge
-    scope: service
-    metric: purges_per_second
-    limit: high
+  - { name: REST API (read), scope: token, metric: requests_per_hour, limit: 1000, timeFrame: hour }
+  - { name: REST API (write), scope: token, metric: requests_per_hour, limit: 1000, timeFrame: hour }
+  - { name: URL Purges, scope: customer, metric: purges_per_hour, limit: 100000, timeFrame: hour }
+  - { name: Surrogate Key Purges, scope: customer, metric: purges_per_hour, limit: 100000, timeFrame: hour }
+  - { name: Logging configuration endpoints per service, scope: service, metric: endpoints, limit: 100, timeFrame: service }
+  - { name: CDN Free Tier bandwidth, scope: account, metric: GB_per_month, limit: 100, timeFrame: month }
+  - { name: CDN Free Tier requests, scope: account, metric: requests_per_month, limit: 1000000, timeFrame: month }
+  - { name: Compute Free Tier requests, scope: account, metric: requests_per_month, limit: 10000000, timeFrame: month }
+  - { name: Compute Free Tier vCPU ms, scope: account, metric: ms_per_month, limit: 100000000, timeFrame: month }
+  - { name: Object Storage Free Tier, scope: account, metric: GB_per_month, limit: 5, timeFrame: month }
+  - { name: Image Optimizer Free Tier, scope: account, metric: requests_per_month, limit: 100000, timeFrame: month }
+  - { name: AI Accelerator Free Tier, scope: account, metric: requests_per_month, limit: 20000, timeFrame: month }
+  - { name: Domain Research API Free Tier, scope: account, metric: requests_per_month, limit: 10000, timeFrame: month }

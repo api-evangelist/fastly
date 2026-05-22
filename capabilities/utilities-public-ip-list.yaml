@@ -1,0 +1,40 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Utilities — Public IP List
+  description: Retrieve Fastly's published IPv4 and IPv6 address ranges for whitelisting and origin firewall configuration.
+  tags: [Fastly, Utilities, Public IP List, Firewall]
+  created: '2026-05-22'
+  modified: '2026-05-22'
+binds:
+- namespace: env
+  keys: { FASTLY_API_KEY: FASTLY_API_KEY }
+capability:
+  consumes:
+  - type: http
+    namespace: utilities-public-ip-list
+    baseUri: https://api.fastly.com
+    description: Fastly public IP list endpoint.
+    resources:
+    - name: public-ip-list
+      path: /public-ip-list
+      operations:
+      - { name: getpubliciplist, method: GET, description: Get Fastly public IP ranges, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    authentication: { type: apikey, key: Fastly-Key, value: '{{env.FASTLY_API_KEY}}', placement: header }
+  exposes:
+  - type: rest
+    namespace: utilities-public-ip-list-rest
+    port: 8080
+    description: REST adapter.
+    resources:
+    - path: /v1/utilities/public-ip-list
+      name: public-ip-list
+      description: Fastly public IP list.
+      operations:
+      - { method: GET, name: getpubliciplist, description: Get Fastly public IP list, call: utilities-public-ip-list.getpubliciplist, outputParameters: [ { type: object, mapping: $. } ] }
+  - type: mcp
+    namespace: utilities-public-ip-list-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter.
+    tools:
+    - { name: get-fastly-public-ip-list, description: Retrieve Fastly's public IPv4/IPv6 address ranges, hints: { readOnly: true, destructive: false, idempotent: true }, call: utilities-public-ip-list.getpubliciplist, outputParameters: [ { type: object, mapping: $. } ] }

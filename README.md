@@ -1,235 +1,219 @@
 # Fastly (fastly)
-Fastly is an edge cloud platform that provides content delivery network (CDN), serverless compute, security, and observability services. Their developer platform offers a comprehensive suite of APIs for programmatically managing CDN services, edge configurations, caching, TLS certificates, web application firewalls, and real-time analytics across Fastly's global edge network.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/fastly/refs/heads/main/apis.yml)
+Fastly is an edge cloud platform that helps customers create great digital experiences quickly, securely, and reliably by processing, serving, and securing their applications closer to their users. The platform spans CDN, Edge Compute (WebAssembly), Object Storage, AI Accelerator (semantic caching for LLMs), AI Bot Management, Next-Gen WAF (Signal Sciences), DDoS Protection, Image Optimizer, Live & Video Streaming, Fanout real-time messaging, and an MCP Server for AI-driven control.
+
+**APIs.json:** [apis.yml](https://raw.githubusercontent.com/api-evangelist/fastly/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Contract
+- **Type:** Company (commercial provider)
 - **Position:** Consuming
 - **Access:** 3rd-Party
 
-## Tags:
+## Tags
 
- - CDN, Edge Cloud, Security, Serverless, Caching, Performance, Observability
+CDN, Edge Cloud, Edge Compute, WebAssembly, Security, AI, Observability
 
 ## Timestamps
 
 - **Created:** 2025-03-01
-- **Modified:** 2026-03-20
+- **Modified:** 2026-05-22
 
 ## APIs
 
 ### Fastly Services API
-The Fastly Services API allows developers to create, configure, and manage Fastly CDN services and their versions programmatically. Services are the primary organizational unit in Fastly, representing a configuration that maps domains to backends. The API supports creating service versions, activating and deactivating configurations, cloning versions, and managing the complete lifecycle of a CDN service deployment.
+The Fastly Services API allows developers to create, configure, and manage Fastly CDN services and their versions programmatically. Services are the primary organizational unit in Fastly, representing a configuration that maps domains to backends.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/services/](https://www.fastly.com/documentation/reference/api/services/)
-
-
-#### Tags:
-
- - CDN, Services, Edge Cloud, Configuration
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/services/)
+**Docs:** https://www.fastly.com/documentation/reference/api/services/
+**OpenAPI:** [openapi/fastly-services-openapi.yml](openapi/fastly-services-openapi.yml)
 
 ### Fastly Purging API
-The Fastly Purging API enables developers to instantly remove cached content from Fastly's edge network so it can be refreshed from origin servers. It supports single URL purges, surrogate key purges for invalidating groups of related objects, and purge-all operations to clear an entire service cache. Surrogate key and URL purges are separately limited to an average of 100,000 purges per hour per customer and are not counted against the general API rate limit.
+The Fastly Purging API enables developers to instantly remove cached content from Fastly's edge network. Surrogate-key and URL purges are limited to 100,000/hour per customer and do not count against the general API rate limit.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/purging/](https://www.fastly.com/documentation/reference/api/purging/)
-
-
-#### Tags:
-
- - Purging, Cache, CDN, Content Delivery
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/purging/)
+**Docs:** https://www.fastly.com/documentation/reference/api/purging/
+**OpenAPI:** [openapi/fastly-purging-openapi.yml](openapi/fastly-purging-openapi.yml)
 
 ### Fastly Real-Time Logging API
-The Fastly Real-Time Logging API allows developers to configure and manage logging endpoints that receive streamed log data from Fastly's edge network. Fastly supports logging to a variety of formats and platforms including syslog, Amazon S3, Google Cloud Storage, BigQuery, Datadog, Splunk, Elasticsearch, and many other providers. Developers can create, update, and delete logging configurations per service version, controlling the format, placement, and conditions under which log entries are generated.
+Configure and manage logging endpoints that receive streamed log data from Fastly's edge — syslog, S3, GCS, BigQuery, Datadog, Splunk, HTTPS, and more.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/logging/](https://www.fastly.com/documentation/reference/api/logging/)
-
-
-#### Tags:
-
- - Logging, Observability, Monitoring, Analytics
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/logging/)
+**Docs:** https://www.fastly.com/documentation/reference/api/logging/
+**OpenAPI:** [openapi/fastly-logging-openapi.yml](openapi/fastly-logging-openapi.yml)
 
 ### Fastly Metrics and Stats API
-The Fastly Metrics and Stats API provides access to both real-time and historical analytics data for Fastly services. The real-time analytics endpoint, served on rt.fastly.com, delivers second-by-second stats including request counts, bandwidth, cache hit ratios, and error rates. Historical stats provide aggregated data over longer time periods. The API also includes the Domain Inspector for per-domain metrics and the Origin Inspector for origin-level performance data.
+Access both real-time (rt.fastly.com) and historical analytics for Fastly services, plus Domain Inspector and Origin Inspector.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/metrics-stats/](https://www.fastly.com/documentation/reference/api/metrics-stats/)
-
-
-#### Tags:
-
- - Analytics, Metrics, Statistics, Real-Time, Monitoring
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/metrics-stats/)
+**Docs:** https://www.fastly.com/documentation/reference/api/metrics-stats/
+**OpenAPI:** [openapi/fastly-metrics-and-stats-openapi.yml](openapi/fastly-metrics-and-stats-openapi.yml)
 
 ### Fastly TLS API
-The Fastly TLS API enables developers to manage TLS certificates, private keys, and domain configurations for securing traffic delivered through Fastly's edge network. It supports both platform TLS (managed certificates) and custom TLS configurations where customers bring their own certificates. The API allows uploading certificates, managing bulk certificate operations, configuring TLS activations, and managing mutual TLS authentication for origin connections.
+Manage TLS certificates, private keys, and domain configurations. Supports both platform TLS and custom (BYO) certificates, plus mutual TLS for origins.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/tls/](https://www.fastly.com/documentation/reference/api/tls/)
-
-
-#### Tags:
-
- - TLS, SSL, Certificates, Security, Encryption
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/tls/)
+**Docs:** https://www.fastly.com/documentation/reference/api/tls/
+**OpenAPI:** [openapi/fastly-tls-openapi.yml](openapi/fastly-tls-openapi.yml)
 
 ### Fastly VCL Services API
-The Fastly VCL Services API provides programmatic access to configure Varnish Configuration Language (VCL) objects that power most Fastly services. Developers can upload custom VCL code or use the API to generate VCL through configuration objects including backends, conditions, cache settings, request settings, response objects, headers, and VCL snippets. This API is central to defining how Fastly processes, routes, and caches HTTP requests at the edge.
+Configure VCL objects — backends, conditions, cache settings, request/response settings, headers, snippets, and custom VCL — that power Fastly services.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/vcl-services/](https://www.fastly.com/documentation/reference/api/vcl-services/)
-
-
-#### Tags:
-
- - VCL, Configuration, Edge Logic, CDN, Caching
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/vcl-services/)
+**Docs:** https://www.fastly.com/documentation/reference/api/vcl-services/
+**OpenAPI:** [openapi/fastly-vcl-services-openapi.yml](openapi/fastly-vcl-services-openapi.yml)
 
 ### Fastly Account API
-The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+Manage customer accounts, users, and identity/access management (IAM) resources including roles, service groups, and user groups.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/account/](https://www.fastly.com/documentation/reference/api/account/)
-
-
-#### Tags:
-
- - Account, Users, IAM, Administration
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/account/)
+**Docs:** https://www.fastly.com/documentation/reference/api/account/
+**OpenAPI:** [openapi/fastly-account-openapi.yml](openapi/fastly-account-openapi.yml)
 
 ### Fastly Authentication Tokens API
-The Fastly Authentication Tokens API enables developers to create and manage API tokens used to authenticate requests to the Fastly API. Tokens can be scoped to specific services and permissions, allowing fine-grained access control for users and automated systems. The API supports creating user tokens, automation tokens for CI/CD pipelines, and managing token lifecycle including listing, revoking, and expiring tokens.
+Create and manage scoped API tokens — user tokens and automation tokens — for authenticating against api.fastly.com.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/auth-tokens/](https://www.fastly.com/documentation/reference/api/auth-tokens/)
-
-
-#### Tags:
-
- - Authentication, Tokens, Security, API Keys
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/auth-tokens/)
+**Docs:** https://www.fastly.com/documentation/reference/api/auth-tokens/
+**OpenAPI:** [openapi/fastly-authentication-tokens-openapi.yml](openapi/fastly-authentication-tokens-openapi.yml)
 
 ### Fastly Access Control Lists API
-The Fastly Access Control Lists API allows developers to create and manage ACLs that can be used to control access to content at the edge. ACLs contain entries of IP addresses or CIDR ranges that can be referenced in VCL to allow or deny requests. The API supports creating ACL containers, adding and removing individual entries, and performing bulk updates to efficiently manage large IP allowlists or blocklists without requiring a new service version deployment.
+Manage ACL containers of IPs/CIDR ranges referenced from VCL, with bulk-update support for large allow/blocklists.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/acls/](https://www.fastly.com/documentation/reference/api/acls/)
-
-
-#### Tags:
-
- - Access Control, Security, IP Filtering, Edge Security
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/acls/)
+**Docs:** https://www.fastly.com/documentation/reference/api/acls/
+**OpenAPI:** [openapi/fastly-acls-openapi.yml](openapi/fastly-acls-openapi.yml)
 
 ### Fastly Edge Dictionaries API
-The Fastly Edge Dictionaries API provides endpoints for creating and managing key-value lookup tables that are accessible at the edge without requiring a service version change. Dictionaries can store configuration data, feature flags, redirect mappings, and other dynamic values that VCL or Compute services can reference during request processing. The API supports CRUD operations on both dictionary containers and their individual items, as well as bulk updates for efficient management of large datasets.
+Key-value lookup tables accessible at the edge without a service version change. Useful for feature flags, redirect maps, and dynamic configuration.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/dictionaries/](https://www.fastly.com/documentation/reference/api/dictionaries/)
-
-
-#### Tags:
-
- - Dictionaries, Key-Value, Edge Configuration, Dynamic Configuration
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/dictionaries/)
+**Docs:** https://www.fastly.com/documentation/reference/api/dictionaries/
+**OpenAPI:** [openapi/fastly-dictionaries-openapi.yml](openapi/fastly-dictionaries-openapi.yml)
 
 ### Fastly Compute API
-The Fastly Compute platform enables developers to build and deploy serverless applications that run on Fastly's global edge network using WebAssembly. Compute services support custom application logic written in Rust, JavaScript, or Go using official Fastly SDKs. The platform provides access to edge primitives including KV stores, config stores, secret stores, dynamic backends, and real-time messaging, enabling developers to build full-featured applications that execute close to end users with sub-millisecond startup times.
+WebAssembly serverless platform. Build edge apps in Rust, JavaScript, TypeScript, Go, or Python, with KV stores, config stores, secret stores, and dynamic backends.
 
-**Human URL:** [https://www.fastly.com/documentation/guides/compute/](https://www.fastly.com/documentation/guides/compute/)
-
-
-#### Tags:
-
- - Serverless, Edge Computing, WebAssembly, Compute
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/guides/compute/)
+**Docs:** https://www.fastly.com/documentation/guides/compute/
+**OpenAPI:** [openapi/fastly-compute-openapi.yml](openapi/fastly-compute-openapi.yml)
 
 ### Fastly Next-Gen WAF API
-The Fastly Next-Gen WAF API provides programmatic access to configure and manage web application firewall rules that protect applications delivered through Fastly's edge network. It enables developers to manage WAF firewall configurations, rule sets, and exclusions to defend against common web attacks including SQL injection, cross-site scripting, and other OWASP Top 10 vulnerabilities. The API supports managing active rules, reviewing firewall events, and configuring response behaviors for detected threats.
+Manage NGWAF (Signal Sciences) workspaces, requests, events, redactions, signals, virtual patches, and rules.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/waf/](https://www.fastly.com/documentation/reference/api/waf/)
-
-
-#### Tags:
-
- - WAF, Web Application Firewall, Security, DDoS Protection
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/waf/)
+**Docs:** https://www.fastly.com/documentation/reference/api/ngwaf/
+**OpenAPI:** [openapi/fastly-waf-openapi.yml](openapi/fastly-waf-openapi.yml)
 
 ### Fastly Domain Management API
-The Fastly Domain Management API allows developers to programmatically associate domain names with Fastly services. Domains serve as the entry point for traffic routed through Fastly's edge network. The API supports adding, listing, and removing domains from service versions, checking domain DNS configurations, and validating that domains are correctly pointed to Fastly. It is essential for managing the routing configuration that connects end-user requests to the appropriate Fastly service.
+Programmatically associate domains with Fastly services; validate DNS targeting Fastly.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/services/domain/](https://www.fastly.com/documentation/reference/api/services/domain/)
-
-
-#### Tags:
-
- - Domains, DNS, Configuration, CDN
-
-#### Properties
-
-- [Documentation](https://www.fastly.com/documentation/reference/api/services/domain/)
+**Docs:** https://www.fastly.com/documentation/reference/api/domain-management/
+**OpenAPI:** [openapi/fastly-domain-management-openapi.yml](openapi/fastly-domain-management-openapi.yml)
 
 ### Fastly Products API
-The Fastly Products API provides endpoints for enabling and managing Fastly product features on services, including Bot Management, DDoS Protection, Image Optimizer, API Discovery, and other add-on capabilities. Developers can use this API to check which products are enabled for a service, enable or disable product features, and configure product-specific settings. The API Discovery product, for example, allows automated identification and cataloging of API endpoints in traffic flowing through Fastly services.
+Enable and configure Fastly add-on products on services: Bot Management, **AI Bot Management**, DDoS Protection, Image Optimizer, API Discovery, **AI Accelerator**, **Object Storage**, and more.
 
-**Human URL:** [https://www.fastly.com/documentation/reference/api/products/](https://www.fastly.com/documentation/reference/api/products/)
+**Docs:** https://www.fastly.com/documentation/reference/api/products/
+**OpenAPI:** [openapi/fastly-products-openapi.yml](openapi/fastly-products-openapi.yml)
 
+### Fastly Observability API
+"The Fastly Observability APIs enable you to setup and manage Fastly's Observability features on your site, product or service across all our Network Services, Compute and Security product lines." Sub-resources include Alerts, Custom Dashboards, Insights, Log Aggregations, Log Explorer, Notification Service, and Timeseries.
 
-#### Tags:
+**Docs:** https://www.fastly.com/documentation/reference/api/observability/
+**OpenAPI:** [openapi/fastly-observability-openapi.yml](openapi/fastly-observability-openapi.yml)
 
- - Products, Features, Configuration, Platform
+### Fastly API Security API
+"The API Security product builds a continuously updated, searchable catalog of all your API endpoints." Manage discovered Operations.
 
-#### Properties
+**Docs:** https://www.fastly.com/documentation/reference/api/api-security/
+**OpenAPI:** [openapi/fastly-api-security-openapi.yml](openapi/fastly-api-security-openapi.yml)
 
-- [Documentation](https://www.fastly.com/documentation/reference/api/products/)
+### Fastly DDoS Protection Events API
+"The Fastly DDoS Protection Events API allows you to configure Fastly DDoS Protection and view attack insights including events, rules, and traffic statistics."
+
+**Docs:** https://www.fastly.com/documentation/reference/api/ddos-protection/
+**OpenAPI:** [openapi/fastly-ddos-protection-openapi.yml](openapi/fastly-ddos-protection-openapi.yml)
+
+### Fastly Client-Side Protection API
+"Client-Side Protection (CSP) provides visibility and control over third-party scripts running on your web pages." Defends against Magecart and formjacking via script inventory, authorization, and security-header policies.
+
+**Docs:** https://www.fastly.com/documentation/reference/api/client-side-protection/
+**OpenAPI:** [openapi/fastly-client-side-protection-openapi.yml](openapi/fastly-client-side-protection-openapi.yml)
+
+### Fastly Publishing (Fanout) API
+"Publishing sends messages to Fanout subscribers. Fanout is designed to be GRIP-compatible, such that https://api.fastly.com/service/{service_id} can be used as a GRIP URL in application configurations."
+
+**Docs:** https://www.fastly.com/documentation/reference/api/publishing/
+**OpenAPI:** [openapi/fastly-publishing-openapi.yml](openapi/fastly-publishing-openapi.yml)
+
+### Fastly Load Balancing API
+"Spread traffic across multiple backends automatically." Manage Directors bound to VCL versions and Dynamic Server Pools that update without a new version.
+
+**Docs:** https://www.fastly.com/documentation/reference/api/load-balancing/
+**OpenAPI:** [openapi/fastly-load-balancing-openapi.yml](openapi/fastly-load-balancing-openapi.yml)
+
+### Fastly Utilities API
+"Various utilities and extra functionality we provide in addition to the configuration services" — Content Status, Diff, Docs, POPs, Public IP List, and Sudo Mode.
+
+**Docs:** https://www.fastly.com/documentation/reference/api/utils/
+**OpenAPI:** [openapi/fastly-utilities-openapi.yml](openapi/fastly-utilities-openapi.yml)
+
+### Fastly AI Accelerator
+A semantic caching solution that "boosts the performance of popular LLMs like OpenAI and Google Gemini by 9x." Exposed at `https://api.fastly.ai` with OpenAI- and Gemini-compatible endpoints. Free tier: 20,000 requests/month; PAYG $0.28–$0.40 per 1,000 requests.
+
+**Docs:** https://www.fastly.com/products/ai
+**OpenAPI:** [openapi/fastly-ai-accelerator-openapi.yml](openapi/fastly-ai-accelerator-openapi.yml)
+
+### Fastly Object Storage
+S3-compatible edge object storage with 99.999999999% durability and **zero egress fees**. Free tier: 5 GB/month; storage $0.017–$0.02/GB; Class A ops $0.0025/1K; Class B ops $0.0004/1K.
+
+**Docs:** https://www.fastly.com/products/object-storage
+**OpenAPI:** [openapi/fastly-object-storage-openapi.yml](openapi/fastly-object-storage-openapi.yml)
+
+## Naftiko Capabilities
+
+Per-API shared capabilities are generated under [`capabilities/`](capabilities/). Notable 2026 additions: AI Accelerator chat completions, AI Bot Management product, Object Storage bucket & object, Observability alerts/dashboards/log-explorer/notification-service/timeseries, API Security operations, DDoS Protection events & rules, Client-Side Protection websites/scripts/policies, Fanout publishing, Load Balancing directors & pools, Utilities POPs & public IP list.
+
+## Plans, Rate Limits, FinOps
+
+- **Plans:** [plans/fastly-plans-pricing.yml](plans/fastly-plans-pricing.yml) — CDN Free + PAYG, Compute, Object Storage, AI Accelerator, Image Optimizer, Domain Research, Basic ($1,500/mo) / Starter ($6,000/mo) / Advantage / Ultimate packages, plus security add-on bundle.
+- **Rate Limits:** [rate-limits/fastly-rate-limits.yml](rate-limits/fastly-rate-limits.yml) — 1,000 req/hr per token; 100,000/hour separate purge quota; free-tier ceilings per product.
+- **FinOps:** [finops/fastly-finops.yml](finops/fastly-finops.yml) — FOCUS-aligned billing surface across CDN, Compute, Object Storage, AI Accelerator, and Image Optimizer.
+
+## Semantics
+
+- **JSON-LD:** [json-ld/fastly-context.jsonld](json-ld/fastly-context.jsonld)
+- **JSON Schema:** [json-schema/](json-schema/) — Service, Backend, ACLEntry, DictionaryItem, TLSCertificate, AI Accelerator Request, Object Storage Object, DDoS Event.
+- **Vocabulary:** [vocabulary/fastly-vocabulary.yml](vocabulary/fastly-vocabulary.yml)
+- **Spectral Rules:** [rules/fastly-rules.yml](rules/fastly-rules.yml)
+- **Examples:** [examples/](examples/)
 
 ## Common Properties
 
-- [Developer Portal](https://developer.fastly.com/)
-- [Documentation](https://www.fastly.com/documentation/)
+- [Developer Portal](https://www.fastly.com/documentation/)
 - [API Reference](https://www.fastly.com/documentation/reference/api/)
-- [Website](https://www.fastly.com/)
-- [PrivacyPolicy](https://www.fastly.com/privacy/)
-- [TermsOfService](https://www.fastly.com/terms/)
+- [Pricing](https://www.fastly.com/pricing)
 - [Blog](https://www.fastly.com/blog/)
-- [Login](https://manage.fastly.com/account/company)
+- [Status](https://www.fastlystatus.com/)
 - [Support](https://support.fastly.com/)
+- [Login](https://manage.fastly.com/account/company)
+- [Signup](https://www.fastly.com/signup)
+- [Privacy Policy](https://www.fastly.com/privacy/)
+- [Terms of Service](https://www.fastly.com/terms/)
+- [GitHub Org](https://github.com/fastly) (287 public repos)
+- [LinkedIn](https://www.linkedin.com/company/fastly)
+
+## SDKs, CLIs, Tools (from github.com/fastly)
+
+- **CLI:** [fastly/cli](https://github.com/fastly/cli) (Go)
+- **API clients:** [fastly-py](https://github.com/fastly/fastly-py), [fastly-rust](https://github.com/fastly/fastly-rust), [fastly-go](https://github.com/fastly/fastly-go), [fastly-ruby](https://github.com/fastly/fastly-ruby), [fastly-js](https://github.com/fastly/fastly-js), [fastly-php](https://github.com/fastly/fastly-php), [fastly-perl](https://github.com/fastly/fastly-perl), [go-fastly](https://github.com/fastly/go-fastly)
+- **Compute SDKs/runtimes:** [compute-sdk-go](https://github.com/fastly/compute-sdk-go), [js-compute-runtime](https://github.com/fastly/js-compute-runtime), [compute-sdk-python](https://github.com/fastly/compute-sdk-python)
+- **Local testing:** [Viceroy](https://github.com/fastly/Viceroy)
+- **IaC:** [terraform-provider-fastly](https://github.com/fastly/terraform-provider-fastly)
+- **AI:** [mcp](https://github.com/fastly/mcp) (Model Context Protocol server, ~37 stars), [fastly-agent-toolkit](https://github.com/fastly/fastly-agent-toolkit) (skills for AI agents)
+- **Observability:** [fastly-exporter](https://github.com/fastly/fastly-exporter) (Prometheus exporter)
+- **IDE:** [vscode-fastly-vcl](https://github.com/fastly/vscode-fastly-vcl)
+- **Integrations:** [WordPress-Plugin](https://github.com/fastly/WordPress-Plugin), [fastly-magento2](https://github.com/fastly/fastly-magento2)
+- **Fanout core:** [pushpin](https://github.com/fastly/pushpin) (3,844 stars)
+
+## Notable 2026 Product Lines
+
+- **CDN, Compute, Live/Video Streaming, Image Optimizer, Object Storage** (delivery + storage)
+- **Next-Gen WAF, Bot Management, AI Bot Management, DDoS Protection, API Security, Client-Side Protection** (security)
+- **AI Accelerator, MCP Server** (AI)
+- **Observability suite** — Alerts, Dashboards, Log Explorer, Notification Service, Insights, Timeseries
+- **Fanout / Publishing** real-time WebSocket / HTTP-stream fan-out
 
 ## Maintainers
 
 **FN:** API Evangelist
-
 **Email:** info@apievangelist.com

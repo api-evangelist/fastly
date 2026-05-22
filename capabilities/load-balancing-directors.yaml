@@ -1,0 +1,56 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Load Balancing — Directors
+  description: Manage Fastly VCL director groups for service versions. Directors bundle backends into load-balanced groups as part of locked service configurations.
+  tags: [Fastly, Load Balancing, Directors]
+  created: '2026-05-22'
+  modified: '2026-05-22'
+binds:
+- namespace: env
+  keys: { FASTLY_API_KEY: FASTLY_API_KEY }
+capability:
+  consumes:
+  - type: http
+    namespace: load-balancing-directors
+    baseUri: https://api.fastly.com
+    description: Director management endpoints under a service version.
+    resources:
+    - name: directors
+      path: /service/{service_id}/version/{version_id}/director
+      operations:
+      - { name: listdirectors, method: GET, description: List directors, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+      - { name: createdirector, method: POST, description: Create director, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    - name: director
+      path: /service/{service_id}/version/{version_id}/director/{director_name}
+      operations:
+      - { name: getdirector, method: GET, description: Get director, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+      - { name: deletedirector, method: DELETE, description: Delete director, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    authentication: { type: apikey, key: Fastly-Key, value: '{{env.FASTLY_API_KEY}}', placement: header }
+  exposes:
+  - type: rest
+    namespace: load-balancing-directors-rest
+    port: 8080
+    description: REST adapter.
+    resources:
+    - path: /v1/services/{service-id}/versions/{version-id}/directors
+      name: directors
+      description: Directors collection.
+      operations:
+      - { method: GET, name: listdirectors, description: List directors, call: load-balancing-directors.listdirectors, outputParameters: [ { type: object, mapping: $. } ] }
+      - { method: POST, name: createdirector, description: Create director, call: load-balancing-directors.createdirector, outputParameters: [ { type: object, mapping: $. } ] }
+    - path: /v1/services/{service-id}/versions/{version-id}/directors/{director-name}
+      name: director
+      description: Single director.
+      operations:
+      - { method: GET, name: getdirector, description: Get director, call: load-balancing-directors.getdirector, outputParameters: [ { type: object, mapping: $. } ] }
+      - { method: DELETE, name: deletedirector, description: Delete director, call: load-balancing-directors.deletedirector, outputParameters: [ { type: object, mapping: $. } ] }
+  - type: mcp
+    namespace: load-balancing-directors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter.
+    tools:
+    - { name: list-directors, description: List Fastly load-balancing directors, hints: { readOnly: true, destructive: false, idempotent: true }, call: load-balancing-directors.listdirectors, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: create-director, description: Create a Fastly load-balancing director, hints: { readOnly: false, destructive: false, idempotent: false }, call: load-balancing-directors.createdirector, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: get-director, description: Get a Fastly load-balancing director, hints: { readOnly: true, destructive: false, idempotent: true }, call: load-balancing-directors.getdirector, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: delete-director, description: Delete a Fastly load-balancing director, hints: { readOnly: false, destructive: true, idempotent: true }, call: load-balancing-directors.deletedirector, outputParameters: [ { type: object, mapping: $. } ] }

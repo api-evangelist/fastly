@@ -1,0 +1,50 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Observability — Log Explorer
+  description: Query the Fastly Log Explorer to search and aggregate log events emitted by services.
+  tags: [Fastly, Observability, Logs]
+  created: '2026-05-22'
+  modified: '2026-05-22'
+binds:
+- namespace: env
+  keys: { FASTLY_API_KEY: FASTLY_API_KEY }
+capability:
+  consumes:
+  - type: http
+    namespace: observability-log-explorer
+    baseUri: https://api.fastly.com
+    description: Fastly Log Explorer search and aggregations.
+    resources:
+    - name: logs-search
+      path: /observability/logs
+      operations:
+      - { name: searchlogs, method: POST, description: Search logs, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    - name: logs-aggregate
+      path: /observability/aggregations/logs
+      operations:
+      - { name: aggregatelogs, method: POST, description: Aggregate log data, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    authentication: { type: apikey, key: Fastly-Key, value: '{{env.FASTLY_API_KEY}}', placement: header }
+  exposes:
+  - type: rest
+    namespace: observability-log-explorer-rest
+    port: 8080
+    description: REST adapter.
+    resources:
+    - path: /v1/observability/logs
+      name: logs-search
+      description: Log search.
+      operations:
+      - { method: POST, name: searchlogs, description: Search logs, call: observability-log-explorer.searchlogs, outputParameters: [ { type: object, mapping: $. } ] }
+    - path: /v1/observability/aggregations/logs
+      name: logs-aggregate
+      description: Log aggregations.
+      operations:
+      - { method: POST, name: aggregatelogs, description: Aggregate log data, call: observability-log-explorer.aggregatelogs, outputParameters: [ { type: object, mapping: $. } ] }
+  - type: mcp
+    namespace: observability-log-explorer-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter.
+    tools:
+    - { name: search-logs, description: Search Fastly logs, hints: { readOnly: true, destructive: false, idempotent: true }, call: observability-log-explorer.searchlogs, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: aggregate-logs, description: Aggregate Fastly logs, hints: { readOnly: true, destructive: false, idempotent: true }, call: observability-log-explorer.aggregatelogs, outputParameters: [ { type: object, mapping: $. } ] }

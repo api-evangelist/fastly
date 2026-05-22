@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fastly/main/json-schema/fastly-ai-accelerator-request-schema.json",
+  "title": "Fastly AI Accelerator Chat Completion Request",
+  "description": "OpenAI-compatible chat completion request proxied through Fastly AI Accelerator's semantic cache.",
+  "type": "object",
+  "required": ["model", "messages"],
+  "properties": {
+    "model": { "type": "string", "examples": ["gpt-4o-mini", "gpt-4o", "gemini-1.5-pro"] },
+    "messages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["role", "content"],
+        "properties": {
+          "role": { "type": "string", "enum": ["system", "user", "assistant", "tool"] },
+          "content": { "type": "string" },
+          "name": { "type": "string" }
+        }
+      }
+    },
+    "temperature": { "type": "number", "minimum": 0, "maximum": 2 },
+    "top_p": { "type": "number", "minimum": 0, "maximum": 1 },
+    "max_tokens": { "type": "integer", "minimum": 1 },
+    "stream": { "type": "boolean", "default": false },
+    "stop": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+    "user": { "type": "string" }
+  },
+  "additionalProperties": true
+}

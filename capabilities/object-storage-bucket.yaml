@@ -1,0 +1,113 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Object Storage — Bucket
+  description: S3-compatible bucket management for Fastly Object Storage. List, create, and delete buckets in the Fastly edge object store.
+  tags:
+  - Fastly
+  - Object Storage
+  - S3 Compatible
+  created: '2026-05-22'
+  modified: '2026-05-22'
+binds:
+- namespace: env
+  keys:
+    FASTLY_OS_ACCESS_KEY: FASTLY_OS_ACCESS_KEY
+    FASTLY_OS_SECRET_KEY: FASTLY_OS_SECRET_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: object-storage-bucket
+    baseUri: https://storage.fastly.com
+    description: Fastly Object Storage S3-compatible bucket operations.
+    resources:
+    - name: root
+      path: /
+      operations:
+      - name: listbuckets
+        method: GET
+        description: List buckets
+        outputRawFormat: xml
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: bucket
+      path: /{bucket}
+      operations:
+      - name: createbucket
+        method: PUT
+        description: Create bucket
+        outputRawFormat: xml
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletebucket
+        method: DELETE
+        description: Delete bucket
+        outputRawFormat: xml
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: sigv4
+      key: Authorization
+      value: '{{env.FASTLY_OS_ACCESS_KEY}}:{{env.FASTLY_OS_SECRET_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: object-storage-bucket-rest
+    port: 8080
+    description: REST adapter for Fastly Object Storage buckets.
+    resources:
+    - path: /v1/buckets
+      name: buckets
+      description: REST surface for bucket listing.
+      operations:
+      - method: GET
+        name: listbuckets
+        description: List buckets
+        call: object-storage-bucket.listbuckets
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/buckets/{bucket}
+      name: bucket
+      description: REST surface for a single bucket.
+      operations:
+      - method: PUT
+        name: createbucket
+        description: Create bucket
+        call: object-storage-bucket.createbucket
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletebucket
+        description: Delete bucket
+        call: object-storage-bucket.deletebucket
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: object-storage-bucket-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fastly Object Storage buckets.
+    tools:
+    - name: list-buckets
+      description: List buckets in Fastly Object Storage
+      hints: { readOnly: true, destructive: false, idempotent: true }
+      call: object-storage-bucket.listbuckets
+      outputParameters: [ { type: object, mapping: $. } ]
+    - name: create-bucket
+      description: Create a Fastly Object Storage bucket
+      hints: { readOnly: false, destructive: false, idempotent: true }
+      call: object-storage-bucket.createbucket
+      outputParameters: [ { type: object, mapping: $. } ]
+    - name: delete-bucket
+      description: Delete a Fastly Object Storage bucket
+      hints: { readOnly: false, destructive: true, idempotent: true }
+      call: object-storage-bucket.deletebucket
+      outputParameters: [ { type: object, mapping: $. } ]

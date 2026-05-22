@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: Fastly API Security API
+  description: |
+    The Fastly API Security product builds a continuously updated, searchable
+    catalog of all your API endpoints. The API exposes Operations sub-resources
+    for managing discovered API operations including listing, creation, updates,
+    deletion, and tag-based organization.
+  version: '1.0.0'
+servers:
+  - url: https://api.fastly.com
+security:
+  - FastlyKey: []
+tags:
+  - name: Operations
+paths:
+  /security/api/operations:
+    get:
+      tags: [Operations]
+      summary: List API Operations
+      operationId: listApiOperations
+      parameters:
+        - { name: service_id, in: query, schema: { type: string } }
+        - { name: tag, in: query, schema: { type: string } }
+      responses:
+        '200': { description: A list of API operations }
+    post:
+      tags: [Operations]
+      summary: Create API Operation
+      operationId: createApiOperation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ApiOperation' }
+      responses:
+        '201': { description: Operation created }
+  /security/api/operations/{operation_id}:
+    parameters:
+      - { in: path, name: operation_id, required: true, schema: { type: string } }
+    get:
+      tags: [Operations]
+      summary: Get API Operation
+      operationId: getApiOperation
+      responses:
+        '200': { description: A discovered API operation }
+    patch:
+      tags: [Operations]
+      summary: Update API Operation
+      operationId: updateApiOperation
+      responses:
+        '200': { description: Operation updated }
+    delete:
+      tags: [Operations]
+      summary: Delete API Operation
+      operationId: deleteApiOperation
+      responses:
+        '204': { description: Deleted }
+  /security/api/operations/{operation_id}/tags:
+    parameters:
+      - { in: path, name: operation_id, required: true, schema: { type: string } }
+    put:
+      tags: [Operations]
+      summary: Set Operation Tags
+      operationId: setOperationTags
+      responses:
+        '200': { description: Tags updated }
+components:
+  securitySchemes:
+    FastlyKey:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+  schemas:
+    ApiOperation:
+      type: object
+      properties:
+        id: { type: string }
+        service_id: { type: string }
+        method: { type: string, enum: [GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS] }
+        path: { type: string, example: /v1/users/{user_id} }
+        host: { type: string }
+        tags:
+          type: array
+          items: { type: string }
+        first_seen_at: { type: string, format: date-time }
+        last_seen_at: { type: string, format: date-time }
+        traffic_24h: { type: integer }

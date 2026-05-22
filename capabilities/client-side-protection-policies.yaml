@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Client-Side Protection — Policies
+  description: Manage Content Security Policy (CSP) directives and headers for sites protected by Fastly Client-Side Protection.
+  tags: [Fastly, Client-Side Protection, Security, Policies]
+  created: '2026-05-22'
+  modified: '2026-05-22'
+binds:
+- namespace: env
+  keys: { FASTLY_API_KEY: FASTLY_API_KEY }
+capability:
+  consumes:
+  - type: http
+    namespace: client-side-protection-policies
+    baseUri: https://api.fastly.com
+    description: CSP policy and security-header management.
+    resources:
+    - name: policies
+      path: /client-side-protection/websites/{website_id}/policies
+      operations:
+      - { name: listpolicies, method: GET, description: List policies, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+      - { name: createpolicy, method: POST, description: Create policy, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    - name: policy
+      path: /client-side-protection/websites/{website_id}/policies/{policy_id}
+      operations:
+      - { name: getpolicy, method: GET, description: Get policy, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+      - { name: updatepolicy, method: PATCH, description: Update policy, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    - name: policy-reports
+      path: /client-side-protection/websites/{website_id}/policies/{policy_id}/reports
+      operations:
+      - { name: listpolicyreports, method: GET, description: List policy reports, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    - name: security-headers
+      path: /client-side-protection/websites/{website_id}/security-headers
+      operations:
+      - { name: listsecurityheaders, method: GET, description: List security headers, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    - name: header-events
+      path: /client-side-protection/websites/{website_id}/security-headers/events
+      operations:
+      - { name: listheaderevents, method: GET, description: List header events, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    authentication: { type: apikey, key: Fastly-Key, value: '{{env.FASTLY_API_KEY}}', placement: header }
+  exposes:
+  - type: rest
+    namespace: client-side-protection-policies-rest
+    port: 8080
+    description: REST adapter.
+    resources:
+    - path: /v1/client-side-protection/websites/{website-id}/policies
+      name: policies
+      description: Policies collection.
+      operations:
+      - { method: GET, name: listpolicies, description: List policies, call: client-side-protection-policies.listpolicies, outputParameters: [ { type: object, mapping: $. } ] }
+      - { method: POST, name: createpolicy, description: Create policy, call: client-side-protection-policies.createpolicy, outputParameters: [ { type: object, mapping: $. } ] }
+    - path: /v1/client-side-protection/websites/{website-id}/policies/{policy-id}
+      name: policy
+      description: Single policy.
+      operations:
+      - { method: GET, name: getpolicy, description: Get policy, call: client-side-protection-policies.getpolicy, outputParameters: [ { type: object, mapping: $. } ] }
+      - { method: PATCH, name: updatepolicy, description: Update policy, call: client-side-protection-policies.updatepolicy, outputParameters: [ { type: object, mapping: $. } ] }
+    - path: /v1/client-side-protection/websites/{website-id}/policies/{policy-id}/reports
+      name: policy-reports
+      description: Policy reports.
+      operations:
+      - { method: GET, name: listpolicyreports, description: List policy reports, call: client-side-protection-policies.listpolicyreports, outputParameters: [ { type: object, mapping: $. } ] }
+    - path: /v1/client-side-protection/websites/{website-id}/security-headers
+      name: security-headers
+      description: Security headers list.
+      operations:
+      - { method: GET, name: listsecurityheaders, description: List security headers, call: client-side-protection-policies.listsecurityheaders, outputParameters: [ { type: object, mapping: $. } ] }
+    - path: /v1/client-side-protection/websites/{website-id}/security-headers/events
+      name: header-events
+      description: Security header events.
+      operations:
+      - { method: GET, name: listheaderevents, description: List header events, call: client-side-protection-policies.listheaderevents, outputParameters: [ { type: object, mapping: $. } ] }
+  - type: mcp
+    namespace: client-side-protection-policies-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter.
+    tools:
+    - { name: list-csp-policies, description: List Fastly CSP policies, hints: { readOnly: true, destructive: false, idempotent: true }, call: client-side-protection-policies.listpolicies, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: create-csp-policy, description: Create a Fastly CSP policy, hints: { readOnly: false, destructive: false, idempotent: false }, call: client-side-protection-policies.createpolicy, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: get-csp-policy, description: Get a Fastly CSP policy, hints: { readOnly: true, destructive: false, idempotent: true }, call: client-side-protection-policies.getpolicy, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: update-csp-policy, description: Update a Fastly CSP policy, hints: { readOnly: false, destructive: false, idempotent: true }, call: client-side-protection-policies.updatepolicy, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: list-csp-policy-reports, description: List Fastly CSP policy violation reports, hints: { readOnly: true, destructive: false, idempotent: true }, call: client-side-protection-policies.listpolicyreports, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: list-csp-security-headers, description: List Fastly CSP security headers, hints: { readOnly: true, destructive: false, idempotent: true }, call: client-side-protection-policies.listsecurityheaders, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: list-csp-header-events, description: List Fastly CSP header events, hints: { readOnly: true, destructive: false, idempotent: true }, call: client-side-protection-policies.listheaderevents, outputParameters: [ { type: object, mapping: $. } ] }

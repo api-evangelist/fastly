@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fastly/main/json-schema/fastly-object-storage-object-schema.json",
+  "title": "Fastly Object Storage Object",
+  "description": "Metadata for an S3-compatible object stored in Fastly Object Storage.",
+  "type": "object",
+  "required": ["bucket", "key"],
+  "properties": {
+    "bucket": { "type": "string", "minLength": 1, "maxLength": 63, "pattern": "^[a-z0-9][a-z0-9.-]*[a-z0-9]$" },
+    "key": { "type": "string", "minLength": 1, "maxLength": 1024 },
+    "size": { "type": "integer", "minimum": 0, "description": "Object size in bytes" },
+    "etag": { "type": "string" },
+    "contentType": { "type": "string", "examples": ["application/octet-stream", "application/pdf", "image/jpeg"] },
+    "contentEncoding": { "type": "string" },
+    "storageClass": { "type": "string", "enum": ["STANDARD"], "default": "STANDARD" },
+    "metadata": { "type": "object", "additionalProperties": { "type": "string" } },
+    "lastModified": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

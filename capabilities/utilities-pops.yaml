@@ -1,0 +1,60 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fastly Utilities — POPs and Content Status
+  description: Retrieve the Fastly global Points of Presence (POPs), check per-POP content cache status for a URL, and diff configuration changes between service versions.
+  tags: [Fastly, Utilities, POPs]
+  created: '2026-05-22'
+  modified: '2026-05-22'
+binds:
+- namespace: env
+  keys: { FASTLY_API_KEY: FASTLY_API_KEY }
+capability:
+  consumes:
+  - type: http
+    namespace: utilities-pops
+    baseUri: https://api.fastly.com
+    description: Fastly Utilities POPs, content edge-check, and service version diff.
+    resources:
+    - name: datacenters
+      path: /datacenters
+      operations:
+      - { name: listpops, method: GET, description: List points of presence, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    - name: edge-check
+      path: /content/edge_check
+      operations:
+      - { name: checkcontentstatus, method: GET, description: Check content cache status, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    - name: version-diff
+      path: /service/{service_id}/diff/from/{from_version}/to/{to_version}
+      operations:
+      - { name: diffservice, method: GET, description: Diff service versions, outputRawFormat: json, outputParameters: [ { name: result, type: object, value: $. } ] }
+    authentication: { type: apikey, key: Fastly-Key, value: '{{env.FASTLY_API_KEY}}', placement: header }
+  exposes:
+  - type: rest
+    namespace: utilities-pops-rest
+    port: 8080
+    description: REST adapter.
+    resources:
+    - path: /v1/utilities/datacenters
+      name: datacenters
+      description: POPs list.
+      operations:
+      - { method: GET, name: listpops, description: List POPs, call: utilities-pops.listpops, outputParameters: [ { type: object, mapping: $. } ] }
+    - path: /v1/utilities/content/edge-check
+      name: edge-check
+      description: Content edge check.
+      operations:
+      - { method: GET, name: checkcontentstatus, description: Check content status, call: utilities-pops.checkcontentstatus, outputParameters: [ { type: object, mapping: $. } ] }
+    - path: /v1/utilities/services/{service-id}/diff/{from-version}/to/{to-version}
+      name: version-diff
+      description: Diff between two service versions.
+      operations:
+      - { method: GET, name: diffservice, description: Diff service versions, call: utilities-pops.diffservice, outputParameters: [ { type: object, mapping: $. } ] }
+  - type: mcp
+    namespace: utilities-pops-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter.
+    tools:
+    - { name: list-pops, description: List Fastly Points of Presence, hints: { readOnly: true, destructive: false, idempotent: true }, call: utilities-pops.listpops, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: check-content-status, description: Check Fastly cache status for a URL on each POP, hints: { readOnly: true, destructive: false, idempotent: true }, call: utilities-pops.checkcontentstatus, outputParameters: [ { type: object, mapping: $. } ] }
+    - { name: diff-service-versions, description: Diff two Fastly service versions, hints: { readOnly: true, destructive: false, idempotent: true }, call: utilities-pops.diffservice, outputParameters: [ { type: object, mapping: $. } ] }

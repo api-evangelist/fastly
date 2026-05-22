@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fastly/main/json-schema/fastly-ddos-event-schema.json",
+  "title": "Fastly DDoS Protection Event",
+  "description": "A detected and mitigated DDoS attack tracked by Fastly DDoS Protection.",
+  "type": "object",
+  "required": ["id", "service_id", "status", "started_at"],
+  "properties": {
+    "id": { "type": "string" },
+    "service_id": { "type": "string" },
+    "status": { "type": "string", "enum": ["active", "mitigated", "ended"] },
+    "started_at": { "type": "string", "format": "date-time" },
+    "ended_at": { "type": ["string", "null"], "format": "date-time" },
+    "peak_rps": { "type": "integer", "minimum": 0 },
+    "rules_applied": {
+      "type": "array",
+      "items": { "type": "string", "description": "Rule ID applied during mitigation" }
+    }
+  },
+  "additionalProperties": false
+}
