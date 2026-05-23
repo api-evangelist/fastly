@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/User",
+  "title": "User",
+  "type": "object",
+  "description": "A user within a Fastly customer account.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the user."
+    },
+    "login": {
+      "type": "string",
+      "format": "email",
+      "description": "The email address of the user, used as the login."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the user."
+    },
+    "role": {
+      "type": "string",
+      "description": "The role assigned to the user.",
+      "enum": [
+        "user",
+        "billing",
+        "engineer",
+        "superuser"
+      ]
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the customer the user belongs to."
+    },
+    "email_hash": {
+      "type": "string",
+      "description": "The hash of the user's email for Gravatar integration."
+    },
+    "two_factor_auth_enabled": {
+      "type": "boolean",
+      "description": "Whether two-factor authentication is enabled for the user."
+    },
+    "limit_services": {
+      "type": "boolean",
+      "description": "Whether the user's access is limited to specific services."
+    },
+    "locked": {
+      "type": "boolean",
+      "description": "Whether the user account is locked."
+    },
+    "require_new_password": {
+      "type": "boolean",
+      "description": "Whether the user must set a new password on next login."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the user was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the user was last updated."
+    },
+    "deleted_at": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "The date and time the user was deleted."
+    }
+  }
+}

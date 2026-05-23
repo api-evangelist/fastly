@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoggingSplunk",
+  "title": "LoggingSplunk",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/LoggingCommon"
+    },
+    {
+      "type": "object",
+      "description": "Configuration for a Splunk logging endpoint.",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL to send logs to for the Splunk HTTP Event Collector."
+        },
+        "token": {
+          "type": "string",
+          "description": "The Splunk HEC token for authentication."
+        },
+        "use_tls": {
+          "type": "integer",
+          "description": "Whether to use TLS for the connection.",
+          "enum": [
+            0,
+            1
+          ],
+          "default": 0
+        },
+        "tls_hostname": {
+          "type": "string",
+          "description": "The hostname to verify the server certificate against."
+        },
+        "tls_ca_cert": {
+          "type": "string",
+          "description": "A secure certificate to authenticate a server with."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Condition",
+  "title": "Condition",
+  "type": "object",
+  "description": "A condition uses VCL syntax to define when a configuration object should be applied during request processing.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the condition."
+    },
+    "statement": {
+      "type": "string",
+      "description": "A VCL conditional expression that defines when the condition evaluates to true."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of condition, determining when it is evaluated.",
+      "enum": [
+        "REQUEST",
+        "CACHE",
+        "RESPONSE",
+        "PREFETCH"
+      ]
+    },
+    "priority": {
+      "type": "integer",
+      "description": "The priority of the condition, with lower numbers evaluated first.",
+      "default": 10
+    },
+    "comment": {
+      "type": "string",
+      "description": "A freeform descriptive note about the condition."
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AclEntry",
+  "title": "AclEntry",
+  "type": "object",
+  "description": "An individual entry within an ACL, representing an IP address or CIDR range used for access control.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the ACL entry."
+    },
+    "acl_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the ACL."
+    },
+    "ip": {
+      "type": "string",
+      "description": "An IP address or CIDR range."
+    },
+    "subnet": {
+      "type": "integer",
+      "description": "The CIDR subnet mask for IP ranges.",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "negated": {
+      "type": "integer",
+      "description": "Whether the entry is negated (0 = not negated, 1 = negated).",
+      "enum": [
+        0,
+        1
+      ]
+    },
+    "comment": {
+      "type": "string",
+      "description": "A freeform descriptive note about the entry."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the entry was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the entry was last updated."
+    },
+    "deleted_at": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "The date and time the entry was deleted."
+    }
+  }
+}

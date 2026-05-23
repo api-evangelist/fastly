@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BulkTlsCertificate",
+  "title": "BulkTlsCertificate",
+  "type": "object",
+  "description": "A platform TLS bulk certificate for streamlined management of large numbers of certificates.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the bulk TLS certificate."
+    },
+    "type": {
+      "type": "string",
+      "description": "The resource type.",
+      "enum": [
+        "tls_bulk_certificate"
+      ]
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "not_before": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date the certificate is valid from."
+        },
+        "not_after": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date the certificate expires."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the certificate was created."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the certificate was last updated."
+        }
+      }
+    }
+  }
+}

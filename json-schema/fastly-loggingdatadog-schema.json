@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoggingDatadog",
+  "title": "LoggingDatadog",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/LoggingCommon"
+    },
+    {
+      "type": "object",
+      "description": "Configuration for a Datadog logging endpoint.",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "The Datadog API key for authentication."
+        },
+        "region": {
+          "type": "string",
+          "description": "The Datadog region to send logs to.",
+          "enum": [
+            "US",
+            "EU"
+          ],
+          "default": "US"
+        }
+      }
+    }
+  ]
+}

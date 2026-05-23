@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PublishItem",
+  "title": "PublishItem",
+  "type": "object",
+  "properties": {
+    "channel": {
+      "type": "string",
+      "example": "chat-room-1"
+    },
+    "id": {
+      "type": "string"
+    },
+    "prev_id": {
+      "type": "string"
+    },
+    "formats": {
+      "type": "object",
+      "properties": {
+        "http-response": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "integer"
+            },
+            "body": {
+              "type": "string"
+            }
+          }
+        },
+        "http-stream": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string"
+            }
+          }
+        },
+        "ws-message": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceDetail",
+  "title": "ServiceDetail",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Service"
+    },
+    {
+      "type": "object",
+      "description": "Extended service information including all associated versions and their configuration details.",
+      "properties": {
+        "active_version": {
+          "type": "object",
+          "description": "The full version object for the currently active version.",
+          "nullable": true
+        }
+      }
+    }
+  ]
+}

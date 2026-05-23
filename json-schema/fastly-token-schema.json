@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Token",
+  "title": "Token",
+  "type": "object",
+  "description": "An API token used to authenticate requests to the Fastly API on behalf of a specific user.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the token."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the token."
+    },
+    "user_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the user the token belongs to."
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the customer."
+    },
+    "scope": {
+      "type": "string",
+      "description": "A space-delimited list of authorization scopes."
+    },
+    "services": {
+      "type": "array",
+      "description": "A list of service IDs the token is scoped to.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "access_token": {
+      "type": "string",
+      "description": "The token value used for authentication. Only returned on creation."
+    },
+    "ip": {
+      "type": "string",
+      "description": "The IP address of the client that last used the token."
+    },
+    "last_used_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the token was last used."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "The date and time the token expires."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the token was created."
+    }
+  }
+}

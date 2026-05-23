@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionResponse",
+  "title": "ChatCompletionResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "created": {
+      "type": "integer"
+    },
+    "model": {
+      "type": "string"
+    },
+    "choices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              }
+            }
+          },
+          "finish_reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "prompt_tokens": {
+          "type": "integer"
+        },
+        "completion_tokens": {
+          "type": "integer"
+        },
+        "total_tokens": {
+          "type": "integer"
+        }
+      }
+    },
+    "x_fastly_cache": {
+      "type": "object",
+      "description": "Fastly semantic cache metadata",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "HIT",
+            "MISS",
+            "SIMILAR"
+          ]
+        },
+        "similarity": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    }
+  }
+}

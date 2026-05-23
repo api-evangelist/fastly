@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WafRule",
+  "title": "WafRule",
+  "type": "object",
+  "description": "A WAF rule that defines detection logic for a specific type of web attack.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the WAF rule."
+    },
+    "type": {
+      "type": "string",
+      "description": "The resource type.",
+      "enum": [
+        "waf_rule"
+      ]
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "modsec_rule_id": {
+          "type": "integer",
+          "description": "The ModSecurity rule ID."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the rule."
+        },
+        "severity": {
+          "type": "integer",
+          "description": "The severity level of the rule."
+        },
+        "source": {
+          "type": "string",
+          "description": "The source of the rule."
+        }
+      }
+    }
+  }
+}

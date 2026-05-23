@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RealtimeResponse",
+  "title": "RealtimeResponse",
+  "type": "object",
+  "description": "A response containing real-time analytics data with records representing one-second time intervals.",
+  "properties": {
+    "Timestamp": {
+      "type": "integer",
+      "description": "The Unix timestamp of the latest data point."
+    },
+    "AggregateDelay": {
+      "type": "integer",
+      "description": "The offset of the latest data point from the current time."
+    },
+    "Data": {
+      "type": "array",
+      "description": "A list of analytics records, each representing one second of data.",
+      "items": {
+        "$ref": "#/components/schemas/RealtimeRecord"
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoggingSyslog",
+  "title": "LoggingSyslog",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/LoggingCommon"
+    },
+    {
+      "type": "object",
+      "description": "Configuration for a syslog logging endpoint.",
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "A hostname or IPv4 address of the syslog endpoint."
+        },
+        "port": {
+          "type": "integer",
+          "description": "The port number of the syslog endpoint.",
+          "default": 514
+        },
+        "use_tls": {
+          "type": "integer",
+          "description": "Whether to use TLS for the syslog connection.",
+          "enum": [
+            0,
+            1
+          ],
+          "default": 0
+        },
+        "tls_hostname": {
+          "type": "string",
+          "description": "The hostname to verify the server certificate against."
+        },
+        "tls_ca_cert": {
+          "type": "string",
+          "description": "A secure certificate to authenticate a server with."
+        },
+        "tls_client_cert": {
+          "type": "string",
+          "description": "The client certificate used to make authenticated requests."
+        },
+        "tls_client_key": {
+          "type": "string",
+          "description": "The client private key used to make authenticated requests."
+        },
+        "token": {
+          "type": "string",
+          "description": "A token to prepend to the syslog message."
+        },
+        "message_type": {
+          "type": "string",
+          "description": "How the message should be formatted.",
+          "enum": [
+            "classic",
+            "loggly",
+            "logplex",
+            "blank"
+          ],
+          "default": "classic"
+        }
+      }
+    }
+  ]
+}

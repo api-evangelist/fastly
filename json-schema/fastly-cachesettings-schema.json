@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CacheSettings",
+  "title": "CacheSettings",
+  "type": "object",
+  "description": "Cache settings configure cache lifetime for objects stored in the Fastly cache, overriding cache freshness information from HTTP response headers.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the cache settings rule."
+    },
+    "action": {
+      "type": "string",
+      "description": "The action to take when the cache settings are applied.",
+      "enum": [
+        "pass",
+        "cache",
+        "restart",
+        "deliver"
+      ]
+    },
+    "ttl": {
+      "type": "integer",
+      "description": "The maximum time in seconds that the object should be cached."
+    },
+    "stale_ttl": {
+      "type": "integer",
+      "description": "The maximum time in seconds that a stale object can be served."
+    },
+    "cache_condition": {
+      "type": "string",
+      "description": "The name of the condition that triggers these cache settings."
+    }
+  }
+}

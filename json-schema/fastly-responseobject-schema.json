@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ResponseObject",
+  "title": "ResponseObject",
+  "type": "object",
+  "description": "A response object allows serving synthetic responses directly from the edge without contacting an origin server.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the response object."
+    },
+    "status": {
+      "type": "integer",
+      "description": "The HTTP status code for the synthetic response.",
+      "minimum": 100,
+      "maximum": 599
+    },
+    "response": {
+      "type": "string",
+      "description": "The HTTP status text for the synthetic response."
+    },
+    "content": {
+      "type": "string",
+      "description": "The content body to return in the synthetic response."
+    },
+    "content_type": {
+      "type": "string",
+      "description": "The MIME type of the content body."
+    },
+    "request_condition": {
+      "type": "string",
+      "description": "The name of the condition that triggers the response object."
+    },
+    "cache_condition": {
+      "type": "string",
+      "description": "The name of the condition that determines caching."
+    }
+  }
+}

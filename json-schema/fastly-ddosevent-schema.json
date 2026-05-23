@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DdosEvent",
+  "title": "DdosEvent",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "service_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "mitigated",
+        "ended"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "peak_rps": {
+      "type": "integer"
+    }
+  }
+}

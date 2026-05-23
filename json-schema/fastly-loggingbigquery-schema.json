@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoggingBigQuery",
+  "title": "LoggingBigQuery",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/LoggingCommon"
+    },
+    {
+      "type": "object",
+      "description": "Configuration for a Google BigQuery logging endpoint.",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "The Google Cloud project ID where the BigQuery dataset is located."
+        },
+        "dataset": {
+          "type": "string",
+          "description": "The BigQuery dataset to send logs to."
+        },
+        "table": {
+          "type": "string",
+          "description": "The BigQuery table to send logs to."
+        },
+        "user": {
+          "type": "string",
+          "description": "The Google Cloud service account email address."
+        },
+        "secret_key": {
+          "type": "string",
+          "description": "The Google Cloud service account private key."
+        },
+        "template_suffix": {
+          "type": "string",
+          "description": "A BigQuery table name suffix for date-partitioned tables."
+        },
+        "account_name": {
+          "type": "string",
+          "description": "The name of the Google Cloud Platform service account."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HistoricalStatsResponse",
+  "title": "HistoricalStatsResponse",
+  "type": "object",
+  "description": "A response containing historical statistics data for the requested time range and resolution.",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "The status of the request."
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about the query including the time range and filters.",
+      "properties": {
+        "to": {
+          "type": "string",
+          "description": "The end time of the query."
+        },
+        "from": {
+          "type": "string",
+          "description": "The start time of the query."
+        },
+        "by": {
+          "type": "string",
+          "description": "The time bucket duration used."
+        },
+        "region": {
+          "type": "string",
+          "description": "The region filter applied, if any."
+        }
+      }
+    },
+    "data": {
+      "type": "array",
+      "description": "A list of data points with measurements for each time bucket.",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  }
+}

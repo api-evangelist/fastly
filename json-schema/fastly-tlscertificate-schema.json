@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TlsCertificate",
+  "title": "TlsCertificate",
+  "type": "object",
+  "description": "A custom TLS certificate used to terminate TLS traffic for one or more fully qualified domain names.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the TLS certificate."
+    },
+    "type": {
+      "type": "string",
+      "description": "The resource type.",
+      "enum": [
+        "tls_certificate"
+      ]
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "A customizable name for the certificate."
+        },
+        "cert_blob": {
+          "type": "string",
+          "description": "The PEM-encoded certificate."
+        },
+        "issued_to": {
+          "type": "string",
+          "description": "The common name of the entity the certificate was issued to."
+        },
+        "issuer": {
+          "type": "string",
+          "description": "The certificate authority that issued the certificate."
+        },
+        "serial_number": {
+          "type": "string",
+          "description": "The serial number of the certificate."
+        },
+        "signature_algorithm": {
+          "type": "string",
+          "description": "The algorithm used to sign the certificate."
+        },
+        "not_before": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date the certificate is valid from."
+        },
+        "not_after": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date the certificate expires."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the certificate was created."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the certificate was last updated."
+        }
+      }
+    }
+  }
+}

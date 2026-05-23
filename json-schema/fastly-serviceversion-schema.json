@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceVersion",
+  "title": "ServiceVersion",
+  "type": "object",
+  "description": "A version of a Fastly service. Versions represent distinct configurations that can be activated or deactivated independently.",
+  "properties": {
+    "number": {
+      "type": "integer",
+      "description": "The version number."
+    },
+    "service_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the service."
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether this version is currently active."
+    },
+    "locked": {
+      "type": "boolean",
+      "description": "Whether this version is locked and cannot be modified."
+    },
+    "deployed": {
+      "type": "boolean",
+      "description": "Whether this version has been deployed."
+    },
+    "staging": {
+      "type": "boolean",
+      "description": "Whether this version is in the staging environment."
+    },
+    "testing": {
+      "type": "boolean",
+      "description": "Whether this version is in the testing environment."
+    },
+    "comment": {
+      "type": "string",
+      "description": "A freeform descriptive note about the version."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time in ISO 8601 format when the version was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time in ISO 8601 format when the version was last updated."
+    },
+    "deleted_at": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "The date and time in ISO 8601 format when the version was deleted."
+    }
+  }
+}

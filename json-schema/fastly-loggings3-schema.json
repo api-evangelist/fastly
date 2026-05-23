@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoggingS3",
+  "title": "LoggingS3",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/LoggingCommon"
+    },
+    {
+      "type": "object",
+      "description": "Configuration for an Amazon S3 logging endpoint.",
+      "properties": {
+        "bucket_name": {
+          "type": "string",
+          "description": "The name of the S3 bucket to send logs to."
+        },
+        "access_key": {
+          "type": "string",
+          "description": "The AWS access key ID used to authenticate."
+        },
+        "secret_key": {
+          "type": "string",
+          "description": "The AWS secret access key used to authenticate."
+        },
+        "iam_role": {
+          "type": "string",
+          "description": "The Amazon Resource Name of an IAM role to assume for S3 access."
+        },
+        "domain": {
+          "type": "string",
+          "description": "The domain of the S3 endpoint."
+        },
+        "path": {
+          "type": "string",
+          "description": "The path to store logs in the S3 bucket."
+        },
+        "period": {
+          "type": "integer",
+          "description": "How frequently in seconds log files are finalized and sent.",
+          "default": 3600
+        },
+        "gzip_level": {
+          "type": "integer",
+          "description": "The level of gzip encoding when sending logs.",
+          "minimum": 0,
+          "maximum": 9,
+          "default": 0
+        },
+        "redundancy": {
+          "type": "string",
+          "description": "The S3 redundancy level.",
+          "enum": [
+            "standard",
+            "reduced_redundancy"
+          ]
+        }
+      }
+    }
+  ]
+}

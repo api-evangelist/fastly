@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WafActiveRule",
+  "title": "WafActiveRule",
+  "type": "object",
+  "description": "An active WAF rule that is currently enforced on a firewall.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the active rule."
+    },
+    "type": {
+      "type": "string",
+      "description": "The resource type.",
+      "enum": [
+        "waf_active_rule"
+      ]
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "The enforcement status of the rule.",
+          "enum": [
+            "log",
+            "block"
+          ]
+        },
+        "modsec_rule_id": {
+          "type": "integer",
+          "description": "The ModSecurity rule ID."
+        },
+        "revision": {
+          "type": "integer",
+          "description": "The revision number of the rule."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the active rule was created."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the active rule was last updated."
+        }
+      }
+    }
+  }
+}

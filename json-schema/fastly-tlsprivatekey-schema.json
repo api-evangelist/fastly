@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TlsPrivateKey",
+  "title": "TlsPrivateKey",
+  "type": "object",
+  "description": "A private key used to sign one or more TLS certificates.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the TLS private key."
+    },
+    "type": {
+      "type": "string",
+      "description": "The resource type.",
+      "enum": [
+        "tls_private_key"
+      ]
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "A customizable name for the private key."
+        },
+        "key_length": {
+          "type": "integer",
+          "description": "The key length in bits."
+        },
+        "key_type": {
+          "type": "string",
+          "description": "The type of the key.",
+          "enum": [
+            "RSA",
+            "ECDSA"
+          ]
+        },
+        "public_key_sha1": {
+          "type": "string",
+          "description": "The SHA-1 hash of the public key."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the key was created."
+        }
+      }
+    }
+  }
+}

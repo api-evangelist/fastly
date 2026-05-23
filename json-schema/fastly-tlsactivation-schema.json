@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TlsActivation",
+  "title": "TlsActivation",
+  "type": "object",
+  "description": "A TLS activation that enables TLS traffic termination for a specific domain using a custom certificate and configuration.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the TLS activation."
+    },
+    "type": {
+      "type": "string",
+      "description": "The resource type.",
+      "enum": [
+        "tls_activation"
+      ]
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the activation was created."
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "tls_certificate": {
+          "type": "object",
+          "description": "The TLS certificate used for the activation."
+        },
+        "tls_configuration": {
+          "type": "object",
+          "description": "The TLS configuration used for the activation."
+        },
+        "tls_domain": {
+          "type": "object",
+          "description": "The domain the activation is for."
+        }
+      }
+    }
+  }
+}

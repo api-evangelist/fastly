@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DictionaryItem",
+  "title": "DictionaryItem",
+  "type": "object",
+  "description": "A single key-value pair that makes up an entry in a dictionary.",
+  "properties": {
+    "dictionary_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the dictionary."
+    },
+    "service_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the service."
+    },
+    "item_key": {
+      "type": "string",
+      "description": "The key of the dictionary item.",
+      "maxLength": 256
+    },
+    "item_value": {
+      "type": "string",
+      "description": "The value of the dictionary item.",
+      "maxLength": 8000
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the item was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the item was last updated."
+    },
+    "deleted_at": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "The date and time the item was deleted."
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Package",
+  "title": "Package",
+  "type": "object",
+  "description": "A Compute package containing the WebAssembly binary for a Fastly Compute service.",
+  "properties": {
+    "service_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the service."
+    },
+    "version": {
+      "type": "integer",
+      "description": "The version number the package is associated with."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Metadata about the package.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the package."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the package."
+        },
+        "authors": {
+          "type": "array",
+          "description": "The authors of the package.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "language": {
+          "type": "string",
+          "description": "The programming language used."
+        },
+        "size": {
+          "type": "integer",
+          "description": "The size of the package in bytes."
+        },
+        "hashsum": {
+          "type": "string",
+          "description": "The hash checksum of the package."
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the package was created."
+    }
+  }
+}

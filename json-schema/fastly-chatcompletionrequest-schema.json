@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionRequest",
+  "title": "ChatCompletionRequest",
+  "type": "object",
+  "required": [
+    "model",
+    "messages"
+  ],
+  "properties": {
+    "model": {
+      "type": "string",
+      "example": "gpt-4o-mini"
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "system",
+              "user",
+              "assistant",
+              "tool"
+            ]
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "temperature": {
+      "type": "number",
+      "format": "float"
+    },
+    "max_tokens": {
+      "type": "integer"
+    },
+    "stream": {
+      "type": "boolean"
+    }
+  }
+}

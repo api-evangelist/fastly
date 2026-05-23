@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoggingHttps",
+  "title": "LoggingHttps",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/LoggingCommon"
+    },
+    {
+      "type": "object",
+      "description": "Configuration for an HTTPS logging endpoint.",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL to send logs to via HTTPS."
+        },
+        "request_max_entries": {
+          "type": "integer",
+          "description": "The maximum number of log entries per batch.",
+          "default": 0
+        },
+        "request_max_bytes": {
+          "type": "integer",
+          "description": "The maximum number of bytes per batch.",
+          "default": 0
+        },
+        "content_type": {
+          "type": "string",
+          "description": "The content type of the log payload."
+        },
+        "header_name": {
+          "type": "string",
+          "description": "Name of the custom header sent with the log payload."
+        },
+        "header_value": {
+          "type": "string",
+          "description": "Value of the custom header sent with the log payload."
+        },
+        "method": {
+          "type": "string",
+          "description": "The HTTP method used for sending logs.",
+          "enum": [
+            "POST",
+            "PUT"
+          ],
+          "default": "POST"
+        },
+        "json_format": {
+          "type": "string",
+          "description": "Enforces valid JSON formatting for log entries.",
+          "enum": [
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        "tls_hostname": {
+          "type": "string",
+          "description": "The hostname to verify the server certificate against."
+        },
+        "tls_ca_cert": {
+          "type": "string",
+          "description": "A secure certificate to authenticate a server with."
+        }
+      }
+    }
+  ]
+}

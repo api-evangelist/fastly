@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AutomationToken",
+  "title": "AutomationToken",
+  "type": "object",
+  "description": "An automation token used by non-human clients such as CI/CD pipelines and build systems to authenticate requests to the Fastly API.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the automation token."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the automation token."
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the customer."
+    },
+    "role": {
+      "type": "string",
+      "description": "The role assigned to the automation token.",
+      "enum": [
+        "billing",
+        "engineer",
+        "user"
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "description": "A space-delimited list of authorization scopes."
+    },
+    "services": {
+      "type": "array",
+      "description": "A list of service IDs the token is scoped to.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ip": {
+      "type": "string",
+      "description": "The IP address of the client that last used the token."
+    },
+    "last_used_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the token was last used."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "The date and time the token expires."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the token was created."
+    },
+    "sudo_expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "The date and time the sudo mode expires."
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Snippet",
+  "title": "Snippet",
+  "type": "object",
+  "description": "A VCL snippet is a small piece of VCL code that can be inserted into a specific VCL subroutine without uploading a full custom VCL file.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the VCL snippet."
+    },
+    "content": {
+      "type": "string",
+      "description": "The VCL code for the snippet."
+    },
+    "type": {
+      "type": "string",
+      "description": "The VCL subroutine to insert the snippet into.",
+      "enum": [
+        "init",
+        "recv",
+        "hash",
+        "hit",
+        "miss",
+        "pass",
+        "fetch",
+        "error",
+        "deliver",
+        "log",
+        "none"
+      ]
+    },
+    "dynamic": {
+      "type": "integer",
+      "description": "Whether this snippet is dynamic (0 = versioned, 1 = dynamic).",
+      "enum": [
+        0,
+        1
+      ]
+    },
+    "priority": {
+      "type": "integer",
+      "description": "The priority of the snippet, determining its order of execution.",
+      "default": 100
+    }
+  }
+}

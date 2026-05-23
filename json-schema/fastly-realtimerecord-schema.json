@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RealtimeRecord",
+  "title": "RealtimeRecord",
+  "type": "object",
+  "description": "A single second of real-time analytics data with measurements grouped by data center.",
+  "properties": {
+    "datacenter": {
+      "type": "object",
+      "description": "A map of data center names to their respective measurement data.",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/RealtimeMeasurements"
+      }
+    },
+    "aggregated": {
+      "$ref": "#/components/schemas/RealtimeMeasurements"
+    },
+    "recorded": {
+      "type": "integer",
+      "description": "The Unix timestamp when this record was recorded."
+    }
+  }
+}

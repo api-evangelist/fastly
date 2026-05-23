@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WafFirewall",
+  "title": "WafFirewall",
+  "type": "object",
+  "description": "A WAF firewall instance associated with a Fastly service.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the WAF firewall."
+    },
+    "type": {
+      "type": "string",
+      "description": "The resource type.",
+      "enum": [
+        "waf_firewall"
+      ]
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "service_id": {
+          "type": "string",
+          "description": "The ID of the associated service."
+        },
+        "service_version_number": {
+          "type": "integer",
+          "description": "The service version number."
+        },
+        "active_rules_fastly_block_count": {
+          "type": "integer",
+          "description": "The number of active rules in block mode managed by Fastly."
+        },
+        "active_rules_fastly_log_count": {
+          "type": "integer",
+          "description": "The number of active rules in log mode managed by Fastly."
+        },
+        "active_rules_owasp_block_count": {
+          "type": "integer",
+          "description": "The number of active OWASP rules in block mode."
+        },
+        "active_rules_owasp_log_count": {
+          "type": "integer",
+          "description": "The number of active OWASP rules in log mode."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the firewall was created."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the firewall was last updated."
+        }
+      }
+    }
+  }
+}

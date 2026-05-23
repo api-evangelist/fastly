@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WafExclusion",
+  "title": "WafExclusion",
+  "type": "object",
+  "description": "A WAF exclusion that prevents specific requests from being flagged by the firewall.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The alphanumeric string identifying the exclusion."
+    },
+    "type": {
+      "type": "string",
+      "description": "The resource type.",
+      "enum": [
+        "waf_exclusion"
+      ]
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the exclusion."
+        },
+        "exclusion_type": {
+          "type": "string",
+          "description": "The type of exclusion.",
+          "enum": [
+            "rule",
+            "variable",
+            "waf"
+          ]
+        },
+        "condition": {
+          "type": "string",
+          "description": "The VCL condition expression for the exclusion."
+        },
+        "number": {
+          "type": "integer",
+          "description": "The exclusion number."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the exclusion was created."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the exclusion was last updated."
+        }
+      }
+    }
+  }
+}
