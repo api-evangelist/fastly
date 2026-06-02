@@ -1,0 +1,763 @@
+asyncapi: '2.6.0'
+id: 'urn:fastly:streaming'
+info:
+  title: Fastly Streaming, Logging, and Event Surfaces
+  version: '1.0.0'
+  description: |
+    AsyncAPI 2.6 description of the asynchronous and streaming surfaces exposed by
+    Fastly across three documented capabilities:
+
+      1. Real-Time Analytics (rt.fastly.com) - long-polling stream of one-second
+         analytics records consumed by following the returned Timestamp field.
+      2. Real-Time Logging - per-service logging endpoints that push edge log
+         records out to S3, GCS, BigQuery, Splunk, Kafka, Syslog, HTTPS, Datadog,
+         Amazon Kinesis, Google Cloud Pub/Sub, and other documented destinations.
+      3. Event / Notification surfaces - the Notification Service (which can
+         deliver alerts via outbound webhooks, Slack, Microsoft Teams, PagerDuty,
+         New Relic, and mailing lists), the DDoS Protection Events stream, and
+         the Fanout (Publishing) GRIP-compatible message stream that fans out
+         to HTTP response, HTTP streaming, and WebSocket subscribers.
+
+    Only surfaces documented at https://www.fastly.com/documentation/reference/api/
+    are modeled here. Channels are named after the documented destination/transport.
+  contact:
+    name: Fastly Developer Documentation
+    url: https://www.fastly.com/documentation/reference/api/
+  license:
+    name: Documentation Terms
+    url: https://www.fastly.com/documentation/
+
+defaultContentType: application/json
+
+servers:
+  realtime-analytics:
+    url: rt.fastly.com
+    protocol: https
+    description: |
+      Real-Time Analytics base URL. Clients poll a timestamped endpoint and use
+      the Timestamp field of each response as the next request's start_timestamp
+      to receive a continuous one-second-interval stream of analytics records.
+      Responses are cached at the edge with a 1-second TTL.
+    security:
+      - fastlyKey: []
+  api:
+    url: api.fastly.com
+    protocol: https
+    description: |
+      Primary Fastly control-plane host. Used here as the producer side for
+      Fanout publishes (POST /service/{service_id}/publish/) and as the origin
+      of Notification Service webhook deliveries to customer-configured URLs.
+    security:
+      - fastlyKey: []
+      - bearerToken: []
+  customer-webhook:
+    url: '{webhookUrl}'
+    protocol: https
+    description: |
+      Customer-operated HTTPS endpoint that receives outbound notifications from
+      the Fastly Notification Service when an Alert Definition's evaluation
+      strategy crosses its threshold.
+    variables:
+      webhookUrl:
+        description: HTTPS URL configured on the customer's notification integration.
+        default: https://example.com/fastly/notifications
+  customer-https-log:
+    url: '{httpsLogUrl}'
+    protocol: https
+    description: |
+      Customer-operated HTTPS endpoint configured as a Fastly HTTPS logging
+      destination. Fastly POSTs batched log records to this URL after domain
+      ownership validation.
+    variables:
+      httpsLogUrl:
+        description: HTTPS URL of the customer log collector.
+        default: https://logs.example.com/fastly
+  splunk-hec:
+    url: '{splunkUrl}'
+    protocol: https
+    description: Splunk HTTP Event Collector endpoint receiving Fastly edge logs.
+    variables:
+      splunkUrl:
+        default: https://splunk.example.com:8088/services/collector
+  datadog:
+    url: http-intake.logs.datadoghq.com
+    protocol: https
+    description: Datadog HTTP intake receiving Fastly edge logs.
+  aws-s3:
+    url: '{bucket}.s3.amazonaws.com'
+    protocol: https
+    description: Amazon S3 bucket receiving periodic Fastly log batches.
+    variables:
+      bucket:
+        default: my-fastly-logs
+  gcs:
+    url: storage.googleapis.com
+    protocol: https
+    description: Google Cloud Storage bucket receiving periodic Fastly log batches.
+  bigquery:
+    url: bigquery.googleapis.com
+    protocol: https
+    description: Google BigQuery streaming inserts target for Fastly logs.
+  gcp-pubsub:
+    url: pubsub.googleapis.com
+    protocol: https
+    description: Google Cloud Pub/Sub topic receiving Fastly log messages.
+  aws-kinesis:
+    url: kinesis.{region}.amazonaws.com
+    protocol: https
+    description: Amazon Kinesis Data Stream receiving Fastly log messages.
+    variables:
+      region:
+        default: us-east-1
+  kafka:
+    url: '{broker}'
+    protocol: kafka
+    protocolVersion: '2.x'
+    description: Customer Kafka broker receiving Fastly edge log records.
+    variables:
+      broker:
+        default: kafka.example.com:9092
+  syslog:
+    url: '{host}'
+    protocol: secure-syslog
+    description: |
+      Syslog-compatible collector (typically TLS on TCP/514 or another port)
+      receiving Fastly streamed log lines.
+    variables:
+      host:
+        default: syslog.example.com:6514
+
+channels:
+
+  # ---------------------------------------------------------------------------
+  # 1. Real-Time Analytics streaming
+  # ---------------------------------------------------------------------------
+
+  v1/channel/{service_id}/ts/{start_timestamp}:
+    servers:
+      - realtime-analytics
+    description: |
+      Real-time analytics stream for a service. Each GET returns analytics
+      records (one per second) generated since start_timestamp. The Timestamp
+      field of the response is used as the start_timestamp of the next call,
+      producing a continuous stream of one-second-interval records.
+    parameters:
+      service_id:
+        description: Fastly service identifier.
+        schema:
+          type: string
+      start_timestamp:
+        description: |
+          Unix timestamp; pass the Timestamp returned by the previous response
+          to receive only new records, otherwise pass 0 for the most recent
+          available data.
+        schema:
+          type: integer
+    subscribe:
+      operationId: streamRealtimeStats
+      summary: Stream one-second real-time analytics records for a service.
+      message:
+        $ref: '#/components/messages/RealtimeResponse'
+
+  v1/channel/{service_id}/ts/h:
+    servers:
+      - realtime-analytics
+    description: |
+      Convenience stream that returns the last 120 seconds of one-second
+      analytics records for a service in a single response. Suitable for
+      bootstrapping a stream before transitioning to the timestamped channel.
+    parameters:
+      service_id:
+        schema:
+          type: string
+    subscribe:
+      operationId: streamRealtimeStatsLast120Seconds
+      message:
+        $ref: '#/components/messages/RealtimeResponse'
+
+  v1/channel/{service_id}/ts/h/limit/{max_entries}:
+    servers:
+      - realtime-analytics
+    description: |
+      Limited real-time analytics stream returning up to max_entries one-second
+      records from the recent window for a service.
+    parameters:
+      service_id:
+        schema:
+          type: string
+      max_entries:
+        schema:
+          type: integer
+    subscribe:
+      operationId: streamRealtimeStatsLimited
+      message:
+        $ref: '#/components/messages/RealtimeResponse'
+
+  v1/channel/{service_id}/ts/h/domains/{domain}/limit/{max_entries}:
+    servers:
+      - realtime-analytics
+    description: Domain Inspector real-time metrics stream for a specific domain.
+    parameters:
+      service_id:
+        schema:
+          type: string
+      domain:
+        schema:
+          type: string
+      max_entries:
+        schema:
+          type: integer
+    subscribe:
+      operationId: streamDomainInspectorRealtime
+      message:
+        $ref: '#/components/messages/RealtimeResponse'
+
+  v1/channel/{service_id}/ts/h/origins/{origin}/limit/{max_entries}:
+    servers:
+      - realtime-analytics
+    description: Origin Inspector real-time metrics stream for a specific origin host.
+    parameters:
+      service_id:
+        schema:
+          type: string
+      origin:
+        schema:
+          type: string
+      max_entries:
+        schema:
+          type: integer
+    subscribe:
+      operationId: streamOriginInspectorRealtime
+      message:
+        $ref: '#/components/messages/RealtimeResponse'
+
+  # ---------------------------------------------------------------------------
+  # 2. Real-Time Logging endpoints (edge -> destination)
+  # ---------------------------------------------------------------------------
+
+  logging/s3:
+    servers:
+      - aws-s3
+    description: |
+      Fastly Real-Time Logging S3 destination. Fastly batches edge log records
+      and uploads them as objects to the configured S3 bucket.
+    publish:
+      operationId: publishLogsToS3
+      summary: Periodic batched log object uploaded by Fastly to an S3 bucket.
+      message:
+        $ref: '#/components/messages/EdgeLogBatch'
+
+  logging/gcs:
+    servers:
+      - gcs
+    description: Fastly Real-Time Logging Google Cloud Storage destination.
+    publish:
+      operationId: publishLogsToGCS
+      message:
+        $ref: '#/components/messages/EdgeLogBatch'
+
+  logging/bigquery:
+    servers:
+      - bigquery
+    description: |
+      Fastly BigQuery logging destination. Log messages are uploaded into the
+      configured BigQuery dataset/table using the configured row format.
+    publish:
+      operationId: publishLogsToBigQuery
+      message:
+        $ref: '#/components/messages/EdgeLogRecord'
+
+  logging/splunk:
+    servers:
+      - splunk-hec
+    description: |
+      Fastly Splunk logging destination. Fastly POSTs edge log events to the
+      configured Splunk HTTP Event Collector URL.
+    publish:
+      operationId: publishLogsToSplunk
+      message:
+        $ref: '#/components/messages/EdgeLogRecord'
+
+  logging/kafka:
+    servers:
+      - kafka
+    description: |
+      Fastly Kafka logging destination. Fastly uploads edge log records to the
+      configured topic on the customer's Kafka broker.
+    parameters: {}
+    publish:
+      operationId: publishLogsToKafka
+      message:
+        $ref: '#/components/messages/EdgeLogRecord'
+      bindings:
+        kafka:
+          bindingVersion: '0.4.0'
+
+  logging/syslog:
+    servers:
+      - syslog
+    description: |
+      Fastly Syslog logging destination. Fastly streams log lines to the
+      configured syslog-compatible host (typically over TLS).
+    publish:
+      operationId: publishLogsToSyslog
+      message:
+        $ref: '#/components/messages/SyslogLogLine'
+
+  logging/https:
+    servers:
+      - customer-https-log
+    description: |
+      Fastly HTTPS logging destination. After the customer validates domain
+      ownership, Fastly POSTs batched log records to the configured HTTPS URL.
+    publish:
+      operationId: publishLogsToHttps
+      message:
+        $ref: '#/components/messages/EdgeLogBatch'
+
+  logging/datadog:
+    servers:
+      - datadog
+    description: |
+      Fastly Datadog logging destination. Fastly uploads log messages to the
+      Datadog HTTP intake in the Datadog-specified configuration format.
+    publish:
+      operationId: publishLogsToDatadog
+      message:
+        $ref: '#/components/messages/EdgeLogRecord'
+
+  logging/kinesis:
+    servers:
+      - aws-kinesis
+    description: |
+      Fastly Amazon Kinesis logging destination. Fastly publishes edge log
+      messages as records on the configured Kinesis Data Stream.
+    publish:
+      operationId: publishLogsToKinesis
+      message:
+        $ref: '#/components/messages/EdgeLogRecord'
+
+  logging/gcp-pubsub:
+    servers:
+      - gcp-pubsub
+    description: |
+      Fastly Google Cloud Pub/Sub logging destination. Fastly publishes edge
+      log messages to the configured Pub/Sub topic.
+    publish:
+      operationId: publishLogsToPubSub
+      message:
+        $ref: '#/components/messages/EdgeLogRecord'
+
+  # ---------------------------------------------------------------------------
+  # 3a. Notification Service - outbound webhooks for alerts/incidents
+  # ---------------------------------------------------------------------------
+
+  notifications/webhook:
+    servers:
+      - customer-webhook
+    description: |
+      Outbound webhook delivered by the Fastly Notification Service when an
+      Alert Definition's evaluation strategy threshold is crossed. The
+      Notification Service supports mailing list, Microsoft Teams, New Relic,
+      Slack, PagerDuty, and webhook integrations; this channel models the
+      webhook transport.
+    publish:
+      operationId: deliverAlertWebhook
+      summary: Alert notification delivered to a customer-configured webhook URL.
+      message:
+        $ref: '#/components/messages/AlertNotification'
+
+  # ---------------------------------------------------------------------------
+  # 3b. DDoS Protection Events - polled event stream
+  # ---------------------------------------------------------------------------
+
+  ddos-protection/v1/events:
+    servers:
+      - api
+    description: |
+      DDoS Protection events feed. Clients poll /ddos-protection/v1/events to
+      observe attack events detected by Fastly (active, mitigated, ended) with
+      traffic statistics. Each emitted item is modeled here as an asynchronous
+      DdosEvent record.
+    subscribe:
+      operationId: streamDdosEvents
+      summary: Stream of DDoS Protection events for the account.
+      message:
+        $ref: '#/components/messages/DdosEvent'
+
+  # ---------------------------------------------------------------------------
+  # 3c. Fanout (Publishing) - GRIP-compatible fan-out to subscribers
+  # ---------------------------------------------------------------------------
+
+  service/{service_id}/publish/:
+    servers:
+      - api
+    description: |
+      Fastly Publishing (Fanout) ingress. Producers POST a PublishRequest
+      containing PublishItem messages addressed to channels; Fastly Fanout
+      fans each item out to subscribed HTTP responses, HTTP streams, and
+      WebSocket connections using the formats supplied per item.
+    parameters:
+      service_id:
+        description: Fastly service identifier configured for Fanout.
+        schema:
+          type: string
+    publish:
+      operationId: publishFanoutMessage
+      summary: Publish a message into a Fanout channel for real-time delivery.
+      message:
+        $ref: '#/components/messages/PublishRequest'
+
+  fanout/subscriber/{channel}:
+    servers:
+      - api
+    description: |
+      Logical subscriber-side channel representing the delivery of a Fanout
+      PublishItem to subscribers of {channel}. Delivery transport is selected
+      per item via the formats map (http-response, http-stream, ws-message).
+    parameters:
+      channel:
+        description: Fanout channel name targeted by the publisher.
+        schema:
+          type: string
+    subscribe:
+      operationId: receiveFanoutMessage
+      summary: Receive a Fanout message on a subscribed channel.
+      message:
+        $ref: '#/components/messages/PublishItem'
+
+components:
+
+  securitySchemes:
+    fastlyKey:
+      type: httpApiKey
+      in: header
+      name: Fastly-Key
+      description: Fastly API token passed via the Fastly-Key header.
+    bearerToken:
+      type: http
+      scheme: bearer
+      description: |
+        Fastly API token passed via the Authorization header using the Bearer
+        scheme. Accepted by the Fanout /service/{service_id}/publish/ endpoint.
+
+  messages:
+
+    RealtimeResponse:
+      name: RealtimeResponse
+      title: Real-Time Analytics Response
+      summary: One-second-interval analytics records for a Fastly service.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/RealtimeResponse'
+
+    EdgeLogRecord:
+      name: EdgeLogRecord
+      title: Fastly Edge Log Record
+      summary: |
+        A single log line produced by VCL or Compute log() statements on the
+        Fastly edge and shipped to a logging destination. The body is shaped
+        by the customer's configured format string and may be JSON, plain
+        text, or another structured format depending on the endpoint.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EdgeLogRecord'
+
+    EdgeLogBatch:
+      name: EdgeLogBatch
+      title: Fastly Edge Log Batch
+      summary: |
+        Batched object (one upload) containing many EdgeLogRecord entries.
+        Used for object-storage style destinations (S3, GCS, HTTPS POST, etc.)
+        and for the periodic-upload destinations.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EdgeLogBatch'
+
+    SyslogLogLine:
+      name: SyslogLogLine
+      title: Fastly Syslog Log Line
+      summary: A single syslog-formatted log line streamed by Fastly.
+      contentType: text/plain
+      payload:
+        type: string
+        description: |
+          Raw syslog line as emitted by the Fastly edge. Content shape is
+          controlled by the customer's logging format.
+
+    AlertNotification:
+      name: AlertNotification
+      title: Fastly Alert Notification
+      summary: |
+        Notification dispatched when an Alert Definition crosses its threshold.
+        Delivered to the customer-configured webhook URL by the Notification
+        Service.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AlertNotification'
+
+    DdosEvent:
+      name: DdosEvent
+      title: Fastly DDoS Protection Event
+      summary: A detected DDoS attack event (active, mitigated, or ended).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DdosEvent'
+
+    PublishRequest:
+      name: PublishRequest
+      title: Fastly Fanout PublishRequest
+      summary: Producer-side envelope POSTed to the Fanout publish endpoint.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PublishRequest'
+
+    PublishItem:
+      name: PublishItem
+      title: Fastly Fanout PublishItem
+      summary: |
+        A single Fanout message addressed to a channel. The formats map
+        determines which subscriber transports receive the payload.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PublishItem'
+
+  schemas:
+
+    RealtimeResponse:
+      type: object
+      description: |
+        Response from the Real-Time Analytics API. Clients use Timestamp as
+        the start_timestamp of the next request to stream continuous data.
+      properties:
+        Timestamp:
+          type: integer
+          description: Unix timestamp of the latest data point; use as next start_timestamp.
+        AggregateDelay:
+          type: integer
+          description: Offset (seconds) of the latest data point from current time.
+        Data:
+          type: array
+          description: Array of analytics records, each representing one second of data.
+          items:
+            $ref: '#/components/schemas/RealtimeRecord'
+
+    RealtimeRecord:
+      type: object
+      description: |
+        One second of analytics data, broken down across all POPs and per
+        individual datacenter.
+      properties:
+        recorded:
+          type: integer
+          description: Unix timestamp at which this one-second record was generated.
+        aggregated:
+          type: object
+          description: |
+            Measurements aggregated across all POPs for this second. Contains
+            the full Fastly real-time measurements set (300+ fields covering
+            request counts, cache performance, status codes, bandwidth, bot
+            detection, DDoS actions, Compute, Image Optimizer, WebSocket,
+            etc.).
+          additionalProperties: true
+        datacenter:
+          type: object
+          description: |
+            Measurements grouped by individual POP. Keys are POP codes; values
+            are the same measurements object shape as 'aggregated'.
+          additionalProperties:
+            type: object
+            additionalProperties: true
+
+    EdgeLogRecord:
+      type: object
+      description: |
+        Generic representation of a single Fastly edge log line. The actual
+        shape is controlled by the format string configured on the logging
+        endpoint, so additional fields are permitted.
+      additionalProperties: true
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: Time at which the record was produced at the edge.
+        service_id:
+          type: string
+          description: Fastly service that produced the log.
+        request_id:
+          type: string
+          description: Request identifier where supplied by VCL/Compute.
+        message:
+          type: string
+          description: Free-form log message body.
+
+    EdgeLogBatch:
+      type: object
+      description: |
+        A single uploaded object containing one or more EdgeLogRecord entries.
+        Used by object-storage and HTTPS POST destinations.
+      properties:
+        service_id:
+          type: string
+          description: Fastly service that produced the batch.
+        endpoint_name:
+          type: string
+          description: Name of the logging endpoint configuration.
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/EdgeLogRecord'
+
+    AlertNotification:
+      type: object
+      description: |
+        Notification payload describing an alert event derived from a Fastly
+        Alert Definition. Fastly's Notification Service can deliver alerts
+        via webhook, Slack, Microsoft Teams, PagerDuty, New Relic, and
+        mailing list integrations.
+      properties:
+        notification_id:
+          type: string
+          description: Unique identifier for this notification delivery.
+        integration_id:
+          type: string
+          description: Notification integration that produced this delivery.
+        alert_definition:
+          $ref: '#/components/schemas/AlertDefinition'
+        triggered_at:
+          type: string
+          format: date-time
+          description: Time at which the alert condition was observed.
+        state:
+          type: string
+          enum:
+            - triggered
+            - resolved
+          description: Whether the alert was triggered or has resolved.
+        observed_value:
+          type: number
+          description: Value of the monitored metric that crossed the threshold.
+
+    AlertDefinition:
+      type: object
+      description: |
+        Configuration describing how Fastly observes a metric and the
+        integrations to notify when the threshold is crossed.
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        service_id:
+          type: string
+        type:
+          type: string
+          enum:
+            - stats
+            - domains
+            - origins
+        metric:
+          type: string
+        evaluation_strategy:
+          type: object
+          description: |
+            Evaluation strategy configuration (operator, threshold, period,
+            ignore_below) describing how the alert is computed.
+          additionalProperties: true
+        integration_ids:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    DdosEvent:
+      type: object
+      description: A DDoS attack event detected by Fastly DDoS Protection.
+      properties:
+        id:
+          type: string
+          description: Unique event identifier.
+        customer_id:
+          type: string
+        service_id:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - mitigated
+            - ended
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
+        requests_allowed:
+          type: integer
+          description: Count of requests classified as non-attack traffic.
+        requests_detected:
+          type: integer
+          description: Count of requests classified as attack traffic.
+        peak_rps:
+          type: integer
+          description: Peak requests-per-second observed during the event.
+
+    PublishRequest:
+      type: object
+      description: Envelope POSTed to /service/{service_id}/publish/.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublishItem'
+
+    PublishItem:
+      type: object
+      description: |
+        A single Fanout publish item addressed to a channel. At least one
+        format must be supplied; Fanout delivers only to subscribers whose
+        transport matches a supplied format.
+      properties:
+        channel:
+          type: string
+          example: chat-room-1
+          description: Channel name the message is published to.
+        id:
+          type: string
+          description: Identifier of this message on the channel.
+        prev_id:
+          type: string
+          description: Previous message identifier on the channel, for ordered delivery.
+        formats:
+          type: object
+          description: Transport-specific payloads keyed by format name.
+          properties:
+            http-response:
+              type: object
+              properties:
+                code:
+                  type: integer
+                body:
+                  type: string
+            http-stream:
+              type: object
+              properties:
+                content:
+                  type: string
+            ws-message:
+              type: object
+              properties:
+                content:
+                  type: string
