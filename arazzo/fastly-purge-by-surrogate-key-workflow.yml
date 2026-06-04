@@ -1,0 +1,83 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Purge by Surrogate Key
+  summary: Confirm a service exists, then instantly purge all objects tagged with a surrogate key.
+  description: >-
+    Surrogate keys let you invalidate a logical group of cached objects (for
+    example everything tagged with a product id) in one call. This workflow
+    first confirms the target service exists and then issues a soft or hard
+    purge for the supplied surrogate key. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: purgingApi
+  url: ../openapi/fastly-purging-openapi.yml
+  type: openapi
+workflows:
+- workflowId: purge-by-surrogate-key
+  summary: Validate a service and purge cached objects by surrogate key.
+  description: >-
+    Reads the service to confirm it exists, then purges every cached object
+    tagged with the supplied surrogate key, optionally as a soft purge.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - surrogateKey
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      surrogateKey:
+        type: string
+        description: The surrogate key tag to purge.
+      softPurge:
+        type: string
+        description: Set to "1" to mark objects stale instead of removing them.
+  steps:
+  - stepId: getService
+    description: Confirm the service exists before issuing the purge.
+    operationId: getService
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      serviceId: $response.body#/id
+  - stepId: purgeKey
+    description: Purge all cached objects tagged with the surrogate key.
+    operationId: purgeBySurrogateKey
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: surrogate_key
+      in: path
+      value: $inputs.surrogateKey
+    - name: Fastly-Soft-Purge
+      in: header
+      value: $inputs.softPurge
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      purgeId: $response.body#/id
+      status: $response.body#/status
+  outputs:
+    purgeId: $steps.purgeKey.outputs.purgeId
+    status: $steps.purgeKey.outputs.status

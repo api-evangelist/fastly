@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Clone, Update Backend, and Activate
+  summary: Clone the current version, change a backend on the clone, then activate the new version.
+  description: >-
+    Fastly configuration is immutable once a version is active, so safe changes
+    are made by cloning the live version into a fresh draft, editing the clone,
+    and activating it. This workflow clones a service version, updates the
+    address of an existing backend on the clone, and activates the resulting
+    version. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: vclServicesApi
+  url: ../openapi/fastly-vcl-services-openapi.yml
+  type: openapi
+workflows:
+- workflowId: clone-update-backend-activate
+  summary: Clone a version, repoint a backend, and activate the clone.
+  description: >-
+    Clones the supplied service version into a new draft, updates an existing
+    backend's address on the cloned version, and activates the clone.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - backendName
+    - backendAddress
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number to clone.
+      backendName:
+        type: string
+        description: The name of the existing backend to update.
+      backendAddress:
+        type: string
+        description: The new hostname or IP address for the backend.
+  steps:
+  - stepId: cloneVersion
+    description: Clone the supplied version into a new editable draft version.
+    operationId: cloneServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clonedVersion: $response.body#/number
+  - stepId: updateBackend
+    description: Repoint the named backend on the cloned version to the new address.
+    operationId: updateBackend
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    - name: backend_name
+      in: path
+      value: $inputs.backendName
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        address: $inputs.backendAddress
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedAddress: $response.body#/address
+  - stepId: activateVersion
+    description: Activate the cloned version so the new backend address goes live.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  outputs:
+    clonedVersion: $steps.cloneVersion.outputs.clonedVersion
+    updatedAddress: $steps.updateBackend.outputs.updatedAddress
+    active: $steps.activateVersion.outputs.active

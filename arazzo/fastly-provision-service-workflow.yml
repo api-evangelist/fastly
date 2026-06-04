@@ -1,0 +1,151 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Provision a Service
+  summary: Create a service, add a draft version, attach a backend and a domain, then activate.
+  description: >-
+    The canonical Fastly onboarding flow. The workflow creates a new VCL
+    service, opens a draft version, attaches an origin backend and a public
+    domain to that version, and finally activates the version so the
+    configuration goes live on Fastly's edge network. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: vclServicesApi
+  url: ../openapi/fastly-vcl-services-openapi.yml
+  type: openapi
+- name: domainManagementApi
+  url: ../openapi/fastly-domain-management-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-service
+  summary: Stand up a new Fastly VCL service end to end and activate it.
+  description: >-
+    Creates a service, creates a draft version on it, adds an origin backend
+    and a domain to that version, then activates the version to make the
+    configuration live.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceName
+    - backendAddress
+    - domainName
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceName:
+        type: string
+        description: The name for the new service.
+      serviceComment:
+        type: string
+        description: An optional comment describing the service.
+      backendAddress:
+        type: string
+        description: The hostname or IP address of the origin backend.
+      backendName:
+        type: string
+        description: A name for the backend (defaults to the address if omitted).
+      domainName:
+        type: string
+        description: The public domain name to associate with the service.
+  steps:
+  - stepId: createService
+    description: Create the new VCL service that will hold the configuration.
+    operationId: createService
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.serviceName
+        comment: $inputs.serviceComment
+        type: vcl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      serviceId: $response.body#/id
+  - stepId: createVersion
+    description: Open a new draft version on the freshly created service.
+    operationId: createServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $steps.createService.outputs.serviceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      versionNumber: $response.body#/number
+  - stepId: addBackend
+    description: Attach an origin backend to the draft version.
+    operationId: createBackend
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $steps.createService.outputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.createVersion.outputs.versionNumber
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.backendName
+        address: $inputs.backendAddress
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      backendName: $response.body#/name
+  - stepId: addDomain
+    description: Associate the public domain with the draft version.
+    operationId: createDomain
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $steps.createService.outputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.createVersion.outputs.versionNumber
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.domainName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      domainName: $response.body#/name
+  - stepId: activateVersion
+    description: Activate the draft version so the configuration goes live.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $steps.createService.outputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.createVersion.outputs.versionNumber
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  outputs:
+    serviceId: $steps.createService.outputs.serviceId
+    versionNumber: $steps.createVersion.outputs.versionNumber
+    active: $steps.activateVersion.outputs.active

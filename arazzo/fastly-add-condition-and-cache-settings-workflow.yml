@@ -1,0 +1,144 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Add Condition and Cache Settings
+  summary: Clone a version, create a condition, attach a cache settings rule to it, then activate.
+  description: >-
+    Conditions are reusable VCL predicates that gate when other configuration
+    objects apply. This workflow clones the live version into a draft, creates a
+    cache condition, attaches a cache settings rule that references that
+    condition, and activates the new version. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: vclServicesApi
+  url: ../openapi/fastly-vcl-services-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-condition-and-cache-settings
+  summary: Clone a version, add a condition and a conditional cache rule, then activate.
+  description: >-
+    Clones the supplied version, creates a cache condition, creates a cache
+    settings rule bound to that condition, and activates the clone.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - conditionName
+    - statement
+    - cacheSettingsName
+    - ttl
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number to clone.
+      conditionName:
+        type: string
+        description: A name for the condition.
+      statement:
+        type: string
+        description: The VCL boolean expression for the condition.
+      cacheSettingsName:
+        type: string
+        description: A name for the cache settings rule.
+      ttl:
+        type: integer
+        description: The maximum cache lifetime in seconds.
+  steps:
+  - stepId: cloneVersion
+    description: Clone the supplied version into a new editable draft version.
+    operationId: cloneServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clonedVersion: $response.body#/number
+  - stepId: createCondition
+    description: Create a cache condition on the cloned version.
+    operationId: createCondition
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.conditionName
+        statement: $inputs.statement
+        type: CACHE
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      conditionName: $response.body#/name
+  - stepId: createCacheSettings
+    description: Create a cache settings rule bound to the new condition.
+    operationId: createCacheSettings
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.cacheSettingsName
+        action: cache
+        ttl: $inputs.ttl
+        cache_condition: $steps.createCondition.outputs.conditionName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      settingsName: $response.body#/name
+  - stepId: activateVersion
+    description: Activate the cloned version so the condition and cache rule go live.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  outputs:
+    clonedVersion: $steps.cloneVersion.outputs.clonedVersion
+    conditionName: $steps.createCondition.outputs.conditionName
+    settingsName: $steps.createCacheSettings.outputs.settingsName
+    active: $steps.activateVersion.outputs.active

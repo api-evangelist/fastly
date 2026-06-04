@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Upload Custom VCL
+  summary: Clone the active version, upload a main custom VCL file, then activate the new version.
+  description: >-
+    For full control over edge logic, Fastly lets you upload a complete custom
+    VCL file rather than relying on generated VCL. This workflow clones the live
+    version into a draft, uploads a custom VCL file marked as the main entry
+    point on the clone, and activates the new version. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: vclServicesApi
+  url: ../openapi/fastly-vcl-services-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upload-custom-vcl
+  summary: Clone a version, upload a main custom VCL file, and activate the clone.
+  description: >-
+    Clones the supplied version, uploads a custom VCL file as the main entry
+    point on the cloned version, and activates the clone.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - vclName
+    - vclContent
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number to clone.
+      vclName:
+        type: string
+        description: A name for the custom VCL file.
+      vclContent:
+        type: string
+        description: The full VCL source to upload.
+      main:
+        type: boolean
+        description: Whether this VCL file is the main entry point.
+  steps:
+  - stepId: cloneVersion
+    description: Clone the supplied version into a new editable draft version.
+    operationId: cloneServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clonedVersion: $response.body#/number
+  - stepId: uploadVcl
+    description: Upload the custom VCL file to the cloned version.
+    operationId: createCustomVcl
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.vclName
+        content: $inputs.vclContent
+        main: $inputs.main
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      vclName: $response.body#/name
+  - stepId: activateVersion
+    description: Activate the cloned version so the custom VCL goes live.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  outputs:
+    clonedVersion: $steps.cloneVersion.outputs.clonedVersion
+    vclName: $steps.uploadVcl.outputs.vclName
+    active: $steps.activateVersion.outputs.active

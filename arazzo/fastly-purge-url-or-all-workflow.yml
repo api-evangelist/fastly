@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Purge URL or Purge All
+  summary: Branch on the requested scope to either purge a single URL or purge all service content.
+  description: >-
+    A single entry point for cache invalidation that supports two scopes. When a
+    cached URL is supplied the workflow purges just that object; otherwise it
+    falls back to purging all cached content for the service. The branch is
+    driven by the requested scope input. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: purgingApi
+  url: ../openapi/fastly-purging-openapi.yml
+  type: openapi
+workflows:
+- workflowId: purge-url-or-all
+  summary: Purge a single URL or purge all content depending on the chosen scope.
+  description: >-
+    Routes to a single-URL purge when a cached URL is provided, or to a
+    purge-all of the service when the scope requests it.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - scope
+    - serviceId
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      scope:
+        type: string
+        description: Either "url" to purge a single URL or "all" to purge all content.
+        enum:
+        - url
+        - all
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service (used for purge all).
+      cachedUrl:
+        type: string
+        description: The full URL of the cached object to purge (when scope is "url").
+      softPurge:
+        type: integer
+        description: Set to 1 to perform a soft purge of the single URL.
+  steps:
+  - stepId: routeScope
+    description: Decide whether to purge a single URL or all service content.
+    operationId: purgeSingleUrl
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: cached_url
+      in: path
+      value: $inputs.cachedUrl
+    - name: Fastly-Soft-Purge
+      in: header
+      value: $inputs.softPurge
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      purgeId: $response.body#/id
+    onSuccess:
+    - name: urlPurged
+      type: end
+      criteria:
+      - condition: $inputs.scope == "url"
+    onFailure:
+    - name: fallbackToAll
+      type: goto
+      stepId: purgeAll
+      criteria:
+      - condition: $inputs.scope == "all"
+  - stepId: purgeAll
+    description: Purge all cached content for the service when scope is "all".
+    operationId: purgeAll
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      purgeId: $response.body#/id
+  outputs:
+    urlStatus: $steps.routeScope.outputs.status
+    allStatus: $steps.purgeAll.outputs.status

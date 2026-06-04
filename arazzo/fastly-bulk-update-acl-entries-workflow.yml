@@ -1,0 +1,92 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Bulk Update ACL Entries
+  summary: Resolve an ACL by name, then create, update, and delete its entries in one batch.
+  description: >-
+    Reconciles the contents of an ACL in a single call. The workflow first
+    resolves the ACL container by name on a service version to obtain its id,
+    then submits a batch of entry operations (create, update, delete) against
+    that ACL. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: aclsApi
+  url: ../openapi/fastly-acls-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bulk-update-acl-entries
+  summary: Look up an ACL by name and apply a batch of entry operations.
+  description: >-
+    Resolves the ACL by name to get its id, then performs a bulk update that can
+    create, update, and delete entries in the same request.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - aclName
+    - entries
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number the ACL belongs to.
+      aclName:
+        type: string
+        description: The name of the ACL to reconcile.
+      entries:
+        type: array
+        description: A list of entry operations (op, id, ip, subnet, negated, comment).
+        items:
+          type: object
+  steps:
+  - stepId: getAcl
+    description: Resolve the ACL container by name to obtain its id.
+    operationId: getAcl
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    - name: acl_name
+      in: path
+      value: $inputs.aclName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      aclId: $response.body#/id
+  - stepId: bulkUpdate
+    description: Apply the batch of create, update, and delete entry operations.
+    operationId: bulkUpdateAclEntries
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: acl_id
+      in: path
+      value: $steps.getAcl.outputs.aclId
+    requestBody:
+      contentType: application/json
+      payload:
+        entries: $inputs.entries
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+  outputs:
+    aclId: $steps.getAcl.outputs.aclId
+    status: $steps.bulkUpdate.outputs.status

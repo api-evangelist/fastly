@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Upload TLS Key and Certificate
+  summary: Upload a TLS private key, then upload the matching custom TLS certificate.
+  description: >-
+    Custom TLS on Fastly requires a private key to be on file before the
+    matching certificate can be uploaded. This workflow uploads the PEM-encoded
+    private key and then uploads the custom certificate, both using Fastly's
+    JSON:API request format. Uploading the certificate automatically enables TLS
+    for every Subject Alternative Name on it. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: tlsApi
+  url: ../openapi/fastly-tls-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upload-tls-key-and-certificate
+  summary: Upload a TLS private key and then the matching certificate.
+  description: >-
+    Uploads a PEM-encoded private key, then uploads the matching PEM-encoded
+    certificate, both in Fastly's JSON:API format.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - keyPem
+    - certBlob
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      keyPem:
+        type: string
+        description: The PEM-encoded private key.
+      keyName:
+        type: string
+        description: A customizable name for the private key.
+      certBlob:
+        type: string
+        description: The PEM-encoded certificate.
+      certName:
+        type: string
+        description: A customizable name for the certificate.
+  steps:
+  - stepId: uploadKey
+    description: Upload the PEM-encoded private key in JSON:API format.
+    operationId: createTlsPrivateKey
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: tls_private_key
+          attributes:
+            key: $inputs.keyPem
+            name: $inputs.keyName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      privateKeyId: $response.body#/data/id
+  - stepId: uploadCertificate
+    description: Upload the matching PEM-encoded certificate in JSON:API format.
+    operationId: createTlsCertificate
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: tls_certificate
+          attributes:
+            cert_blob: $inputs.certBlob
+            name: $inputs.certName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      certificateId: $response.body#/data/id
+  outputs:
+    privateKeyId: $steps.uploadKey.outputs.privateKeyId
+    certificateId: $steps.uploadCertificate.outputs.certificateId

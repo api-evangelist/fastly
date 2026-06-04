@@ -1,0 +1,126 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Provision TLS Activation
+  summary: Upload a key, upload a certificate, then activate TLS for a domain with that certificate.
+  description: >-
+    Takes custom TLS from raw PEM material all the way to live traffic
+    termination. The workflow uploads the private key, uploads the matching
+    certificate, and then creates a TLS activation that binds the certificate to
+    a domain and TLS configuration so HTTPS is served for that domain. All three
+    calls use Fastly's JSON:API format. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: tlsApi
+  url: ../openapi/fastly-tls-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-tls-activation
+  summary: Upload key and certificate, then activate TLS for a domain.
+  description: >-
+    Uploads a private key and matching certificate, then creates a TLS
+    activation linking the certificate, a TLS configuration, and a domain so
+    HTTPS traffic is terminated for that domain.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - keyPem
+    - certBlob
+    - domainId
+    - configurationId
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      keyPem:
+        type: string
+        description: The PEM-encoded private key.
+      keyName:
+        type: string
+        description: A customizable name for the private key.
+      certBlob:
+        type: string
+        description: The PEM-encoded certificate.
+      certName:
+        type: string
+        description: A customizable name for the certificate.
+      domainId:
+        type: string
+        description: The TLS domain id to activate (typically the domain name).
+      configurationId:
+        type: string
+        description: The TLS configuration id to use for the activation.
+  steps:
+  - stepId: uploadKey
+    description: Upload the PEM-encoded private key in JSON:API format.
+    operationId: createTlsPrivateKey
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: tls_private_key
+          attributes:
+            key: $inputs.keyPem
+            name: $inputs.keyName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      privateKeyId: $response.body#/data/id
+  - stepId: uploadCertificate
+    description: Upload the matching certificate in JSON:API format.
+    operationId: createTlsCertificate
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: tls_certificate
+          attributes:
+            cert_blob: $inputs.certBlob
+            name: $inputs.certName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      certificateId: $response.body#/data/id
+  - stepId: createActivation
+    description: Activate TLS for the domain using the uploaded certificate and configuration.
+    operationId: createTlsActivation
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: tls_activation
+          relationships:
+            tls_certificate:
+              data:
+                type: tls_certificate
+                id: $steps.uploadCertificate.outputs.certificateId
+            tls_configuration:
+              data:
+                type: tls_configuration
+                id: $inputs.configurationId
+            tls_domain:
+              data:
+                type: tls_domain
+                id: $inputs.domainId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      activationId: $response.body#/data/id
+  outputs:
+    privateKeyId: $steps.uploadKey.outputs.privateKeyId
+    certificateId: $steps.uploadCertificate.outputs.certificateId
+    activationId: $steps.createActivation.outputs.activationId

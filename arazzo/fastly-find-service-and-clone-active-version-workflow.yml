@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Find Service and Clone Active Version
+  summary: Search a service by name, read its versions, then clone the active one into a draft.
+  description: >-
+    A convenient starting point for editing an existing service by name rather
+    than id. The workflow searches for the service by name to resolve its id and
+    active version, lists the service versions, and clones the active version
+    into a fresh draft ready for further configuration. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+workflows:
+- workflowId: find-service-and-clone-active-version
+  summary: Resolve a service by name and clone its active version into a draft.
+  description: >-
+    Searches for the service by name to get its id and active version, lists its
+    versions, then clones the active version to produce an editable draft.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceName
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceName:
+        type: string
+        description: The name of the service to find.
+  steps:
+  - stepId: searchService
+    description: Find the service by name and read its id and active version.
+    operationId: searchService
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: name
+      in: query
+      value: $inputs.serviceName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      serviceId: $response.body#/id
+      activeVersion: $response.body#/active_version
+  - stepId: listVersions
+    description: List the service versions to confirm the active version exists.
+    operationId: listServiceVersions
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $steps.searchService.outputs.serviceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      versions: $response.body
+  - stepId: cloneActive
+    description: Clone the active version into a new editable draft version.
+    operationId: cloneServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $steps.searchService.outputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.searchService.outputs.activeVersion
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clonedVersion: $response.body#/number
+  outputs:
+    serviceId: $steps.searchService.outputs.serviceId
+    activeVersion: $steps.searchService.outputs.activeVersion
+    clonedVersion: $steps.cloneActive.outputs.clonedVersion

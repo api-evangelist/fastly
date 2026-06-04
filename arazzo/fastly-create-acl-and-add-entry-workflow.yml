@@ -1,0 +1,120 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Create ACL and Add Entry
+  summary: Create an ACL on a version, activate the version, then add an IP entry to the ACL.
+  description: >-
+    ACLs hold lists of IP addresses used in VCL access decisions. An ACL
+    container is bound to a service version, but once the version is active its
+    entries become versionless and can be edited live. This workflow creates the
+    ACL on a draft version, activates the version, and then adds an IP entry to
+    the now-live ACL. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: aclsApi
+  url: ../openapi/fastly-acls-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-acl-and-add-entry
+  summary: Create an ACL, activate the version, and add an IP entry.
+  description: >-
+    Creates an ACL container on the supplied draft version, activates that
+    version, then adds an IP address entry to the resulting versionless ACL.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - aclName
+    - entryIp
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The draft version number to create the ACL on.
+      aclName:
+        type: string
+        description: The name for the new ACL.
+      entryIp:
+        type: string
+        description: The IP address to add as an ACL entry.
+      entrySubnet:
+        type: integer
+        description: An optional CIDR subnet mask for the entry.
+      entryComment:
+        type: string
+        description: An optional comment for the entry.
+  steps:
+  - stepId: createAcl
+    description: Create the ACL container on the supplied draft version.
+    operationId: createAcl
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.aclName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      aclId: $response.body#/id
+  - stepId: activateVersion
+    description: Activate the version so the ACL becomes live and versionless.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  - stepId: addEntry
+    description: Add an IP address entry to the now-live ACL.
+    operationId: createAclEntry
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: acl_id
+      in: path
+      value: $steps.createAcl.outputs.aclId
+    requestBody:
+      contentType: application/json
+      payload:
+        ip: $inputs.entryIp
+        subnet: $inputs.entrySubnet
+        comment: $inputs.entryComment
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      entryId: $response.body#/id
+  outputs:
+    aclId: $steps.createAcl.outputs.aclId
+    entryId: $steps.addEntry.outputs.entryId

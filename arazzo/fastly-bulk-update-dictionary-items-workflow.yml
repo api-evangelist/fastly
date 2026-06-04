@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Bulk Update Dictionary Items
+  summary: Resolve a dictionary by name, then create, update, upsert, and delete items in one batch.
+  description: >-
+    Synchronizes the contents of an edge dictionary in a single call. The
+    workflow resolves the dictionary container by name on a service version to
+    obtain its id, then submits a batch of item operations (create, update,
+    upsert, delete) against that dictionary. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dictionariesApi
+  url: ../openapi/fastly-dictionaries-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bulk-update-dictionary-items
+  summary: Look up a dictionary by name and apply a batch of item operations.
+  description: >-
+    Resolves the dictionary by name to get its id, then performs a bulk update
+    that can create, update, upsert, and delete items in the same request.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - dictionaryName
+    - items
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number the dictionary belongs to.
+      dictionaryName:
+        type: string
+        description: The name of the dictionary to synchronize.
+      items:
+        type: array
+        description: A list of item operations (op, item_key, item_value).
+        items:
+          type: object
+  steps:
+  - stepId: getDictionary
+    description: Resolve the dictionary container by name to obtain its id.
+    operationId: getDictionary
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    - name: dictionary_name
+      in: path
+      value: $inputs.dictionaryName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      dictionaryId: $response.body#/id
+  - stepId: bulkUpdate
+    description: Apply the batch of create, update, upsert, and delete item operations.
+    operationId: bulkUpdateDictionaryItems
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: dictionary_id
+      in: path
+      value: $steps.getDictionary.outputs.dictionaryId
+    requestBody:
+      contentType: application/json
+      payload:
+        items: $inputs.items
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+  outputs:
+    dictionaryId: $steps.getDictionary.outputs.dictionaryId
+    status: $steps.bulkUpdate.outputs.status

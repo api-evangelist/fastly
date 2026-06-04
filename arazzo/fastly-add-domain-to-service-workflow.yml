@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Add a Domain to a Service
+  summary: Clone the active version, add a new domain to the clone, then activate it.
+  description: >-
+    Adds a new public domain to an already-running Fastly service without
+    disturbing the live configuration. The workflow clones the current version
+    into a draft, attaches the domain to the cloned version, and activates the
+    clone. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: domainManagementApi
+  url: ../openapi/fastly-domain-management-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-domain-to-service
+  summary: Add a domain to a live service via a cloned version and activate it.
+  description: >-
+    Clones the supplied version, adds the supplied domain name to the clone,
+    and activates the cloned version so the new domain serves traffic.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - domainName
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number to clone.
+      domainName:
+        type: string
+        description: The public domain name to add to the service.
+      domainComment:
+        type: string
+        description: An optional comment describing the domain.
+  steps:
+  - stepId: cloneVersion
+    description: Clone the supplied version into a new editable draft version.
+    operationId: cloneServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clonedVersion: $response.body#/number
+  - stepId: addDomain
+    description: Associate the new domain with the cloned draft version.
+    operationId: createDomain
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.domainName
+        comment: $inputs.domainComment
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      addedDomain: $response.body#/name
+  - stepId: activateVersion
+    description: Activate the cloned version so the new domain goes live.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  outputs:
+    clonedVersion: $steps.cloneVersion.outputs.clonedVersion
+    addedDomain: $steps.addDomain.outputs.addedDomain
+    active: $steps.activateVersion.outputs.active

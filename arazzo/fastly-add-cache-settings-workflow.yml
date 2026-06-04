@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Add Cache Settings
+  summary: Clone the active version, create a cache settings rule, then activate the new version.
+  description: >-
+    Cache settings control how long Fastly keeps objects and how it treats
+    requests that miss cache. Because they live in service configuration, this
+    workflow clones the live version into a draft, creates a cache settings rule
+    with a TTL on the clone, and activates the new version. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: vclServicesApi
+  url: ../openapi/fastly-vcl-services-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-cache-settings
+  summary: Clone a version, add a cache settings rule, and activate the clone.
+  description: >-
+    Clones the supplied version, creates a cache settings rule with the chosen
+    action and TTL on the cloned version, and activates the clone.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - cacheSettingsName
+    - ttl
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number to clone.
+      cacheSettingsName:
+        type: string
+        description: A name for the cache settings rule.
+      action:
+        type: string
+        description: The cache action (pass, cache, restart, or deliver).
+        enum:
+        - pass
+        - cache
+        - restart
+        - deliver
+      ttl:
+        type: integer
+        description: The maximum cache lifetime in seconds.
+      staleTtl:
+        type: integer
+        description: How long a stale object may be served in seconds.
+  steps:
+  - stepId: cloneVersion
+    description: Clone the supplied version into a new editable draft version.
+    operationId: cloneServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clonedVersion: $response.body#/number
+  - stepId: createCacheSettings
+    description: Create the cache settings rule on the cloned version.
+    operationId: createCacheSettings
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.cacheSettingsName
+        action: $inputs.action
+        ttl: $inputs.ttl
+        stale_ttl: $inputs.staleTtl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      settingsName: $response.body#/name
+  - stepId: activateVersion
+    description: Activate the cloned version so the cache settings go live.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  outputs:
+    clonedVersion: $steps.cloneVersion.outputs.clonedVersion
+    settingsName: $steps.createCacheSettings.outputs.settingsName
+    active: $steps.activateVersion.outputs.active

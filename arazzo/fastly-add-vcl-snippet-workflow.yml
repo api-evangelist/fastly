@@ -1,0 +1,131 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Add a VCL Snippet
+  summary: Clone the active version, insert a VCL snippet, then activate the new version.
+  description: >-
+    VCL snippets inject small pieces of custom logic into a Fastly subroutine
+    without uploading a full custom VCL file. This workflow clones the live
+    version into a draft, adds a snippet bound to a chosen subroutine on the
+    clone, and activates the new version so the logic takes effect. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: vclServicesApi
+  url: ../openapi/fastly-vcl-services-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-vcl-snippet
+  summary: Clone a version, add a VCL snippet, and activate the clone.
+  description: >-
+    Clones the supplied version, creates a VCL snippet bound to the chosen
+    subroutine on the cloned version, and activates the clone.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - snippetName
+    - snippetType
+    - snippetContent
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number to clone.
+      snippetName:
+        type: string
+        description: A name for the VCL snippet.
+      snippetType:
+        type: string
+        description: The VCL subroutine the snippet runs in (e.g. recv, fetch, deliver).
+        enum:
+        - init
+        - recv
+        - hash
+        - hit
+        - miss
+        - pass
+        - fetch
+        - error
+        - deliver
+        - log
+        - none
+      snippetContent:
+        type: string
+        description: The VCL code for the snippet.
+      priority:
+        type: integer
+        description: The execution priority of the snippet.
+  steps:
+  - stepId: cloneVersion
+    description: Clone the supplied version into a new editable draft version.
+    operationId: cloneServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clonedVersion: $response.body#/number
+  - stepId: createSnippet
+    description: Add the VCL snippet to the cloned version.
+    operationId: createSnippet
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.snippetName
+        type: $inputs.snippetType
+        content: $inputs.snippetContent
+        priority: $inputs.priority
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      snippetName: $response.body#/name
+  - stepId: activateVersion
+    description: Activate the cloned version so the snippet takes effect.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  outputs:
+    clonedVersion: $steps.cloneVersion.outputs.clonedVersion
+    snippetName: $steps.createSnippet.outputs.snippetName
+    active: $steps.activateVersion.outputs.active

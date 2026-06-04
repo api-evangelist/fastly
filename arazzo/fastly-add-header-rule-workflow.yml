@@ -1,0 +1,135 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Add a Header Rule
+  summary: Clone the active version, add a header manipulation rule, then activate the new version.
+  description: >-
+    Header objects let Fastly add, modify, or remove HTTP headers as requests
+    and responses flow through the edge. This workflow clones the live version
+    into a draft, creates a header rule on the clone, and activates the new
+    version so the rule takes effect. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: vclServicesApi
+  url: ../openapi/fastly-vcl-services-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-header-rule
+  summary: Clone a version, add a header rule, and activate the clone.
+  description: >-
+    Clones the supplied version, creates a header manipulation rule on the
+    cloned version, and activates the clone.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - headerName
+    - action
+    - type
+    - dst
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number to clone.
+      headerName:
+        type: string
+        description: A name for the header rule.
+      action:
+        type: string
+        description: The header action to perform.
+        enum:
+        - set
+        - append
+        - delete
+        - regex
+        - regex_repeat
+      type:
+        type: string
+        description: The processing phase the rule applies to.
+        enum:
+        - request
+        - fetch
+        - cache
+        - response
+      dst:
+        type: string
+        description: The name of the header to affect (the destination).
+      src:
+        type: string
+        description: The source value or variable for the header.
+  steps:
+  - stepId: cloneVersion
+    description: Clone the supplied version into a new editable draft version.
+    operationId: cloneServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clonedVersion: $response.body#/number
+  - stepId: createHeader
+    description: Create the header manipulation rule on the cloned version.
+    operationId: createHeader
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.headerName
+        action: $inputs.action
+        type: $inputs.type
+        dst: $inputs.dst
+        src: $inputs.src
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      headerName: $response.body#/name
+  - stepId: activateVersion
+    description: Activate the cloned version so the header rule takes effect.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $steps.cloneVersion.outputs.clonedVersion
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  outputs:
+    clonedVersion: $steps.cloneVersion.outputs.clonedVersion
+    headerName: $steps.createHeader.outputs.headerName
+    active: $steps.activateVersion.outputs.active

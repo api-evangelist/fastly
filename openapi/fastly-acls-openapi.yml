@@ -268,6 +268,86 @@ paths:
           description: Bad request. Missing or invalid parameters.
         '401':
           description: Unauthorized. The API token is missing or invalid.
+    patch:
+      operationId: bulkUpdateAclEntries
+      summary: Bulk update ACL entries
+      description: >-
+        Updates multiple ACL entries in a single request. Supports create,
+        update, and delete operations in the same batch. Maximum batch size
+        is 1000 entries.
+      tags:
+        - ACL Entry
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: acl_id
+          in: path
+          required: true
+          description: >-
+            The alphanumeric string identifying the ACL.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  description: >-
+                    A list of ACL entry operations to perform. Maximum 1000.
+                  maxItems: 1000
+                  items:
+                    type: object
+                    properties:
+                      op:
+                        type: string
+                        description: >-
+                          The operation to perform on the entry.
+                        enum:
+                          - create
+                          - update
+                          - delete
+                      id:
+                        type: string
+                        description: >-
+                          The ID of the entry (required for update and delete).
+                      ip:
+                        type: string
+                        description: >-
+                          The IP address for the entry.
+                      subnet:
+                        type: integer
+                        description: >-
+                          The CIDR subnet mask.
+                      negated:
+                        type: integer
+                        description: >-
+                          Whether the entry is negated.
+                        enum:
+                          - 0
+                          - 1
+                      comment:
+                        type: string
+                        description: >-
+                          A freeform comment about the entry.
+      responses:
+        '200':
+          description: Successfully performed bulk update on ACL entries.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      The status of the bulk operation.
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
   /service/{service_id}/acl/{acl_id}/entry/{acl_entry_id}:
     get:
       operationId: getAclEntry
@@ -383,87 +463,6 @@ paths:
           description: Unauthorized. The API token is missing or invalid.
         '404':
           description: ACL entry not found.
-  /service/{service_id}/acl/{acl_id}/entries:
-    patch:
-      operationId: bulkUpdateAclEntries
-      summary: Bulk update ACL entries
-      description: >-
-        Updates multiple ACL entries in a single request. Supports create,
-        update, and delete operations in the same batch. Maximum batch size
-        is 1000 entries.
-      tags:
-        - ACL Entry
-      parameters:
-        - $ref: '#/components/parameters/serviceId'
-        - name: acl_id
-          in: path
-          required: true
-          description: >-
-            The alphanumeric string identifying the ACL.
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                entries:
-                  type: array
-                  description: >-
-                    A list of ACL entry operations to perform. Maximum 1000.
-                  maxItems: 1000
-                  items:
-                    type: object
-                    properties:
-                      op:
-                        type: string
-                        description: >-
-                          The operation to perform on the entry.
-                        enum:
-                          - create
-                          - update
-                          - delete
-                      id:
-                        type: string
-                        description: >-
-                          The ID of the entry (required for update and delete).
-                      ip:
-                        type: string
-                        description: >-
-                          The IP address for the entry.
-                      subnet:
-                        type: integer
-                        description: >-
-                          The CIDR subnet mask.
-                      negated:
-                        type: integer
-                        description: >-
-                          Whether the entry is negated.
-                        enum:
-                          - 0
-                          - 1
-                      comment:
-                        type: string
-                        description: >-
-                          A freeform comment about the entry.
-      responses:
-        '200':
-          description: Successfully performed bulk update on ACL entries.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: >-
-                      The status of the bulk operation.
-        '400':
-          description: Bad request. Missing or invalid parameters.
-        '401':
-          description: Unauthorized. The API token is missing or invalid.
 components:
   securitySchemes:
     apiKeyAuth:

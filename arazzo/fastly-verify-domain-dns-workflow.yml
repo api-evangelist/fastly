@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Verify Domain DNS
+  summary: Read a domain, then check its DNS configuration and branch on the result.
+  description: >-
+    Confirms that a domain attached to a service version is correctly pointed at
+    Fastly. The workflow fetches the domain record and then runs Fastly's DNS
+    check, branching to report success when the domain resolves to Fastly and a
+    misconfiguration outcome otherwise. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: domainManagementApi
+  url: ../openapi/fastly-domain-management-openapi.yml
+  type: openapi
+workflows:
+- workflowId: verify-domain-dns
+  summary: Fetch a domain and check whether its DNS points at Fastly.
+  description: >-
+    Retrieves the domain record for a service version and then performs a DNS
+    configuration check, branching on whether the domain is correctly
+    configured.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - domainName
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The version number that the domain belongs to.
+      domainName:
+        type: string
+        description: The domain name to verify.
+  steps:
+  - stepId: getDomain
+    description: Retrieve the domain record to confirm it exists on the version.
+    operationId: getDomain
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    - name: domain_name
+      in: path
+      value: $inputs.domainName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      domainName: $response.body#/name
+  - stepId: checkDomain
+    description: Run Fastly's DNS check for the domain and branch on the result.
+    operationId: checkDomain
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    - name: domain_name
+      in: path
+      value: $inputs.domainName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      checkResult: $response.body
+    onSuccess:
+    - name: configured
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $[2] == true
+        type: jsonpath
+    - name: notConfigured
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $[2] == false
+        type: jsonpath
+  outputs:
+    domainName: $steps.getDomain.outputs.domainName
+    checkResult: $steps.checkDomain.outputs.checkResult

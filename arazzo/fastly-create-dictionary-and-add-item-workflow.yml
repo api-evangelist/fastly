@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Create Dictionary and Add Item
+  summary: Create a dictionary on a version, activate it, then add a key-value item.
+  description: >-
+    Edge dictionaries store key-value pairs that VCL can look up at request
+    time. A dictionary container is bound to a service version, but once the
+    version is active its items become versionless and can be edited live. This
+    workflow creates the dictionary on a draft version, activates the version,
+    and then writes a key-value item to the live dictionary. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: dictionariesApi
+  url: ../openapi/fastly-dictionaries-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-dictionary-and-add-item
+  summary: Create a dictionary, activate the version, and add a key-value item.
+  description: >-
+    Creates a dictionary container on the supplied draft version, activates that
+    version, then adds a key-value item to the resulting versionless dictionary.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - versionId
+    - dictionaryName
+    - itemKey
+    - itemValue
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      versionId:
+        type: integer
+        description: The draft version number to create the dictionary on.
+      dictionaryName:
+        type: string
+        description: The name for the new dictionary.
+      itemKey:
+        type: string
+        description: The key of the dictionary item to add.
+      itemValue:
+        type: string
+        description: The value of the dictionary item to add.
+  steps:
+  - stepId: createDictionary
+    description: Create the dictionary container on the supplied draft version.
+    operationId: createDictionary
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.dictionaryName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      dictionaryId: $response.body#/id
+  - stepId: activateVersion
+    description: Activate the version so the dictionary becomes live and versionless.
+    operationId: activateServiceVersion
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: version_id
+      in: path
+      value: $inputs.versionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      active: $response.body#/active
+  - stepId: addItem
+    description: Write a key-value item to the now-live dictionary.
+    operationId: createDictionaryItem
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    - name: dictionary_id
+      in: path
+      value: $steps.createDictionary.outputs.dictionaryId
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        item_key: $inputs.itemKey
+        item_value: $inputs.itemValue
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      itemKey: $response.body#/item_key
+      itemValue: $response.body#/item_value
+  outputs:
+    dictionaryId: $steps.createDictionary.outputs.dictionaryId
+    itemKey: $steps.addItem.outputs.itemKey

@@ -1,0 +1,77 @@
+arazzo: 1.0.1
+info:
+  title: Fastly Bulk Purge Surrogate Keys
+  summary: Confirm a service exists, then purge up to 256 surrogate keys in one request.
+  description: >-
+    Invalidates many cache tags at once. The workflow confirms the target
+    service exists and then submits a batch of surrogate keys to be purged in a
+    single call, returning a map of each key to its purge status identifier.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: servicesApi
+  url: ../openapi/fastly-services-openapi.yml
+  type: openapi
+- name: purgingApi
+  url: ../openapi/fastly-purging-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bulk-purge-surrogate-keys
+  summary: Validate a service and purge a batch of surrogate keys.
+  description: >-
+    Reads the service to confirm it exists, then submits up to 256 surrogate
+    keys to be purged in one batch request.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - serviceId
+    - surrogateKeys
+    properties:
+      apiToken:
+        type: string
+        description: The Fastly API token used to authenticate requests.
+      serviceId:
+        type: string
+        description: The alphanumeric identifier of the service.
+      surrogateKeys:
+        type: array
+        description: A list of surrogate key tags to purge (maximum 256).
+        items:
+          type: string
+  steps:
+  - stepId: getService
+    description: Confirm the service exists before issuing the bulk purge.
+    operationId: getService
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      serviceId: $response.body#/id
+  - stepId: bulkPurge
+    description: Submit the batch of surrogate keys to purge in a single request.
+    operationId: bulkPurgeBySurrogateKey
+    parameters:
+    - name: Fastly-Key
+      in: header
+      value: $inputs.apiToken
+    - name: service_id
+      in: path
+      value: $inputs.serviceId
+    requestBody:
+      contentType: application/json
+      payload:
+        surrogate_keys: $inputs.surrogateKeys
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      purgeStatuses: $response.body#/purge_statuses
+  outputs:
+    purgeStatuses: $steps.bulkPurge.outputs.purgeStatuses
