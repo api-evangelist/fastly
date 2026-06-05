@@ -1,7 +1,12 @@
 aid: fastly
 name: Fastly
 url: https://raw.githubusercontent.com/api-evangelist/fastly/refs/heads/main/apis.yml
-description: Fastly is an edge cloud platform that helps customers create great digital experiences quickly, securely, and reliably by processing, serving, and securing their applications closer to their users. The platform spans CDN, Edge Compute (WebAssembly), Object Storage, AI Accelerator (semantic caching for LLMs), AI Bot Management, Next-Gen WAF (Signal Sciences), DDoS Protection, Image Optimizer, Live & Video Streaming, Fanout real-time messaging, and an MCP Server for AI-driven control.
+description: >-
+  Fastly is an edge cloud platform that helps customers create great digital experiences quickly, securely, and reliably
+  by processing, serving, and securing their applications closer to their users. The platform spans CDN, Edge Compute
+  (WebAssembly), Object Storage, AI Accelerator (semantic caching for LLMs), AI Bot Management, Next-Gen WAF (Signal
+  Sciences), DDoS Protection, Image Optimizer, Live & Video Streaming, Fanout real-time messaging, and an MCP Server for
+  AI-driven control.
 modified: '2026-05-30'
 created: '2025-03-01'
 tags:
@@ -32,12 +37,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-services-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/services-general.yaml
-      - type: NaftikoCapability
-        url: capabilities/services-service-version.yaml
-    description: The Fastly Services API allows developers to create, configure, and manage Fastly CDN services and their versions programmatically. Services are the primary organizational unit in Fastly, representing a configuration that maps domains to backends. The API supports creating service versions, activating and deactivating configurations, cloning versions, and managing the complete lifecycle of a CDN service deployment.
-
+    description: >-
+      The Fastly Services API allows developers to create, configure, and manage Fastly CDN services and their versions
+      programmatically. Services are the primary organizational unit in Fastly, representing a configuration that maps
+      domains to backends. The API supports creating service versions, activating and deactivating configurations,
+      cloning versions, and managing the complete lifecycle of a CDN service deployment.
   - aid: fastly:purging-api
     name: Fastly Purging API
     tags:
@@ -53,10 +57,12 @@ apis:
         type: Documentation
       - url: openapi/fastly-purging-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/purging-purging.yaml
-    description: The Fastly Purging API enables developers to instantly remove cached content from Fastly's edge network so it can be refreshed from origin servers. It supports single URL purges, surrogate key purges for invalidating groups of related objects, and purge-all operations to clear an entire service cache. Surrogate key and URL purges are separately limited to an average of 100,000 purges per hour per customer and are not counted against the general API rate limit.
-
+    description: >-
+      The Fastly Purging API enables developers to instantly remove cached content from Fastly's edge network so it can
+      be refreshed from origin servers. It supports single URL purges, surrogate key purges for invalidating groups of
+      related objects, and purge-all operations to clear an entire service cache. Surrogate key and URL purges are
+      separately limited to an average of 100,000 purges per hour per customer and are not counted against the general
+      API rate limit.
   - aid: fastly:logging-api
     name: Fastly Real-Time Logging API
     tags:
@@ -74,20 +80,10 @@ apis:
         type: OpenAPI
       - url: asyncapi/fastly-streaming-asyncapi.yml
         type: AsyncAPI
-      - type: NaftikoCapability
-        url: capabilities/logging-logging-bigquery.yaml
-      - type: NaftikoCapability
-        url: capabilities/logging-logging-datadog.yaml
-      - type: NaftikoCapability
-        url: capabilities/logging-logging-https.yaml
-      - type: NaftikoCapability
-        url: capabilities/logging-logging-s3.yaml
-      - type: NaftikoCapability
-        url: capabilities/logging-logging-splunk.yaml
-      - type: NaftikoCapability
-        url: capabilities/logging-logging-syslog.yaml
-    description: The Fastly Real-Time Logging API allows developers to configure and manage logging endpoints that receive streamed log data from Fastly's edge network. Fastly supports logging to a variety of formats and platforms including syslog, Amazon S3, Google Cloud Storage, BigQuery, Datadog, Splunk, Elasticsearch, and many other providers.
-
+    description: >-
+      The Fastly Real-Time Logging API allows developers to configure and manage logging endpoints that receive streamed
+      log data from Fastly's edge network. Fastly supports logging to a variety of formats and platforms including
+      syslog, Amazon S3, Google Cloud Storage, BigQuery, Datadog, Splunk, Elasticsearch, and many other providers.
   - aid: fastly:metrics-and-stats-api
     name: Fastly Metrics and Stats API
     tags:
@@ -106,16 +102,12 @@ apis:
         type: OpenAPI
       - url: asyncapi/fastly-streaming-asyncapi.yml
         type: AsyncAPI
-      - type: NaftikoCapability
-        url: capabilities/metrics-and-stats-domain-inspector.yaml
-      - type: NaftikoCapability
-        url: capabilities/metrics-and-stats-historical-stats.yaml
-      - type: NaftikoCapability
-        url: capabilities/metrics-and-stats-origin-inspector.yaml
-      - type: NaftikoCapability
-        url: capabilities/metrics-and-stats-real-time-analytics.yaml
-    description: The Fastly Metrics and Stats API provides access to both real-time and historical analytics data for Fastly services. The real-time analytics endpoint, served on rt.fastly.com, delivers second-by-second stats including request counts, bandwidth, cache hit ratios, and error rates. Historical stats provide aggregated data over longer time periods. The API also includes the Domain Inspector for per-domain metrics and the Origin Inspector for origin-level performance data.
-
+    description: >-
+      The Fastly Metrics and Stats API provides access to both real-time and historical analytics data for Fastly
+      services. The real-time analytics endpoint, served on rt.fastly.com, delivers second-by-second stats including
+      request counts, bandwidth, cache hit ratios, and error rates. Historical stats provide aggregated data over longer
+      time periods. The API also includes the Domain Inspector for per-domain metrics and the Origin Inspector for
+      origin-level performance data.
   - aid: fastly:tls-api
     name: Fastly TLS API
     tags:
@@ -132,16 +124,12 @@ apis:
         type: Documentation
       - url: openapi/fastly-tls-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/tls-platform-tls.yaml
-      - type: NaftikoCapability
-        url: capabilities/tls-tls-activations.yaml
-      - type: NaftikoCapability
-        url: capabilities/tls-tls-certificates.yaml
-      - type: NaftikoCapability
-        url: capabilities/tls-tls-private-keys.yaml
-    description: The Fastly TLS API enables developers to manage TLS certificates, private keys, and domain configurations for securing traffic delivered through Fastly's edge network. It supports both platform TLS (managed certificates) and custom TLS configurations where customers bring their own certificates. The API allows uploading certificates, managing bulk certificate operations, configuring TLS activations, and managing mutual TLS authentication for origin connections.
-
+    description: >-
+      The Fastly TLS API enables developers to manage TLS certificates, private keys, and domain configurations for
+      securing traffic delivered through Fastly's edge network. It supports both platform TLS (managed certificates) and
+      custom TLS configurations where customers bring their own certificates. The API allows uploading certificates,
+      managing bulk certificate operations, configuring TLS activations, and managing mutual TLS authentication for
+      origin connections.
   - aid: fastly:vcl-services-api
     name: Fastly VCL Services API
     tags:
@@ -158,24 +146,12 @@ apis:
         type: Documentation
       - url: openapi/fastly-vcl-services-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/vcl-services-backend.yaml
-      - type: NaftikoCapability
-        url: capabilities/vcl-services-cache-settings.yaml
-      - type: NaftikoCapability
-        url: capabilities/vcl-services-condition.yaml
-      - type: NaftikoCapability
-        url: capabilities/vcl-services-custom-vcl.yaml
-      - type: NaftikoCapability
-        url: capabilities/vcl-services-header.yaml
-      - type: NaftikoCapability
-        url: capabilities/vcl-services-request-settings.yaml
-      - type: NaftikoCapability
-        url: capabilities/vcl-services-response-object.yaml
-      - type: NaftikoCapability
-        url: capabilities/vcl-services-vcl-snippet.yaml
-    description: The Fastly VCL Services API provides programmatic access to configure Varnish Configuration Language (VCL) objects that power most Fastly services. Developers can upload custom VCL code or use the API to generate VCL through configuration objects including backends, conditions, cache settings, request settings, response objects, headers, and VCL snippets. This API is central to defining how Fastly processes, routes, and caches HTTP requests at the edge.
-
+    description: >-
+      The Fastly VCL Services API provides programmatic access to configure Varnish Configuration Language (VCL) objects
+      that power most Fastly services. Developers can upload custom VCL code or use the API to generate VCL through
+      configuration objects including backends, conditions, cache settings, request settings, response objects, headers,
+      and VCL snippets. This API is central to defining how Fastly processes, routes, and caches HTTP requests at the
+      edge.
   - aid: fastly:account-api
     name: Fastly Account API
     tags:
@@ -191,18 +167,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-account-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/account-customer.yaml
-      - type: NaftikoCapability
-        url: capabilities/account-iam-roles.yaml
-      - type: NaftikoCapability
-        url: capabilities/account-iam-service-groups.yaml
-      - type: NaftikoCapability
-        url: capabilities/account-iam-user-groups.yaml
-      - type: NaftikoCapability
-        url: capabilities/account-user.yaml
-    description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
-
+    description: >-
+      The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access
+      management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and
+      service groups to control access to Fastly resources. The API supports retrieving and updating customer
+      information, managing user profiles, and configuring organizational settings for enterprise accounts.
   - aid: fastly:authentication-tokens-api
     name: Fastly Authentication Tokens API
     tags:
@@ -218,12 +187,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-authentication-tokens-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/authentication-tokens-automation-tokens.yaml
-      - type: NaftikoCapability
-        url: capabilities/authentication-tokens-user-tokens.yaml
-    description: The Fastly Authentication Tokens API enables developers to create and manage API tokens used to authenticate requests to the Fastly API. Tokens can be scoped to specific services and permissions, allowing fine-grained access control for users and automated systems. The API supports creating user tokens, automation tokens for CI/CD pipelines, and managing token lifecycle including listing, revoking, and expiring tokens.
-
+    description: >-
+      The Fastly Authentication Tokens API enables developers to create and manage API tokens used to authenticate
+      requests to the Fastly API. Tokens can be scoped to specific services and permissions, allowing fine-grained
+      access control for users and automated systems. The API supports creating user tokens, automation tokens for CI/CD
+      pipelines, and managing token lifecycle including listing, revoking, and expiring tokens.
   - aid: fastly:acls-api
     name: Fastly Access Control Lists API
     tags:
@@ -239,12 +207,12 @@ apis:
         type: Documentation
       - url: openapi/fastly-acls-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/acls-acl.yaml
-      - type: NaftikoCapability
-        url: capabilities/acls-acl-entry.yaml
-    description: The Fastly Access Control Lists API allows developers to create and manage ACLs that can be used to control access to content at the edge. ACLs contain entries of IP addresses or CIDR ranges that can be referenced in VCL to allow or deny requests. The API supports creating ACL containers, adding and removing individual entries, and performing bulk updates to efficiently manage large IP allowlists or blocklists without requiring a new service version deployment.
-
+    description: >-
+      The Fastly Access Control Lists API allows developers to create and manage ACLs that can be used to control access
+      to content at the edge. ACLs contain entries of IP addresses or CIDR ranges that can be referenced in VCL to allow
+      or deny requests. The API supports creating ACL containers, adding and removing individual entries, and performing
+      bulk updates to efficiently manage large IP allowlists or blocklists without requiring a new service version
+      deployment.
   - aid: fastly:dictionaries-api
     name: Fastly Edge Dictionaries API
     tags:
@@ -260,14 +228,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-dictionaries-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/dictionaries-dictionary.yaml
-      - type: NaftikoCapability
-        url: capabilities/dictionaries-dictionary-info.yaml
-      - type: NaftikoCapability
-        url: capabilities/dictionaries-dictionary-item.yaml
-    description: The Fastly Edge Dictionaries API provides endpoints for creating and managing key-value lookup tables that are accessible at the edge without requiring a service version change. Dictionaries can store configuration data, feature flags, redirect mappings, and other dynamic values that VCL or Compute services can reference during request processing.
-
+    description: >-
+      The Fastly Edge Dictionaries API provides endpoints for creating and managing key-value lookup tables that are
+      accessible at the edge without requiring a service version change. Dictionaries can store configuration data,
+      feature flags, redirect mappings, and other dynamic values that VCL or Compute services can reference during
+      request processing.
   - aid: fastly:compute-api
     name: Fastly Compute API
     tags:
@@ -283,18 +248,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-compute-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/compute-config-store.yaml
-      - type: NaftikoCapability
-        url: capabilities/compute-kv-store.yaml
-      - type: NaftikoCapability
-        url: capabilities/compute-kv-store-item.yaml
-      - type: NaftikoCapability
-        url: capabilities/compute-package.yaml
-      - type: NaftikoCapability
-        url: capabilities/compute-secret-store.yaml
-    description: The Fastly Compute platform enables developers to build and deploy serverless applications that run on Fastly's global edge network using WebAssembly. Compute services support custom application logic written in Rust, JavaScript, or Go using official Fastly SDKs, with access to KV stores, config stores, secret stores, dynamic backends, and real-time messaging.
-
+    description: >-
+      The Fastly Compute platform enables developers to build and deploy serverless applications that run on Fastly's
+      global edge network using WebAssembly. Compute services support custom application logic written in Rust,
+      JavaScript, or Go using official Fastly SDKs, with access to KV stores, config stores, secret stores, dynamic
+      backends, and real-time messaging.
   - aid: fastly:ngwaf-api
     name: Fastly Next-Gen WAF API
     tags:
@@ -311,16 +269,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-waf-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/waf-waf-active-rules.yaml
-      - type: NaftikoCapability
-        url: capabilities/waf-waf-exclusions.yaml
-      - type: NaftikoCapability
-        url: capabilities/waf-waf-firewalls.yaml
-      - type: NaftikoCapability
-        url: capabilities/waf-waf-rules.yaml
-    description: 'The Fastly Next-Gen WAF (formerly Signal Sciences) API allows you to manage workspaces, requests, events, redactions, tags, and rules. Resources include Agent Keys, Agents, Custom Dashboards, Custom Signals, Events, Header Links, Lists, Rate Limited Sources, Redactions, Reports, Requests, Rules, Simulate, Thresholds, Time Series, Virtual Patches, Workspace Alerts, and Workspaces.'
-
+    description: >-
+      The Fastly Next-Gen WAF (formerly Signal Sciences) API allows you to manage workspaces, requests, events,
+      redactions, tags, and rules. Resources include Agent Keys, Agents, Custom Dashboards, Custom Signals, Events,
+      Header Links, Lists, Rate Limited Sources, Redactions, Reports, Requests, Rules, Simulate, Thresholds, Time
+      Series, Virtual Patches, Workspace Alerts, and Workspaces.
   - aid: fastly:domain-management-api
     name: Fastly Domain Management API
     tags:
@@ -336,10 +289,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-domain-management-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/domain-management-domain.yaml
-    description: The Fastly Domain Management API allows developers to programmatically associate domain names with Fastly services. Domains serve as the entry point for traffic routed through Fastly's edge network. The API supports adding, listing, and removing domains from service versions, checking domain DNS configurations, and validating that domains are correctly pointed to Fastly.
-
+    description: >-
+      The Fastly Domain Management API allows developers to programmatically associate domain names with Fastly
+      services. Domains serve as the entry point for traffic routed through Fastly's edge network. The API supports
+      adding, listing, and removing domains from service versions, checking domain DNS configurations, and validating
+      that domains are correctly pointed to Fastly.
   - aid: fastly:products-api
     name: Fastly Products API
     tags:
@@ -355,22 +309,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-products-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/products-api-discovery.yaml
-      - type: NaftikoCapability
-        url: capabilities/products-bot-management.yaml
-      - type: NaftikoCapability
-        url: capabilities/products-ddos-protection.yaml
-      - type: NaftikoCapability
-        url: capabilities/products-image-optimizer.yaml
-      - type: NaftikoCapability
-        url: capabilities/products-ai-accelerator.yaml
-      - type: NaftikoCapability
-        url: capabilities/products-ai-bot-management.yaml
-      - type: NaftikoCapability
-        url: capabilities/products-object-storage.yaml
-    description: The Fastly Products API provides endpoints for enabling and managing Fastly product features on services, including Bot Management, AI Bot Management, DDoS Protection, Image Optimizer, API Discovery, AI Accelerator, Object Storage, and other add-on capabilities. Developers use this API to check which products are enabled for a service, enable or disable product features, and configure product-specific settings.
-
+    description: >-
+      The Fastly Products API provides endpoints for enabling and managing Fastly product features on services,
+      including Bot Management, AI Bot Management, DDoS Protection, Image Optimizer, API Discovery, AI Accelerator,
+      Object Storage, and other add-on capabilities. Developers use this API to check which products are enabled for a
+      service, enable or disable product features, and configure product-specific settings.
   - aid: fastly:observability-api
     name: Fastly Observability API
     tags:
@@ -390,18 +333,10 @@ apis:
         type: OpenAPI
       - url: asyncapi/fastly-streaming-asyncapi.yml
         type: AsyncAPI
-      - type: NaftikoCapability
-        url: capabilities/observability-alerts.yaml
-      - type: NaftikoCapability
-        url: capabilities/observability-custom-dashboards.yaml
-      - type: NaftikoCapability
-        url: capabilities/observability-log-explorer.yaml
-      - type: NaftikoCapability
-        url: capabilities/observability-notification-service.yaml
-      - type: NaftikoCapability
-        url: capabilities/observability-timeseries.yaml
-    description: 'The Fastly Observability APIs enable you to setup and manage Fastly''s Observability features on your site, product or service across all our Network Services, Compute and Security product lines. Sub-resources include Alerts, Custom Dashboards, Insights, Log Aggregations, Log Explorer, Notification Service, and Timeseries.'
-
+    description: >-
+      The Fastly Observability APIs enable you to setup and manage Fastly's Observability features on your site, product
+      or service across all our Network Services, Compute and Security product lines. Sub-resources include Alerts,
+      Custom Dashboards, Insights, Log Aggregations, Log Explorer, Notification Service, and Timeseries.
   - aid: fastly:api-security-api
     name: Fastly API Security API
     tags:
@@ -417,10 +352,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-api-security-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/api-security-operations.yaml
-    description: The Fastly API Security product builds a continuously updated, searchable catalog of all your API endpoints. The API exposes Operations sub-resources for managing discovered API operations through listing, creation, updates, deletion, and tag-based organization capabilities. It supports the broader API Security product that maps API landscape and enables targeted abuse mitigation decisions.
-
+    description: >-
+      The Fastly API Security product builds a continuously updated, searchable catalog of all your API endpoints. The
+      API exposes Operations sub-resources for managing discovered API operations through listing, creation, updates,
+      deletion, and tag-based organization capabilities. It supports the broader API Security product that maps API
+      landscape and enables targeted abuse mitigation decisions.
   - aid: fastly:ddos-protection-api
     name: Fastly DDoS Protection Events API
     tags:
@@ -438,12 +374,11 @@ apis:
         type: OpenAPI
       - url: asyncapi/fastly-streaming-asyncapi.yml
         type: AsyncAPI
-      - type: NaftikoCapability
-        url: capabilities/ddos-protection-events.yaml
-      - type: NaftikoCapability
-        url: capabilities/ddos-protection-rules.yaml
-    description: The Fastly DDoS Protection Events API allows you to configure Fastly DDoS Protection and view attack insights including events, rules, and traffic statistics. Endpoints are exposed under /ddos-protection/v1/ and cover Get events, Get event by ID, Get all rules for an event, Get a rule by ID, Update rule, and Get traffic stats for a rule.
-
+    description: >-
+      The Fastly DDoS Protection Events API allows you to configure Fastly DDoS Protection and view attack insights
+      including events, rules, and traffic statistics. Endpoints are exposed under /ddos-protection/v1/ and cover Get
+      events, Get event by ID, Get all rules for an event, Get a rule by ID, Update rule, and Get traffic stats for a
+      rule.
   - aid: fastly:client-side-protection-api
     name: Fastly Client-Side Protection API
     tags:
@@ -460,14 +395,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-client-side-protection-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/client-side-protection-websites.yaml
-      - type: NaftikoCapability
-        url: capabilities/client-side-protection-scripts.yaml
-      - type: NaftikoCapability
-        url: capabilities/client-side-protection-policies.yaml
-    description: Fastly Client-Side Protection (CSP) provides visibility and control over third-party scripts running on your web pages. The API monitors script behavior, manages authorization status, and configures security policies to defend against client-side attacks like Magecart and formjacking. It exposes Website, Page, Script, Policy, Policy Report, Security Header, and Header Event sub-resources.
-
+    description: >-
+      Fastly Client-Side Protection (CSP) provides visibility and control over third-party scripts running on your web
+      pages. The API monitors script behavior, manages authorization status, and configures security policies to defend
+      against client-side attacks like Magecart and formjacking. It exposes Website, Page, Script, Policy, Policy
+      Report, Security Header, and Header Event sub-resources.
   - aid: fastly:publishing-api
     name: Fastly Publishing (Fanout) API
     tags:
@@ -487,10 +419,11 @@ apis:
         type: OpenAPI
       - url: asyncapi/fastly-streaming-asyncapi.yml
         type: AsyncAPI
-      - type: NaftikoCapability
-        url: capabilities/publishing-publish.yaml
-    description: The Fastly Publishing API sends messages to Fanout subscribers. Fanout is designed to be GRIP-compatible, such that https://api.fastly.com/service/{service_id} can be used as a GRIP URL in application configurations. It delivers messages to subscribers across HTTP responses, HTTP streams, and WebSocket connections for real-time, edge-scale fan-out messaging.
-
+    description: >-
+      The Fastly Publishing API sends messages to Fanout subscribers. Fanout is designed to be GRIP-compatible, such
+      that https://api.fastly.com/service/{service_id} can be used as a GRIP URL in application configurations. It
+      delivers messages to subscribers across HTTP responses, HTTP streams, and WebSocket connections for real-time,
+      edge-scale fan-out messaging.
   - aid: fastly:load-balancing-api
     name: Fastly Load Balancing API
     tags:
@@ -506,12 +439,10 @@ apis:
         type: Documentation
       - url: openapi/fastly-load-balancing-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/load-balancing-directors.yaml
-      - type: NaftikoCapability
-        url: capabilities/load-balancing-pools.yaml
-    description: The Fastly Load Balancing API spreads traffic across multiple backends automatically. It exposes two primary mechanisms - Directors bound to VCL service versions for locked configurations with multiple director groups, and Dynamic Server Pools that allow servers to be added or removed without activating new service versions.
-
+    description: >-
+      The Fastly Load Balancing API spreads traffic across multiple backends automatically. It exposes two primary
+      mechanisms - Directors bound to VCL service versions for locked configurations with multiple director groups, and
+      Dynamic Server Pools that allow servers to be added or removed without activating new service versions.
   - aid: fastly:utilities-api
     name: Fastly Utilities API
     tags:
@@ -529,12 +460,11 @@ apis:
         type: Documentation
       - url: openapi/fastly-utilities-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/utilities-pops.yaml
-      - type: NaftikoCapability
-        url: capabilities/utilities-public-ip-list.yaml
-    description: The Fastly Utilities API covers various utilities and extra functionality provided in addition to the configuration services. Endpoints include Content Status (which version of a URL is cached on each edge server), Diff (compare configuration changes between versions), Docs, POPs (Points of Presence), Public IP List (Fastly's assigned IP ranges), and Sudo Mode (privileged actions through re-authentication).
-
+    description: >-
+      The Fastly Utilities API covers various utilities and extra functionality provided in addition to the
+      configuration services. Endpoints include Content Status (which version of a URL is cached on each edge server),
+      Diff (compare configuration changes between versions), Docs, POPs (Points of Presence), Public IP List (Fastly's
+      assigned IP ranges), and Sudo Mode (privileged actions through re-authentication).
   - aid: fastly:ai-accelerator-api
     name: Fastly AI Accelerator
     tags:
@@ -551,10 +481,12 @@ apis:
         type: Documentation
       - url: openapi/fastly-ai-accelerator-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/ai-accelerator-chat.yaml
-    description: Fastly AI Accelerator is a semantic caching solution that "boosts the performance of popular LLMs like OpenAI and Google Gemini by 9x" with minimal implementation effort. Semantic caching maps queries to concepts as vectors so the system can cache answers to similar questions regardless of exact wording, identifying and reusing similar or equivalent AI responses rather than caching only exact matches. The free tier is 20,000 requests/month with pricing from $0.40-$0.28 per 1,000 requests by volume.
-
+    description: >-
+      Fastly AI Accelerator is a semantic caching solution that "boosts the performance of popular LLMs like OpenAI and
+      Google Gemini by 9x" with minimal implementation effort. Semantic caching maps queries to concepts as vectors so
+      the system can cache answers to similar questions regardless of exact wording, identifying and reusing similar or
+      equivalent AI responses rather than caching only exact matches. The free tier is 20,000 requests/month with
+      pricing from $0.40-$0.28 per 1,000 requests by volume.
   - aid: fastly:object-storage-api
     name: Fastly Object Storage
     tags:
@@ -570,73 +502,74 @@ apis:
         type: Documentation
       - url: openapi/fastly-object-storage-openapi.yml
         type: OpenAPI
-      - type: NaftikoCapability
-        url: capabilities/object-storage-bucket.yaml
-      - type: NaftikoCapability
-        url: capabilities/object-storage-object.yaml
-    description: Fastly Object Storage is an S3-compatible cloud storage solution designed as a drop-in replacement for traditional object storage services, featuring zero egress fees and 99.999999999% (11 9's) data durability. It maintains API compatibility with Amazon S3, allowing developers to use existing code and tools without modifications. Pricing starts at 5 GB free, $0.017-$0.02/GB storage, $0.0025 per 1,000 Class A ops, and $0.0004 per 1,000 Class B ops.
-
+    description: >-
+      Fastly Object Storage is an S3-compatible cloud storage solution designed as a drop-in replacement for traditional
+      object storage services, featuring zero egress fees and 99.999999999% (11 9's) data durability. It maintains API
+      compatibility with Amazon S3, allowing developers to use existing code and tools without modifications. Pricing
+      starts at 5 GB free, $0.017-$0.02/GB storage, $0.0025 per 1,000 Class A ops, and $0.0004 per 1,000 Class B ops.
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/fastly/overview
   - type: ArazzoWorkflows
     url: arazzo/
     workflows:
-    - url: arazzo/fastly-add-cache-settings-workflow.yml
-      name: Fastly Add Cache Settings
-      summary: Clone the active version, create a cache settings rule, then activate the new version.
-    - url: arazzo/fastly-add-condition-and-cache-settings-workflow.yml
-      name: Fastly Add Condition and Cache Settings
-      summary: Clone a version, create a condition, attach a cache settings rule to it, then activate.
-    - url: arazzo/fastly-add-domain-to-service-workflow.yml
-      name: Fastly Add a Domain to a Service
-      summary: Clone the active version, add a new domain to the clone, then activate it.
-    - url: arazzo/fastly-add-header-rule-workflow.yml
-      name: Fastly Add a Header Rule
-      summary: Clone the active version, add a header manipulation rule, then activate the new version.
-    - url: arazzo/fastly-add-vcl-snippet-workflow.yml
-      name: Fastly Add a VCL Snippet
-      summary: Clone the active version, insert a VCL snippet, then activate the new version.
-    - url: arazzo/fastly-bulk-purge-surrogate-keys-workflow.yml
-      name: Fastly Bulk Purge Surrogate Keys
-      summary: Confirm a service exists, then purge up to 256 surrogate keys in one request.
-    - url: arazzo/fastly-bulk-update-acl-entries-workflow.yml
-      name: Fastly Bulk Update ACL Entries
-      summary: Resolve an ACL by name, then create, update, and delete its entries in one batch.
-    - url: arazzo/fastly-bulk-update-dictionary-items-workflow.yml
-      name: Fastly Bulk Update Dictionary Items
-      summary: Resolve a dictionary by name, then create, update, upsert, and delete items in one batch.
-    - url: arazzo/fastly-clone-version-update-backend-activate-workflow.yml
-      name: Fastly Clone, Update Backend, and Activate
-      summary: Clone the current version, change a backend on the clone, then activate the new version.
-    - url: arazzo/fastly-create-acl-and-add-entry-workflow.yml
-      name: Fastly Create ACL and Add Entry
-      summary: Create an ACL on a version, activate the version, then add an IP entry to the ACL.
-    - url: arazzo/fastly-create-dictionary-and-add-item-workflow.yml
-      name: Fastly Create Dictionary and Add Item
-      summary: Create a dictionary on a version, activate it, then add a key-value item.
-    - url: arazzo/fastly-find-service-and-clone-active-version-workflow.yml
-      name: Fastly Find Service and Clone Active Version
-      summary: Search a service by name, read its versions, then clone the active one into a draft.
-    - url: arazzo/fastly-provision-service-workflow.yml
-      name: Fastly Provision a Service
-      summary: Create a service, add a draft version, attach a backend and a domain, then activate.
-    - url: arazzo/fastly-provision-tls-activation-workflow.yml
-      name: Fastly Provision TLS Activation
-      summary: Upload a key, upload a certificate, then activate TLS for a domain with that certificate.
-    - url: arazzo/fastly-purge-by-surrogate-key-workflow.yml
-      name: Fastly Purge by Surrogate Key
-      summary: Confirm a service exists, then instantly purge all objects tagged with a surrogate key.
-    - url: arazzo/fastly-purge-url-or-all-workflow.yml
-      name: Fastly Purge URL or Purge All
-      summary: Branch on the requested scope to either purge a single URL or purge all service content.
-    - url: arazzo/fastly-upload-custom-vcl-workflow.yml
-      name: Fastly Upload Custom VCL
-      summary: Clone the active version, upload a main custom VCL file, then activate the new version.
-    - url: arazzo/fastly-upload-tls-key-and-certificate-workflow.yml
-      name: Fastly Upload TLS Key and Certificate
-      summary: Upload a TLS private key, then upload the matching custom TLS certificate.
-    - url: arazzo/fastly-verify-domain-dns-workflow.yml
-      name: Fastly Verify Domain DNS
-      summary: Read a domain, then check its DNS configuration and branch on the result.
+      - url: arazzo/fastly-add-cache-settings-workflow.yml
+        name: Fastly Add Cache Settings
+        summary: Clone the active version, create a cache settings rule, then activate the new version.
+      - url: arazzo/fastly-add-condition-and-cache-settings-workflow.yml
+        name: Fastly Add Condition and Cache Settings
+        summary: Clone a version, create a condition, attach a cache settings rule to it, then activate.
+      - url: arazzo/fastly-add-domain-to-service-workflow.yml
+        name: Fastly Add a Domain to a Service
+        summary: Clone the active version, add a new domain to the clone, then activate it.
+      - url: arazzo/fastly-add-header-rule-workflow.yml
+        name: Fastly Add a Header Rule
+        summary: Clone the active version, add a header manipulation rule, then activate the new version.
+      - url: arazzo/fastly-add-vcl-snippet-workflow.yml
+        name: Fastly Add a VCL Snippet
+        summary: Clone the active version, insert a VCL snippet, then activate the new version.
+      - url: arazzo/fastly-bulk-purge-surrogate-keys-workflow.yml
+        name: Fastly Bulk Purge Surrogate Keys
+        summary: Confirm a service exists, then purge up to 256 surrogate keys in one request.
+      - url: arazzo/fastly-bulk-update-acl-entries-workflow.yml
+        name: Fastly Bulk Update ACL Entries
+        summary: Resolve an ACL by name, then create, update, and delete its entries in one batch.
+      - url: arazzo/fastly-bulk-update-dictionary-items-workflow.yml
+        name: Fastly Bulk Update Dictionary Items
+        summary: Resolve a dictionary by name, then create, update, upsert, and delete items in one batch.
+      - url: arazzo/fastly-clone-version-update-backend-activate-workflow.yml
+        name: Fastly Clone, Update Backend, and Activate
+        summary: Clone the current version, change a backend on the clone, then activate the new version.
+      - url: arazzo/fastly-create-acl-and-add-entry-workflow.yml
+        name: Fastly Create ACL and Add Entry
+        summary: Create an ACL on a version, activate the version, then add an IP entry to the ACL.
+      - url: arazzo/fastly-create-dictionary-and-add-item-workflow.yml
+        name: Fastly Create Dictionary and Add Item
+        summary: Create a dictionary on a version, activate it, then add a key-value item.
+      - url: arazzo/fastly-find-service-and-clone-active-version-workflow.yml
+        name: Fastly Find Service and Clone Active Version
+        summary: Search a service by name, read its versions, then clone the active one into a draft.
+      - url: arazzo/fastly-provision-service-workflow.yml
+        name: Fastly Provision a Service
+        summary: Create a service, add a draft version, attach a backend and a domain, then activate.
+      - url: arazzo/fastly-provision-tls-activation-workflow.yml
+        name: Fastly Provision TLS Activation
+        summary: Upload a key, upload a certificate, then activate TLS for a domain with that certificate.
+      - url: arazzo/fastly-purge-by-surrogate-key-workflow.yml
+        name: Fastly Purge by Surrogate Key
+        summary: Confirm a service exists, then instantly purge all objects tagged with a surrogate key.
+      - url: arazzo/fastly-purge-url-or-all-workflow.yml
+        name: Fastly Purge URL or Purge All
+        summary: Branch on the requested scope to either purge a single URL or purge all service content.
+      - url: arazzo/fastly-upload-custom-vcl-workflow.yml
+        name: Fastly Upload Custom VCL
+        summary: Clone the active version, upload a main custom VCL file, then activate the new version.
+      - url: arazzo/fastly-upload-tls-key-and-certificate-workflow.yml
+        name: Fastly Upload TLS Key and Certificate
+        summary: Upload a TLS private key, then upload the matching custom TLS certificate.
+      - url: arazzo/fastly-verify-domain-dns-workflow.yml
+        name: Fastly Verify Domain DNS
+        summary: Read a domain, then check its DNS configuration and branch on the result.
   - type: Website
     url: https://www.fastly.com/
   - type: DeveloperPortal
