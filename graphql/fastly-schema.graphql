@@ -1,0 +1,1734 @@
+"""
+Fastly GraphQL Schema
+Conceptual schema derived from the Fastly REST API (https://developer.fastly.com/reference/api/).
+Covers CDN services, edge compute, VCL configuration, logging, TLS, WAF, ACLs, dictionaries,
+metrics, account management, and utilities.
+"""
+
+scalar DateTime
+scalar JSON
+
+# ── Enums ──────────────────────────────────────────────────────────────────────
+
+enum ServiceType {
+  VCL
+  WASM
+}
+
+enum VersionState {
+  ACTIVE
+  INACTIVE
+  LOCKED
+  STAGING
+}
+
+enum DirectorType {
+  RANDOM
+  ROUND_ROBIN
+  HASH
+  CLIENT
+  SHIELD
+}
+
+enum BackendOverride {
+  NO_OVERRIDE
+  NO_BODY
+  PASS
+  RESTART
+  RETRY
+  SYNTH
+  DELIVER
+  FETCH
+  ERROR
+  HASH
+  MISS
+  HIT
+  PIPE
+  LOG
+}
+
+enum ConditionType {
+  REQUEST
+  RESPONSE
+  CACHE
+  PREFETCH
+}
+
+enum HeaderAction {
+  SET
+  APPEND
+  DELETE
+  REGEX
+  REGEX_REPEAT
+}
+
+enum HeaderType {
+  REQUEST
+  FETCH
+  CACHE
+  RESPONSE
+}
+
+enum SnippetType {
+  INIT
+  RECV
+  HASH
+  HIT
+  MISS
+  PASS
+  FETCH
+  ERROR
+  DELIVER
+  LOG
+  NONE
+}
+
+enum LogFormat {
+  CLASSIC
+  JSON
+}
+
+enum LogPlacement {
+  NONE
+  WAF_DEBUG
+}
+
+enum TLSProtocol {
+  TLS_1_0
+  TLS_1_1
+  TLS_1_2
+  TLS_1_3
+}
+
+enum TokenScope {
+  GLOBAL
+  PURGE_SELECT
+  PURGE_ALL
+  GLOBAL_READ
+  BILLING
+}
+
+enum UserRole {
+  SUPERUSER
+  USER
+  BILLING
+  ENGINEER
+}
+
+enum PurgeType {
+  URL
+  SURROGATE_KEY
+  ALL
+}
+
+enum WAFMode {
+  BLOCKING
+  LOGGING
+  DISABLED
+}
+
+enum RateLimiterAction {
+  RESPONSE
+  SYNTH
+  RESTART
+}
+
+enum NGWAFRuleAction {
+  BLOCK
+  ALLOW
+  LOG
+  FLAG
+  EXCLUDE
+}
+
+enum StorageClass {
+  STANDARD
+  INTELLIGENT_TIERING
+}
+
+# ── Service ────────────────────────────────────────────────────────────────────
+
+"""A Fastly CDN or Compute service — the primary organizational unit."""
+type Service {
+  id: ID!
+  name: String!
+  type: ServiceType!
+  comment: String
+  customerId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  versions: [ServiceVersion!]!
+  activeVersion: ServiceVersion
+  publishedVersions: [ServiceVersion!]!
+}
+
+"""A versioned, immutable snapshot of a Fastly service configuration."""
+type ServiceVersion {
+  number: Int!
+  serviceId: ID!
+  active: Boolean!
+  locked: Boolean!
+  deployed: Boolean!
+  staging: Boolean!
+  testing: Boolean!
+  comment: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  backends: [Backend!]!
+  domains: [Domain!]!
+  conditions: [Condition!]!
+  headers: [Header!]!
+  cacheRules: [CacheRule!]!
+  requestSettings: [RequestSetting!]!
+  responseObjects: [ResponseObject!]!
+  vclFiles: [VCLFile!]!
+  snippets: [Snippet!]!
+  gzipConfigs: [GZIPConfig!]!
+  acls: [ACL!]!
+  dictionaries: [EdgeDictionary!]!
+  directors: [Director!]!
+  healthchecks: [Healthcheck!]!
+  logEndpoints: LogEndpoints!
+}
+
+"""Aggregated log endpoint references for a service version."""
+type LogEndpoints {
+  s3: [S3Logging!]!
+  gcs: [GCSLogging!]!
+  bigquery: [BigQueryLogging!]!
+  splunk: [SplunkLogging!]!
+  newrelic: [NewRelicLogging!]!
+  datadog: [DatadogLogging!]!
+  papertrail: [PapertrailLogging!]!
+  https: [HTTPLogging!]!
+  sftp: [SFTPLogging!]!
+  syslog: [SyslogLogging!]!
+  sumologic: [SumoLogicLogging!]!
+  loggly: [LogglyLogging!]!
+  elasticsearch: [ElasticsearchLogging!]!
+}
+
+# ── Networking ─────────────────────────────────────────────────────────────────
+
+"""A hostname (domain) associated with a Fastly service version."""
+type Domain {
+  name: String!
+  comment: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""DNS check result for a domain."""
+type DomainCheck {
+  name: String!
+  cname: String
+  valid: Boolean!
+  message: String
+}
+
+"""An origin server or upstream target for a Fastly service."""
+type Backend {
+  name: String!
+  address: String!
+  port: Int!
+  useSsl: Boolean!
+  sslCheckCert: Boolean!
+  sslSniHostname: String
+  sslCertHostname: String
+  sslClientCert: String
+  sslClientKey: String
+  comment: String
+  connectTimeout: Int
+  firstByteTimeout: Int
+  betweenBytesTimeout: Int
+  maxConn: Int
+  weight: Int
+  autoLoadbalance: Boolean!
+  ipv4: String
+  ipv6: String
+  shieldPop: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  healthcheck: Healthcheck
+}
+
+"""A load-balancing group over multiple backends for a service version."""
+type Director {
+  name: String!
+  type: DirectorType!
+  comment: String
+  quorum: Int
+  retries: Int
+  capacity: Int
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  backends: [Backend!]!
+}
+
+"""Membership record linking a backend to a director."""
+type DirectorBackend {
+  directorName: String!
+  backendName: String!
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A pool of origin servers for dynamic load balancing without version lock."""
+type OriginPool {
+  id: ID!
+  name: String!
+  comment: String
+  quorum: Int!
+  connectTimeout: Int
+  firstByteTimeout: Int
+  maxConnDefault: Int
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  members: [OriginPoolMember!]!
+}
+
+"""An individual server within an origin pool."""
+type OriginPoolMember {
+  id: ID!
+  poolId: ID!
+  address: String!
+  port: Int!
+  weight: Int!
+  status: String!
+  comment: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Health probe configuration for a backend."""
+type Healthcheck {
+  name: String!
+  host: String!
+  path: String!
+  httpVersion: String!
+  method: String!
+  threshold: Int!
+  window: Int!
+  initial: Int!
+  timeout: Int!
+  checkInterval: Int!
+  expectedResponse: Int!
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ── Cache Control and VCL Objects ──────────────────────────────────────────────
+
+"""Cache TTL and behavior override rule."""
+type CacheRule {
+  name: String!
+  action: String!
+  cacheCondition: String
+  staleTtl: Int
+  ttl: Int
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""Logical condition expression gating VCL rule application."""
+type Condition {
+  name: String!
+  statement: String!
+  type: ConditionType!
+  priority: Int!
+  comment: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""HTTP request or response header manipulation rule."""
+type Header {
+  name: String!
+  action: HeaderAction!
+  type: HeaderType!
+  dst: String!
+  src: String
+  regex: String
+  substitution: String
+  ignoreIfSet: Boolean!
+  priority: Int!
+  cacheCondition: String
+  requestCondition: String
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""Request-handling property overrides (force SSL, max stale age, etc.)."""
+type RequestSetting {
+  name: String!
+  forceMiss: Boolean!
+  forceSsl: Boolean!
+  action: String
+  bypassBusyWait: Boolean!
+  maxStaleAge: Int
+  hashKeys: String
+  xForwardedFor: String
+  timerSupport: Boolean!
+  geo: Boolean!
+  defaultHost: String
+  requestCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""Synthetic HTTP response returned at the edge without contacting origin."""
+type ResponseObject {
+  name: String!
+  status: Int!
+  response: String!
+  content: String
+  contentType: String
+  cacheCondition: String
+  requestCondition: String
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""Gzip compression configuration for specific response content types."""
+type GZIPConfig {
+  name: String!
+  contentTypes: [String!]!
+  extensions: [String!]!
+  cacheCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""A complete custom VCL program uploaded to a service version."""
+type VCLFile {
+  name: String!
+  content: String!
+  main: Boolean!
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""A reusable VCL snippet inserted at a specific subroutine."""
+type Snippet {
+  id: ID!
+  name: String!
+  content: String!
+  type: SnippetType!
+  priority: Int!
+  dynamic: Boolean!
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+# ── Access Control Lists ───────────────────────────────────────────────────────
+
+"""Named IP access control list container attached to a service version."""
+type ACL {
+  id: ID!
+  name: String!
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  entries: [ACLEntry!]!
+}
+
+"""Individual IP address or CIDR block entry within an ACL."""
+type ACLEntry {
+  id: ID!
+  aclId: ID!
+  serviceId: ID!
+  ip: String!
+  subnet: Int
+  negated: Boolean!
+  comment: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Permission metadata for ACL operations."""
+type ACLPermission {
+  aclId: ID!
+  serviceId: ID!
+  canRead: Boolean!
+  canWrite: Boolean!
+  canDelete: Boolean!
+}
+
+# ── Edge Dictionaries ──────────────────────────────────────────────────────────
+
+"""Key-value store accessible in VCL without requiring a service version change."""
+type EdgeDictionary {
+  id: ID!
+  name: String!
+  writeOnly: Boolean!
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  items: [DictionaryItem!]!
+  info: DictionaryInfo
+}
+
+"""Individual key-value pair within an edge dictionary."""
+type DictionaryItem {
+  dictionaryId: ID!
+  serviceId: ID!
+  itemKey: String!
+  itemValue: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Metadata and content digest for the current state of a dictionary."""
+type DictionaryInfo {
+  lastUpdatedAt: DateTime!
+  itemCount: Int!
+  digest: String!
+}
+
+# ── Logging Endpoints ──────────────────────────────────────────────────────────
+
+"""Base fields shared by all logging endpoint types."""
+interface LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""Amazon S3 log streaming endpoint configuration."""
+type S3Logging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  bucketName: String!
+  accessKey: String
+  secretKey: String
+  iamRole: String
+  domain: String
+  path: String
+  period: Int
+  compressionCodec: String
+  gzipLevel: Int
+  redundancy: String
+  serverSideEncryption: String
+  serverSideEncryptionKmsKeyId: String
+  publicKey: String
+  acl: String
+  storageClass: StorageClass
+}
+
+"""Google Cloud Storage log streaming endpoint configuration."""
+type GCSLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  bucketName: String!
+  user: String
+  secretKey: String
+  path: String
+  period: Int
+  compressionCodec: String
+  gzipLevel: Int
+  projectId: String
+}
+
+"""Google BigQuery log streaming endpoint configuration."""
+type BigQueryLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  projectId: String!
+  dataset: String!
+  table: String!
+  user: String
+  secretKey: String
+  template: String
+}
+
+"""Splunk HEC log streaming endpoint configuration."""
+type SplunkLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  url: String!
+  token: String
+  useTls: Boolean!
+  tlsCaCert: String
+  tlsClientCert: String
+  tlsClientKey: String
+  tlsHostname: String
+  requestMaxEntries: Int
+  requestMaxBytes: Int
+}
+
+"""New Relic log streaming endpoint configuration."""
+type NewRelicLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  licenseKey: String!
+  region: String
+}
+
+"""Datadog log streaming endpoint configuration."""
+type DatadogLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  token: String!
+  region: String
+}
+
+"""Papertrail log streaming endpoint configuration."""
+type PapertrailLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  address: String!
+  port: Int!
+}
+
+"""Generic HTTPS log streaming endpoint configuration."""
+type HTTPLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  url: String!
+  method: String!
+  contentType: String
+  headerName: String
+  headerValue: String
+  jsonFormat: String
+  tlsCaCert: String
+  tlsClientCert: String
+  tlsClientKey: String
+  tlsHostname: String
+  requestMaxEntries: Int
+  requestMaxBytes: Int
+  messageType: String
+}
+
+"""SFTP log streaming endpoint configuration."""
+type SFTPLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  address: String!
+  port: Int!
+  user: String!
+  password: String
+  publicKey: String
+  secretKey: String
+  sshKnownHosts: String
+  path: String!
+  period: Int
+  compressionCodec: String
+  gzipLevel: Int
+}
+
+"""Syslog log streaming endpoint configuration."""
+type SyslogLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  address: String!
+  port: Int!
+  hostname: String
+  ipv4: String
+  token: String
+  useTls: Boolean!
+  tlsCaCert: String
+  tlsClientCert: String
+  tlsClientKey: String
+  tlsHostname: String
+  messageType: String
+}
+
+"""Sumo Logic log streaming endpoint configuration."""
+type SumoLogicLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  url: String!
+  messageType: String
+}
+
+"""Loggly log streaming endpoint configuration."""
+type LogglyLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  token: String!
+}
+
+"""Elasticsearch log streaming endpoint configuration."""
+type ElasticsearchLogging implements LogEndpoint {
+  name: String!
+  format: String
+  formatVersion: Int
+  placement: LogPlacement
+  responseCondition: String
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  index: String!
+  url: String!
+  pipeline: String
+  user: String
+  password: String
+  requestMaxEntries: Int
+  requestMaxBytes: Int
+  tlsCaCert: String
+  tlsClientCert: String
+  tlsClientKey: String
+  tlsHostname: String
+}
+
+# ── TLS and Certificates ───────────────────────────────────────────────────────
+
+"""Custom TLS certificate uploaded by the customer."""
+type TLSCertificate {
+  id: ID!
+  name: String!
+  certBlob: String!
+  issuedTo: String!
+  issuer: String!
+  signatureAlgorithm: String!
+  notAfter: DateTime!
+  notBefore: DateTime!
+  serialNumber: String!
+  replace: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  domains: [TLSDomain!]!
+}
+
+"""TLS private key associated with a custom certificate."""
+type TLSPrivateKey {
+  id: ID!
+  name: String!
+  keyType: String!
+  keyLength: Int!
+  publicKeySha1: String!
+  replace: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Domain configured for TLS termination on the Fastly network."""
+type TLSDomain {
+  id: ID!
+  type: String!
+}
+
+"""Platform-managed TLS certificate subscription (Let's Encrypt / GD)."""
+type TLSSubscription {
+  id: ID!
+  state: String!
+  certificateAuthority: String!
+  commonName: TLSDomain
+  certificateId: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  domains: [TLSDomain!]!
+}
+
+"""Binding of a custom TLS certificate to a domain on a TLS configuration."""
+type TLSActivation {
+  id: ID!
+  createdAt: DateTime!
+  certificate: TLSCertificate!
+  domain: TLSDomain!
+  configuration: CustomTLSConfig!
+}
+
+"""Custom TLS configuration controlling TLS protocol and cipher suite."""
+type CustomTLSConfig {
+  id: ID!
+  name: String!
+  tlsProtocols: [TLSProtocol!]!
+  httpProtocols: [String!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  bulkCertificates: [TLSCertificate!]!
+}
+
+# ── Purging ────────────────────────────────────────────────────────────────────
+
+"""Result of a cache purge operation (URL, surrogate key, or all)."""
+type Purge {
+  status: String!
+  id: String
+}
+
+"""Batch operation result for a bulk ACL or dictionary update."""
+type Batch {
+  title: String!
+  detail: String
+  status: Int!
+  errors: [BatchError!]!
+}
+
+"""Individual error within a batch operation response."""
+type BatchError {
+  key: String!
+  message: String!
+}
+
+# ── Metrics and Statistics ─────────────────────────────────────────────────────
+
+"""Aggregated traffic statistics for a service over a time period."""
+type Stats {
+  serviceId: ID!
+  startTime: DateTime!
+  endTime: DateTime!
+  requests: Int!
+  hits: Int!
+  misses: Int!
+  passes: Int!
+  synths: Int!
+  errors: Int!
+  restarts: Int!
+  hitRatio: Float!
+  bandwidth: Int!
+  bodySize: Int!
+  headerSize: Int!
+  reqBodyBytes: Int!
+  reqHeaderBytes: Int!
+  respBodyBytes: Int!
+  respHeaderBytes: Int!
+  bereqBodyBytes: Int!
+  bereqHeaderBytes: Int!
+  berespBodyBytes: Int!
+  berespHeaderBytes: Int!
+  uncacheable: Int!
+  status2xx: Int!
+  status3xx: Int!
+  status4xx: Int!
+  status5xx: Int!
+}
+
+"""Historical analytics data aggregated over a user-defined time range."""
+type Historical {
+  status: String!
+  meta: HistoricalMeta!
+  data: [HistoricalData!]!
+}
+
+"""Metadata describing the time range and granularity of historical data."""
+type HistoricalMeta {
+  from: DateTime!
+  to: DateTime!
+  by: String!
+  region: String!
+}
+
+"""A single aggregated historical data point."""
+type HistoricalData {
+  serviceId: String!
+  startTime: DateTime!
+  requests: Int
+  hits: Int
+  misses: Int
+  passes: Int
+  errors: Int
+  bandwidth: Int
+  hitRatio: Float
+}
+
+"""Second-resolution real-time analytics data for a service."""
+type Realtime {
+  timestamp: DateTime!
+  aggregated: JSON!
+  datacenter: JSON!
+}
+
+"""Per-domain metrics breakdown for a Fastly service."""
+type DomainInspector {
+  serviceId: ID!
+  startTime: DateTime!
+  endTime: DateTime!
+  domain: String!
+  requests: Int!
+  hits: Int!
+  misses: Int!
+  errors: Int!
+  bandwidth: Int!
+  hitRatio: Float!
+}
+
+"""Per-origin performance metrics for a Fastly service."""
+type OriginInspector {
+  serviceId: ID!
+  startTime: DateTime!
+  endTime: DateTime!
+  origin: String!
+  requests: Int!
+  responses: Int!
+  errors: Int!
+  bandwidth: Int!
+  latencyMs: Float!
+}
+
+# ── WAF and Security ───────────────────────────────────────────────────────────
+
+"""Web Application Firewall (legacy) configuration attached to a service."""
+type WAF {
+  id: ID!
+  prefetchCondition: String
+  response: String
+  mode: WAFMode!
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  exclusions: [WAFRuleExclusion!]!
+}
+
+"""Exclusion rule suppressing a specific WAF signal or rule."""
+type WAFRuleExclusion {
+  id: ID!
+  wafId: ID!
+  name: String!
+  condition: String
+  exclusionType: String!
+  variable: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Edge rate limiting rule configuration."""
+type RateLimiter {
+  id: ID!
+  name: String!
+  uriDictionaryName: String
+  httpMethods: [String!]!
+  rpsLimit: Int!
+  windowSize: Int!
+  clientKey: [String!]!
+  penaltyBoxDuration: Int!
+  action: RateLimiterAction!
+  responseObjectName: String
+  loggerType: String
+  featureRevision: Int!
+  serviceId: ID!
+  serviceVersion: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""IP filtering rule applied at the service level."""
+type IPFilter {
+  id: ID!
+  name: String!
+  action: String!
+  ipList: [String!]!
+  serviceId: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Next-Gen WAF (Signal Sciences) workspace."""
+type NGWAFWorkspace {
+  id: ID!
+  name: String!
+  displayName: String!
+  mode: String!
+  agentLevel: String!
+  blockHTTPCode: Int!
+  blockDurationSeconds: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  rules: [NGWAFRule!]!
+  events: [NGWAFEvent!]!
+}
+
+"""Signal-based detection and action rule in a Next-Gen WAF workspace."""
+type NGWAFRule {
+  id: ID!
+  workspaceId: ID!
+  groupId: String
+  reason: String!
+  signal: String!
+  action: NGWAFRuleAction!
+  enabled: Boolean!
+  expiresAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""WAF event record captured by the Next-Gen WAF."""
+type NGWAFEvent {
+  id: ID!
+  workspaceId: ID!
+  timestamp: DateTime!
+  source: String!
+  action: String!
+  reasons: [NGWAFEventReason!]!
+  requestCount: Int!
+}
+
+"""Reason entry within a Next-Gen WAF event."""
+type NGWAFEventReason {
+  type: String!
+  name: String!
+}
+
+"""DDoS protection event record."""
+type DDoSEvent {
+  id: ID!
+  serviceId: ID!
+  name: String!
+  startAt: DateTime!
+  endAt: DateTime
+  active: Boolean!
+  peakTrafficRate: Float!
+  rules: [DDoSRule!]!
+}
+
+"""Mitigation rule associated with a DDoS protection event."""
+type DDoSRule {
+  id: ID!
+  eventId: ID!
+  action: String!
+  status: String!
+  expression: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ── Account and Authentication ─────────────────────────────────────────────────
+
+"""Fastly account user with role and service permissions."""
+type User {
+  id: ID!
+  login: String!
+  name: String!
+  role: UserRole!
+  customerId: ID!
+  emailHash: String!
+  limitServices: Boolean!
+  locked: Boolean!
+  requireNewPassword: Boolean!
+  twoFactorAuthEnabled: Boolean!
+  twoFactorSetupRequired: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""API authentication token scoped to services and permission level."""
+type APIToken {
+  id: ID!
+  name: String!
+  userId: ID!
+  services: [ID!]!
+  scope: TokenScope!
+  ip: String
+  userAgent: String
+  createdAt: DateTime!
+  lastUsedAt: DateTime
+  expiresAt: DateTime
+}
+
+"""Fastly customer account metadata."""
+type Customer {
+  id: ID!
+  name: String!
+  billingContactId: String
+  technicalContactId: String
+  canConfigureWordpress: Boolean!
+  canResetPasswords: Boolean!
+  canUploadVcl: Boolean!
+  force2fa: Boolean!
+  forceNewPassword: Boolean!
+  hasAccount: Boolean!
+  hasBrightcove: Boolean!
+  hasHttps: Boolean!
+  hasLogging: Boolean!
+  ipWhitelist: String
+  legalContactId: String
+  ownerUserId: String
+  phoneNumber: String
+  postalAddress: String
+  pricingPlan: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""IAM service group organizing services for role-based access control."""
+type ServiceGroup {
+  id: ID!
+  name: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  services: [Service!]!
+}
+
+# ── Compute ────────────────────────────────────────────────────────────────────
+
+"""WebAssembly package deployed to the Fastly Compute platform."""
+type ComputePackage {
+  id: ID!
+  serviceId: ID!
+  serviceVersion: Int!
+  metadata: ComputePackageMetadata!
+  size: Int!
+  hashsum: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Metadata embedded in a Compute Wasm package."""
+type ComputePackageMetadata {
+  name: String!
+  description: String
+  language: String!
+  authors: [String!]!
+  version: String!
+  clonedFrom: String
+}
+
+"""Key-value store accessible from Fastly Compute services."""
+type KVStore {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  items: [KVStoreItem!]!
+}
+
+"""Individual key-value pair in a KV store."""
+type KVStoreItem {
+  key: String!
+  value: String!
+}
+
+"""Read-only configuration store for Compute services."""
+type ConfigStore {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  items: [ConfigStoreItem!]!
+}
+
+"""Individual key-value pair in a config store."""
+type ConfigStoreItem {
+  key: String!
+  value: String!
+}
+
+"""Encrypted secret store for Compute services."""
+type SecretStore {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ── Utilities ──────────────────────────────────────────────────────────────────
+
+"""Fastly point-of-presence location."""
+type POPLocation {
+  code: String!
+  name: String!
+  group: String!
+  region: String!
+  latitude: Float!
+  longitude: Float!
+  shield: Boolean!
+}
+
+"""Public IP CIDR block assigned to Fastly infrastructure."""
+type PublicIPRange {
+  cidr: String!
+}
+
+"""Content status response showing which edge server is serving a URL."""
+type ContentStatus {
+  url: String!
+  hash: String
+  request: String
+  response: String
+  server: String
+}
+
+"""Diff result between two service version configurations."""
+type VersionDiff {
+  format: String!
+  from: Int!
+  to: Int!
+  diff: String!
+}
+
+# ── Input Types ────────────────────────────────────────────────────────────────
+
+input CreateServiceInput {
+  name: String!
+  type: ServiceType!
+  comment: String
+}
+
+input CreateBackendInput {
+  serviceId: ID!
+  version: Int!
+  name: String!
+  address: String!
+  port: Int!
+  useSsl: Boolean
+  sslCheckCert: Boolean
+  sslSniHostname: String
+  connectTimeout: Int
+  firstByteTimeout: Int
+  betweenBytesTimeout: Int
+  maxConn: Int
+  weight: Int
+  autoLoadbalance: Boolean
+  shieldPop: String
+}
+
+input CreateDomainInput {
+  serviceId: ID!
+  version: Int!
+  name: String!
+  comment: String
+}
+
+input CreateACLInput {
+  serviceId: ID!
+  version: Int!
+  name: String!
+}
+
+input CreateACLEntryInput {
+  serviceId: ID!
+  aclId: ID!
+  ip: String!
+  subnet: Int
+  negated: Boolean
+  comment: String
+}
+
+input ACLEntryBatchOperation {
+  op: String!
+  id: String
+  ip: String
+  subnet: Int
+  negated: Boolean
+  comment: String
+}
+
+input CreateDictionaryInput {
+  serviceId: ID!
+  version: Int!
+  name: String!
+  writeOnly: Boolean
+}
+
+input DictionaryItemBatchOperation {
+  op: String!
+  itemKey: String!
+  itemValue: String
+}
+
+input CreateTokenInput {
+  name: String!
+  password: String!
+  scope: TokenScope
+  services: [ID!]
+  expiresAt: DateTime
+}
+
+input CreateUserInput {
+  login: String!
+  name: String!
+  role: UserRole
+}
+
+input PurgeSurrogateKeyInput {
+  serviceId: ID!
+  surrogateKey: String!
+  soft: Boolean
+}
+
+input UploadVCLInput {
+  serviceId: ID!
+  version: Int!
+  name: String!
+  content: String!
+  main: Boolean
+}
+
+input CreateSnippetInput {
+  serviceId: ID!
+  version: Int!
+  name: String!
+  content: String!
+  type: SnippetType!
+  priority: Int
+  dynamic: Boolean
+}
+
+input CreateConditionInput {
+  serviceId: ID!
+  version: Int!
+  name: String!
+  statement: String!
+  type: ConditionType!
+  priority: Int
+  comment: String
+}
+
+input UploadTLSCertificateInput {
+  name: String!
+  certBlob: String!
+  replace: Boolean
+}
+
+input CreateTLSActivationInput {
+  tlsCertificateId: ID!
+  tlsDomainId: ID!
+  tlsConfigurationId: ID!
+}
+
+# ── Query ──────────────────────────────────────────────────────────────────────
+
+type Query {
+  """Fetch a Fastly service by ID."""
+  service(id: ID!): Service
+
+  """List all services for the authenticated customer."""
+  services: [Service!]!
+
+  """Fetch a specific service version."""
+  serviceVersion(serviceId: ID!, version: Int!): ServiceVersion
+
+  """Fetch a backend by name on a service version."""
+  backend(serviceId: ID!, version: Int!, name: String!): Backend
+
+  """List all backends on a service version."""
+  backends(serviceId: ID!, version: Int!): [Backend!]!
+
+  """Fetch a domain by name on a service version."""
+  domain(serviceId: ID!, version: Int!, name: String!): Domain
+
+  """List all domains on a service version."""
+  domains(serviceId: ID!, version: Int!): [Domain!]!
+
+  """Check DNS configuration for all domains on a service version."""
+  domainChecks(serviceId: ID!, version: Int!): [DomainCheck!]!
+
+  """Fetch an ACL by name on a service version."""
+  acl(serviceId: ID!, version: Int!, name: String!): ACL
+
+  """List ACL entries for a given ACL."""
+  aclEntries(serviceId: ID!, aclId: ID!): [ACLEntry!]!
+
+  """Fetch an edge dictionary by name on a service version."""
+  dictionary(serviceId: ID!, version: Int!, name: String!): EdgeDictionary
+
+  """List items in an edge dictionary."""
+  dictionaryItems(serviceId: ID!, dictionaryId: ID!): [DictionaryItem!]!
+
+  """Fetch dictionary metadata and digest."""
+  dictionaryInfo(serviceId: ID!, dictionaryId: ID!): DictionaryInfo
+
+  """Fetch a director by name on a service version."""
+  director(serviceId: ID!, version: Int!, name: String!): Director
+
+  """List directors on a service version."""
+  directors(serviceId: ID!, version: Int!): [Director!]!
+
+  """Fetch a healthcheck by name on a service version."""
+  healthcheck(serviceId: ID!, version: Int!, name: String!): Healthcheck
+
+  """List healthchecks on a service version."""
+  healthchecks(serviceId: ID!, version: Int!): [Healthcheck!]!
+
+  """Fetch a condition by name on a service version."""
+  condition(serviceId: ID!, version: Int!, name: String!): Condition
+
+  """List conditions on a service version."""
+  conditions(serviceId: ID!, version: Int!): [Condition!]!
+
+  """List VCL files on a service version."""
+  vclFiles(serviceId: ID!, version: Int!): [VCLFile!]!
+
+  """List snippets on a service version."""
+  snippets(serviceId: ID!, version: Int!): [Snippet!]!
+
+  """List custom TLS certificates."""
+  tlsCertificates: [TLSCertificate!]!
+
+  """Fetch a TLS certificate by ID."""
+  tlsCertificate(id: ID!): TLSCertificate
+
+  """List TLS private keys."""
+  tlsPrivateKeys: [TLSPrivateKey!]!
+
+  """List platform TLS subscriptions."""
+  tlsSubscriptions: [TLSSubscription!]!
+
+  """List TLS activations."""
+  tlsActivations: [TLSActivation!]!
+
+  """Fetch historical stats for a service."""
+  stats(serviceId: ID!, from: String!, to: String!, by: String, region: String): Historical
+
+  """Fetch real-time second-resolution analytics for a service."""
+  realtime(serviceId: ID!, timestampMs: Int): Realtime
+
+  """Fetch per-domain metrics for a service."""
+  domainInspector(serviceId: ID!, start: DateTime!, end: DateTime!): [DomainInspector!]!
+
+  """Fetch per-origin performance metrics for a service."""
+  originInspector(serviceId: ID!, start: DateTime!, end: DateTime!): [OriginInspector!]!
+
+  """Fetch the authenticated user's account information."""
+  currentUser: User
+
+  """Fetch a user by ID."""
+  user(id: ID!): User
+
+  """List users for the customer account."""
+  users: [User!]!
+
+  """List API tokens for the current user."""
+  tokens: [APIToken!]!
+
+  """Fetch customer account metadata."""
+  customer: Customer
+
+  """List Fastly points of presence."""
+  pops: [POPLocation!]!
+
+  """List Fastly public IP ranges."""
+  publicIPs: [PublicIPRange!]!
+
+  """Check which edge server is serving a URL."""
+  contentStatus(url: String!): ContentStatus
+
+  """Diff two service versions."""
+  versionDiff(serviceId: ID!, from: Int!, to: Int!, format: String): VersionDiff
+
+  """List KV stores for the account."""
+  kvStores: [KVStore!]!
+
+  """Fetch a KV store by ID."""
+  kvStore(id: ID!): KVStore
+
+  """List DDoS protection events for a service."""
+  ddosEvents(serviceId: ID!): [DDoSEvent!]!
+
+  """Fetch a DDoS event by ID."""
+  ddosEvent(serviceId: ID!, eventId: ID!): DDoSEvent
+
+  """List Next-Gen WAF workspaces."""
+  ngwafWorkspaces: [NGWAFWorkspace!]!
+
+  """Fetch a Next-Gen WAF workspace by ID."""
+  ngwafWorkspace(id: ID!): NGWAFWorkspace
+
+  """List origin pools for a service version."""
+  originPools(serviceId: ID!, version: Int!): [OriginPool!]!
+
+  """Fetch an origin pool by ID."""
+  originPool(serviceId: ID!, version: Int!, id: ID!): OriginPool
+}
+
+# ── Mutation ───────────────────────────────────────────────────────────────────
+
+type Mutation {
+  """Create a new Fastly CDN or Compute service."""
+  createService(input: CreateServiceInput!): Service!
+
+  """Clone an existing service version into an editable draft."""
+  cloneServiceVersion(serviceId: ID!, version: Int!): ServiceVersion!
+
+  """Activate a draft service version into production."""
+  activateServiceVersion(serviceId: ID!, version: Int!): ServiceVersion!
+
+  """Deactivate the currently active service version."""
+  deactivateServiceVersion(serviceId: ID!): ServiceVersion!
+
+  """Delete a service."""
+  deleteService(id: ID!): Boolean!
+
+  """Add a backend to a service version."""
+  createBackend(input: CreateBackendInput!): Backend!
+
+  """Update an existing backend."""
+  updateBackend(serviceId: ID!, version: Int!, name: String!, input: CreateBackendInput!): Backend!
+
+  """Delete a backend from a service version."""
+  deleteBackend(serviceId: ID!, version: Int!, name: String!): Boolean!
+
+  """Add a domain to a service version."""
+  createDomain(input: CreateDomainInput!): Domain!
+
+  """Delete a domain from a service version."""
+  deleteDomain(serviceId: ID!, version: Int!, name: String!): Boolean!
+
+  """Create an ACL container on a service version."""
+  createACL(input: CreateACLInput!): ACL!
+
+  """Delete an ACL."""
+  deleteACL(serviceId: ID!, version: Int!, name: String!): Boolean!
+
+  """Add an IP entry to an ACL."""
+  createACLEntry(input: CreateACLEntryInput!): ACLEntry!
+
+  """Update an existing ACL entry."""
+  updateACLEntry(serviceId: ID!, aclId: ID!, entryId: ID!, ip: String, subnet: Int, negated: Boolean, comment: String): ACLEntry!
+
+  """Delete an ACL entry."""
+  deleteACLEntry(serviceId: ID!, aclId: ID!, entryId: ID!): Boolean!
+
+  """Batch create, update, and delete ACL entries."""
+  bulkUpdateACLEntries(serviceId: ID!, aclId: ID!, entries: [ACLEntryBatchOperation!]!): Batch!
+
+  """Create an edge dictionary on a service version."""
+  createDictionary(input: CreateDictionaryInput!): EdgeDictionary!
+
+  """Delete an edge dictionary."""
+  deleteDictionary(serviceId: ID!, version: Int!, name: String!): Boolean!
+
+  """Create or update a single dictionary item."""
+  upsertDictionaryItem(serviceId: ID!, dictionaryId: ID!, key: String!, value: String!): DictionaryItem!
+
+  """Delete a dictionary item."""
+  deleteDictionaryItem(serviceId: ID!, dictionaryId: ID!, key: String!): Boolean!
+
+  """Batch create, update, and delete dictionary items."""
+  bulkUpdateDictionaryItems(serviceId: ID!, dictionaryId: ID!, items: [DictionaryItemBatchOperation!]!): Batch!
+
+  """Upload a custom VCL file to a service version."""
+  uploadVCL(input: UploadVCLInput!): VCLFile!
+
+  """Delete a VCL file from a service version."""
+  deleteVCL(serviceId: ID!, version: Int!, name: String!): Boolean!
+
+  """Add a VCL snippet to a service version."""
+  createSnippet(input: CreateSnippetInput!): Snippet!
+
+  """Delete a VCL snippet."""
+  deleteSnippet(serviceId: ID!, version: Int!, name: String!): Boolean!
+
+  """Create a condition on a service version."""
+  createCondition(input: CreateConditionInput!): Condition!
+
+  """Delete a condition."""
+  deleteCondition(serviceId: ID!, version: Int!, name: String!): Boolean!
+
+  """Purge a single URL from Fastly cache."""
+  purgeURL(serviceId: ID!, url: String!, soft: Boolean): Purge!
+
+  """Purge all content tagged with a surrogate key."""
+  purgeSurrogateKey(input: PurgeSurrogateKeyInput!): Purge!
+
+  """Purge all cached content for a service."""
+  purgeAll(serviceId: ID!): Purge!
+
+  """Upload a custom TLS certificate."""
+  uploadTLSCertificate(input: UploadTLSCertificateInput!): TLSCertificate!
+
+  """Update a TLS certificate."""
+  updateTLSCertificate(id: ID!, name: String, certBlob: String, replace: Boolean): TLSCertificate!
+
+  """Delete a TLS certificate."""
+  deleteTLSCertificate(id: ID!): Boolean!
+
+  """Upload a TLS private key."""
+  uploadTLSPrivateKey(name: String!, keyPem: String!): TLSPrivateKey!
+
+  """Delete a TLS private key."""
+  deleteTLSPrivateKey(id: ID!): Boolean!
+
+  """Create a platform TLS subscription (managed certificate)."""
+  createTLSSubscription(domains: [ID!]!, certificateAuthority: String): TLSSubscription!
+
+  """Delete a platform TLS subscription."""
+  deleteTLSSubscription(id: ID!): Boolean!
+
+  """Activate TLS for a domain using a custom certificate."""
+  createTLSActivation(input: CreateTLSActivationInput!): TLSActivation!
+
+  """Deactivate TLS for a domain."""
+  deleteTLSActivation(id: ID!): Boolean!
+
+  """Create an API authentication token."""
+  createToken(input: CreateTokenInput!): APIToken!
+
+  """Revoke (delete) an API token."""
+  revokeToken(id: ID!): Boolean!
+
+  """Invite a new user to the customer account."""
+  createUser(input: CreateUserInput!): User!
+
+  """Update a user's name or role."""
+  updateUser(id: ID!, name: String, role: UserRole): User!
+
+  """Delete a user from the account."""
+  deleteUser(id: ID!): Boolean!
+
+  """Update a dynamic VCL snippet without a version change."""
+  updateDynamicSnippet(serviceId: ID!, snippetId: ID!, content: String!): Snippet!
+
+  """Create a KV store."""
+  createKVStore(name: String!, location: String): KVStore!
+
+  """Delete a KV store."""
+  deleteKVStore(id: ID!): Boolean!
+
+  """Insert or update a KV store item."""
+  upsertKVStoreItem(storeId: ID!, key: String!, value: String!): KVStoreItem!
+
+  """Delete a KV store item."""
+  deleteKVStoreItem(storeId: ID!, key: String!): Boolean!
+
+  """Update a DDoS protection rule action."""
+  updateDDoSRule(serviceId: ID!, eventId: ID!, ruleId: ID!, action: String!): DDoSRule!
+}
