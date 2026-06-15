@@ -1,0 +1,358 @@
+{
+  "info": {
+    "_postman_id": "cc0f5385-2065-4766-8103-3858bc74c08d",
+    "name": "Fastly AI Accelerator",
+    "description": "Fastly AI Accelerator is a semantic caching solution that boosts the\nperformance of popular LLMs like OpenAI and Google Gemini by 9x. Semantic\ncaching maps queries to concepts as vectors so the system can cache answers\nto similar questions regardless of exact wording. AI Accelerator exposes\ndrop-in compatible chat completions endpoints that proxy to upstream\nproviders while serving cached responses from the edge.\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:00.000Z",
+    "updatedAt": "2026-06-05T15:09:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cc0f5385-2065-4766-8103-3858bc74c08d"
+  },
+  "item": [
+    {
+      "name": "openai",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "chat",
+              "item": [
+                {
+                  "name": "completions",
+                  "item": [
+                    {
+                      "name": "Create Chat Completion Via OpenAI",
+                      "id": "4541bdaa-c9a3-4cb5-a2d3-1120ce147a6a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"temperature\": \"<float>\",\n  \"max_tokens\": \"<integer>\",\n  \"stream\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/openai/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "openai",
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        },
+                        "description": "OpenAI-compatible chat completion request, semantically cached at the Fastly edge."
+                      },
+                      "response": [
+                        {
+                          "id": "8833fb3c-a358-4b2f-8cf3-f4b115e378ca",
+                          "name": "Chat completion response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"temperature\": \"<float>\",\n  \"max_tokens\": \"<integer>\",\n  \"stream\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/chat/completions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "chat",
+                                "completions"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"created\": \"<integer>\",\n  \"model\": \"<string>\",\n  \"choices\": [\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\"\n      },\n      \"finish_reason\": \"<string>\"\n    },\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\"\n      },\n      \"finish_reason\": \"<string>\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"completion_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\"\n  },\n  \"x_fastly_cache\": {\n    \"status\": \"SIMILAR\",\n    \"similarity\": \"<float>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:09:00.000Z",
+                          "updatedAt": "2026-06-05T15:09:00.000Z",
+                          "uid": "35240-8833fb3c-a358-4b2f-8cf3-f4b115e378ca"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:09:00.000Z",
+                      "updatedAt": "2026-06-05T15:09:00.000Z",
+                      "uid": "35240-4541bdaa-c9a3-4cb5-a2d3-1120ce147a6a"
+                    }
+                  ],
+                  "id": "6a7815fd-6f96-4a41-8994-e80b7cd8977f",
+                  "createdAt": "2026-06-05T15:09:00.000Z",
+                  "updatedAt": "2026-06-05T15:09:00.000Z",
+                  "uid": "35240-6a7815fd-6f96-4a41-8994-e80b7cd8977f"
+                }
+              ],
+              "id": "62b2c77d-2d99-4817-8de1-0b6d9f26fe02",
+              "createdAt": "2026-06-05T15:09:00.000Z",
+              "updatedAt": "2026-06-05T15:09:00.000Z",
+              "uid": "35240-62b2c77d-2d99-4817-8de1-0b6d9f26fe02"
+            },
+            {
+              "name": "embeddings",
+              "item": [
+                {
+                  "name": "Create Embeddings",
+                  "id": "ad9e92c8-2835-4f5a-bc05-2cdc3c0ba86c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/openai/v1/embeddings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "openai",
+                        "v1",
+                        "embeddings"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "da0a8ef0-2449-4f3c-9d35-ba366900db27",
+                      "name": "Embeddings response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/openai/v1/embeddings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "openai",
+                            "v1",
+                            "embeddings"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:09:00.000Z",
+                      "updatedAt": "2026-06-05T15:09:00.000Z",
+                      "uid": "35240-da0a8ef0-2449-4f3c-9d35-ba366900db27"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:00.000Z",
+                  "updatedAt": "2026-06-05T15:09:00.000Z",
+                  "uid": "35240-ad9e92c8-2835-4f5a-bc05-2cdc3c0ba86c"
+                }
+              ],
+              "id": "4d27d79d-a16d-4f22-a9c5-307159356908",
+              "createdAt": "2026-06-05T15:09:00.000Z",
+              "updatedAt": "2026-06-05T15:09:00.000Z",
+              "uid": "35240-4d27d79d-a16d-4f22-a9c5-307159356908"
+            }
+          ],
+          "id": "64f89033-cfc7-4d53-9876-b2b765e63ae6",
+          "createdAt": "2026-06-05T15:09:00.000Z",
+          "updatedAt": "2026-06-05T15:09:00.000Z",
+          "uid": "35240-64f89033-cfc7-4d53-9876-b2b765e63ae6"
+        }
+      ],
+      "id": "2cafbfee-8560-4093-af36-bb4411def433",
+      "createdAt": "2026-06-05T15:09:00.000Z",
+      "updatedAt": "2026-06-05T15:09:00.000Z",
+      "uid": "35240-2cafbfee-8560-4093-af36-bb4411def433"
+    },
+    {
+      "name": "gemini",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "models",
+              "item": [
+                {
+                  "name": "{model}:generateContent",
+                  "item": [
+                    {
+                      "name": "Generate Content Via Google Gemini",
+                      "id": "871d087b-ad79-4ae0-b7f3-b3cf1a9faae0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/gemini/v1/models/{{model}}:generateContent",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "gemini",
+                            "v1",
+                            "models",
+                            "{{model}}:generateContent"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "4b07c013-5ea4-4e92-9617-adc79b0787c9",
+                          "name": "Gemini response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/gemini/v1/models/{{model}}:generateContent",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "gemini",
+                                "v1",
+                                "models",
+                                "{{model}}:generateContent"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:09:00.000Z",
+                          "updatedAt": "2026-06-05T15:09:00.000Z",
+                          "uid": "35240-4b07c013-5ea4-4e92-9617-adc79b0787c9"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:09:00.000Z",
+                      "updatedAt": "2026-06-05T15:09:00.000Z",
+                      "uid": "35240-871d087b-ad79-4ae0-b7f3-b3cf1a9faae0"
+                    }
+                  ],
+                  "id": "66d2f401-8249-4dda-a190-a27cb0dbc7c3",
+                  "createdAt": "2026-06-05T15:09:00.000Z",
+                  "updatedAt": "2026-06-05T15:09:00.000Z",
+                  "uid": "35240-66d2f401-8249-4dda-a190-a27cb0dbc7c3"
+                }
+              ],
+              "id": "dad63212-2e9b-4417-bb91-7f42ae5fc03f",
+              "createdAt": "2026-06-05T15:09:00.000Z",
+              "updatedAt": "2026-06-05T15:09:00.000Z",
+              "uid": "35240-dad63212-2e9b-4417-bb91-7f42ae5fc03f"
+            }
+          ],
+          "id": "c6556a51-a572-4889-bad9-f34249248c22",
+          "createdAt": "2026-06-05T15:09:00.000Z",
+          "updatedAt": "2026-06-05T15:09:00.000Z",
+          "uid": "35240-c6556a51-a572-4889-bad9-f34249248c22"
+        }
+      ],
+      "id": "e0d4146e-7c62-4040-8f7f-119bb32e3c04",
+      "createdAt": "2026-06-05T15:09:00.000Z",
+      "updatedAt": "2026-06-05T15:09:00.000Z",
+      "uid": "35240-e0d4146e-7c62-4040-8f7f-119bb32e3c04"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.ai"
+    },
+    {
+      "key": "model",
+      "value": "<string>"
+    }
+  ]
+}

@@ -1,0 +1,379 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Services API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction to sort results in."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all services associated with the authenticated account. Returns basic information about each service including its name, ID, and current active version."
+        },
+        {
+          "info": {
+            "name": "Create a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                },
+                {
+                  "name": "comment",
+                  "value": ""
+                },
+                {
+                  "name": "type",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Creates a new Fastly service. A service represents the configuration for a website, application, API, or other resource to be served through Fastly's edge network."
+        },
+        {
+          "info": {
+            "name": "Get a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific Fastly service identified by its service ID."
+        },
+        {
+          "info": {
+            "name": "Update a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                },
+                {
+                  "name": "comment",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates the details of a specific Fastly service, such as its name or comment."
+        },
+        {
+          "info": {
+            "name": "Delete a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/service/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a specific Fastly service. This action cannot be undone and the service must be deactivated before deletion."
+        },
+        {
+          "info": {
+            "name": "Get service details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/details",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific service including all of its versions and their associated settings."
+        },
+        {
+          "info": {
+            "name": "Search for a service by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/search",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "The name of the service to search for."
+              }
+            ]
+          },
+          "docs": "Searches for a service by its name and returns the matching service details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Service Version",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List versions of a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all versions associated with a specific Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a service version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Creates a new version of a specific Fastly service. New versions are created as drafts that can be configured and then activated."
+        },
+        {
+          "info": {
+            "name": "Get a service version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Update a service version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "comment",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates a specific version of a Fastly service, such as changing its comment or locking status."
+        },
+        {
+          "info": {
+            "name": "Activate a service version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/activate",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Activates a specific version of a Fastly service, making it the live configuration that handles traffic for the service."
+        },
+        {
+          "info": {
+            "name": "Deactivate a service version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/deactivate",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Deactivates a specific version of a Fastly service, removing it from active traffic handling."
+        },
+        {
+          "info": {
+            "name": "Clone a service version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/clone",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Creates a new version of a Fastly service by cloning an existing version, including all of its configuration settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

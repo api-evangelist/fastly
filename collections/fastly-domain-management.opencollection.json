@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Domain Management API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domain",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/domain",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all domains associated with a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/domain",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                },
+                {
+                  "name": "comment",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Associates a new domain name with a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Get a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/domain/:domain_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "domain_name",
+                "value": "",
+                "type": "path",
+                "description": "The domain name."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific domain for a version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Update a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/domain/:domain_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "domain_name",
+                "value": "",
+                "type": "path",
+                "description": "The domain name."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                },
+                {
+                  "name": "comment",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates a specific domain for a version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Delete a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/domain/:domain_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "domain_name",
+                "value": "",
+                "type": "path",
+                "description": "The domain name."
+              }
+            ]
+          },
+          "docs": "Removes a domain from a version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Check domain DNS configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/domain/:domain_name/check",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "domain_name",
+                "value": "",
+                "type": "path",
+                "description": "The domain name."
+              }
+            ]
+          },
+          "docs": "Validates the DNS configuration for a single domain on a service version. Returns the domain details, the current CNAME record, and a boolean indicating whether the domain is correctly configured to use Fastly."
+        },
+        {
+          "info": {
+            "name": "Check all domains DNS configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/domain/check_all",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Validates the DNS configuration for all domains on a service version. Returns an array of results, each containing domain details, the current CNAME record, and whether the domain is correctly configured."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

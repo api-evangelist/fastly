@@ -1,0 +1,3336 @@
+{
+  "item": [
+    {
+      "id": "2e8efc92-bf8c-4572-b085-45460317a4da",
+      "name": "Service Version",
+      "description": {
+        "content": "Operations for managing versions of a Fastly service. Each change to a service configuration creates a new version that can be activated or deactivated independently.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6d24a1bc-d246-4131-8adb-5a3050a08f51",
+          "name": "List versions of a service",
+          "request": {
+            "name": "List versions of a service",
+            "description": {
+              "content": "Retrieves a list of all versions associated with a specific Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8dde50d3-9979-4416-a5fd-90ad4b696aa5",
+              "name": "Successfully retrieved the list of service versions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"number\": 6012,\n    \"service_id\": \"string\",\n    \"active\": false,\n    \"locked\": true,\n    \"deployed\": true,\n    \"staging\": true,\n    \"testing\": true,\n    \"comment\": \"string\",\n    \"created_at\": \"1956-09-17T17:03:03.510Z\",\n    \"updated_at\": \"2007-10-24T22:12:49.415Z\",\n    \"deleted_at\": \"1965-09-26T01:05:42.724Z\"\n  },\n  {\n    \"number\": 4933,\n    \"service_id\": \"string\",\n    \"active\": false,\n    \"locked\": false,\n    \"deployed\": false,\n    \"staging\": false,\n    \"testing\": false,\n    \"comment\": \"string\",\n    \"created_at\": \"1960-12-04T02:30:43.969Z\",\n    \"updated_at\": \"1969-08-07T07:04:05.872Z\",\n    \"deleted_at\": \"1987-05-25T22:04:30.503Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3db053f6-455a-446c-b6a1-632cd2cb71ba",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4456a9a9-5a83-46de-89b2-06b81977ec90",
+              "name": "Service not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ee3961d-1a3d-42b1-93ba-c3e637f9806f",
+          "name": "Create a service version",
+          "request": {
+            "name": "Create a service version",
+            "description": {
+              "content": "Creates a new version of a specific Fastly service. New versions are created as drafts that can be configured and then activated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a778f8cd-2d25-4738-9cc0-caf486ed87de",
+              "name": "Successfully created a new service version.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"number\": 4164,\n  \"service_id\": \"string\",\n  \"active\": true,\n  \"locked\": true,\n  \"deployed\": false,\n  \"staging\": true,\n  \"testing\": false,\n  \"comment\": \"string\",\n  \"created_at\": \"2003-01-16T11:36:15.222Z\",\n  \"updated_at\": \"1954-06-06T13:47:58.767Z\",\n  \"deleted_at\": \"2014-03-25T16:43:41.689Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8e07306-d87f-4923-8a2c-5a804285a8b2",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a3760ea-3e42-4a64-a349-aee870fa3d84",
+              "name": "Service not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3caafe1-48bc-457d-bf21-a6192357f907",
+          "name": "Get a service version",
+          "request": {
+            "name": "Get a service version",
+            "description": {
+              "content": "Retrieves the details of a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9893f6fa-4547-4c22-8f95-e4e868181eaf",
+              "name": "Successfully retrieved the service version details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"number\": 4164,\n  \"service_id\": \"string\",\n  \"active\": true,\n  \"locked\": true,\n  \"deployed\": false,\n  \"staging\": true,\n  \"testing\": false,\n  \"comment\": \"string\",\n  \"created_at\": \"2003-01-16T11:36:15.222Z\",\n  \"updated_at\": \"1954-06-06T13:47:58.767Z\",\n  \"deleted_at\": \"2014-03-25T16:43:41.689Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b86e5ec0-42ea-4b7f-991e-006b17e6b7af",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f7f47d7b-687b-4c83-876c-7ef119480ccf",
+              "name": "Service version not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8eea694d-1577-4c1d-a615-ea7e035a2921",
+          "name": "Update a service version",
+          "request": {
+            "name": "Update a service version",
+            "description": {
+              "content": "Updates a specific version of a Fastly service, such as changing its comment or locking status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "comment",
+                  "value": "<string>",
+                  "description": "A comment describing the version."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8cba183f-d89a-43fe-a3d5-7ac2b8c1c3dc",
+              "name": "Successfully updated the service version.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A comment describing the version.",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"number\": 4164,\n  \"service_id\": \"string\",\n  \"active\": true,\n  \"locked\": true,\n  \"deployed\": false,\n  \"staging\": true,\n  \"testing\": false,\n  \"comment\": \"string\",\n  \"created_at\": \"2003-01-16T11:36:15.222Z\",\n  \"updated_at\": \"1954-06-06T13:47:58.767Z\",\n  \"deleted_at\": \"2014-03-25T16:43:41.689Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23e54652-e222-4997-b933-e21be9e462c5",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A comment describing the version.",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b0fe6eab-7d10-464e-a60b-1200b23c87ab",
+              "name": "Service version not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A comment describing the version.",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b42e9de-9fab-4d8b-bfda-3df4ecfe9179",
+          "name": "Activate a service version",
+          "request": {
+            "name": "Activate a service version",
+            "description": {
+              "content": "Activates a specific version of a Fastly service, making it the live configuration that handles traffic for the service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "activate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "137c6692-6bc8-48ad-b3cd-f7c1bf0db3ac",
+              "name": "Successfully activated the service version.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"number\": 4164,\n  \"service_id\": \"string\",\n  \"active\": true,\n  \"locked\": true,\n  \"deployed\": false,\n  \"staging\": true,\n  \"testing\": false,\n  \"comment\": \"string\",\n  \"created_at\": \"2003-01-16T11:36:15.222Z\",\n  \"updated_at\": \"1954-06-06T13:47:58.767Z\",\n  \"deleted_at\": \"2014-03-25T16:43:41.689Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ffa255d-788e-4a65-88c7-afc293d70cb8",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1a6e7c23-8e95-43cf-9b15-16567d2600e9",
+              "name": "Service version not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ff23223-b66e-4a89-9aae-e35551f58783",
+          "name": "Deactivate a service version",
+          "request": {
+            "name": "Deactivate a service version",
+            "description": {
+              "content": "Deactivates a specific version of a Fastly service, removing it from active traffic handling.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "deactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c6185a4-886d-4547-aab1-9f5b206ec922",
+              "name": "Successfully deactivated the service version.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"number\": 4164,\n  \"service_id\": \"string\",\n  \"active\": true,\n  \"locked\": true,\n  \"deployed\": false,\n  \"staging\": true,\n  \"testing\": false,\n  \"comment\": \"string\",\n  \"created_at\": \"2003-01-16T11:36:15.222Z\",\n  \"updated_at\": \"1954-06-06T13:47:58.767Z\",\n  \"deleted_at\": \"2014-03-25T16:43:41.689Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "292c4bde-7490-4699-9400-e17c39773810",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b3efd8e-21f8-449f-a73e-88d3f290cdb9",
+              "name": "Service version not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02d303ad-a99f-4233-b86a-d79b25d29bfe",
+          "name": "Clone a service version",
+          "request": {
+            "name": "Clone a service version",
+            "description": {
+              "content": "Creates a new version of a Fastly service by cloning an existing version, including all of its configuration settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "clone"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fd80574-f84b-4100-b71b-5899fa5072fd",
+              "name": "Successfully cloned the service version.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"number\": 4164,\n  \"service_id\": \"string\",\n  \"active\": true,\n  \"locked\": true,\n  \"deployed\": false,\n  \"staging\": true,\n  \"testing\": false,\n  \"comment\": \"string\",\n  \"created_at\": \"2003-01-16T11:36:15.222Z\",\n  \"updated_at\": \"1954-06-06T13:47:58.767Z\",\n  \"deleted_at\": \"2014-03-25T16:43:41.689Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73118d11-f50c-4025-b310-646d34a394ee",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "48ad9806-ed83-437a-a13c-09ec2ae52b4e",
+              "name": "Service version not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "eb5fd23e-93b9-4cba-819d-e0116ef8ee6a",
+      "name": "List services",
+      "request": {
+        "name": "List services",
+        "description": {
+          "content": "Retrieves a list of all services associated with the authenticated account. Returns basic information about each service including its name, ID, and current active version.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "service"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "page",
+              "value": "<integer>",
+              "description": "The page number to return."
+            },
+            {
+              "disabled": false,
+              "key": "per_page",
+              "value": "<integer>",
+              "description": "The number of items to return per page."
+            },
+            {
+              "disabled": false,
+              "key": "sort",
+              "value": "<string>",
+              "description": "The field to sort results by."
+            },
+            {
+              "disabled": false,
+              "key": "direction",
+              "value": "<string>",
+              "description": "The direction to sort results in."
+            }
+          ],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "a66597e7-0f6a-46ec-8ade-a02cbce2da50",
+          "name": "Successfully retrieved list of services.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "key": "direction",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"customer_id\": \"string\",\n    \"comment\": \"string\",\n    \"type\": \"wasm\",\n    \"created_at\": \"1994-12-08T00:09:31.262Z\",\n    \"updated_at\": \"1981-09-05T03:43:33.162Z\",\n    \"deleted_at\": \"1975-03-05T10:16:14.284Z\",\n    \"active_version\": 6387,\n    \"versions\": [\n      {\n        \"number\": 7681,\n        \"service_id\": \"string\",\n        \"active\": false,\n        \"locked\": false,\n        \"deployed\": true,\n        \"staging\": true,\n        \"testing\": true,\n        \"comment\": \"string\",\n        \"created_at\": \"1980-02-13T11:15:43.031Z\",\n        \"updated_at\": \"2018-12-03T16:30:59.204Z\",\n        \"deleted_at\": \"2002-12-06T11:59:56.926Z\"\n      },\n      {\n        \"number\": 428,\n        \"service_id\": \"string\",\n        \"active\": false,\n        \"locked\": false,\n        \"deployed\": true,\n        \"staging\": true,\n        \"testing\": false,\n        \"comment\": \"string\",\n        \"created_at\": \"1991-07-10T21:18:34.945Z\",\n        \"updated_at\": \"2005-12-10T16:41:12.582Z\",\n        \"deleted_at\": \"1960-07-18T07:57:13.340Z\"\n      }\n    ]\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"customer_id\": \"string\",\n    \"comment\": \"string\",\n    \"type\": \"wasm\",\n    \"created_at\": \"2003-07-04T16:59:22.028Z\",\n    \"updated_at\": \"2017-07-18T10:07:38.113Z\",\n    \"deleted_at\": \"1990-01-08T12:36:18.111Z\",\n    \"active_version\": 6154,\n    \"versions\": [\n      {\n        \"number\": 3703,\n        \"service_id\": \"string\",\n        \"active\": true,\n        \"locked\": true,\n        \"deployed\": false,\n        \"staging\": false,\n        \"testing\": true,\n        \"comment\": \"string\",\n        \"created_at\": \"1971-01-28T04:26:20.166Z\",\n        \"updated_at\": \"1970-05-10T18:28:28.725Z\",\n        \"deleted_at\": \"2002-02-19T01:03:10.475Z\"\n      },\n      {\n        \"number\": 4078,\n        \"service_id\": \"string\",\n        \"active\": false,\n        \"locked\": false,\n        \"deployed\": true,\n        \"staging\": false,\n        \"testing\": true,\n        \"comment\": \"string\",\n        \"created_at\": \"2022-04-04T19:47:30.802Z\",\n        \"updated_at\": \"1982-07-16T13:52:42.848Z\",\n        \"deleted_at\": \"1958-12-28T11:53:25.158Z\"\n      }\n    ]\n  }\n]",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "d616c25a-02a1-496a-9377-1bb99a29d448",
+          "name": "Unauthorized. The API token is missing or invalid.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "key": "direction",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "a139bb0c-020a-42c0-bc80-f68a15387178",
+          "name": "Forbidden. The API token does not have the required permissions.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "key": "direction",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "aee34d4e-80f3-4559-98c7-84c44ae07cd8",
+      "name": "Create a service",
+      "request": {
+        "name": "Create a service",
+        "description": {
+          "content": "Creates a new Fastly service. A service represents the configuration for a website, application, API, or other resource to be served through Fastly's edge network.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "service"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "disabled": false,
+              "key": "name",
+              "value": "<string>",
+              "description": "(Required) The name of the service."
+            },
+            {
+              "disabled": false,
+              "key": "comment",
+              "value": "<string>",
+              "description": "An optional comment about the service."
+            },
+            {
+              "disabled": false,
+              "key": "type",
+              "value": "<string>",
+              "description": "The type of service, either vcl or wasm."
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "117e1784-7309-4baa-9fa9-a262cada4fd9",
+          "name": "Successfully created the service.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) The name of the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "An optional comment about the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "comment",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The type of service, either vcl or wasm.",
+                    "type": "text/plain"
+                  },
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"customer_id\": \"string\",\n  \"comment\": \"string\",\n  \"type\": \"vcl\",\n  \"created_at\": \"1976-03-12T18:57:10.670Z\",\n  \"updated_at\": \"1959-03-30T22:50:33.213Z\",\n  \"deleted_at\": \"2019-04-19T09:08:04.298Z\",\n  \"active_version\": 9584,\n  \"versions\": [\n    {\n      \"number\": 6255,\n      \"service_id\": \"string\",\n      \"active\": true,\n      \"locked\": false,\n      \"deployed\": true,\n      \"staging\": false,\n      \"testing\": true,\n      \"comment\": \"string\",\n      \"created_at\": \"1984-04-15T18:42:21.332Z\",\n      \"updated_at\": \"1971-05-09T01:50:56.067Z\",\n      \"deleted_at\": \"1984-09-05T12:25:12.609Z\"\n    },\n    {\n      \"number\": 6558,\n      \"service_id\": \"string\",\n      \"active\": false,\n      \"locked\": false,\n      \"deployed\": false,\n      \"staging\": true,\n      \"testing\": false,\n      \"comment\": \"string\",\n      \"created_at\": \"2016-05-03T18:42:08.547Z\",\n      \"updated_at\": \"2022-04-10T05:32:10.497Z\",\n      \"deleted_at\": \"1984-03-04T12:40:36.293Z\"\n    }\n  ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "c0596b97-9bce-498c-9b1d-586911a0816c",
+          "name": "Bad request. Missing or invalid parameters.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) The name of the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "An optional comment about the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "comment",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The type of service, either vcl or wasm.",
+                    "type": "text/plain"
+                  },
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "42f9d0b7-8738-46ad-8801-83099a1cff5a",
+          "name": "Unauthorized. The API token is missing or invalid.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) The name of the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "An optional comment about the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "comment",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The type of service, either vcl or wasm.",
+                    "type": "text/plain"
+                  },
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "625f824f-218b-4164-85ff-501bb172c100",
+          "name": "Forbidden. The API token does not have the required permissions.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) The name of the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "An optional comment about the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "comment",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The type of service, either vcl or wasm.",
+                    "type": "text/plain"
+                  },
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "5fe03886-82f7-438a-bad2-fe118130b831",
+      "name": "Get a service",
+      "request": {
+        "name": "Get a service",
+        "description": {
+          "content": "Retrieves detailed information about a specific Fastly service identified by its service ID.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "service",
+            ":service_id"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "service_id",
+              "description": "(Required) The alphanumeric string identifying the Fastly service."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "1e25b67e-f8ed-4906-a029-c6d96ba5c0de",
+          "name": "Successfully retrieved the service details.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"customer_id\": \"string\",\n  \"comment\": \"string\",\n  \"type\": \"vcl\",\n  \"created_at\": \"1976-03-12T18:57:10.670Z\",\n  \"updated_at\": \"1959-03-30T22:50:33.213Z\",\n  \"deleted_at\": \"2019-04-19T09:08:04.298Z\",\n  \"active_version\": 9584,\n  \"versions\": [\n    {\n      \"number\": 6255,\n      \"service_id\": \"string\",\n      \"active\": true,\n      \"locked\": false,\n      \"deployed\": true,\n      \"staging\": false,\n      \"testing\": true,\n      \"comment\": \"string\",\n      \"created_at\": \"1984-04-15T18:42:21.332Z\",\n      \"updated_at\": \"1971-05-09T01:50:56.067Z\",\n      \"deleted_at\": \"1984-09-05T12:25:12.609Z\"\n    },\n    {\n      \"number\": 6558,\n      \"service_id\": \"string\",\n      \"active\": false,\n      \"locked\": false,\n      \"deployed\": false,\n      \"staging\": true,\n      \"testing\": false,\n      \"comment\": \"string\",\n      \"created_at\": \"2016-05-03T18:42:08.547Z\",\n      \"updated_at\": \"2022-04-10T05:32:10.497Z\",\n      \"deleted_at\": \"1984-03-04T12:40:36.293Z\"\n    }\n  ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "d1bb6575-db91-437b-acbe-91596cb990a1",
+          "name": "Unauthorized. The API token is missing or invalid.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "642c2761-8304-4cb8-82c9-ebf958dd998c",
+          "name": "Service not found.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "dbf13c5a-65b3-49ae-acec-a461e441d484",
+      "name": "Update a service",
+      "request": {
+        "name": "Update a service",
+        "description": {
+          "content": "Updates the details of a specific Fastly service, such as its name or comment.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "service",
+            ":service_id"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "service_id",
+              "description": "(Required) The alphanumeric string identifying the Fastly service."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "PUT",
+        "auth": null,
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "disabled": false,
+              "key": "name",
+              "value": "<string>",
+              "description": "The name of the service."
+            },
+            {
+              "disabled": false,
+              "key": "comment",
+              "value": "<string>",
+              "description": "An optional comment about the service."
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "7326f698-a70f-4232-ba5e-49f7460ae20d",
+          "name": "Successfully updated the service.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The name of the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "An optional comment about the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "comment",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"customer_id\": \"string\",\n  \"comment\": \"string\",\n  \"type\": \"vcl\",\n  \"created_at\": \"1976-03-12T18:57:10.670Z\",\n  \"updated_at\": \"1959-03-30T22:50:33.213Z\",\n  \"deleted_at\": \"2019-04-19T09:08:04.298Z\",\n  \"active_version\": 9584,\n  \"versions\": [\n    {\n      \"number\": 6255,\n      \"service_id\": \"string\",\n      \"active\": true,\n      \"locked\": false,\n      \"deployed\": true,\n      \"staging\": false,\n      \"testing\": true,\n      \"comment\": \"string\",\n      \"created_at\": \"1984-04-15T18:42:21.332Z\",\n      \"updated_at\": \"1971-05-09T01:50:56.067Z\",\n      \"deleted_at\": \"1984-09-05T12:25:12.609Z\"\n    },\n    {\n      \"number\": 6558,\n      \"service_id\": \"string\",\n      \"active\": false,\n      \"locked\": false,\n      \"deployed\": false,\n      \"staging\": true,\n      \"testing\": false,\n      \"comment\": \"string\",\n      \"created_at\": \"2016-05-03T18:42:08.547Z\",\n      \"updated_at\": \"2022-04-10T05:32:10.497Z\",\n      \"deleted_at\": \"1984-03-04T12:40:36.293Z\"\n    }\n  ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "108d1869-b978-4297-b0e6-146bfa17d219",
+          "name": "Bad request. Missing or invalid parameters.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The name of the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "An optional comment about the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "comment",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "c3e1ace9-491c-4025-8d3c-f73154f3b1bc",
+          "name": "Unauthorized. The API token is missing or invalid.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The name of the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "An optional comment about the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "comment",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "f371c0e1-9174-41fd-be88-0ab1d9b8fafd",
+          "name": "Service not found.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The name of the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "An optional comment about the service.",
+                    "type": "text/plain"
+                  },
+                  "key": "comment",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "53bcc9d4-3afa-4b7f-8467-a9a256d29434",
+      "name": "Delete a service",
+      "request": {
+        "name": "Delete a service",
+        "description": {
+          "content": "Permanently deletes a specific Fastly service. This action cannot be undone and the service must be deactivated before deletion.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "service",
+            ":service_id"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "service_id",
+              "description": "(Required) The alphanumeric string identifying the Fastly service."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "DELETE",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "fb5c3775-66f6-4913-8c12-0bbf5a54f9b2",
+          "name": "Successfully deleted the service.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"status\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "a095f248-7d99-4ec4-bc10-a7056ff07193",
+          "name": "Unauthorized. The API token is missing or invalid.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "f8607f58-3de8-4ca0-969c-60eadfda87fe",
+          "name": "Service not found.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "20053bbf-6ace-4228-9ef1-39439cc788ab",
+      "name": "Get service details",
+      "request": {
+        "name": "Get service details",
+        "description": {
+          "content": "Retrieves detailed information about a specific service including all of its versions and their associated settings.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "service",
+            ":service_id",
+            "details"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "service_id",
+              "description": "(Required) The alphanumeric string identifying the Fastly service."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "b37af5bf-c6c6-40b4-8e91-2ecb1295c8d3",
+          "name": "Successfully retrieved detailed service information.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "8232c944-9e6a-465d-9112-4c0444ef0064",
+          "name": "Unauthorized. The API token is missing or invalid.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "a175e29c-bcbb-4f27-990e-bbb4ac46c1dd",
+          "name": "Service not found.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "c62434d2-1b05-4f34-9282-6730ee9c084a",
+      "name": "Search for a service by name",
+      "request": {
+        "name": "Search for a service by name",
+        "description": {
+          "content": "Searches for a service by its name and returns the matching service details.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "service",
+            "search"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "name",
+              "value": "<string>",
+              "description": "(Required) The name of the service to search for."
+            }
+          ],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "c9ed86b8-9232-458b-82bb-66eaa1f25e54",
+          "name": "Successfully found the service.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"customer_id\": \"string\",\n  \"comment\": \"string\",\n  \"type\": \"vcl\",\n  \"created_at\": \"1976-03-12T18:57:10.670Z\",\n  \"updated_at\": \"1959-03-30T22:50:33.213Z\",\n  \"deleted_at\": \"2019-04-19T09:08:04.298Z\",\n  \"active_version\": 9584,\n  \"versions\": [\n    {\n      \"number\": 6255,\n      \"service_id\": \"string\",\n      \"active\": true,\n      \"locked\": false,\n      \"deployed\": true,\n      \"staging\": false,\n      \"testing\": true,\n      \"comment\": \"string\",\n      \"created_at\": \"1984-04-15T18:42:21.332Z\",\n      \"updated_at\": \"1971-05-09T01:50:56.067Z\",\n      \"deleted_at\": \"1984-09-05T12:25:12.609Z\"\n    },\n    {\n      \"number\": 6558,\n      \"service_id\": \"string\",\n      \"active\": false,\n      \"locked\": false,\n      \"deployed\": false,\n      \"staging\": true,\n      \"testing\": false,\n      \"comment\": \"string\",\n      \"created_at\": \"2016-05-03T18:42:08.547Z\",\n      \"updated_at\": \"2022-04-10T05:32:10.497Z\",\n      \"deleted_at\": \"1984-03-04T12:40:36.293Z\"\n    }\n  ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "77487704-be47-4dc5-bd2b-acd8050f9d30",
+          "name": "Unauthorized. The API token is missing or invalid.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "c8acf3f8-b990-4465-a49d-57c244223e9a",
+          "name": "Service not found.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "service",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Fastly-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fastly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "62e468d8-fd81-4aff-9ad7-34650be43a1e",
+    "name": "Fastly Services API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fastly Services API allows developers to create, configure, and manage Fastly CDN services and their versions programmatically. Services are the primary organizational unit in Fastly, representing a configuration that maps domains to backends. The API supports creating service versions, activating and deactivating configurations, cloning versions, and managing the complete lifecycle of a CDN service deployment.\n\nContact Support:\n Name: Fastly Support",
+      "type": "text/plain"
+    }
+  }
+}

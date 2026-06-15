@@ -1,0 +1,2437 @@
+{
+  "info": {
+    "_postman_id": "5f86a18e-e7f7-4b57-8a85-17c361142deb",
+    "name": "Fastly Products API",
+    "description": "The Fastly Products API provides endpoints for enabling and managing Fastly product features on services, including Bot Management, DDoS Protection, Image Optimizer, API Discovery, and other add-on capabilities. Developers can use this API to check which products are enabled for a service, enable or disable product features, and configure product-specific settings. The API Discovery product, for example, allows automated identification and cataloging of API endpoints in traffic flowing through Fastly services.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:51.000Z",
+    "updatedAt": "2026-06-05T15:08:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5f86a18e-e7f7-4b57-8a85-17c361142deb"
+  },
+  "item": [
+    {
+      "name": "enabled-products",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "bot_management",
+              "item": [
+                {
+                  "name": "services",
+                  "item": [
+                    {
+                      "name": "{service_id}",
+                      "item": [
+                        {
+                          "name": "Get Bot Management status",
+                          "id": "c0949c93-6ec8-4a35-a418-3681f70db7d5",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "bot_management",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b0fda75b-3483-4469-83b7-af694a73d427",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Checks the enablement status of the Bot Management product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "46774dcc-d7a2-4ccc-be67-41750136fd2d",
+                              "name": "Successfully retrieved the Bot Management status.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "bot_management",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"product\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"service\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"_links\": {\n    \"self\": \"<string>\",\n    \"service\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-46774dcc-d7a2-4ccc-be67-41750136fd2d"
+                            },
+                            {
+                              "id": "b58efa7b-7aa4-462a-b732-a82b45f8479a",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "bot_management",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-b58efa7b-7aa4-462a-b732-a82b45f8479a"
+                            },
+                            {
+                              "id": "9ac723a2-5e64-43f0-86e5-661545925703",
+                              "name": "Service not found or product not enabled.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "bot_management",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-9ac723a2-5e64-43f0-86e5-661545925703"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-c0949c93-6ec8-4a35-a418-3681f70db7d5"
+                        },
+                        {
+                          "name": "Enable Bot Management",
+                          "id": "0934784b-63dc-40f2-a1fa-ae3cb6ac6b42",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "bot_management",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "87738144-560c-4df6-9df0-390467f0cf80",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Enables the Bot Management product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "605e2fe8-6084-4ffa-97d4-239718ba9fdb",
+                              "name": "Successfully enabled Bot Management.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "bot_management",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"product\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"service\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"_links\": {\n    \"self\": \"<string>\",\n    \"service\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-605e2fe8-6084-4ffa-97d4-239718ba9fdb"
+                            },
+                            {
+                              "id": "aa82474e-ab5b-4d8d-9ae3-5917f10ab02b",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "bot_management",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-aa82474e-ab5b-4d8d-9ae3-5917f10ab02b"
+                            },
+                            {
+                              "id": "378c20c0-b082-4433-869e-b24d345d42ea",
+                              "name": "Service not found.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "bot_management",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-378c20c0-b082-4433-869e-b24d345d42ea"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-0934784b-63dc-40f2-a1fa-ae3cb6ac6b42"
+                        },
+                        {
+                          "name": "Disable Bot Management",
+                          "id": "638d1a42-5537-4fb5-8d9d-93233ce702f9",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "bot_management",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "eaa25b45-49ac-4c7e-9916-95d8f9007b45",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Disables the Bot Management product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "6b08927b-a3bb-4cb4-a488-c41055b52622",
+                              "name": "Successfully disabled Bot Management.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "bot_management",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-6b08927b-a3bb-4cb4-a488-c41055b52622"
+                            },
+                            {
+                              "id": "8145b8ae-d6e1-477f-873e-78b941bff020",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "bot_management",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-8145b8ae-d6e1-477f-873e-78b941bff020"
+                            },
+                            {
+                              "id": "f52ec649-2785-41f3-8695-d60901648b75",
+                              "name": "Service not found or product not enabled.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/bot_management/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "bot_management",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-f52ec649-2785-41f3-8695-d60901648b75"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-638d1a42-5537-4fb5-8d9d-93233ce702f9"
+                        }
+                      ],
+                      "id": "6231968e-c5d4-42b9-9b3b-55ea6d10ab97",
+                      "createdAt": "2026-06-05T15:08:52.000Z",
+                      "updatedAt": "2026-06-05T15:08:52.000Z",
+                      "uid": "35240-6231968e-c5d4-42b9-9b3b-55ea6d10ab97"
+                    }
+                  ],
+                  "id": "633113ce-41ba-48f5-9468-316d3ad3d646",
+                  "createdAt": "2026-06-05T15:08:52.000Z",
+                  "updatedAt": "2026-06-05T15:08:52.000Z",
+                  "uid": "35240-633113ce-41ba-48f5-9468-316d3ad3d646"
+                }
+              ],
+              "id": "35bebfda-2f60-4b29-acd1-ab4d91c5bf78",
+              "createdAt": "2026-06-05T15:08:52.000Z",
+              "updatedAt": "2026-06-05T15:08:52.000Z",
+              "uid": "35240-35bebfda-2f60-4b29-acd1-ab4d91c5bf78"
+            },
+            {
+              "name": "ddos_protection",
+              "item": [
+                {
+                  "name": "services",
+                  "item": [
+                    {
+                      "name": "{service_id}",
+                      "item": [
+                        {
+                          "name": "configuration",
+                          "item": [
+                            {
+                              "name": "Get DDoS Protection configuration",
+                              "id": "2185558a-e15e-4ea4-accd-bb7674a89f99",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id/configuration",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id",
+                                    "configuration"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "3b5c865e-a54b-4f54-83ae-2ee66fada339",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves the DDoS Protection configuration for a specific service."
+                              },
+                              "response": [
+                                {
+                                  "id": "d9c7b25f-f276-4265-baf7-745f2636c8f4",
+                                  "name": "Successfully retrieved the DDoS Protection configuration.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id/configuration",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "enabled-products",
+                                        "v1",
+                                        "ddos_protection",
+                                        "services",
+                                        ":service_id",
+                                        "configuration"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"product\": {\n    \"id\": \"<string>\"\n  },\n  \"configuration\": {\n    \"mode\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-06-05T15:08:52.000Z",
+                                  "updatedAt": "2026-06-05T15:08:52.000Z",
+                                  "uid": "35240-d9c7b25f-f276-4265-baf7-745f2636c8f4"
+                                },
+                                {
+                                  "id": "e7dd31f5-f208-4af6-a30b-73e531d0d837",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id/configuration",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "enabled-products",
+                                        "v1",
+                                        "ddos_protection",
+                                        "services",
+                                        ":service_id",
+                                        "configuration"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:52.000Z",
+                                  "updatedAt": "2026-06-05T15:08:52.000Z",
+                                  "uid": "35240-e7dd31f5-f208-4af6-a30b-73e531d0d837"
+                                },
+                                {
+                                  "id": "a84cb6e9-8c5c-4abf-9c90-cbec5ba0cf45",
+                                  "name": "Service not found or DDoS Protection not enabled.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id/configuration",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "enabled-products",
+                                        "v1",
+                                        "ddos_protection",
+                                        "services",
+                                        ":service_id",
+                                        "configuration"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:52.000Z",
+                                  "updatedAt": "2026-06-05T15:08:52.000Z",
+                                  "uid": "35240-a84cb6e9-8c5c-4abf-9c90-cbec5ba0cf45"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-2185558a-e15e-4ea4-accd-bb7674a89f99"
+                            }
+                          ],
+                          "id": "2b3abf9f-71e6-4119-8292-6314d4a733db",
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-2b3abf9f-71e6-4119-8292-6314d4a733db"
+                        },
+                        {
+                          "name": "Get DDoS Protection status",
+                          "id": "3365a248-3872-45f4-9bb0-ab9b773bc2ee",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "ddos_protection",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ffff70b0-80ba-49c1-98ef-bf924c5ae29a",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Checks the enablement status of the DDoS Protection product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "248adb9c-83b1-4aa8-a026-7a15854aa593",
+                              "name": "Successfully retrieved the DDoS Protection status.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"product\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"service\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"_links\": {\n    \"self\": \"<string>\",\n    \"service\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-248adb9c-83b1-4aa8-a026-7a15854aa593"
+                            },
+                            {
+                              "id": "ae6c4c19-28cd-49b6-b05d-2a1f63d7e40f",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-ae6c4c19-28cd-49b6-b05d-2a1f63d7e40f"
+                            },
+                            {
+                              "id": "da02a3ab-46e5-4f5a-a34c-4c6b56986bcb",
+                              "name": "Service not found or product not enabled.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-da02a3ab-46e5-4f5a-a34c-4c6b56986bcb"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-3365a248-3872-45f4-9bb0-ab9b773bc2ee"
+                        },
+                        {
+                          "name": "Enable DDoS Protection",
+                          "id": "371a0837-6168-475a-97a0-f7da47edaaac",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "ddos_protection",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b9bb7213-8a3c-4225-91e8-9af61680f2c4",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Enables the DDoS Protection product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "2c14a348-1345-4c8d-a744-a1c1bfab43dc",
+                              "name": "Successfully enabled DDoS Protection.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"product\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"service\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"_links\": {\n    \"self\": \"<string>\",\n    \"service\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-2c14a348-1345-4c8d-a744-a1c1bfab43dc"
+                            },
+                            {
+                              "id": "f511d97e-49b5-4c3d-87fa-69b2cd6fea81",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-f511d97e-49b5-4c3d-87fa-69b2cd6fea81"
+                            },
+                            {
+                              "id": "f5f0ad30-554e-4e17-acff-6f9fddb35883",
+                              "name": "Service not found.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-f5f0ad30-554e-4e17-acff-6f9fddb35883"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-371a0837-6168-475a-97a0-f7da47edaaac"
+                        },
+                        {
+                          "name": "Disable DDoS Protection",
+                          "id": "080b71ea-e995-4583-a784-6f1ab22e9c18",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "ddos_protection",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c55dcd4c-cb86-4b40-bd9b-9dafc97f2dc4",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Disables the DDoS Protection product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "ce6550a3-4019-45a4-a573-787434820407",
+                              "name": "Successfully disabled DDoS Protection.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-ce6550a3-4019-45a4-a573-787434820407"
+                            },
+                            {
+                              "id": "8e41d0bb-8f6a-4637-8dd5-ce88f6361255",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-8e41d0bb-8f6a-4637-8dd5-ce88f6361255"
+                            },
+                            {
+                              "id": "4bb47d67-d38a-4b3a-b597-030af39d611c",
+                              "name": "Service not found or product not enabled.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/ddos_protection/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "ddos_protection",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-4bb47d67-d38a-4b3a-b597-030af39d611c"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-080b71ea-e995-4583-a784-6f1ab22e9c18"
+                        }
+                      ],
+                      "id": "db9ede82-f0c3-4b6f-ada1-103497ca6427",
+                      "createdAt": "2026-06-05T15:08:52.000Z",
+                      "updatedAt": "2026-06-05T15:08:52.000Z",
+                      "uid": "35240-db9ede82-f0c3-4b6f-ada1-103497ca6427"
+                    }
+                  ],
+                  "id": "a0eae776-6633-4b0b-8fc8-94475f0e0d23",
+                  "createdAt": "2026-06-05T15:08:52.000Z",
+                  "updatedAt": "2026-06-05T15:08:52.000Z",
+                  "uid": "35240-a0eae776-6633-4b0b-8fc8-94475f0e0d23"
+                }
+              ],
+              "id": "92c72128-16f8-41b3-b8c0-b212c7d00689",
+              "createdAt": "2026-06-05T15:08:52.000Z",
+              "updatedAt": "2026-06-05T15:08:52.000Z",
+              "uid": "35240-92c72128-16f8-41b3-b8c0-b212c7d00689"
+            },
+            {
+              "name": "image_optimizer",
+              "item": [
+                {
+                  "name": "services",
+                  "item": [
+                    {
+                      "name": "{service_id}",
+                      "item": [
+                        {
+                          "name": "Get Image Optimizer status",
+                          "id": "6a5df567-d441-49b4-9709-9361cb72da95",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "image_optimizer",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "8112059b-f039-4970-9062-efdd6800b767",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Checks the enablement status of the Image Optimizer product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "73ffd695-a733-4c8a-a62a-e1f038ce1f81",
+                              "name": "Successfully retrieved the Image Optimizer status.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "image_optimizer",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"product\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"service\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"_links\": {\n    \"self\": \"<string>\",\n    \"service\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-73ffd695-a733-4c8a-a62a-e1f038ce1f81"
+                            },
+                            {
+                              "id": "094d370c-991e-4dd0-98c6-dd960cb5b773",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "image_optimizer",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-094d370c-991e-4dd0-98c6-dd960cb5b773"
+                            },
+                            {
+                              "id": "e9ab64d4-ac95-40ed-9cc2-9ce2f42a662f",
+                              "name": "Service not found or product not enabled.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "image_optimizer",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-e9ab64d4-ac95-40ed-9cc2-9ce2f42a662f"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-6a5df567-d441-49b4-9709-9361cb72da95"
+                        },
+                        {
+                          "name": "Enable Image Optimizer",
+                          "id": "f462c7ec-20b6-47e5-9ecf-4d9409a66337",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "image_optimizer",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a45992b0-ce96-41cb-9d5f-6d7fdfb4eb52",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Enables the Image Optimizer product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "a6260d7c-5aff-46f3-b388-2e880bb31169",
+                              "name": "Successfully enabled Image Optimizer.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "image_optimizer",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"product\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"service\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"_links\": {\n    \"self\": \"<string>\",\n    \"service\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-a6260d7c-5aff-46f3-b388-2e880bb31169"
+                            },
+                            {
+                              "id": "cc4d74cc-8767-4636-b6be-d6246db533f2",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "image_optimizer",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-cc4d74cc-8767-4636-b6be-d6246db533f2"
+                            },
+                            {
+                              "id": "a94de0d0-ecda-4c43-8331-1cc83f76b17e",
+                              "name": "Service not found.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "image_optimizer",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-a94de0d0-ecda-4c43-8331-1cc83f76b17e"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-f462c7ec-20b6-47e5-9ecf-4d9409a66337"
+                        },
+                        {
+                          "name": "Disable Image Optimizer",
+                          "id": "527b83c3-c26f-4672-a62c-37c25f1ccc88",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "image_optimizer",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "74170e2a-c74a-49b2-bf1e-f15c9f056435",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Disables the Image Optimizer product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "fbe2e7ba-6241-4018-a36c-a0def7e56249",
+                              "name": "Successfully disabled Image Optimizer.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "image_optimizer",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-fbe2e7ba-6241-4018-a36c-a0def7e56249"
+                            },
+                            {
+                              "id": "b5b14f1d-771e-4be2-b7e0-308deb116bb9",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "image_optimizer",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-b5b14f1d-771e-4be2-b7e0-308deb116bb9"
+                            },
+                            {
+                              "id": "6c0f1665-63a7-4338-9512-b7ecce25eb4a",
+                              "name": "Service not found or product not enabled.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/image_optimizer/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "image_optimizer",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-6c0f1665-63a7-4338-9512-b7ecce25eb4a"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-527b83c3-c26f-4672-a62c-37c25f1ccc88"
+                        }
+                      ],
+                      "id": "2c55cf34-8914-45b1-87ea-31b9a30668bf",
+                      "createdAt": "2026-06-05T15:08:52.000Z",
+                      "updatedAt": "2026-06-05T15:08:52.000Z",
+                      "uid": "35240-2c55cf34-8914-45b1-87ea-31b9a30668bf"
+                    }
+                  ],
+                  "id": "794a8f3c-d241-4cfd-b714-7245ed186144",
+                  "createdAt": "2026-06-05T15:08:52.000Z",
+                  "updatedAt": "2026-06-05T15:08:52.000Z",
+                  "uid": "35240-794a8f3c-d241-4cfd-b714-7245ed186144"
+                }
+              ],
+              "id": "8f996e5e-c267-4d88-a2ef-47c463d5ce6b",
+              "createdAt": "2026-06-05T15:08:52.000Z",
+              "updatedAt": "2026-06-05T15:08:52.000Z",
+              "uid": "35240-8f996e5e-c267-4d88-a2ef-47c463d5ce6b"
+            },
+            {
+              "name": "api_discovery",
+              "item": [
+                {
+                  "name": "services",
+                  "item": [
+                    {
+                      "name": "{service_id}",
+                      "item": [
+                        {
+                          "name": "Get API Discovery status",
+                          "id": "7aef2b06-f402-4625-a2f4-301ce303924e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "api_discovery",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "209861ae-e2d5-4274-9d67-af4a225523ff",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Checks the enablement status of the API Discovery product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "ac428282-5591-408b-bfef-bbd944e4e97b",
+                              "name": "Successfully retrieved the API Discovery status.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "api_discovery",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"product\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"service\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"_links\": {\n    \"self\": \"<string>\",\n    \"service\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-ac428282-5591-408b-bfef-bbd944e4e97b"
+                            },
+                            {
+                              "id": "33cf5e4d-49a4-4b3c-9f53-f586c2c775a7",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "api_discovery",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-33cf5e4d-49a4-4b3c-9f53-f586c2c775a7"
+                            },
+                            {
+                              "id": "cacf61f4-ff19-48b8-bb71-a12c438955d2",
+                              "name": "Service not found or product not enabled.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "api_discovery",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-cacf61f4-ff19-48b8-bb71-a12c438955d2"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-7aef2b06-f402-4625-a2f4-301ce303924e"
+                        },
+                        {
+                          "name": "Enable API Discovery",
+                          "id": "9afe6170-0e74-4bbd-b6a4-3474f24f5826",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "api_discovery",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d7f65d28-62aa-428d-bee1-c9bca5c3ad00",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Enables the API Discovery product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "68e912e4-c73d-49b5-9714-1070c9929e2b",
+                              "name": "Successfully enabled API Discovery.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "api_discovery",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"product\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"service\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\"\n  },\n  \"_links\": {\n    \"self\": \"<string>\",\n    \"service\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-68e912e4-c73d-49b5-9714-1070c9929e2b"
+                            },
+                            {
+                              "id": "cc11b076-d954-4a5a-8590-f409f5eb5b9a",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "api_discovery",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-cc11b076-d954-4a5a-8590-f409f5eb5b9a"
+                            },
+                            {
+                              "id": "31f85296-80e7-41be-8813-ae8890a8cf6b",
+                              "name": "Service not found.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "api_discovery",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-31f85296-80e7-41be-8813-ae8890a8cf6b"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-9afe6170-0e74-4bbd-b6a4-3474f24f5826"
+                        },
+                        {
+                          "name": "Disable API Discovery",
+                          "id": "cd28c071-5343-4788-bd3a-113bda210439",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "enabled-products",
+                                "v1",
+                                "api_discovery",
+                                "services",
+                                ":service_id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4e29b4b2-7b8b-43ef-9627-7a8a5dbfed4b",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                }
+                              ]
+                            },
+                            "description": "Disables the API Discovery product on a specific service."
+                          },
+                          "response": [
+                            {
+                              "id": "d27037cc-6825-4346-b069-b2fa0163d393",
+                              "name": "Successfully disabled API Discovery.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "api_discovery",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-d27037cc-6825-4346-b069-b2fa0163d393"
+                            },
+                            {
+                              "id": "1386f17b-b991-4d54-9432-dfd4e6bca53c",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "api_discovery",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-1386f17b-b991-4d54-9432-dfd4e6bca53c"
+                            },
+                            {
+                              "id": "27f6a3d7-d419-419c-9bdf-63eebf73cf77",
+                              "name": "Service not found or product not enabled.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/enabled-products/v1/api_discovery/services/:service_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "enabled-products",
+                                    "v1",
+                                    "api_discovery",
+                                    "services",
+                                    ":service_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:52.000Z",
+                              "updatedAt": "2026-06-05T15:08:52.000Z",
+                              "uid": "35240-27f6a3d7-d419-419c-9bdf-63eebf73cf77"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:52.000Z",
+                          "updatedAt": "2026-06-05T15:08:52.000Z",
+                          "uid": "35240-cd28c071-5343-4788-bd3a-113bda210439"
+                        }
+                      ],
+                      "id": "fa0b173f-372b-4c1a-9400-89f8dcbfb582",
+                      "createdAt": "2026-06-05T15:08:52.000Z",
+                      "updatedAt": "2026-06-05T15:08:52.000Z",
+                      "uid": "35240-fa0b173f-372b-4c1a-9400-89f8dcbfb582"
+                    }
+                  ],
+                  "id": "85dfaf8d-9f9a-42a6-8f62-2b47df006087",
+                  "createdAt": "2026-06-05T15:08:52.000Z",
+                  "updatedAt": "2026-06-05T15:08:52.000Z",
+                  "uid": "35240-85dfaf8d-9f9a-42a6-8f62-2b47df006087"
+                }
+              ],
+              "id": "cb86bdfa-1cc5-446c-b844-07cfcdd0f533",
+              "createdAt": "2026-06-05T15:08:52.000Z",
+              "updatedAt": "2026-06-05T15:08:52.000Z",
+              "uid": "35240-cb86bdfa-1cc5-446c-b844-07cfcdd0f533"
+            }
+          ],
+          "id": "497cb3a4-b640-4461-a5c2-57f8464aee2a",
+          "createdAt": "2026-06-05T15:08:52.000Z",
+          "updatedAt": "2026-06-05T15:08:52.000Z",
+          "uid": "35240-497cb3a4-b640-4461-a5c2-57f8464aee2a"
+        }
+      ],
+      "id": "9b19f218-c2f6-4a97-89a6-c25049fc920e",
+      "createdAt": "2026-06-05T15:08:52.000Z",
+      "updatedAt": "2026-06-05T15:08:52.000Z",
+      "uid": "35240-9b19f218-c2f6-4a97-89a6-c25049fc920e"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

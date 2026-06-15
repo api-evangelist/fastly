@@ -1,0 +1,343 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Observability API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Alert Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/alerts/definitions"
+          },
+          "docs": "List Alert Definitions"
+        },
+        {
+          "info": {
+            "name": "Create Alert Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/alerts/definitions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Alert Definition"
+        },
+        {
+          "info": {
+            "name": "Get Alert Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/alerts/definitions/:definition_id",
+            "params": [
+              {
+                "name": "definition_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Alert Definition"
+        },
+        {
+          "info": {
+            "name": "Update Alert Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/alerts/definitions/:definition_id",
+            "params": [
+              {
+                "name": "definition_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update Alert Definition"
+        },
+        {
+          "info": {
+            "name": "Delete Alert Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/alerts/definitions/:definition_id",
+            "params": [
+              {
+                "name": "definition_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Alert Definition"
+        },
+        {
+          "info": {
+            "name": "List Alert History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/alerts/history"
+          },
+          "docs": "List Alert History"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Dashboards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Custom Dashboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/observability/dashboards"
+          },
+          "docs": "List Custom Dashboards"
+        },
+        {
+          "info": {
+            "name": "Create Custom Dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/observability/dashboards"
+          },
+          "docs": "Create Custom Dashboard"
+        },
+        {
+          "info": {
+            "name": "Get Custom Dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/observability/dashboards/:dashboard_id",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Custom Dashboard"
+        },
+        {
+          "info": {
+            "name": "Update Custom Dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/observability/dashboards/:dashboard_id",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update Custom Dashboard"
+        },
+        {
+          "info": {
+            "name": "Delete Custom Dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/observability/dashboards/:dashboard_id",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Custom Dashboard"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Log Aggregations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aggregate Log Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/observability/aggregations/logs"
+          },
+          "docs": "Aggregate Log Data"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Log Explorer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/observability/logs"
+          },
+          "docs": "Search Logs"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notification Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Notification Integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/notifications/integrations"
+          },
+          "docs": "List Notification Integrations"
+        },
+        {
+          "info": {
+            "name": "Create Notification Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/notifications/integrations"
+          },
+          "docs": "Create Notification Integration"
+        },
+        {
+          "info": {
+            "name": "Get Notification Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/notifications/integrations/:integration_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Notification Integration"
+        },
+        {
+          "info": {
+            "name": "Delete Notification Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/notifications/integrations/:integration_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Notification Integration"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Timeseries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/observability/timeseries"
+          },
+          "docs": "Query Timeseries"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Insights",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/observability/insights"
+          },
+          "docs": "List Insights"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2314 @@
+{
+  "info": {
+    "_postman_id": "560e4a83-6a65-49f7-b3cf-20b021b5864d",
+    "name": "Fastly Next-Gen WAF API",
+    "description": "The Fastly Next-Gen WAF API provides programmatic access to configure and manage web application firewall rules that protect applications delivered through Fastly's edge network. It enables developers to manage WAF firewall configurations, rule sets, and exclusions to defend against common web attacks including SQL injection, cross-site scripting, and other OWASP Top 10 vulnerabilities. The API supports managing active rules, reviewing firewall events, and configuring response behaviors for detected threats.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:49.000Z",
+    "updatedAt": "2026-06-05T15:08:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-560e4a83-6a65-49f7-b3cf-20b021b5864d"
+  },
+  "item": [
+    {
+      "name": "waf",
+      "item": [
+        {
+          "name": "firewalls",
+          "item": [
+            {
+              "name": "{firewall_id}",
+              "item": [
+                {
+                  "name": "versions",
+                  "item": [
+                    {
+                      "name": "{firewall_version_number}",
+                      "item": [
+                        {
+                          "name": "active-rules",
+                          "item": [
+                            {
+                              "name": "List active WAF rules",
+                              "id": "15a9630a-ee59-481d-85a0-b86c2d08ae52",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/active-rules?page[number]=<integer>&page[size]=<integer>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "waf",
+                                    "firewalls",
+                                    ":firewall_id",
+                                    "versions",
+                                    ":firewall_version_number",
+                                    "active-rules"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The page number to retrieve.",
+                                      "key": "page[number]",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "The number of items per page.",
+                                      "key": "page[size]",
+                                      "value": "<integer>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "48bd7d78-09e4-4027-8c89-0be856ec8c21",
+                                      "key": "firewall_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the WAF firewall."
+                                    },
+                                    {
+                                      "id": "a22d614e-01c6-48d7-badc-1f0a42535a2d",
+                                      "key": "firewall_version_number",
+                                      "value": "<integer>",
+                                      "description": "(Required) The version number of the WAF firewall."
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves a list of all active WAF rules for a specific firewall version."
+                              },
+                              "response": [
+                                {
+                                  "id": "ef9f9d5b-5df4-4730-a64d-14faaf02c480",
+                                  "name": "Successfully retrieved the list of active WAF rules.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/active-rules?page[number]=<integer>&page[size]=<integer>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "active-rules"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The page number to retrieve.",
+                                          "key": "page[number]",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The number of items per page.",
+                                          "key": "page[size]",
+                                          "value": "<integer>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"waf_active_rule\",\n      \"attributes\": {\n        \"status\": \"log\",\n        \"modsec_rule_id\": \"<integer>\",\n        \"revision\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"waf_active_rule\",\n      \"attributes\": {\n        \"status\": \"block\",\n        \"modsec_rule_id\": \"<integer>\",\n        \"revision\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    }\n  ]\n}",
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-ef9f9d5b-5df4-4730-a64d-14faaf02c480"
+                                },
+                                {
+                                  "id": "1c655ae7-f164-47fb-86fa-eb38f941ee3f",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/active-rules?page[number]=<integer>&page[size]=<integer>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "active-rules"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The page number to retrieve.",
+                                          "key": "page[number]",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The number of items per page.",
+                                          "key": "page[size]",
+                                          "value": "<integer>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-1c655ae7-f164-47fb-86fa-eb38f941ee3f"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:49.000Z",
+                              "updatedAt": "2026-06-05T15:08:49.000Z",
+                              "uid": "35240-15a9630a-ee59-481d-85a0-b86c2d08ae52"
+                            },
+                            {
+                              "name": "Add an active WAF rule",
+                              "id": "fdb6456e-020d-4ae0-9dda-53a5551543ce",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"data\": {\n    \"type\": \"waf_active_rule\",\n    \"attributes\": {\n      \"status\": \"block\",\n      \"modsec_rule_id\": \"<integer>\",\n      \"revision\": \"<integer>\"\n    },\n    \"relationships\": {\n      \"waf_rule_revision\": {}\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/active-rules",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "waf",
+                                    "firewalls",
+                                    ":firewall_id",
+                                    "versions",
+                                    ":firewall_version_number",
+                                    "active-rules"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "35bc642e-9c23-441e-82e3-849f3021743e",
+                                      "key": "firewall_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the WAF firewall."
+                                    },
+                                    {
+                                      "id": "48281fa1-a063-48a1-9e29-d63a9d3dd006",
+                                      "key": "firewall_version_number",
+                                      "value": "<integer>",
+                                      "description": "(Required) The version number of the WAF firewall."
+                                    }
+                                  ]
+                                },
+                                "description": "Adds a WAF rule to the active rule set for a specific firewall version."
+                              },
+                              "response": [
+                                {
+                                  "id": "dbf3694a-fe96-4d3f-bf58-f4d578cb18f3",
+                                  "name": "Successfully added the active WAF rule.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_active_rule\",\n    \"attributes\": {\n      \"status\": \"block\",\n      \"modsec_rule_id\": \"<integer>\",\n      \"revision\": \"<integer>\"\n    },\n    \"relationships\": {\n      \"waf_rule_revision\": {}\n    }\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/active-rules",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "active-rules"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"waf_active_rule\",\n    \"attributes\": {\n      \"status\": \"block\",\n      \"modsec_rule_id\": \"<integer>\",\n      \"revision\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-dbf3694a-fe96-4d3f-bf58-f4d578cb18f3"
+                                },
+                                {
+                                  "id": "47280204-98e0-44bc-b15e-4967beb58d00",
+                                  "name": "Bad request. Missing or invalid parameters.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_active_rule\",\n    \"attributes\": {\n      \"status\": \"block\",\n      \"modsec_rule_id\": \"<integer>\",\n      \"revision\": \"<integer>\"\n    },\n    \"relationships\": {\n      \"waf_rule_revision\": {}\n    }\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/active-rules",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "active-rules"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-47280204-98e0-44bc-b15e-4967beb58d00"
+                                },
+                                {
+                                  "id": "219e3422-390b-44e0-b78b-81695ba580a6",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_active_rule\",\n    \"attributes\": {\n      \"status\": \"block\",\n      \"modsec_rule_id\": \"<integer>\",\n      \"revision\": \"<integer>\"\n    },\n    \"relationships\": {\n      \"waf_rule_revision\": {}\n    }\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/active-rules",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "active-rules"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-219e3422-390b-44e0-b78b-81695ba580a6"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:49.000Z",
+                              "updatedAt": "2026-06-05T15:08:49.000Z",
+                              "uid": "35240-fdb6456e-020d-4ae0-9dda-53a5551543ce"
+                            }
+                          ],
+                          "id": "817c78d6-e1ba-4fb9-801c-f7b38dd71102",
+                          "createdAt": "2026-06-05T15:08:49.000Z",
+                          "updatedAt": "2026-06-05T15:08:49.000Z",
+                          "uid": "35240-817c78d6-e1ba-4fb9-801c-f7b38dd71102"
+                        },
+                        {
+                          "name": "exclusions",
+                          "item": [
+                            {
+                              "name": "List WAF exclusions",
+                              "id": "6b81abf4-f854-4fba-9357-063108fda8f6",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions?page[number]=<integer>&page[size]=<integer>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "waf",
+                                    "firewalls",
+                                    ":firewall_id",
+                                    "versions",
+                                    ":firewall_version_number",
+                                    "exclusions"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The page number to retrieve.",
+                                      "key": "page[number]",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "The number of items per page.",
+                                      "key": "page[size]",
+                                      "value": "<integer>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "77583184-b3f9-486e-b348-2faeb08ba2de",
+                                      "key": "firewall_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the WAF firewall."
+                                    },
+                                    {
+                                      "id": "12af7618-35fd-463b-9d49-b9300ae19ca7",
+                                      "key": "firewall_version_number",
+                                      "value": "<integer>",
+                                      "description": "(Required) The version number of the WAF firewall."
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves a list of all WAF exclusions for a specific firewall version. Exclusions prevent requests matching a particular pattern from being flagged by the firewall."
+                              },
+                              "response": [
+                                {
+                                  "id": "73caeb3a-4f84-4dbe-830a-57143353478e",
+                                  "name": "Successfully retrieved the list of WAF exclusions.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions?page[number]=<integer>&page[size]=<integer>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "exclusions"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The page number to retrieve.",
+                                          "key": "page[number]",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The number of items per page.",
+                                          "key": "page[size]",
+                                          "value": "<integer>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"waf_exclusion\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"exclusion_type\": \"rule\",\n        \"condition\": \"<string>\",\n        \"number\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"waf_exclusion\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"exclusion_type\": \"rule\",\n        \"condition\": \"<string>\",\n        \"number\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    }\n  ]\n}",
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-73caeb3a-4f84-4dbe-830a-57143353478e"
+                                },
+                                {
+                                  "id": "58fadf66-5ef7-474b-bfd0-d631cfe2baa0",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions?page[number]=<integer>&page[size]=<integer>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "exclusions"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The page number to retrieve.",
+                                          "key": "page[number]",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The number of items per page.",
+                                          "key": "page[size]",
+                                          "value": "<integer>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-58fadf66-5ef7-474b-bfd0-d631cfe2baa0"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:49.000Z",
+                              "updatedAt": "2026-06-05T15:08:49.000Z",
+                              "uid": "35240-6b81abf4-f854-4fba-9357-063108fda8f6"
+                            },
+                            {
+                              "name": "Create a WAF exclusion",
+                              "id": "04f27553-086b-42d3-9b5a-55ab27e0bd12",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"data\": {\n    \"type\": \"waf_exclusion\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"exclusion_type\": \"variable\",\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "waf",
+                                    "firewalls",
+                                    ":firewall_id",
+                                    "versions",
+                                    ":firewall_version_number",
+                                    "exclusions"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "6419b985-0fb3-4cb5-89d5-354214f7920a",
+                                      "key": "firewall_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the WAF firewall."
+                                    },
+                                    {
+                                      "id": "27afa8c7-9332-4614-97a1-e1c94ff40511",
+                                      "key": "firewall_version_number",
+                                      "value": "<integer>",
+                                      "description": "(Required) The version number of the WAF firewall."
+                                    }
+                                  ]
+                                },
+                                "description": "Creates a new WAF exclusion for a specific firewall version."
+                              },
+                              "response": [
+                                {
+                                  "id": "d3d0fb9c-3dfc-4bb7-a518-33d151cd3a16",
+                                  "name": "Successfully created the WAF exclusion.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_exclusion\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"exclusion_type\": \"variable\",\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "exclusions"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"waf_exclusion\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"exclusion_type\": \"waf\",\n      \"condition\": \"<string>\",\n      \"number\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-d3d0fb9c-3dfc-4bb7-a518-33d151cd3a16"
+                                },
+                                {
+                                  "id": "8f177c47-b649-4322-ae0e-606351dc01ee",
+                                  "name": "Bad request. Missing or invalid parameters.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_exclusion\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"exclusion_type\": \"variable\",\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "exclusions"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-8f177c47-b649-4322-ae0e-606351dc01ee"
+                                },
+                                {
+                                  "id": "5853a0f9-76cd-4dfa-8737-ae4002454414",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_exclusion\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"exclusion_type\": \"variable\",\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "waf",
+                                        "firewalls",
+                                        ":firewall_id",
+                                        "versions",
+                                        ":firewall_version_number",
+                                        "exclusions"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "firewall_id"
+                                        },
+                                        {
+                                          "key": "firewall_version_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:49.000Z",
+                                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                                  "uid": "35240-5853a0f9-76cd-4dfa-8737-ae4002454414"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:49.000Z",
+                              "updatedAt": "2026-06-05T15:08:49.000Z",
+                              "uid": "35240-04f27553-086b-42d3-9b5a-55ab27e0bd12"
+                            }
+                          ],
+                          "id": "a6b80986-e976-4eaa-a3c9-fa7ec1555f81",
+                          "createdAt": "2026-06-05T15:08:49.000Z",
+                          "updatedAt": "2026-06-05T15:08:49.000Z",
+                          "uid": "35240-a6b80986-e976-4eaa-a3c9-fa7ec1555f81"
+                        }
+                      ],
+                      "id": "e96f7b37-9f33-4ee0-ac9e-3b767d495041",
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-e96f7b37-9f33-4ee0-ac9e-3b767d495041"
+                    }
+                  ],
+                  "id": "39e36a08-c970-487c-ad8d-3b590ddf3552",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-39e36a08-c970-487c-ad8d-3b590ddf3552"
+                },
+                {
+                  "name": "Get a WAF firewall",
+                  "id": "57d3bf8f-1238-4d8a-8602-e0a071f9cc8d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "firewalls",
+                        ":firewall_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "7311f4ed-1e88-4444-ae67-9ec728b1eb45",
+                          "key": "firewall_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the WAF firewall."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the details of a specific WAF firewall instance."
+                  },
+                  "response": [
+                    {
+                      "id": "db8f398f-f710-421e-8019-1dc793a1f0f8",
+                      "name": "Successfully retrieved the WAF firewall.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "firewalls",
+                            ":firewall_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "firewall_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_id\": \"<string>\",\n      \"service_version_number\": \"<integer>\",\n      \"active_rules_fastly_block_count\": \"<integer>\",\n      \"active_rules_fastly_log_count\": \"<integer>\",\n      \"active_rules_owasp_block_count\": \"<integer>\",\n      \"active_rules_owasp_log_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-db8f398f-f710-421e-8019-1dc793a1f0f8"
+                    },
+                    {
+                      "id": "ca427e5f-4ec3-4b04-8a15-7482ae56e09f",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "firewalls",
+                            ":firewall_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "firewall_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-ca427e5f-4ec3-4b04-8a15-7482ae56e09f"
+                    },
+                    {
+                      "id": "868e2c30-6339-455e-90af-556b8febbab3",
+                      "name": "WAF firewall not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "firewalls",
+                            ":firewall_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "firewall_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-868e2c30-6339-455e-90af-556b8febbab3"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-57d3bf8f-1238-4d8a-8602-e0a071f9cc8d"
+                },
+                {
+                  "name": "Update a WAF firewall",
+                  "id": "332e01b5-a714-4bf8-b877-cc0fa9297183",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_version_number\": \"<integer>\",\n      \"prefetch_condition\": \"<string>\",\n      \"response\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "firewalls",
+                        ":firewall_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "272bcd66-ec0c-41b2-952b-ba4d10680d48",
+                          "key": "firewall_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the WAF firewall."
+                        }
+                      ]
+                    },
+                    "description": "Updates the configuration of a specific WAF firewall instance."
+                  },
+                  "response": [
+                    {
+                      "id": "23379ddb-4e69-445b-935b-3d93bde5878f",
+                      "name": "Successfully updated the WAF firewall.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_version_number\": \"<integer>\",\n      \"prefetch_condition\": \"<string>\",\n      \"response\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "firewalls",
+                            ":firewall_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "firewall_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_id\": \"<string>\",\n      \"service_version_number\": \"<integer>\",\n      \"active_rules_fastly_block_count\": \"<integer>\",\n      \"active_rules_fastly_log_count\": \"<integer>\",\n      \"active_rules_owasp_block_count\": \"<integer>\",\n      \"active_rules_owasp_log_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-23379ddb-4e69-445b-935b-3d93bde5878f"
+                    },
+                    {
+                      "id": "9e0d6007-ec04-4086-86fb-2715a07697dc",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_version_number\": \"<integer>\",\n      \"prefetch_condition\": \"<string>\",\n      \"response\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "firewalls",
+                            ":firewall_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "firewall_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-9e0d6007-ec04-4086-86fb-2715a07697dc"
+                    },
+                    {
+                      "id": "2b01fb5a-63d8-4b24-9164-bb9762b84523",
+                      "name": "WAF firewall not found.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_version_number\": \"<integer>\",\n      \"prefetch_condition\": \"<string>\",\n      \"response\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "firewalls",
+                            ":firewall_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "firewall_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-2b01fb5a-63d8-4b24-9164-bb9762b84523"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-332e01b5-a714-4bf8-b877-cc0fa9297183"
+                },
+                {
+                  "name": "Delete a WAF firewall",
+                  "id": "e348fea2-4676-4224-97b5-a76790d8bb30",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_version_number\": \"<integer>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "firewalls",
+                        ":firewall_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d60784d6-3f89-47a2-8858-e12a54fdadd9",
+                          "key": "firewall_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the WAF firewall."
+                        }
+                      ]
+                    },
+                    "description": "Deletes a specific WAF firewall instance."
+                  },
+                  "response": [
+                    {
+                      "id": "fe10f8c1-8735-4eb8-b46c-64e74e874d7f",
+                      "name": "Successfully deleted the WAF firewall.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_version_number\": \"<integer>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "firewalls",
+                            ":firewall_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "firewall_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-fe10f8c1-8735-4eb8-b46c-64e74e874d7f"
+                    },
+                    {
+                      "id": "1efada2c-5176-4b9e-861f-cc721be3c7c8",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_version_number\": \"<integer>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "firewalls",
+                            ":firewall_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "firewall_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-1efada2c-5176-4b9e-861f-cc721be3c7c8"
+                    },
+                    {
+                      "id": "5c269128-b6d8-4c81-a5e1-37984b3867e5",
+                      "name": "WAF firewall not found.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_version_number\": \"<integer>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/firewalls/:firewall_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "firewalls",
+                            ":firewall_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "firewall_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-5c269128-b6d8-4c81-a5e1-37984b3867e5"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-e348fea2-4676-4224-97b5-a76790d8bb30"
+                }
+              ],
+              "id": "8bcde281-8a42-45d4-94a3-488b6150ceab",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-8bcde281-8a42-45d4-94a3-488b6150ceab"
+            },
+            {
+              "name": "List WAF firewalls",
+              "id": "1d50d743-d8ab-469d-b41a-1a3276a2c314",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/waf/firewalls?page[number]=<integer>&page[size]=<integer>&filter[service_id]=<string>&include=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "waf",
+                    "firewalls"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The number of items per page.",
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Filter firewalls by service ID.",
+                      "key": "filter[service_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Related resources to include in the response.",
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves a list of all WAF firewall instances associated with the account."
+              },
+              "response": [
+                {
+                  "id": "d52c3aa7-ae58-49b8-8925-f8a97332e7d4",
+                  "name": "Successfully retrieved the list of WAF firewalls.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/firewalls?page[number]=<integer>&page[size]=<integer>&filter[service_id]=<string>&include=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "firewalls"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter firewalls by service ID.",
+                          "key": "filter[service_id]",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Related resources to include in the response.",
+                          "key": "include",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"waf_firewall\",\n      \"attributes\": {\n        \"service_id\": \"<string>\",\n        \"service_version_number\": \"<integer>\",\n        \"active_rules_fastly_block_count\": \"<integer>\",\n        \"active_rules_fastly_log_count\": \"<integer>\",\n        \"active_rules_owasp_block_count\": \"<integer>\",\n        \"active_rules_owasp_log_count\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"waf_firewall\",\n      \"attributes\": {\n        \"service_id\": \"<string>\",\n        \"service_version_number\": \"<integer>\",\n        \"active_rules_fastly_block_count\": \"<integer>\",\n        \"active_rules_fastly_log_count\": \"<integer>\",\n        \"active_rules_owasp_block_count\": \"<integer>\",\n        \"active_rules_owasp_log_count\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-d52c3aa7-ae58-49b8-8925-f8a97332e7d4"
+                },
+                {
+                  "id": "2237955b-b1ab-4604-bd7f-892a92c42a17",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/firewalls?page[number]=<integer>&page[size]=<integer>&filter[service_id]=<string>&include=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "firewalls"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter firewalls by service ID.",
+                          "key": "filter[service_id]",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Related resources to include in the response.",
+                          "key": "include",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-2237955b-b1ab-4604-bd7f-892a92c42a17"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-1d50d743-d8ab-469d-b41a-1a3276a2c314"
+            },
+            {
+              "name": "Create a WAF firewall",
+              "id": "5e82a4e9-3398-453a-9c24-6fbff8bfbcf4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_id\": \"<string>\",\n      \"service_version_number\": \"<integer>\",\n      \"prefetch_condition\": \"<string>\",\n      \"response\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/waf/firewalls",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "waf",
+                    "firewalls"
+                  ]
+                },
+                "description": "Creates a new WAF firewall instance associated with a Fastly service."
+              },
+              "response": [
+                {
+                  "id": "f8f2b4a2-4446-4955-a86d-b40c46b19f64",
+                  "name": "Successfully created the WAF firewall.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_id\": \"<string>\",\n      \"service_version_number\": \"<integer>\",\n      \"prefetch_condition\": \"<string>\",\n      \"response\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/firewalls",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "firewalls"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_id\": \"<string>\",\n      \"service_version_number\": \"<integer>\",\n      \"active_rules_fastly_block_count\": \"<integer>\",\n      \"active_rules_fastly_log_count\": \"<integer>\",\n      \"active_rules_owasp_block_count\": \"<integer>\",\n      \"active_rules_owasp_log_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-f8f2b4a2-4446-4955-a86d-b40c46b19f64"
+                },
+                {
+                  "id": "ea6423ab-50c0-416b-afdc-e8d553fa85af",
+                  "name": "Bad request. Missing or invalid parameters.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_id\": \"<string>\",\n      \"service_version_number\": \"<integer>\",\n      \"prefetch_condition\": \"<string>\",\n      \"response\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/firewalls",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "firewalls"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-ea6423ab-50c0-416b-afdc-e8d553fa85af"
+                },
+                {
+                  "id": "3ecace0e-980b-4b07-b3d5-464e6db79913",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"waf_firewall\",\n    \"attributes\": {\n      \"service_id\": \"<string>\",\n      \"service_version_number\": \"<integer>\",\n      \"prefetch_condition\": \"<string>\",\n      \"response\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/firewalls",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "firewalls"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-3ecace0e-980b-4b07-b3d5-464e6db79913"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-5e82a4e9-3398-453a-9c24-6fbff8bfbcf4"
+            }
+          ],
+          "id": "f517aaa8-5637-40a3-bda7-2f840db1c17e",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-f517aaa8-5637-40a3-bda7-2f840db1c17e"
+        },
+        {
+          "name": "rules",
+          "item": [
+            {
+              "name": "{waf_rule_id}",
+              "item": [
+                {
+                  "name": "Get a WAF rule",
+                  "id": "460544b3-713d-4916-8370-fd862ab8c490",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/rules/:waf_rule_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "rules",
+                        ":waf_rule_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "dcbef144-e5f6-4f6b-86b0-493f0597a65d",
+                          "key": "waf_rule_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the WAF rule."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the details of a specific WAF rule."
+                  },
+                  "response": [
+                    {
+                      "id": "187e63ab-55c9-4577-a22e-e0228ac1224b",
+                      "name": "Successfully retrieved the WAF rule.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/rules/:waf_rule_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "rules",
+                            ":waf_rule_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "waf_rule_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"waf_rule\",\n    \"attributes\": {\n      \"modsec_rule_id\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"severity\": \"<integer>\",\n      \"source\": \"<string>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-187e63ab-55c9-4577-a22e-e0228ac1224b"
+                    },
+                    {
+                      "id": "f5317429-5462-4c26-a1f6-9b3c3c1d9e2f",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/rules/:waf_rule_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "rules",
+                            ":waf_rule_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "waf_rule_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-f5317429-5462-4c26-a1f6-9b3c3c1d9e2f"
+                    },
+                    {
+                      "id": "edb00df2-a323-445f-937f-5d369c55f95c",
+                      "name": "WAF rule not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/waf/rules/:waf_rule_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "waf",
+                            "rules",
+                            ":waf_rule_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "waf_rule_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:49.000Z",
+                      "updatedAt": "2026-06-05T15:08:49.000Z",
+                      "uid": "35240-edb00df2-a323-445f-937f-5d369c55f95c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-460544b3-713d-4916-8370-fd862ab8c490"
+                }
+              ],
+              "id": "dba57d70-bf43-4aac-b40d-fd0d6dfa4951",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-dba57d70-bf43-4aac-b40d-fd0d6dfa4951"
+            },
+            {
+              "name": "List WAF rules",
+              "id": "2c5107f9-0587-4223-b6fa-c789d9e4ec2c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/waf/rules?page[number]=<integer>&page[size]=<integer>&filter[waf_tags][name]=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "waf",
+                    "rules"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The number of items per page.",
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Filter rules by tag name.",
+                      "key": "filter[waf_tags][name]",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves a list of all available WAF rules."
+              },
+              "response": [
+                {
+                  "id": "1290be5f-eb0d-4702-b647-7d93e9b5cb0c",
+                  "name": "Successfully retrieved the list of WAF rules.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/rules?page[number]=<integer>&page[size]=<integer>&filter[waf_tags][name]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "rules"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter rules by tag name.",
+                          "key": "filter[waf_tags][name]",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"waf_rule\",\n      \"attributes\": {\n        \"modsec_rule_id\": \"<integer>\",\n        \"type\": \"<string>\",\n        \"severity\": \"<integer>\",\n        \"source\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"waf_rule\",\n      \"attributes\": {\n        \"modsec_rule_id\": \"<integer>\",\n        \"type\": \"<string>\",\n        \"severity\": \"<integer>\",\n        \"source\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-1290be5f-eb0d-4702-b647-7d93e9b5cb0c"
+                },
+                {
+                  "id": "60bba8d1-92eb-4406-8c96-333535d4181f",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/waf/rules?page[number]=<integer>&page[size]=<integer>&filter[waf_tags][name]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "waf",
+                        "rules"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter rules by tag name.",
+                          "key": "filter[waf_tags][name]",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-60bba8d1-92eb-4406-8c96-333535d4181f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-2c5107f9-0587-4223-b6fa-c789d9e4ec2c"
+            }
+          ],
+          "id": "639fe10d-da77-4cd7-adaf-abad2a3fef3d",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-639fe10d-da77-4cd7-adaf-abad2a3fef3d"
+        }
+      ],
+      "id": "3d1cf28a-771c-4e41-bb3f-5cd6a03b1850",
+      "createdAt": "2026-06-05T15:08:49.000Z",
+      "updatedAt": "2026-06-05T15:08:49.000Z",
+      "uid": "35240-3d1cf28a-771c-4e41-bb3f-5cd6a03b1850"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

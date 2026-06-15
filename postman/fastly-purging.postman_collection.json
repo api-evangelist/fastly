@@ -1,0 +1,934 @@
+{
+  "info": {
+    "_postman_id": "5e0705fd-67bb-45df-b122-1bdbc70853d9",
+    "name": "Fastly Purging API",
+    "description": "The Fastly Purging API enables developers to instantly remove cached content from Fastly's edge network so it can be refreshed from origin servers. It supports single URL purges, surrogate key purges for invalidating groups of related objects, and purge-all operations to clear an entire service cache. Surrogate key and URL purges are separately limited to an average of 100,000 purges per hour per customer and are not counted against the general API rate limit.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:34.000Z",
+    "updatedAt": "2026-06-05T15:08:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5e0705fd-67bb-45df-b122-1bdbc70853d9"
+  },
+  "item": [
+    {
+      "name": "purge",
+      "item": [
+        {
+          "name": "{cached_url}",
+          "item": [
+            {
+              "name": "Purge a URL",
+              "id": "75bddc84-71f2-46e9-82b8-667eede286a7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                    "key": "Fastly-Soft-Purge",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/purge/:cached_url",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "purge",
+                    ":cached_url"
+                  ],
+                  "variable": [
+                    {
+                      "id": "0da30c41-9fdc-4aa2-ab22-02f4c94497b9",
+                      "key": "cached_url",
+                      "value": "<uri>",
+                      "description": "(Required) The full URL of the cached object to purge."
+                    }
+                  ]
+                },
+                "description": "Instantly purges a single URL from Fastly's edge cache. The cached URL should be the full URL of the object to purge. Supports soft purge via the Fastly-Soft-Purge header, which marks the object as stale rather than removing it immediately."
+              },
+              "response": [
+                {
+                  "id": "f93991dc-c3ab-4df4-b4b4-824aaf374b2a",
+                  "name": "Successfully purged the URL.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                        "key": "Fastly-Soft-Purge",
+                        "value": "1"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/purge/:cached_url",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "purge",
+                        ":cached_url"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cached_url"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"ok\",\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:08:35.000Z",
+                  "updatedAt": "2026-06-05T15:08:35.000Z",
+                  "uid": "35240-f93991dc-c3ab-4df4-b4b4-824aaf374b2a"
+                },
+                {
+                  "id": "e2cb22f7-0bb7-47e6-bd6c-f59ec77098c0",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                        "key": "Fastly-Soft-Purge",
+                        "value": "1"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/purge/:cached_url",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "purge",
+                        ":cached_url"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cached_url"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:35.000Z",
+                  "updatedAt": "2026-06-05T15:08:35.000Z",
+                  "uid": "35240-e2cb22f7-0bb7-47e6-bd6c-f59ec77098c0"
+                },
+                {
+                  "id": "9158b2e4-9819-4306-8dcf-bb2614270aa7",
+                  "name": "The cached URL was not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                        "key": "Fastly-Soft-Purge",
+                        "value": "1"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/purge/:cached_url",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "purge",
+                        ":cached_url"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cached_url"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:35.000Z",
+                  "updatedAt": "2026-06-05T15:08:35.000Z",
+                  "uid": "35240-9158b2e4-9819-4306-8dcf-bb2614270aa7"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:35.000Z",
+              "updatedAt": "2026-06-05T15:08:35.000Z",
+              "uid": "35240-75bddc84-71f2-46e9-82b8-667eede286a7"
+            }
+          ],
+          "id": "d94128ef-4f0f-482e-9b4c-3c948f654fd6",
+          "createdAt": "2026-06-05T15:08:35.000Z",
+          "updatedAt": "2026-06-05T15:08:35.000Z",
+          "uid": "35240-d94128ef-4f0f-482e-9b4c-3c948f654fd6"
+        }
+      ],
+      "id": "073e64c1-efe5-4d3f-97ea-829998bfa00e",
+      "createdAt": "2026-06-05T15:08:35.000Z",
+      "updatedAt": "2026-06-05T15:08:35.000Z",
+      "uid": "35240-073e64c1-efe5-4d3f-97ea-829998bfa00e"
+    },
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "{service_id}",
+          "item": [
+            {
+              "name": "purge",
+              "item": [
+                {
+                  "name": "{surrogate_key}",
+                  "item": [
+                    {
+                      "name": "Purge by surrogate key",
+                      "id": "26cbb54d-2b5b-4f59-b51e-d8f4f485c6c5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                            "key": "Fastly-Soft-Purge",
+                            "value": "1"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/purge/:surrogate_key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "purge",
+                            ":surrogate_key"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9a55034a-0188-40c1-9a79-32c76383d2e9",
+                              "key": "service_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the Fastly service."
+                            },
+                            {
+                              "id": "f2744d56-2a60-47fc-abcb-2f608f170cc8",
+                              "key": "surrogate_key",
+                              "value": "<string>",
+                              "description": "(Required) The surrogate key tag to purge."
+                            }
+                          ]
+                        },
+                        "description": "Instantly purges all objects from Fastly's edge cache that match the specified surrogate key tag for the given service. Supports soft purge via the Fastly-Soft-Purge header."
+                      },
+                      "response": [
+                        {
+                          "id": "670f1fea-b9c2-440a-9c7a-391cbc935145",
+                          "name": "Successfully purged objects by surrogate key.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                                "key": "Fastly-Soft-Purge",
+                                "value": "1"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/purge/:surrogate_key",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "purge",
+                                ":surrogate_key"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "surrogate_key"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"ok\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:08:35.000Z",
+                          "updatedAt": "2026-06-05T15:08:35.000Z",
+                          "uid": "35240-670f1fea-b9c2-440a-9c7a-391cbc935145"
+                        },
+                        {
+                          "id": "b87ada0d-4a23-41a5-8ea3-3c9d58533a15",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                                "key": "Fastly-Soft-Purge",
+                                "value": "1"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/purge/:surrogate_key",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "purge",
+                                ":surrogate_key"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "surrogate_key"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:35.000Z",
+                          "updatedAt": "2026-06-05T15:08:35.000Z",
+                          "uid": "35240-b87ada0d-4a23-41a5-8ea3-3c9d58533a15"
+                        },
+                        {
+                          "id": "e35ab55c-8148-428f-83be-d0300f25017f",
+                          "name": "Service not found.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                                "key": "Fastly-Soft-Purge",
+                                "value": "1"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/purge/:surrogate_key",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "purge",
+                                ":surrogate_key"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "surrogate_key"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:35.000Z",
+                          "updatedAt": "2026-06-05T15:08:35.000Z",
+                          "uid": "35240-e35ab55c-8148-428f-83be-d0300f25017f"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:35.000Z",
+                      "updatedAt": "2026-06-05T15:08:35.000Z",
+                      "uid": "35240-26cbb54d-2b5b-4f59-b51e-d8f4f485c6c5"
+                    }
+                  ],
+                  "id": "17caf497-2065-460c-a40f-4022e9606b3b",
+                  "createdAt": "2026-06-05T15:08:35.000Z",
+                  "updatedAt": "2026-06-05T15:08:35.000Z",
+                  "uid": "35240-17caf497-2065-460c-a40f-4022e9606b3b"
+                },
+                {
+                  "name": "Bulk purge by surrogate key",
+                  "id": "9a10ff7a-719b-49ca-8d2d-37c9796c13dc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                        "key": "Fastly-Soft-Purge",
+                        "value": "1"
+                      },
+                      {
+                        "description": "Space-separated list of surrogate keys to purge. Alternative to sending keys in the request body.",
+                        "key": "Surrogate-Key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"surrogate_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id/purge",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id",
+                        "purge"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a26627a4-c6d1-4a06-9707-7311d581205b",
+                          "key": "service_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the Fastly service."
+                        }
+                      ]
+                    },
+                    "description": "Purges multiple surrogate key tags from Fastly's edge cache in a single request. Up to 256 surrogate keys can be purged in one batch request. Keys can be sent in a JSON object in the request body or as a Surrogate-Key request header. Supports soft purge via the Fastly-Soft-Purge header."
+                  },
+                  "response": [
+                    {
+                      "id": "add82289-ae9b-4139-908d-a57a59af5701",
+                      "name": "Successfully purged objects by surrogate keys.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                            "key": "Fastly-Soft-Purge",
+                            "value": "1"
+                          },
+                          {
+                            "description": "Space-separated list of surrogate keys to purge. Alternative to sending keys in the request body.",
+                            "key": "Surrogate-Key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"surrogate_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/purge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "purge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"purge_statuses\": {\n    \"sed8\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:35.000Z",
+                      "updatedAt": "2026-06-05T15:08:35.000Z",
+                      "uid": "35240-add82289-ae9b-4139-908d-a57a59af5701"
+                    },
+                    {
+                      "id": "a36a7e22-3648-4edf-98a0-b5f7a7ab01fa",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                            "key": "Fastly-Soft-Purge",
+                            "value": "1"
+                          },
+                          {
+                            "description": "Space-separated list of surrogate keys to purge. Alternative to sending keys in the request body.",
+                            "key": "Surrogate-Key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"surrogate_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/purge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "purge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:35.000Z",
+                      "updatedAt": "2026-06-05T15:08:35.000Z",
+                      "uid": "35240-a36a7e22-3648-4edf-98a0-b5f7a7ab01fa"
+                    },
+                    {
+                      "id": "cba0c8f0-a8f1-4b50-a98d-353670a1accf",
+                      "name": "Service not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Set to 1 to perform a soft purge, which marks the cached object as stale rather than immediately removing it. Stale objects can still be served while a fresh copy is fetched from origin.",
+                            "key": "Fastly-Soft-Purge",
+                            "value": "1"
+                          },
+                          {
+                            "description": "Space-separated list of surrogate keys to purge. Alternative to sending keys in the request body.",
+                            "key": "Surrogate-Key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"surrogate_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/purge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "purge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:35.000Z",
+                      "updatedAt": "2026-06-05T15:08:35.000Z",
+                      "uid": "35240-cba0c8f0-a8f1-4b50-a98d-353670a1accf"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:35.000Z",
+                  "updatedAt": "2026-06-05T15:08:35.000Z",
+                  "uid": "35240-9a10ff7a-719b-49ca-8d2d-37c9796c13dc"
+                }
+              ],
+              "id": "508443ff-b730-49b1-99c9-1bfa7685b024",
+              "createdAt": "2026-06-05T15:08:35.000Z",
+              "updatedAt": "2026-06-05T15:08:35.000Z",
+              "uid": "35240-508443ff-b730-49b1-99c9-1bfa7685b024"
+            },
+            {
+              "name": "purge_all",
+              "item": [
+                {
+                  "name": "Purge all cached content",
+                  "id": "e4784f1e-3194-4954-97b6-e517141302ec",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id/purge_all",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id",
+                        "purge_all"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5e3e1859-af92-44fa-b73d-7bc203cba482",
+                          "key": "service_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the Fastly service."
+                        }
+                      ]
+                    },
+                    "description": "Instantly purges all cached content from Fastly's edge network for the specified service. This operation cannot be performed as a soft purge and will always immediately invalidate all cached content associated with the service."
+                  },
+                  "response": [
+                    {
+                      "id": "a789c81e-6358-4bf1-99b9-5405bdb3efa4",
+                      "name": "Successfully purged all cached content for the service.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/purge_all",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "purge_all"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"ok\",\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:08:35.000Z",
+                      "updatedAt": "2026-06-05T15:08:35.000Z",
+                      "uid": "35240-a789c81e-6358-4bf1-99b9-5405bdb3efa4"
+                    },
+                    {
+                      "id": "b5c45577-5a43-4a0a-9c18-c3f6f2332de0",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/purge_all",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "purge_all"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:35.000Z",
+                      "updatedAt": "2026-06-05T15:08:35.000Z",
+                      "uid": "35240-b5c45577-5a43-4a0a-9c18-c3f6f2332de0"
+                    },
+                    {
+                      "id": "68e4e788-3406-4e2c-812d-bb12fb50fdd9",
+                      "name": "Service not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/purge_all",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "purge_all"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:35.000Z",
+                      "updatedAt": "2026-06-05T15:08:35.000Z",
+                      "uid": "35240-68e4e788-3406-4e2c-812d-bb12fb50fdd9"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:35.000Z",
+                  "updatedAt": "2026-06-05T15:08:35.000Z",
+                  "uid": "35240-e4784f1e-3194-4954-97b6-e517141302ec"
+                }
+              ],
+              "id": "4e5301aa-d638-434f-9ba4-5b995d65641b",
+              "createdAt": "2026-06-05T15:08:35.000Z",
+              "updatedAt": "2026-06-05T15:08:35.000Z",
+              "uid": "35240-4e5301aa-d638-434f-9ba4-5b995d65641b"
+            }
+          ],
+          "id": "6f85d511-39eb-439f-b3a5-23ad16a75501",
+          "createdAt": "2026-06-05T15:08:35.000Z",
+          "updatedAt": "2026-06-05T15:08:35.000Z",
+          "uid": "35240-6f85d511-39eb-439f-b3a5-23ad16a75501"
+        }
+      ],
+      "id": "9cd3a8c5-cf41-457a-b8ce-3f90ec27a487",
+      "createdAt": "2026-06-05T15:08:35.000Z",
+      "updatedAt": "2026-06-05T15:08:35.000Z",
+      "uid": "35240-9cd3a8c5-cf41-457a-b8ce-3f90ec27a487"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

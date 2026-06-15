@@ -1,0 +1,2054 @@
+{
+  "item": [
+    {
+      "id": "6492f15f-eebe-45c8-b2bb-ca558120d418",
+      "name": "Domain Inspector",
+      "description": {
+        "content": "Domain-level analytics endpoints providing per-domain metrics for Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a15c0fc9-3d50-4839-ba85-a52bd37136f1",
+          "name": "Get real-time domain metrics",
+          "request": {
+            "name": "Get real-time domain metrics",
+            "description": {
+              "content": "Retrieves real-time per-domain analytics data for a specific domain on a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "channel",
+                ":service_id",
+                "ts",
+                "h",
+                "domains",
+                ":domain",
+                "limit",
+                ":max_entries"
+              ],
+              "host": [
+                "rt",
+                "fastly",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) The domain to retrieve metrics for."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "max_entries",
+                  "description": "(Required) The maximum number of entries to return."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb043a66-ce21-4cac-8caf-b6ba355f80cd",
+              "name": "Successfully retrieved domain inspector real-time data.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "domains",
+                    ":domain",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The domain to retrieve metrics for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Timestamp\": 9348,\n  \"AggregateDelay\": 652,\n  \"Data\": [\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 6492,\n          \"hits\": 3581,\n          \"miss\": 913,\n          \"pass\": 1849,\n          \"errors\": 367,\n          \"bandwidth\": 1613,\n          \"header_size\": 1780,\n          \"body_size\": 751,\n          \"status_1xx\": 4093,\n          \"status_2xx\": 7363,\n          \"status_3xx\": 3128,\n          \"status_4xx\": 4353,\n          \"status_5xx\": 9493,\n          \"hit_ratio\": 4970.201142969893\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 6368,\n        \"hits\": 3044,\n        \"miss\": 3555,\n        \"pass\": 5725,\n        \"errors\": 7507,\n        \"bandwidth\": 6128,\n        \"header_size\": 8058,\n        \"body_size\": 9956,\n        \"status_1xx\": 4352,\n        \"status_2xx\": 7712,\n        \"status_3xx\": 697,\n        \"status_4xx\": 6039,\n        \"status_5xx\": 147,\n        \"hit_ratio\": 8820.570459065442\n      },\n      \"recorded\": 9155\n    },\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 8187,\n          \"hits\": 6971,\n          \"miss\": 9934,\n          \"pass\": 3351,\n          \"errors\": 7372,\n          \"bandwidth\": 9676,\n          \"header_size\": 1389,\n          \"body_size\": 8851,\n          \"status_1xx\": 8718,\n          \"status_2xx\": 4413,\n          \"status_3xx\": 6963,\n          \"status_4xx\": 5066,\n          \"status_5xx\": 7704,\n          \"hit_ratio\": 6878.893976411242\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 7739,\n        \"hits\": 5354,\n        \"miss\": 4621,\n        \"pass\": 4312,\n        \"errors\": 185,\n        \"bandwidth\": 9309,\n        \"header_size\": 5046,\n        \"body_size\": 4183,\n        \"status_1xx\": 9454,\n        \"status_2xx\": 995,\n        \"status_3xx\": 4508,\n        \"status_4xx\": 7537,\n        \"status_5xx\": 2784,\n        \"hit_ratio\": 3827.826962508669\n      },\n      \"recorded\": 9447\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "739892bb-cbf2-489c-866f-39e8ebcc211d",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "domains",
+                    ":domain",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The domain to retrieve metrics for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "313d8f23-4eca-4f00-8750-aec1e99b5b08",
+              "name": "Service or domain not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "domains",
+                    ":domain",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The domain to retrieve metrics for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ae249583-cb35-4674-b6da-1c7ea0c88f96",
+      "name": "Historical Stats",
+      "description": {
+        "content": "Historical statistics endpoints providing aggregated analytics data for Fastly services over configurable time ranges.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b6b720c4-3aa3-49aa-b89f-4b062ecd599b",
+          "name": "Get historical stats",
+          "request": {
+            "name": "Get historical stats",
+            "description": {
+              "content": "Retrieves historical statistics for all Fastly services associated with the account. Data with day resolution is bucketed based on UTC days and becomes available around 2 AM the following day. Hour resolution becomes available approximately 15 minutes after the end of each hour. Minute data usually becomes available two minutes after the end of the minute. Minutely data older than 35 days and hourly data older than 375 days are not available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "stats"
+              ],
+              "host": [
+                "api",
+                "fastly",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "The start date/time for the query in ISO 8601 or Unix timestamp format."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "The end date/time for the query in ISO 8601 or Unix timestamp format."
+                },
+                {
+                  "disabled": false,
+                  "key": "by",
+                  "value": "<string>",
+                  "description": "The duration of each time bucket in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>",
+                  "description": "Filter results by Fastly POP region."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3fa9a7e6-4e91-4aa1-9a92-b96e3b75505e",
+              "name": "Successfully retrieved historical statistics.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "stats"
+                  ],
+                  "host": [
+                    "api",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"meta\": {\n    \"to\": \"string\",\n    \"from\": \"string\",\n    \"by\": \"string\",\n    \"region\": \"string\"\n  },\n  \"data\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": false,\n      \"key_2\": true\n    },\n    {\n      \"key_0\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9431a517-2892-40cd-8b3f-08d469f4b32d",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "stats"
+                  ],
+                  "host": [
+                    "api",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f055e9cd-e30c-4d47-8df6-2d4707e273fd",
+          "name": "Get historical stats for a service",
+          "request": {
+            "name": "Get historical stats for a service",
+            "description": {
+              "content": "Retrieves historical statistics for a specific Fastly service over the specified time range and resolution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "stats",
+                "service",
+                ":service_id"
+              ],
+              "host": [
+                "api",
+                "fastly",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "The start date/time for the query."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "The end date/time for the query."
+                },
+                {
+                  "disabled": false,
+                  "key": "by",
+                  "value": "<string>",
+                  "description": "The duration of each time bucket in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>",
+                  "description": "Filter results by Fastly POP region."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76deefab-b9a1-4614-b5e2-3d9b09d37296",
+              "name": "Successfully retrieved historical statistics for the service.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "stats",
+                    "service",
+                    ":service_id"
+                  ],
+                  "host": [
+                    "api",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"meta\": {\n    \"to\": \"string\",\n    \"from\": \"string\",\n    \"by\": \"string\",\n    \"region\": \"string\"\n  },\n  \"data\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": false,\n      \"key_2\": true\n    },\n    {\n      \"key_0\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1c2578a-9296-418f-b23b-d914933e1d72",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "stats",
+                    "service",
+                    ":service_id"
+                  ],
+                  "host": [
+                    "api",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5cb46d6-394c-4edf-bdda-12cbca012907",
+              "name": "Service not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "stats",
+                    "service",
+                    ":service_id"
+                  ],
+                  "host": [
+                    "api",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "267668c6-45fe-4c5d-a6eb-78c14bcef284",
+          "name": "Get historical stats for a specific field",
+          "request": {
+            "name": "Get historical stats for a specific field",
+            "description": {
+              "content": "Retrieves a single historical statistics field for all services associated with the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "stats",
+                "field",
+                ":field"
+              ],
+              "host": [
+                "api",
+                "fastly",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "The start date/time for the query."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "The end date/time for the query."
+                },
+                {
+                  "disabled": false,
+                  "key": "by",
+                  "value": "<string>",
+                  "description": "The duration of each time bucket in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>",
+                  "description": "Filter results by Fastly POP region."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "field",
+                  "description": "(Required) The stats field to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a92f59c-a7fc-4a56-a4bc-3a1567dbea54",
+              "name": "Successfully retrieved historical statistics for the field.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "stats",
+                    "field",
+                    ":field"
+                  ],
+                  "host": [
+                    "api",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "field",
+                      "description": "(Required) The stats field to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"meta\": {\n    \"to\": \"string\",\n    \"from\": \"string\",\n    \"by\": \"string\",\n    \"region\": \"string\"\n  },\n  \"data\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": false,\n      \"key_2\": true\n    },\n    {\n      \"key_0\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f45adf0c-6586-4ff9-bca4-0666f127d67f",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "stats",
+                    "field",
+                    ":field"
+                  ],
+                  "host": [
+                    "api",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "field",
+                      "description": "(Required) The stats field to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "046c17be-357e-4435-a8cc-95c8036a79ff",
+      "name": "Origin Inspector",
+      "description": {
+        "content": "Origin-level analytics endpoints providing metrics about requests to origin servers behind Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95aa2ed1-3f41-4551-a633-b35f14adc29d",
+          "name": "Get real-time origin metrics",
+          "request": {
+            "name": "Get real-time origin metrics",
+            "description": {
+              "content": "Retrieves real-time per-origin analytics data for a specific origin on a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "channel",
+                ":service_id",
+                "ts",
+                "h",
+                "origins",
+                ":origin",
+                "limit",
+                ":max_entries"
+              ],
+              "host": [
+                "rt",
+                "fastly",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "origin",
+                  "description": "(Required) The origin host to retrieve metrics for."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "max_entries",
+                  "description": "(Required) The maximum number of entries to return."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f810fd0-af20-42ab-97d9-06ad10a3b6c8",
+              "name": "Successfully retrieved origin inspector real-time data.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "origins",
+                    ":origin",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin",
+                      "description": "(Required) The origin host to retrieve metrics for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Timestamp\": 9348,\n  \"AggregateDelay\": 652,\n  \"Data\": [\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 6492,\n          \"hits\": 3581,\n          \"miss\": 913,\n          \"pass\": 1849,\n          \"errors\": 367,\n          \"bandwidth\": 1613,\n          \"header_size\": 1780,\n          \"body_size\": 751,\n          \"status_1xx\": 4093,\n          \"status_2xx\": 7363,\n          \"status_3xx\": 3128,\n          \"status_4xx\": 4353,\n          \"status_5xx\": 9493,\n          \"hit_ratio\": 4970.201142969893\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 6368,\n        \"hits\": 3044,\n        \"miss\": 3555,\n        \"pass\": 5725,\n        \"errors\": 7507,\n        \"bandwidth\": 6128,\n        \"header_size\": 8058,\n        \"body_size\": 9956,\n        \"status_1xx\": 4352,\n        \"status_2xx\": 7712,\n        \"status_3xx\": 697,\n        \"status_4xx\": 6039,\n        \"status_5xx\": 147,\n        \"hit_ratio\": 8820.570459065442\n      },\n      \"recorded\": 9155\n    },\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 8187,\n          \"hits\": 6971,\n          \"miss\": 9934,\n          \"pass\": 3351,\n          \"errors\": 7372,\n          \"bandwidth\": 9676,\n          \"header_size\": 1389,\n          \"body_size\": 8851,\n          \"status_1xx\": 8718,\n          \"status_2xx\": 4413,\n          \"status_3xx\": 6963,\n          \"status_4xx\": 5066,\n          \"status_5xx\": 7704,\n          \"hit_ratio\": 6878.893976411242\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 7739,\n        \"hits\": 5354,\n        \"miss\": 4621,\n        \"pass\": 4312,\n        \"errors\": 185,\n        \"bandwidth\": 9309,\n        \"header_size\": 5046,\n        \"body_size\": 4183,\n        \"status_1xx\": 9454,\n        \"status_2xx\": 995,\n        \"status_3xx\": 4508,\n        \"status_4xx\": 7537,\n        \"status_5xx\": 2784,\n        \"hit_ratio\": 3827.826962508669\n      },\n      \"recorded\": 9447\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9202edc-40bc-4cd9-9a35-20c4483d31b1",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "origins",
+                    ":origin",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin",
+                      "description": "(Required) The origin host to retrieve metrics for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "69a261ba-5a0c-402f-83e7-197688ef13a5",
+              "name": "Service or origin not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "origins",
+                    ":origin",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin",
+                      "description": "(Required) The origin host to retrieve metrics for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2151a734-eeb1-4deb-82ad-89e06abd71b3",
+      "name": "Real-Time Analytics",
+      "description": {
+        "content": "Real-time analytics endpoints providing second-by-second stats for Fastly services, served from rt.fastly.com.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9dc7182e-3f4b-486d-b2d8-9f6e8db44892",
+          "name": "Get real-time analytics",
+          "request": {
+            "name": "Get real-time analytics",
+            "description": {
+              "content": "Retrieves real-time analytics data for a Fastly service starting from the specified Unix timestamp. Returns a list of records, each representing one second of time, with measurement data grouped in various ways. The real-time analytics API is rate limited internally and is cached behind Fastly with a 1-second expiration time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "channel",
+                ":service_id",
+                "ts",
+                ":start_timestamp"
+              ],
+              "host": [
+                "rt",
+                "fastly",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "start_timestamp",
+                  "description": "(Required) The Unix timestamp to start retrieving analytics data from."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d72d2f8-a311-483f-9000-bf6448b60ed3",
+              "name": "Successfully retrieved real-time analytics data.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    ":start_timestamp"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "start_timestamp",
+                      "description": "(Required) The Unix timestamp to start retrieving analytics data from."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Timestamp\": 9348,\n  \"AggregateDelay\": 652,\n  \"Data\": [\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 6492,\n          \"hits\": 3581,\n          \"miss\": 913,\n          \"pass\": 1849,\n          \"errors\": 367,\n          \"bandwidth\": 1613,\n          \"header_size\": 1780,\n          \"body_size\": 751,\n          \"status_1xx\": 4093,\n          \"status_2xx\": 7363,\n          \"status_3xx\": 3128,\n          \"status_4xx\": 4353,\n          \"status_5xx\": 9493,\n          \"hit_ratio\": 4970.201142969893\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 6368,\n        \"hits\": 3044,\n        \"miss\": 3555,\n        \"pass\": 5725,\n        \"errors\": 7507,\n        \"bandwidth\": 6128,\n        \"header_size\": 8058,\n        \"body_size\": 9956,\n        \"status_1xx\": 4352,\n        \"status_2xx\": 7712,\n        \"status_3xx\": 697,\n        \"status_4xx\": 6039,\n        \"status_5xx\": 147,\n        \"hit_ratio\": 8820.570459065442\n      },\n      \"recorded\": 9155\n    },\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 8187,\n          \"hits\": 6971,\n          \"miss\": 9934,\n          \"pass\": 3351,\n          \"errors\": 7372,\n          \"bandwidth\": 9676,\n          \"header_size\": 1389,\n          \"body_size\": 8851,\n          \"status_1xx\": 8718,\n          \"status_2xx\": 4413,\n          \"status_3xx\": 6963,\n          \"status_4xx\": 5066,\n          \"status_5xx\": 7704,\n          \"hit_ratio\": 6878.893976411242\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 7739,\n        \"hits\": 5354,\n        \"miss\": 4621,\n        \"pass\": 4312,\n        \"errors\": 185,\n        \"bandwidth\": 9309,\n        \"header_size\": 5046,\n        \"body_size\": 4183,\n        \"status_1xx\": 9454,\n        \"status_2xx\": 995,\n        \"status_3xx\": 4508,\n        \"status_4xx\": 7537,\n        \"status_5xx\": 2784,\n        \"hit_ratio\": 3827.826962508669\n      },\n      \"recorded\": 9447\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3990ebe-2fd9-4a4d-a535-bbed368ce216",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    ":start_timestamp"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "start_timestamp",
+                      "description": "(Required) The Unix timestamp to start retrieving analytics data from."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "23b23dc4-157c-43a6-91f0-38d6c55955c2",
+              "name": "Service not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    ":start_timestamp"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "start_timestamp",
+                      "description": "(Required) The Unix timestamp to start retrieving analytics data from."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ca8e927-6ea9-4529-8f7a-2eb2ee67dd71",
+          "name": "Get real-time analytics for the last 120 seconds",
+          "request": {
+            "name": "Get real-time analytics for the last 120 seconds",
+            "description": {
+              "content": "Retrieves real-time analytics data for the last 120 seconds for the specified Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "channel",
+                ":service_id",
+                "ts",
+                "h"
+              ],
+              "host": [
+                "rt",
+                "fastly",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b1a5600-7cfa-48b8-bc77-768554e58639",
+              "name": "Successfully retrieved real-time analytics data.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Timestamp\": 9348,\n  \"AggregateDelay\": 652,\n  \"Data\": [\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 6492,\n          \"hits\": 3581,\n          \"miss\": 913,\n          \"pass\": 1849,\n          \"errors\": 367,\n          \"bandwidth\": 1613,\n          \"header_size\": 1780,\n          \"body_size\": 751,\n          \"status_1xx\": 4093,\n          \"status_2xx\": 7363,\n          \"status_3xx\": 3128,\n          \"status_4xx\": 4353,\n          \"status_5xx\": 9493,\n          \"hit_ratio\": 4970.201142969893\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 6368,\n        \"hits\": 3044,\n        \"miss\": 3555,\n        \"pass\": 5725,\n        \"errors\": 7507,\n        \"bandwidth\": 6128,\n        \"header_size\": 8058,\n        \"body_size\": 9956,\n        \"status_1xx\": 4352,\n        \"status_2xx\": 7712,\n        \"status_3xx\": 697,\n        \"status_4xx\": 6039,\n        \"status_5xx\": 147,\n        \"hit_ratio\": 8820.570459065442\n      },\n      \"recorded\": 9155\n    },\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 8187,\n          \"hits\": 6971,\n          \"miss\": 9934,\n          \"pass\": 3351,\n          \"errors\": 7372,\n          \"bandwidth\": 9676,\n          \"header_size\": 1389,\n          \"body_size\": 8851,\n          \"status_1xx\": 8718,\n          \"status_2xx\": 4413,\n          \"status_3xx\": 6963,\n          \"status_4xx\": 5066,\n          \"status_5xx\": 7704,\n          \"hit_ratio\": 6878.893976411242\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 7739,\n        \"hits\": 5354,\n        \"miss\": 4621,\n        \"pass\": 4312,\n        \"errors\": 185,\n        \"bandwidth\": 9309,\n        \"header_size\": 5046,\n        \"body_size\": 4183,\n        \"status_1xx\": 9454,\n        \"status_2xx\": 995,\n        \"status_3xx\": 4508,\n        \"status_4xx\": 7537,\n        \"status_5xx\": 2784,\n        \"hit_ratio\": 3827.826962508669\n      },\n      \"recorded\": 9447\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12d84def-0784-4ce4-a744-5729ac65dd37",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "07b38cdc-f9ea-4316-841f-d1df116f1337",
+              "name": "Service not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16899a38-c51e-4481-ac21-222d0a418de8",
+          "name": "Get real-time analytics with a limit",
+          "request": {
+            "name": "Get real-time analytics with a limit",
+            "description": {
+              "content": "Retrieves real-time analytics data for the specified Fastly service limited to the most recent entries up to the specified maximum.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "channel",
+                ":service_id",
+                "ts",
+                "h",
+                "limit",
+                ":max_entries"
+              ],
+              "host": [
+                "rt",
+                "fastly",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "max_entries",
+                  "description": "(Required) The maximum number of entries to return."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "39bd5754-533f-4c34-8ed0-de286686a209",
+              "name": "Successfully retrieved real-time analytics data.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Timestamp\": 9348,\n  \"AggregateDelay\": 652,\n  \"Data\": [\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 6492,\n          \"hits\": 3581,\n          \"miss\": 913,\n          \"pass\": 1849,\n          \"errors\": 367,\n          \"bandwidth\": 1613,\n          \"header_size\": 1780,\n          \"body_size\": 751,\n          \"status_1xx\": 4093,\n          \"status_2xx\": 7363,\n          \"status_3xx\": 3128,\n          \"status_4xx\": 4353,\n          \"status_5xx\": 9493,\n          \"hit_ratio\": 4970.201142969893\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 6368,\n        \"hits\": 3044,\n        \"miss\": 3555,\n        \"pass\": 5725,\n        \"errors\": 7507,\n        \"bandwidth\": 6128,\n        \"header_size\": 8058,\n        \"body_size\": 9956,\n        \"status_1xx\": 4352,\n        \"status_2xx\": 7712,\n        \"status_3xx\": 697,\n        \"status_4xx\": 6039,\n        \"status_5xx\": 147,\n        \"hit_ratio\": 8820.570459065442\n      },\n      \"recorded\": 9155\n    },\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 8187,\n          \"hits\": 6971,\n          \"miss\": 9934,\n          \"pass\": 3351,\n          \"errors\": 7372,\n          \"bandwidth\": 9676,\n          \"header_size\": 1389,\n          \"body_size\": 8851,\n          \"status_1xx\": 8718,\n          \"status_2xx\": 4413,\n          \"status_3xx\": 6963,\n          \"status_4xx\": 5066,\n          \"status_5xx\": 7704,\n          \"hit_ratio\": 6878.893976411242\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 7739,\n        \"hits\": 5354,\n        \"miss\": 4621,\n        \"pass\": 4312,\n        \"errors\": 185,\n        \"bandwidth\": 9309,\n        \"header_size\": 5046,\n        \"body_size\": 4183,\n        \"status_1xx\": 9454,\n        \"status_2xx\": 995,\n        \"status_3xx\": 4508,\n        \"status_4xx\": 7537,\n        \"status_5xx\": 2784,\n        \"hit_ratio\": 3827.826962508669\n      },\n      \"recorded\": 9447\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12168abf-59bf-4134-8037-85ed19780880",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6f96bbc2-c6e3-4e5c-9333-65af7186f6ad",
+              "name": "Service not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rt.fastly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1b330eb-5b25-42c3-91e8-0f12d3ef86bd",
+    "name": "Fastly Metrics and Stats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fastly Metrics and Stats API provides access to both real-time and historical analytics data for Fastly services. The real-time analytics endpoint, served on rt.fastly.com, delivers second-by-second stats including request counts, bandwidth, cache hit ratios, and error rates. Historical stats provide aggregated data over longer time periods. The API also includes the Domain Inspector for per-domain metrics and the Origin Inspector for origin-level performance data.\n\nContact Support:\n Name: Fastly Support",
+      "type": "text/plain"
+    }
+  }
+}

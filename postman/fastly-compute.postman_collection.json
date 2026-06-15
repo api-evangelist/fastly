@@ -1,0 +1,3757 @@
+{
+  "info": {
+    "_postman_id": "2a0214ca-f4b1-4ccd-8079-986dc9b1d409",
+    "name": "Fastly Compute API",
+    "description": "The Fastly Compute platform enables developers to build and deploy serverless applications that run on Fastly's global edge network using WebAssembly. Compute services support custom application logic written in Rust, JavaScript, or Go using official Fastly SDKs. The platform provides access to edge primitives including KV stores, config stores, secret stores, dynamic backends, and real-time messaging, enabling developers to build full-featured applications that execute close to end users with sub-millisecond startup times.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:47.000Z",
+    "updatedAt": "2026-06-05T15:08:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2a0214ca-f4b1-4ccd-8079-986dc9b1d409"
+  },
+  "item": [
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "{service_id}",
+          "item": [
+            {
+              "name": "version",
+              "item": [
+                {
+                  "name": "{version_id}",
+                  "item": [
+                    {
+                      "name": "package",
+                      "item": [
+                        {
+                          "name": "Get a Compute package",
+                          "id": "7be8d49d-7dcd-49d6-87f8-71b0be083c68",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/package",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "package"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "5b3b5c7a-93c8-42e0-81fc-6f94cb8ef33b",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "5a4f56d4-d673-4386-9808-9fb335d85599",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The integer identifying the service version."
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the details of the Compute package associated with a specific version of a Fastly service."
+                          },
+                          "response": [
+                            {
+                              "id": "cc7bc6e7-59b8-470f-9411-54761f87b464",
+                              "name": "Successfully retrieved the package details.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/package",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "package"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"service_id\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"authors\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"language\": \"<string>\",\n    \"size\": \"<integer>\",\n    \"hashsum\": \"<string>\"\n  },\n  \"created_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-cc7bc6e7-59b8-470f-9411-54761f87b464"
+                            },
+                            {
+                              "id": "ac20404a-892b-4f6a-a7a4-f6517719157e",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/package",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "package"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-ac20404a-892b-4f6a-a7a4-f6517719157e"
+                            },
+                            {
+                              "id": "85616c7f-d088-4e0f-aabd-35bb1a16a57d",
+                              "name": "Package not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/package",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "package"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-85616c7f-d088-4e0f-aabd-35bb1a16a57d"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-7be8d49d-7dcd-49d6-87f8-71b0be083c68"
+                        },
+                        {
+                          "name": "Upload a Compute package",
+                          "id": "4b32792c-bf44-4b5b-aeec-68cb92dd6ac2",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "(Required) The Compute package binary file (.tar.gz).",
+                                  "key": "package",
+                                  "type": "file",
+                                  "value": null
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/package",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "package"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6d09440b-86fc-425b-898e-2daccf79e2ef",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "6f72f696-d823-4eb9-b785-2c966d506027",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The integer identifying the service version."
+                                }
+                              ]
+                            },
+                            "description": "Uploads a Compute package (WebAssembly binary) for a specific version of a Fastly service."
+                          },
+                          "response": [
+                            {
+                              "id": "d148d305-01c2-4e7e-99ae-10fc2da48432",
+                              "name": "Successfully uploaded the package.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "multipart/form-data"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "formdata",
+                                  "formdata": [
+                                    {
+                                      "description": "(Required) The Compute package binary file (.tar.gz).",
+                                      "key": "package",
+                                      "type": "file"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/package",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "package"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"service_id\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"authors\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"language\": \"<string>\",\n    \"size\": \"<integer>\",\n    \"hashsum\": \"<string>\"\n  },\n  \"created_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-d148d305-01c2-4e7e-99ae-10fc2da48432"
+                            },
+                            {
+                              "id": "77918520-b03b-4779-8f3b-71d9323edf6a",
+                              "name": "Bad request. Invalid package format.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "multipart/form-data"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "formdata",
+                                  "formdata": [
+                                    {
+                                      "description": "(Required) The Compute package binary file (.tar.gz).",
+                                      "key": "package",
+                                      "type": "file"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/package",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "package"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-77918520-b03b-4779-8f3b-71d9323edf6a"
+                            },
+                            {
+                              "id": "237dfa52-0bf4-4c12-a871-2662aad803a5",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "multipart/form-data"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "formdata",
+                                  "formdata": [
+                                    {
+                                      "description": "(Required) The Compute package binary file (.tar.gz).",
+                                      "key": "package",
+                                      "type": "file"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/package",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "package"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-237dfa52-0bf4-4c12-a871-2662aad803a5"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-4b32792c-bf44-4b5b-aeec-68cb92dd6ac2"
+                        }
+                      ],
+                      "id": "db40c678-976e-4ba5-a312-fc5d9c94f7b7",
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-db40c678-976e-4ba5-a312-fc5d9c94f7b7"
+                    }
+                  ],
+                  "id": "8aee4c1c-366e-4d5a-8dcb-e548927d14be",
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-8aee4c1c-366e-4d5a-8dcb-e548927d14be"
+                }
+              ],
+              "id": "ea8ab526-3ffb-48f9-85e8-7c20f0c2407f",
+              "createdAt": "2026-06-05T15:08:48.000Z",
+              "updatedAt": "2026-06-05T15:08:48.000Z",
+              "uid": "35240-ea8ab526-3ffb-48f9-85e8-7c20f0c2407f"
+            }
+          ],
+          "id": "ab385c02-4695-4c29-bdb4-bc887c7d2131",
+          "createdAt": "2026-06-05T15:08:48.000Z",
+          "updatedAt": "2026-06-05T15:08:48.000Z",
+          "uid": "35240-ab385c02-4695-4c29-bdb4-bc887c7d2131"
+        }
+      ],
+      "id": "8af74a56-5430-45cf-b72d-06b73ae03a99",
+      "createdAt": "2026-06-05T15:08:48.000Z",
+      "updatedAt": "2026-06-05T15:08:48.000Z",
+      "uid": "35240-8af74a56-5430-45cf-b72d-06b73ae03a99"
+    },
+    {
+      "name": "resources",
+      "item": [
+        {
+          "name": "stores",
+          "item": [
+            {
+              "name": "kv",
+              "item": [
+                {
+                  "name": "{store_id}",
+                  "item": [
+                    {
+                      "name": "keys",
+                      "item": [
+                        {
+                          "name": "{key_name}",
+                          "item": [
+                            {
+                              "name": "Get a KV store item",
+                              "id": "83adbca6-a675-439f-a1a4-bb3140a40414",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/octet-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "resources",
+                                    "stores",
+                                    "kv",
+                                    ":store_id",
+                                    "keys",
+                                    ":key_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "03e65f12-68fc-480b-8d39-340c12376944",
+                                      "key": "store_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the store."
+                                    },
+                                    {
+                                      "id": "6d6f00ff-95c9-4ed8-aed9-1b2ee40dcc3b",
+                                      "key": "key_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The key name of the item."
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves the value and metadata of a specific item in a KV store."
+                              },
+                              "response": [
+                                {
+                                  "id": "1d1622f8-669a-491d-82f5-8734ca0b3227",
+                                  "name": "Successfully retrieved the KV store item value.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/octet-stream"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "resources",
+                                        "stores",
+                                        "kv",
+                                        ":store_id",
+                                        "keys",
+                                        ":key_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "store_id"
+                                        },
+                                        {
+                                          "key": "key_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/octet-stream"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "<binary>",
+                                  "createdAt": "2026-06-05T15:08:48.000Z",
+                                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                                  "uid": "35240-1d1622f8-669a-491d-82f5-8734ca0b3227"
+                                },
+                                {
+                                  "id": "63047b7a-6904-49e0-9e22-630e8f17eee8",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "resources",
+                                        "stores",
+                                        "kv",
+                                        ":store_id",
+                                        "keys",
+                                        ":key_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "store_id"
+                                        },
+                                        {
+                                          "key": "key_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:48.000Z",
+                                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                                  "uid": "35240-63047b7a-6904-49e0-9e22-630e8f17eee8"
+                                },
+                                {
+                                  "id": "5b40d8c8-6e9a-4a42-8896-91a04ffc6c3f",
+                                  "name": "KV store item not found.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "resources",
+                                        "stores",
+                                        "kv",
+                                        ":store_id",
+                                        "keys",
+                                        ":key_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "store_id"
+                                        },
+                                        {
+                                          "key": "key_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:48.000Z",
+                                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                                  "uid": "35240-5b40d8c8-6e9a-4a42-8896-91a04ffc6c3f"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-83adbca6-a675-439f-a1a4-bb3140a40414"
+                            },
+                            {
+                              "name": "Insert or update a KV store item",
+                              "id": "a957d2b9-eda0-45be-bd83-dd81749e6277",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/octet-stream"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "<binary>"
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name?time_to_live_sec=<integer>&metadata=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "resources",
+                                    "stores",
+                                    "kv",
+                                    ":store_id",
+                                    "keys",
+                                    ":key_name"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The time to live in seconds for the item.",
+                                      "key": "time_to_live_sec",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "Optional metadata to attach to the item.",
+                                      "key": "metadata",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "ab86ac70-b626-497d-8a62-eb13d55b413e",
+                                      "key": "store_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the store."
+                                    },
+                                    {
+                                      "id": "7ff2dc38-328a-420b-8aa4-578636e3fdce",
+                                      "key": "key_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The key name of the item."
+                                    }
+                                  ]
+                                },
+                                "description": "Creates or updates an item in a KV store."
+                              },
+                              "response": [
+                                {
+                                  "id": "7116733b-1890-409a-afa4-f0117555e1a8",
+                                  "name": "Successfully upserted the KV store item.",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/octet-stream"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "<binary>"
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name?time_to_live_sec=<integer>&metadata=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "resources",
+                                        "stores",
+                                        "kv",
+                                        ":store_id",
+                                        "keys",
+                                        ":key_name"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The time to live in seconds for the item.",
+                                          "key": "time_to_live_sec",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "Optional metadata to attach to the item.",
+                                          "key": "metadata",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "store_id"
+                                        },
+                                        {
+                                          "key": "key_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:48.000Z",
+                                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                                  "uid": "35240-7116733b-1890-409a-afa4-f0117555e1a8"
+                                },
+                                {
+                                  "id": "c2d3d3f9-4cd2-4f40-9fce-6a3a9cd9451e",
+                                  "name": "Bad request. Missing or invalid parameters.",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/octet-stream"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "<binary>"
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name?time_to_live_sec=<integer>&metadata=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "resources",
+                                        "stores",
+                                        "kv",
+                                        ":store_id",
+                                        "keys",
+                                        ":key_name"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The time to live in seconds for the item.",
+                                          "key": "time_to_live_sec",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "Optional metadata to attach to the item.",
+                                          "key": "metadata",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "store_id"
+                                        },
+                                        {
+                                          "key": "key_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:48.000Z",
+                                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                                  "uid": "35240-c2d3d3f9-4cd2-4f40-9fce-6a3a9cd9451e"
+                                },
+                                {
+                                  "id": "4d59fc53-9d2b-4af7-bb68-6262c0fa8f15",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/octet-stream"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "<binary>"
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name?time_to_live_sec=<integer>&metadata=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "resources",
+                                        "stores",
+                                        "kv",
+                                        ":store_id",
+                                        "keys",
+                                        ":key_name"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The time to live in seconds for the item.",
+                                          "key": "time_to_live_sec",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "Optional metadata to attach to the item.",
+                                          "key": "metadata",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "store_id"
+                                        },
+                                        {
+                                          "key": "key_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:48.000Z",
+                                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                                  "uid": "35240-4d59fc53-9d2b-4af7-bb68-6262c0fa8f15"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-a957d2b9-eda0-45be-bd83-dd81749e6277"
+                            },
+                            {
+                              "name": "Delete a KV store item",
+                              "id": "701d04bb-440c-4159-91cc-802a71de9778",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "resources",
+                                    "stores",
+                                    "kv",
+                                    ":store_id",
+                                    "keys",
+                                    ":key_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "1c464e1a-b7ae-4578-9555-b42c6cd5390d",
+                                      "key": "store_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the store."
+                                    },
+                                    {
+                                      "id": "9122bd22-51ae-4987-a295-ae02de1f4f72",
+                                      "key": "key_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The key name of the item."
+                                    }
+                                  ]
+                                },
+                                "description": "Deletes a specific item from a KV store."
+                              },
+                              "response": [
+                                {
+                                  "id": "504436bf-9cab-423e-8341-5a87f029c850",
+                                  "name": "Successfully deleted the KV store item.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "resources",
+                                        "stores",
+                                        "kv",
+                                        ":store_id",
+                                        "keys",
+                                        ":key_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "store_id"
+                                        },
+                                        {
+                                          "key": "key_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:48.000Z",
+                                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                                  "uid": "35240-504436bf-9cab-423e-8341-5a87f029c850"
+                                },
+                                {
+                                  "id": "016d01da-06f7-4ec2-8ae0-6667aaa58681",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "resources",
+                                        "stores",
+                                        "kv",
+                                        ":store_id",
+                                        "keys",
+                                        ":key_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "store_id"
+                                        },
+                                        {
+                                          "key": "key_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:48.000Z",
+                                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                                  "uid": "35240-016d01da-06f7-4ec2-8ae0-6667aaa58681"
+                                },
+                                {
+                                  "id": "d3dc4456-9dc0-46cc-9835-ea5eef9d9e0a",
+                                  "name": "KV store item not found.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys/:key_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "resources",
+                                        "stores",
+                                        "kv",
+                                        ":store_id",
+                                        "keys",
+                                        ":key_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "store_id"
+                                        },
+                                        {
+                                          "key": "key_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:48.000Z",
+                                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                                  "uid": "35240-d3dc4456-9dc0-46cc-9835-ea5eef9d9e0a"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-701d04bb-440c-4159-91cc-802a71de9778"
+                            }
+                          ],
+                          "id": "4c21bcb6-4c1e-40d1-a06f-c9db80d4e9b6",
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-4c21bcb6-4c1e-40d1-a06f-c9db80d4e9b6"
+                        },
+                        {
+                          "name": "List keys in a KV store",
+                          "id": "75f38338-a401-42e8-934f-c72a18de016d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys?cursor=<string>&limit=<integer>&prefix=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "kv",
+                                ":store_id",
+                                "keys"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A cursor for pagination.",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The maximum number of keys to return.",
+                                  "key": "limit",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "A prefix to filter keys by.",
+                                  "key": "prefix",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "19680705-2957-4c00-87fe-8c54b2a8a1d3",
+                                  "key": "store_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the store."
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a list of all keys stored in a specific KV store."
+                          },
+                          "response": [
+                            {
+                              "id": "8c9800d8-02ef-48ec-86ae-2b1b052bb79c",
+                              "name": "Successfully retrieved the list of keys.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys?cursor=<string>&limit=<integer>&prefix=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "resources",
+                                    "stores",
+                                    "kv",
+                                    ":store_id",
+                                    "keys"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "A cursor for pagination.",
+                                      "key": "cursor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "The maximum number of keys to return.",
+                                      "key": "limit",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "A prefix to filter keys by.",
+                                      "key": "prefix",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "store_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"meta\": {\n    \"next_cursor\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-8c9800d8-02ef-48ec-86ae-2b1b052bb79c"
+                            },
+                            {
+                              "id": "ed3f666e-0b04-420e-86a5-9754d91de10c",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys?cursor=<string>&limit=<integer>&prefix=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "resources",
+                                    "stores",
+                                    "kv",
+                                    ":store_id",
+                                    "keys"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "A cursor for pagination.",
+                                      "key": "cursor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "The maximum number of keys to return.",
+                                      "key": "limit",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "A prefix to filter keys by.",
+                                      "key": "prefix",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "store_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-ed3f666e-0b04-420e-86a5-9754d91de10c"
+                            },
+                            {
+                              "id": "220f8f09-87f4-4ee8-9e07-9687f87e85c3",
+                              "name": "KV store not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/resources/stores/kv/:store_id/keys?cursor=<string>&limit=<integer>&prefix=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "resources",
+                                    "stores",
+                                    "kv",
+                                    ":store_id",
+                                    "keys"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "A cursor for pagination.",
+                                      "key": "cursor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "The maximum number of keys to return.",
+                                      "key": "limit",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "A prefix to filter keys by.",
+                                      "key": "prefix",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "store_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:48.000Z",
+                              "updatedAt": "2026-06-05T15:08:48.000Z",
+                              "uid": "35240-220f8f09-87f4-4ee8-9e07-9687f87e85c3"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-75f38338-a401-42e8-934f-c72a18de016d"
+                        }
+                      ],
+                      "id": "d53e9c04-f193-4ae6-a599-fc6c22c5a821",
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-d53e9c04-f193-4ae6-a599-fc6c22c5a821"
+                    },
+                    {
+                      "name": "Get a KV store",
+                      "id": "42200715-5cd6-4a5d-ab58-f6f2424255d6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/kv/:store_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "kv",
+                            ":store_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b3f5d3a6-efcc-4d5a-b3d2-824475d59742",
+                              "key": "store_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the store."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the details of a specific KV store."
+                      },
+                      "response": [
+                        {
+                          "id": "27e1a935-1220-4b4f-b946-b7d171c10663",
+                          "name": "Successfully retrieved the KV store.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/kv/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "kv",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-27e1a935-1220-4b4f-b946-b7d171c10663"
+                        },
+                        {
+                          "id": "b3258573-02dd-41da-837e-108c1bca95c1",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/kv/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "kv",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-b3258573-02dd-41da-837e-108c1bca95c1"
+                        },
+                        {
+                          "id": "f6d72f02-ef7f-4569-bf53-324c551590f7",
+                          "name": "KV store not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/kv/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "kv",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-f6d72f02-ef7f-4569-bf53-324c551590f7"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-42200715-5cd6-4a5d-ab58-f6f2424255d6"
+                    },
+                    {
+                      "name": "Delete a KV store",
+                      "id": "3da20d30-f4fa-454f-b481-c97d2ce2c673",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/kv/:store_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "kv",
+                            ":store_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "212599dd-8fae-4315-88e5-59fb21175830",
+                              "key": "store_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the store."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a specific KV store and all of its items."
+                      },
+                      "response": [
+                        {
+                          "id": "0d0b511d-52b1-4355-a4e6-15bcbca417d1",
+                          "name": "Successfully deleted the KV store.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/kv/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "kv",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-0d0b511d-52b1-4355-a4e6-15bcbca417d1"
+                        },
+                        {
+                          "id": "9a6a2597-fdf3-4c28-b46f-726a95e19158",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/kv/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "kv",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-9a6a2597-fdf3-4c28-b46f-726a95e19158"
+                        },
+                        {
+                          "id": "45473412-e1a8-4a4b-8a73-c353bd78b116",
+                          "name": "KV store not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/kv/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "kv",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-45473412-e1a8-4a4b-8a73-c353bd78b116"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-3da20d30-f4fa-454f-b481-c97d2ce2c673"
+                    }
+                  ],
+                  "id": "6a2ae34f-f1dc-43a2-9902-eedf701089d8",
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-6a2ae34f-f1dc-43a2-9902-eedf701089d8"
+                },
+                {
+                  "name": "List KV stores",
+                  "id": "6d7b3f4e-e828-498e-b891-ed14c24cc0e4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/stores/kv?cursor=<string>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        "stores",
+                        "kv"
+                      ],
+                      "query": [
+                        {
+                          "description": "A cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a list of all KV stores associated with the account."
+                  },
+                  "response": [
+                    {
+                      "id": "9e929de9-9338-4ad5-b743-b18dcb3e27ce",
+                      "name": "Successfully retrieved the list of KV stores.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/kv?cursor=<string>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "kv"
+                          ],
+                          "query": [
+                            {
+                              "description": "A cursor for pagination.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"next_cursor\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-9e929de9-9338-4ad5-b743-b18dcb3e27ce"
+                    },
+                    {
+                      "id": "85f045fd-78ed-42ec-aaab-c3e056ae1a1c",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/kv?cursor=<string>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "kv"
+                          ],
+                          "query": [
+                            {
+                              "description": "A cursor for pagination.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-85f045fd-78ed-42ec-aaab-c3e056ae1a1c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-6d7b3f4e-e828-498e-b891-ed14c24cc0e4"
+                },
+                {
+                  "name": "Create a KV store",
+                  "id": "87ec67ba-9b87-4bfb-8566-39177250613e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/stores/kv",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        "stores",
+                        "kv"
+                      ]
+                    },
+                    "description": "Creates a new KV store for persistent key-value storage accessible from Compute services."
+                  },
+                  "response": [
+                    {
+                      "id": "1d9c853d-8b61-4aef-8afe-3996c34ce3e1",
+                      "name": "Successfully created the KV store.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/kv",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "kv"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-1d9c853d-8b61-4aef-8afe-3996c34ce3e1"
+                    },
+                    {
+                      "id": "7eb1864b-fc9e-4b04-afc6-2aa232bf15a2",
+                      "name": "Bad request. Missing or invalid parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/kv",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "kv"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-7eb1864b-fc9e-4b04-afc6-2aa232bf15a2"
+                    },
+                    {
+                      "id": "cbe8effa-1fdd-49a5-90d3-07630641e43c",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/kv",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "kv"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-cbe8effa-1fdd-49a5-90d3-07630641e43c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-87ec67ba-9b87-4bfb-8566-39177250613e"
+                }
+              ],
+              "id": "671fafed-7aa7-4036-ac93-25247247cbda",
+              "createdAt": "2026-06-05T15:08:48.000Z",
+              "updatedAt": "2026-06-05T15:08:48.000Z",
+              "uid": "35240-671fafed-7aa7-4036-ac93-25247247cbda"
+            },
+            {
+              "name": "config",
+              "item": [
+                {
+                  "name": "{config_store_id}",
+                  "item": [
+                    {
+                      "name": "Get a config store",
+                      "id": "4eb9dc77-501c-4070-8675-df07eeb43f30",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "config",
+                            ":config_store_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2f0f3dcc-f705-4438-b78f-38fb978c5d12",
+                              "key": "config_store_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the config store."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the details of a specific config store."
+                      },
+                      "response": [
+                        {
+                          "id": "c3d9df9b-4b8f-4584-b269-dbbf215f6453",
+                          "name": "Successfully retrieved the config store.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "config",
+                                ":config_store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "config_store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-c3d9df9b-4b8f-4584-b269-dbbf215f6453"
+                        },
+                        {
+                          "id": "d0adecfe-2daa-4c3c-a6db-4d74795614fa",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "config",
+                                ":config_store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "config_store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-d0adecfe-2daa-4c3c-a6db-4d74795614fa"
+                        },
+                        {
+                          "id": "4a870008-5140-4d7f-a911-c3d023a0caac",
+                          "name": "Config store not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "config",
+                                ":config_store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "config_store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-4a870008-5140-4d7f-a911-c3d023a0caac"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-4eb9dc77-501c-4070-8675-df07eeb43f30"
+                    },
+                    {
+                      "name": "Update a config store",
+                      "id": "bee52cb8-e873-4f76-9bab-ca44ecafd625",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "config",
+                            ":config_store_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "970d6858-df6b-4e1c-9da2-fff0781ab221",
+                              "key": "config_store_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the config store."
+                            }
+                          ]
+                        },
+                        "description": "Updates the details of a specific config store."
+                      },
+                      "response": [
+                        {
+                          "id": "9e7d4d2e-d466-40e5-a676-e5f6120d46cc",
+                          "name": "Successfully updated the config store.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "config",
+                                ":config_store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "config_store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-9e7d4d2e-d466-40e5-a676-e5f6120d46cc"
+                        },
+                        {
+                          "id": "225033a5-aeac-41e8-a7c1-f449d67c4fcd",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "config",
+                                ":config_store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "config_store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-225033a5-aeac-41e8-a7c1-f449d67c4fcd"
+                        },
+                        {
+                          "id": "1b689e21-d192-4bb1-b4f1-34406e6f8dbf",
+                          "name": "Config store not found.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "config",
+                                ":config_store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "config_store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-1b689e21-d192-4bb1-b4f1-34406e6f8dbf"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-bee52cb8-e873-4f76-9bab-ca44ecafd625"
+                    },
+                    {
+                      "name": "Delete a config store",
+                      "id": "7588a09f-06ca-40db-96bb-260bc08b2df0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "config",
+                            ":config_store_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "aead113d-17d0-4f7c-8e47-bf5e49831703",
+                              "key": "config_store_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the config store."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a specific config store and all of its items."
+                      },
+                      "response": [
+                        {
+                          "id": "83c88ab7-43bf-4454-a9ac-109bc84c4337",
+                          "name": "Successfully deleted the config store.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "config",
+                                ":config_store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "config_store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-83c88ab7-43bf-4454-a9ac-109bc84c4337"
+                        },
+                        {
+                          "id": "db7daf76-8656-4b0f-ac9c-0e9a6851826a",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "config",
+                                ":config_store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "config_store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-db7daf76-8656-4b0f-ac9c-0e9a6851826a"
+                        },
+                        {
+                          "id": "6e4f03a0-dc38-4dc1-9554-ae9e5e52746c",
+                          "name": "Config store not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/config/:config_store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "config",
+                                ":config_store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "config_store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-6e4f03a0-dc38-4dc1-9554-ae9e5e52746c"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-7588a09f-06ca-40db-96bb-260bc08b2df0"
+                    }
+                  ],
+                  "id": "9d05d182-6dd5-4fe7-92a0-9b93bf0fecd7",
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-9d05d182-6dd5-4fe7-92a0-9b93bf0fecd7"
+                },
+                {
+                  "name": "List config stores",
+                  "id": "de4a1077-86aa-433c-bf5b-2010dd852dd7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/stores/config",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        "stores",
+                        "config"
+                      ]
+                    },
+                    "description": "Retrieves a list of all config stores associated with the account."
+                  },
+                  "response": [
+                    {
+                      "id": "39b80798-4e88-41a2-a683-3ad8c13fa9d7",
+                      "name": "Successfully retrieved the list of config stores.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/config",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "config"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-39b80798-4e88-41a2-a683-3ad8c13fa9d7"
+                    },
+                    {
+                      "id": "27f8fce2-3212-4113-a37f-6b8e58df422a",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/config",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "config"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-27f8fce2-3212-4113-a37f-6b8e58df422a"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-de4a1077-86aa-433c-bf5b-2010dd852dd7"
+                },
+                {
+                  "name": "Create a config store",
+                  "id": "77ea9bb2-e603-40f2-8069-0d8d89fd8fa3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/stores/config",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        "stores",
+                        "config"
+                      ]
+                    },
+                    "description": "Creates a new config store for storing small amounts of textual configuration data accessible from Compute services."
+                  },
+                  "response": [
+                    {
+                      "id": "ccd80588-822b-4e32-bfd3-1d2ac50aa1dc",
+                      "name": "Successfully created the config store.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/config",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "config"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-ccd80588-822b-4e32-bfd3-1d2ac50aa1dc"
+                    },
+                    {
+                      "id": "614e0cdc-c5a8-4ba4-ba35-d6522bc8482c",
+                      "name": "Bad request. Missing or invalid parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/config",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "config"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-614e0cdc-c5a8-4ba4-ba35-d6522bc8482c"
+                    },
+                    {
+                      "id": "e5a9616c-77d8-4a42-8763-ac26e417841e",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/config",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "config"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-e5a9616c-77d8-4a42-8763-ac26e417841e"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-77ea9bb2-e603-40f2-8069-0d8d89fd8fa3"
+                }
+              ],
+              "id": "6a8a5bcd-6667-4f8a-99d5-1088fd151142",
+              "createdAt": "2026-06-05T15:08:48.000Z",
+              "updatedAt": "2026-06-05T15:08:48.000Z",
+              "uid": "35240-6a8a5bcd-6667-4f8a-99d5-1088fd151142"
+            },
+            {
+              "name": "secret",
+              "item": [
+                {
+                  "name": "{store_id}",
+                  "item": [
+                    {
+                      "name": "Get a secret store",
+                      "id": "7cfade19-0334-4aea-90cf-70cbb889218c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/secret/:store_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "secret",
+                            ":store_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0adaa638-e391-4afd-a78f-94fe8d7c95ef",
+                              "key": "store_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the store."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the details of a specific secret store."
+                      },
+                      "response": [
+                        {
+                          "id": "dce05cac-70f2-4b6f-a042-7cf512556220",
+                          "name": "Successfully retrieved the secret store.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/secret/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "secret",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-dce05cac-70f2-4b6f-a042-7cf512556220"
+                        },
+                        {
+                          "id": "545fe26a-c75b-4f93-8249-c8f7e8fbf0b0",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/secret/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "secret",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-545fe26a-c75b-4f93-8249-c8f7e8fbf0b0"
+                        },
+                        {
+                          "id": "09beedbe-105c-4b91-a6bb-e8226ed0c751",
+                          "name": "Secret store not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/secret/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "secret",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-09beedbe-105c-4b91-a6bb-e8226ed0c751"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-7cfade19-0334-4aea-90cf-70cbb889218c"
+                    },
+                    {
+                      "name": "Delete a secret store",
+                      "id": "73d35474-b199-4441-855c-29d2edab0957",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/secret/:store_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "secret",
+                            ":store_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c56c1700-281b-48d2-96ca-f3cece377723",
+                              "key": "store_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the store."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a specific secret store and all of its secrets."
+                      },
+                      "response": [
+                        {
+                          "id": "4ad5f666-479a-4792-91ff-92d82832e1e2",
+                          "name": "Successfully deleted the secret store.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/secret/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "secret",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-4ad5f666-479a-4792-91ff-92d82832e1e2"
+                        },
+                        {
+                          "id": "e8852341-8140-4338-8b09-3c0752d3eabd",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/secret/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "secret",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-e8852341-8140-4338-8b09-3c0752d3eabd"
+                        },
+                        {
+                          "id": "b81d20b0-fd49-4b59-b6b8-631576ef89ec",
+                          "name": "Secret store not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/resources/stores/secret/:store_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "resources",
+                                "stores",
+                                "secret",
+                                ":store_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "store_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:48.000Z",
+                          "updatedAt": "2026-06-05T15:08:48.000Z",
+                          "uid": "35240-b81d20b0-fd49-4b59-b6b8-631576ef89ec"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-73d35474-b199-4441-855c-29d2edab0957"
+                    }
+                  ],
+                  "id": "c10dcc5a-a88f-4292-b2d3-31a2c0f6a8f3",
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-c10dcc5a-a88f-4292-b2d3-31a2c0f6a8f3"
+                },
+                {
+                  "name": "List secret stores",
+                  "id": "c802f23d-8bb1-4f94-a61e-c38191d44746",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/stores/secret?cursor=<string>&limit=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        "stores",
+                        "secret"
+                      ],
+                      "query": [
+                        {
+                          "description": "A cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return.",
+                          "key": "limit",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a list of all secret stores associated with the account."
+                  },
+                  "response": [
+                    {
+                      "id": "7a170cd0-7999-4361-854d-84545dfbeb4f",
+                      "name": "Successfully retrieved the list of secret stores.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/secret?cursor=<string>&limit=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "secret"
+                          ],
+                          "query": [
+                            {
+                              "description": "A cursor for pagination.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return.",
+                              "key": "limit",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"next_cursor\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-7a170cd0-7999-4361-854d-84545dfbeb4f"
+                    },
+                    {
+                      "id": "513368b6-1922-4efd-b762-f9a84ff0718c",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/secret?cursor=<string>&limit=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "secret"
+                          ],
+                          "query": [
+                            {
+                              "description": "A cursor for pagination.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return.",
+                              "key": "limit",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-513368b6-1922-4efd-b762-f9a84ff0718c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-c802f23d-8bb1-4f94-a61e-c38191d44746"
+                },
+                {
+                  "name": "Create a secret store",
+                  "id": "d8df673d-db02-4aff-ad88-fa313b09135d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/resources/stores/secret",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "resources",
+                        "stores",
+                        "secret"
+                      ]
+                    },
+                    "description": "Creates a new secret store for encrypted storage of credentials and tokens accessible from Compute services."
+                  },
+                  "response": [
+                    {
+                      "id": "a9e2b170-63e4-47c1-bc8c-b97a1bfb7673",
+                      "name": "Successfully created the secret store.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/secret",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "secret"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-a9e2b170-63e4-47c1-bc8c-b97a1bfb7673"
+                    },
+                    {
+                      "id": "900d5c17-2a7b-41f7-a0e5-01bf565df129",
+                      "name": "Bad request. Missing or invalid parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/secret",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "secret"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-900d5c17-2a7b-41f7-a0e5-01bf565df129"
+                    },
+                    {
+                      "id": "ea2e3367-e99c-4180-bdfe-1ab3536fc6d4",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/resources/stores/secret",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "resources",
+                            "stores",
+                            "secret"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:48.000Z",
+                      "updatedAt": "2026-06-05T15:08:48.000Z",
+                      "uid": "35240-ea2e3367-e99c-4180-bdfe-1ab3536fc6d4"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:48.000Z",
+                  "updatedAt": "2026-06-05T15:08:48.000Z",
+                  "uid": "35240-d8df673d-db02-4aff-ad88-fa313b09135d"
+                }
+              ],
+              "id": "368d24a9-203f-4449-9e97-5c3785a38092",
+              "createdAt": "2026-06-05T15:08:48.000Z",
+              "updatedAt": "2026-06-05T15:08:48.000Z",
+              "uid": "35240-368d24a9-203f-4449-9e97-5c3785a38092"
+            }
+          ],
+          "id": "c9e4bf3e-27b4-4be4-b888-6d3149e8c108",
+          "createdAt": "2026-06-05T15:08:48.000Z",
+          "updatedAt": "2026-06-05T15:08:48.000Z",
+          "uid": "35240-c9e4bf3e-27b4-4be4-b888-6d3149e8c108"
+        }
+      ],
+      "id": "f09518de-3077-4b4e-9404-e48a52c56a2e",
+      "createdAt": "2026-06-05T15:08:48.000Z",
+      "updatedAt": "2026-06-05T15:08:48.000Z",
+      "uid": "35240-f09518de-3077-4b4e-9404-e48a52c56a2e"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

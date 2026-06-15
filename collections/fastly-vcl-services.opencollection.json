@@ -1,0 +1,611 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly VCL Services API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Backend",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List backends",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/backend",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all backends configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a backend",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/backend",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new backend for a specific version of a Fastly service. Backends define the origin servers that Fastly routes requests to."
+        },
+        {
+          "info": {
+            "name": "Get a backend",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/backend/:backend_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "backend_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the backend."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific backend for a version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Update a backend",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/backend/:backend_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "backend_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the backend."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Updates a specific backend for a version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Delete a backend",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/backend/:backend_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "backend_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the backend."
+              }
+            ]
+          },
+          "docs": "Deletes a specific backend from a version of a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Condition",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List conditions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/condition",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all conditions configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a condition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/condition",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new condition for a specific version of a Fastly service. Conditions use VCL syntax to define when configuration objects should be applied during request processing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cache Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List cache settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/cache_settings",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all cache settings configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create cache settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/cache_settings",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates new cache settings for a specific version of a Fastly service. Cache settings configure cache lifetime for objects stored in the Fastly cache, overriding cache freshness information from HTTP headers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Header",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List header objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/header",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all header manipulation rules configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a header object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/header",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new header manipulation rule for a specific version of a Fastly service. Header objects add, modify, or remove HTTP headers during request and response processing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VCL Snippet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List VCL snippets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/snippet",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all VCL snippets configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a VCL snippet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/snippet",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new VCL snippet for a specific version of a Fastly service. Snippets are small pieces of VCL code that can be inserted into specific VCL subroutines."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom VCL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List custom VCL files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/vcl",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all custom VCL files uploaded for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Upload custom VCL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/vcl",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Uploads a full custom VCL file for a specific version of a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Request Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List request settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/request_settings",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all request settings configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create request settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/request_settings",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates new request settings for a specific version of a Fastly service. Request settings modify inbound requests at the edge before they are processed or forwarded to origin."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Response Object",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List response objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/response_object",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all response objects configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a response object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/response_object",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new response object for a specific version of a Fastly service. Response objects allow serving synthetic responses directly from the edge without contacting an origin server."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

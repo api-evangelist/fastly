@@ -1,0 +1,1385 @@
+{
+  "info": {
+    "_postman_id": "6d420596-4d24-428e-ab23-810cbb5658ed",
+    "name": "Fastly Load Balancing API",
+    "description": "The Fastly Load Balancing API spreads traffic across multiple backends\nautomatically. It exposes Directors bound to VCL service versions for locked\nconfigurations with multiple director groups, and Dynamic Server Pools that\nallow servers to be added or removed without activating new service versions.\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:57.000Z",
+    "updatedAt": "2026-06-05T15:08:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6d420596-4d24-428e-ab23-810cbb5658ed"
+  },
+  "item": [
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "{service_id}",
+          "item": [
+            {
+              "name": "version",
+              "item": [
+                {
+                  "name": "{version_id}",
+                  "item": [
+                    {
+                      "name": "director",
+                      "item": [
+                        {
+                          "name": "{director_name}",
+                          "item": [
+                            {
+                              "name": "Get Director",
+                              "id": "3173b4e3-414b-41ac-b74a-81f5143e1631",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/director/:director_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "director",
+                                    ":director_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "5de70f7f-fc52-4276-8dcf-0736421563b4",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "36ba9355-02ea-4d3a-a7f3-0d1ff7d27baa",
+                                      "key": "version_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "cd2ebbe6-bb42-466d-b15a-fc49eda5cd60",
+                                      "key": "director_name",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "65b4a668-8186-4c48-9961-636da9d6d119",
+                                  "name": "A director",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/director/:director_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "director",
+                                        ":director_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "director_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:58.000Z",
+                                  "updatedAt": "2026-06-05T15:08:58.000Z",
+                                  "uid": "35240-65b4a668-8186-4c48-9961-636da9d6d119"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:57.000Z",
+                              "updatedAt": "2026-06-05T15:08:57.000Z",
+                              "uid": "35240-3173b4e3-414b-41ac-b74a-81f5143e1631"
+                            },
+                            {
+                              "name": "Delete Director",
+                              "id": "48c04fa7-ec77-4a08-824a-58458e0a17f8",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/director/:director_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "director",
+                                    ":director_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "2e04c96e-02e1-47e0-8fbf-f2a00e117fee",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "24cf6e59-e60a-4111-a712-99ae1625d43e",
+                                      "key": "version_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "4b479208-0af3-49c4-ac73-789004193dc6",
+                                      "key": "director_name",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "f2f513eb-1c1a-4e72-a4ee-d324c7697a59",
+                                  "name": "Deleted",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/director/:director_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "director",
+                                        ":director_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "director_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:58.000Z",
+                                  "updatedAt": "2026-06-05T15:08:58.000Z",
+                                  "uid": "35240-f2f513eb-1c1a-4e72-a4ee-d324c7697a59"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:57.000Z",
+                              "updatedAt": "2026-06-05T15:08:57.000Z",
+                              "uid": "35240-48c04fa7-ec77-4a08-824a-58458e0a17f8"
+                            }
+                          ],
+                          "id": "8bf6a49c-31b3-4138-9994-8c8023f736b6",
+                          "createdAt": "2026-06-05T15:08:57.000Z",
+                          "updatedAt": "2026-06-05T15:08:57.000Z",
+                          "uid": "35240-8bf6a49c-31b3-4138-9994-8c8023f736b6"
+                        },
+                        {
+                          "name": "List Directors",
+                          "id": "a29993d0-1964-47c9-85bc-588f4e2b2ee6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/director",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "director"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ad85411a-fd48-406b-851e-4d0b36c72c47",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "dc763147-25e6-4ca1-8485-a8ac04b0e667",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "13abc39f-e078-45dc-8b5f-c107fec79659",
+                              "name": "A list of directors",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/director",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "director"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:58.000Z",
+                              "updatedAt": "2026-06-05T15:08:58.000Z",
+                              "uid": "35240-13abc39f-e078-45dc-8b5f-c107fec79659"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:57.000Z",
+                          "updatedAt": "2026-06-05T15:08:57.000Z",
+                          "uid": "35240-a29993d0-1964-47c9-85bc-588f4e2b2ee6"
+                        },
+                        {
+                          "name": "Create Director",
+                          "id": "2e841160-55a1-4e0f-9beb-1f5d9f50a5b2",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/director",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "director"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "46ebcef0-a650-4c84-a6dd-442b834e09dc",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "7c248e0a-cdc2-4407-99fe-ef32c32e50b1",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "c6944f67-089f-4014-b58f-d71916a89884",
+                              "name": "Director created",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/director",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "director"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:58.000Z",
+                              "updatedAt": "2026-06-05T15:08:58.000Z",
+                              "uid": "35240-c6944f67-089f-4014-b58f-d71916a89884"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:57.000Z",
+                          "updatedAt": "2026-06-05T15:08:57.000Z",
+                          "uid": "35240-2e841160-55a1-4e0f-9beb-1f5d9f50a5b2"
+                        }
+                      ],
+                      "id": "e70a5d38-43fe-48b4-be3c-17563362716c",
+                      "createdAt": "2026-06-05T15:08:57.000Z",
+                      "updatedAt": "2026-06-05T15:08:57.000Z",
+                      "uid": "35240-e70a5d38-43fe-48b4-be3c-17563362716c"
+                    }
+                  ],
+                  "id": "22110f4d-d091-4532-a14a-c0c3f9b58f42",
+                  "createdAt": "2026-06-05T15:08:57.000Z",
+                  "updatedAt": "2026-06-05T15:08:57.000Z",
+                  "uid": "35240-22110f4d-d091-4532-a14a-c0c3f9b58f42"
+                }
+              ],
+              "id": "be031ae1-0851-4de2-b196-fc6332deec93",
+              "createdAt": "2026-06-05T15:08:57.000Z",
+              "updatedAt": "2026-06-05T15:08:57.000Z",
+              "uid": "35240-be031ae1-0851-4de2-b196-fc6332deec93"
+            },
+            {
+              "name": "pool",
+              "item": [
+                {
+                  "name": "{pool_id}",
+                  "item": [
+                    {
+                      "name": "server",
+                      "item": [
+                        {
+                          "name": "{server_id}",
+                          "item": [
+                            {
+                              "name": "Get Server",
+                              "id": "645e250b-ec90-40fc-aeca-06302562621e",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server/:server_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "pool",
+                                    ":pool_id",
+                                    "server",
+                                    ":server_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "3fbb1c53-511c-4116-91b2-fa4ce4104236",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "bc7f2b70-c2be-4828-8375-dd2c5ea50ecf",
+                                      "key": "pool_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "07b54890-94af-4a56-9a4e-e34ed126c01e",
+                                      "key": "server_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "56862ed1-580f-45c8-9fa0-bb9a0cced4e9",
+                                  "name": "A server",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server/:server_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "pool",
+                                        ":pool_id",
+                                        "server",
+                                        ":server_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "pool_id"
+                                        },
+                                        {
+                                          "key": "server_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:58.000Z",
+                                  "updatedAt": "2026-06-05T15:08:58.000Z",
+                                  "uid": "35240-56862ed1-580f-45c8-9fa0-bb9a0cced4e9"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:57.000Z",
+                              "updatedAt": "2026-06-05T15:08:57.000Z",
+                              "uid": "35240-645e250b-ec90-40fc-aeca-06302562621e"
+                            },
+                            {
+                              "name": "Update Server",
+                              "id": "5365bdfc-5f6e-4dcb-8342-73478e773fef",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PATCH",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server/:server_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "pool",
+                                    ":pool_id",
+                                    "server",
+                                    ":server_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "f357d8f5-48cb-4ae5-bba9-d727077418e1",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "e597f67d-d018-4cb2-bbe3-630fb62d45d6",
+                                      "key": "pool_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "d0e8c7a9-2bbe-4f69-a947-38d4a864cb14",
+                                      "key": "server_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "f429a788-fc90-4bdd-86f9-5b91171ddeeb",
+                                  "name": "Updated",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server/:server_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "pool",
+                                        ":pool_id",
+                                        "server",
+                                        ":server_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "pool_id"
+                                        },
+                                        {
+                                          "key": "server_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:58.000Z",
+                                  "updatedAt": "2026-06-05T15:08:58.000Z",
+                                  "uid": "35240-f429a788-fc90-4bdd-86f9-5b91171ddeeb"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:57.000Z",
+                              "updatedAt": "2026-06-05T15:08:57.000Z",
+                              "uid": "35240-5365bdfc-5f6e-4dcb-8342-73478e773fef"
+                            },
+                            {
+                              "name": "Delete Server",
+                              "id": "7cd38681-6007-4330-98cc-7e205e4ccbf3",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server/:server_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "pool",
+                                    ":pool_id",
+                                    "server",
+                                    ":server_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "b7f36109-4819-4caf-b81e-4b61a57b428e",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "febcb465-dac9-41c3-a969-c9d860295437",
+                                      "key": "pool_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "60de6866-9f82-484e-84c6-2e312d6dcb34",
+                                      "key": "server_id",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "f9cd2d2a-b1bd-4664-a4f6-9078de6baaf8",
+                                  "name": "Deleted",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server/:server_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "pool",
+                                        ":pool_id",
+                                        "server",
+                                        ":server_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "pool_id"
+                                        },
+                                        {
+                                          "key": "server_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:58.000Z",
+                                  "updatedAt": "2026-06-05T15:08:58.000Z",
+                                  "uid": "35240-f9cd2d2a-b1bd-4664-a4f6-9078de6baaf8"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:57.000Z",
+                              "updatedAt": "2026-06-05T15:08:57.000Z",
+                              "uid": "35240-7cd38681-6007-4330-98cc-7e205e4ccbf3"
+                            }
+                          ],
+                          "id": "37cfb2cc-2b21-49f6-a759-e9540c3d3383",
+                          "createdAt": "2026-06-05T15:08:57.000Z",
+                          "updatedAt": "2026-06-05T15:08:57.000Z",
+                          "uid": "35240-37cfb2cc-2b21-49f6-a759-e9540c3d3383"
+                        },
+                        {
+                          "name": "List Servers",
+                          "id": "1bd1b1ad-a731-4463-9b1c-b44b6a59c6b6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "pool",
+                                ":pool_id",
+                                "server"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "5cf5bf02-2197-47ff-b055-53d2c0540285",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "058fa5c4-ed2a-499f-b3f0-0cf2c55d3169",
+                                  "key": "pool_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "ec9c0d99-fa78-4d09-87b2-b047355e64cd",
+                              "name": "A list of servers",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "pool",
+                                    ":pool_id",
+                                    "server"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "pool_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:58.000Z",
+                              "updatedAt": "2026-06-05T15:08:58.000Z",
+                              "uid": "35240-ec9c0d99-fa78-4d09-87b2-b047355e64cd"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:57.000Z",
+                          "updatedAt": "2026-06-05T15:08:57.000Z",
+                          "uid": "35240-1bd1b1ad-a731-4463-9b1c-b44b6a59c6b6"
+                        },
+                        {
+                          "name": "Create Server",
+                          "id": "b2c38672-c983-49c7-8cad-4f5469729cde",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "pool",
+                                ":pool_id",
+                                "server"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a600997c-db8a-498d-9b2e-9a5d026fb33a",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "ff7c365c-7679-453c-9aa8-a6c6724c5fbe",
+                                  "key": "pool_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "fea81f3e-cdbb-444a-966a-7c4b031086e0",
+                              "name": "Server created",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id/server",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "pool",
+                                    ":pool_id",
+                                    "server"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "pool_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:58.000Z",
+                              "updatedAt": "2026-06-05T15:08:58.000Z",
+                              "uid": "35240-fea81f3e-cdbb-444a-966a-7c4b031086e0"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:57.000Z",
+                          "updatedAt": "2026-06-05T15:08:57.000Z",
+                          "uid": "35240-b2c38672-c983-49c7-8cad-4f5469729cde"
+                        }
+                      ],
+                      "id": "b2a5a622-3c73-4e57-b976-1bed40ebde1b",
+                      "createdAt": "2026-06-05T15:08:57.000Z",
+                      "updatedAt": "2026-06-05T15:08:57.000Z",
+                      "uid": "35240-b2a5a622-3c73-4e57-b976-1bed40ebde1b"
+                    },
+                    {
+                      "name": "Get Server Pool",
+                      "id": "dd062f20-0a46-4868-898a-a24b8f01f38d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "pool",
+                            ":pool_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "34c44385-797f-4314-b280-bb3737e63bfe",
+                              "key": "service_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "0278620c-ac3e-4539-ba23-7fd47787b484",
+                              "key": "pool_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "881c4353-51f5-4b74-b3f9-a0c359e75111",
+                          "name": "A server pool",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "pool",
+                                ":pool_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "pool_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:58.000Z",
+                          "updatedAt": "2026-06-05T15:08:58.000Z",
+                          "uid": "35240-881c4353-51f5-4b74-b3f9-a0c359e75111"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:57.000Z",
+                      "updatedAt": "2026-06-05T15:08:57.000Z",
+                      "uid": "35240-dd062f20-0a46-4868-898a-a24b8f01f38d"
+                    },
+                    {
+                      "name": "Update Server Pool",
+                      "id": "cfbf14f9-0b9d-4833-a743-ddb7c16b08ba",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "pool",
+                            ":pool_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "bedbe323-2a40-42e2-8b79-be29f56eb096",
+                              "key": "service_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "c0acb505-aae8-4cd2-9c2c-b2c0759a5a8d",
+                              "key": "pool_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "146eb59c-f873-4645-a38a-971168e60ba7",
+                          "name": "Updated",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "pool",
+                                ":pool_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "pool_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:58.000Z",
+                          "updatedAt": "2026-06-05T15:08:58.000Z",
+                          "uid": "35240-146eb59c-f873-4645-a38a-971168e60ba7"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:57.000Z",
+                      "updatedAt": "2026-06-05T15:08:57.000Z",
+                      "uid": "35240-cfbf14f9-0b9d-4833-a743-ddb7c16b08ba"
+                    },
+                    {
+                      "name": "Delete Server Pool",
+                      "id": "d775f449-ffb3-407a-9b82-578aa3e49e28",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "pool",
+                            ":pool_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "339e199f-15fa-4577-95c4-2bb8d580af8f",
+                              "key": "service_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "090da0d0-0687-45fe-b37f-f5e1339b7673",
+                              "key": "pool_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "da1c0f30-1b97-4bd7-827d-3bece402e6b8",
+                          "name": "Deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/pool/:pool_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "pool",
+                                ":pool_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "pool_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:58.000Z",
+                          "updatedAt": "2026-06-05T15:08:58.000Z",
+                          "uid": "35240-da1c0f30-1b97-4bd7-827d-3bece402e6b8"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:57.000Z",
+                      "updatedAt": "2026-06-05T15:08:57.000Z",
+                      "uid": "35240-d775f449-ffb3-407a-9b82-578aa3e49e28"
+                    }
+                  ],
+                  "id": "f50ac649-91a4-4bda-a258-e513cec576c3",
+                  "createdAt": "2026-06-05T15:08:57.000Z",
+                  "updatedAt": "2026-06-05T15:08:57.000Z",
+                  "uid": "35240-f50ac649-91a4-4bda-a258-e513cec576c3"
+                },
+                {
+                  "name": "List Server Pools",
+                  "id": "621320a0-1e01-4366-8830-70761944092b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id/pool",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id",
+                        "pool"
+                      ],
+                      "variable": [
+                        {
+                          "id": "01896bc3-5e00-4768-9c05-f5ce8dc22179",
+                          "key": "service_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "6191dbb0-315e-4845-aa6b-925962fa8089",
+                      "name": "A list of server pools",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/pool",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "pool"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:58.000Z",
+                      "updatedAt": "2026-06-05T15:08:58.000Z",
+                      "uid": "35240-6191dbb0-315e-4845-aa6b-925962fa8089"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:57.000Z",
+                  "updatedAt": "2026-06-05T15:08:57.000Z",
+                  "uid": "35240-621320a0-1e01-4366-8830-70761944092b"
+                },
+                {
+                  "name": "Create Server Pool",
+                  "id": "d85ab128-e396-4d08-be1c-339b7bcc1af0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id/pool",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id",
+                        "pool"
+                      ],
+                      "variable": [
+                        {
+                          "id": "aaf98274-9b6d-42da-94b4-d88eba4a5d62",
+                          "key": "service_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "01e0ace1-ee13-4021-8ebc-58a5231f2035",
+                      "name": "Pool created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/pool",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "pool"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:58.000Z",
+                      "updatedAt": "2026-06-05T15:08:58.000Z",
+                      "uid": "35240-01e0ace1-ee13-4021-8ebc-58a5231f2035"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:57.000Z",
+                  "updatedAt": "2026-06-05T15:08:57.000Z",
+                  "uid": "35240-d85ab128-e396-4d08-be1c-339b7bcc1af0"
+                }
+              ],
+              "id": "558bb5a4-64e2-4371-a2fa-0a14f6cff622",
+              "createdAt": "2026-06-05T15:08:57.000Z",
+              "updatedAt": "2026-06-05T15:08:57.000Z",
+              "uid": "35240-558bb5a4-64e2-4371-a2fa-0a14f6cff622"
+            }
+          ],
+          "id": "0e9d7d5b-bd3f-49d5-b7dd-37c145e2b968",
+          "createdAt": "2026-06-05T15:08:57.000Z",
+          "updatedAt": "2026-06-05T15:08:57.000Z",
+          "uid": "35240-0e9d7d5b-bd3f-49d5-b7dd-37c145e2b968"
+        }
+      ],
+      "id": "d7ca1664-0bc3-428b-8d39-6ff167145528",
+      "createdAt": "2026-06-05T15:08:57.000Z",
+      "updatedAt": "2026-06-05T15:08:57.000Z",
+      "uid": "35240-d7ca1664-0bc3-428b-8d39-6ff167145528"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

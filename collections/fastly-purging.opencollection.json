@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Purging API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Purging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Purge a URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/purge/:cached_url",
+            "headers": [
+              {
+                "name": "Fastly-Soft-Purge",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "cached_url",
+                "value": "",
+                "type": "path",
+                "description": "The full URL of the cached object to purge."
+              }
+            ]
+          },
+          "docs": "Instantly purges a single URL from Fastly's edge cache. The cached URL should be the full URL of the object to purge. Supports soft purge via the Fastly-Soft-Purge header, which marks the object as stale rather than removing it immediately."
+        },
+        {
+          "info": {
+            "name": "Purge by surrogate key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/purge/:surrogate_key",
+            "headers": [
+              {
+                "name": "Fastly-Soft-Purge",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "surrogate_key",
+                "value": "",
+                "type": "path",
+                "description": "The surrogate key tag to purge."
+              }
+            ]
+          },
+          "docs": "Instantly purges all objects from Fastly's edge cache that match the specified surrogate key tag for the given service. Supports soft purge via the Fastly-Soft-Purge header."
+        },
+        {
+          "info": {
+            "name": "Bulk purge by surrogate key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/purge",
+            "headers": [
+              {
+                "name": "Fastly-Soft-Purge",
+                "value": ""
+              },
+              {
+                "name": "Surrogate-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Purges multiple surrogate key tags from Fastly's edge cache in a single request. Up to 256 surrogate keys can be purged in one batch request. Keys can be sent in a JSON object in the request body or as a Surrogate-Key request header. Supports soft purge via the Fastly-Soft-Purge header."
+        },
+        {
+          "info": {
+            "name": "Purge all cached content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/purge_all",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Instantly purges all cached content from Fastly's edge network for the specified service. This operation cannot be performed as a soft purge and will always immediately invalidate all cached content associated with the service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

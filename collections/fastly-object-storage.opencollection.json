@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Object Storage",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Buckets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Buckets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://storage.fastly.com/"
+          },
+          "docs": "List Buckets"
+        },
+        {
+          "info": {
+            "name": "Create Bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://storage.fastly.com/:bucket",
+            "params": [
+              {
+                "name": "bucket",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create Bucket"
+        },
+        {
+          "info": {
+            "name": "Delete Bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://storage.fastly.com/:bucket",
+            "params": [
+              {
+                "name": "bucket",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Bucket"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Objects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Objects In Bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://storage.fastly.com/:bucket",
+            "params": [
+              {
+                "name": "bucket",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "prefix",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "marker",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "max-keys",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Objects In Bucket"
+        },
+        {
+          "info": {
+            "name": "Get Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://storage.fastly.com/:bucket/:key",
+            "params": [
+              {
+                "name": "bucket",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Object"
+        },
+        {
+          "info": {
+            "name": "Put Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://storage.fastly.com/:bucket/:key",
+            "params": [
+              {
+                "name": "bucket",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Put Object"
+        },
+        {
+          "info": {
+            "name": "Delete Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://storage.fastly.com/:bucket/:key",
+            "params": [
+              {
+                "name": "bucket",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Object"
+        },
+        {
+          "info": {
+            "name": "Head Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://storage.fastly.com/:bucket/:key",
+            "params": [
+              {
+                "name": "bucket",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Head Object"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

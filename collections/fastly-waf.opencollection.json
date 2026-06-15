@@ -1,0 +1,349 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Next-Gen WAF API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WAF Firewalls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List WAF firewalls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/waf/firewalls",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "filter[service_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter firewalls by service ID."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Related resources to include in the response."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all WAF firewall instances associated with the account."
+        },
+        {
+          "info": {
+            "name": "Create a WAF firewall",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/waf/firewalls",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new WAF firewall instance associated with a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Get a WAF firewall",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/waf/firewalls/:firewall_id",
+            "params": [
+              {
+                "name": "firewall_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF firewall."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific WAF firewall instance."
+        },
+        {
+          "info": {
+            "name": "Update a WAF firewall",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/waf/firewalls/:firewall_id",
+            "params": [
+              {
+                "name": "firewall_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF firewall."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of a specific WAF firewall instance."
+        },
+        {
+          "info": {
+            "name": "Delete a WAF firewall",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/waf/firewalls/:firewall_id",
+            "params": [
+              {
+                "name": "firewall_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF firewall."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a specific WAF firewall instance."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "WAF Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List WAF rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/waf/rules",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "filter[waf_tags][name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter rules by tag name."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all available WAF rules."
+        },
+        {
+          "info": {
+            "name": "Get a WAF rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/waf/rules/:waf_rule_id",
+            "params": [
+              {
+                "name": "waf_rule_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF rule."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific WAF rule."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "WAF Active Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List active WAF rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/waf/firewalls/:firewall_id/versions/:firewall_version_number/active-rules",
+            "params": [
+              {
+                "name": "firewall_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF firewall."
+              },
+              {
+                "name": "firewall_version_number",
+                "value": "",
+                "type": "path",
+                "description": "The version number of the WAF firewall."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all active WAF rules for a specific firewall version."
+        },
+        {
+          "info": {
+            "name": "Add an active WAF rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/waf/firewalls/:firewall_id/versions/:firewall_version_number/active-rules",
+            "params": [
+              {
+                "name": "firewall_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF firewall."
+              },
+              {
+                "name": "firewall_version_number",
+                "value": "",
+                "type": "path",
+                "description": "The version number of the WAF firewall."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a WAF rule to the active rule set for a specific firewall version."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "WAF Exclusions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List WAF exclusions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions",
+            "params": [
+              {
+                "name": "firewall_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF firewall."
+              },
+              {
+                "name": "firewall_version_number",
+                "value": "",
+                "type": "path",
+                "description": "The version number of the WAF firewall."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all WAF exclusions for a specific firewall version. Exclusions prevent requests matching a particular pattern from being flagged by the firewall."
+        },
+        {
+          "info": {
+            "name": "Create a WAF exclusion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions",
+            "params": [
+              {
+                "name": "firewall_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF firewall."
+              },
+              {
+                "name": "firewall_version_number",
+                "value": "",
+                "type": "path",
+                "description": "The version number of the WAF firewall."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new WAF exclusion for a specific firewall version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

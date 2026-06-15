@@ -1,0 +1,3718 @@
+{
+  "item": [
+    {
+      "id": "7fb80597-1a53-4dde-9631-336f5431a891",
+      "name": "Dictionary",
+      "description": {
+        "content": "Operations for managing dictionary containers within a service version.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "be29eb29-cfdf-47ae-83f2-62f5d65cbeac",
+          "name": "List dictionaries",
+          "request": {
+            "name": "List dictionaries",
+            "description": {
+              "content": "Retrieves a list of all dictionaries configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "dictionary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af26dc51-74a5-46a8-8f3d-a95820b55c99",
+              "name": "Successfully retrieved the list of dictionaries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"service_id\": \"string\",\n    \"version\": 1434,\n    \"write_only\": true,\n    \"created_at\": \"1954-04-12T13:14:27.662Z\",\n    \"updated_at\": \"2008-03-10T05:23:04.989Z\",\n    \"deleted_at\": \"1981-09-07T10:57:52.959Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"service_id\": \"string\",\n    \"version\": 5452,\n    \"write_only\": false,\n    \"created_at\": \"1964-10-20T21:13:45.216Z\",\n    \"updated_at\": \"2004-06-29T09:43:54.972Z\",\n    \"deleted_at\": \"1946-08-26T06:26:03.362Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e8a9527-f97a-4ba3-95b4-c3dd19ed8992",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5c14109-ae18-47dd-9ec4-ddb748188e7a",
+          "name": "Create a dictionary",
+          "request": {
+            "name": "Create a dictionary",
+            "description": {
+              "content": "Creates a new dictionary container for a specific version of a Fastly service. Once the service version is activated, items within the dictionary become versionless and can be updated without requiring a new service version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "dictionary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) The name of the dictionary."
+                },
+                {
+                  "disabled": false,
+                  "key": "write_only",
+                  "value": "<boolean>",
+                  "description": "Whether the dictionary is write-only, meaning items can only be set or deleted but not read."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "22f66c5a-5772-4f0d-9657-3297ae187869",
+              "name": "Successfully created the dictionary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The name of the dictionary.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether the dictionary is write-only, meaning items can only be set or deleted but not read.",
+                        "type": "text/plain"
+                      },
+                      "key": "write_only",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"service_id\": \"string\",\n  \"version\": 198,\n  \"write_only\": true,\n  \"created_at\": \"1955-09-02T05:34:17.462Z\",\n  \"updated_at\": \"1976-01-25T03:10:36.324Z\",\n  \"deleted_at\": \"1981-04-01T03:35:09.394Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08f55706-079e-4d35-8e87-8ed16f39e1b0",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The name of the dictionary.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether the dictionary is write-only, meaning items can only be set or deleted but not read.",
+                        "type": "text/plain"
+                      },
+                      "key": "write_only",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a0ed6f8c-8875-44fb-bcef-54a2dab7ec94",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The name of the dictionary.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether the dictionary is write-only, meaning items can only be set or deleted but not read.",
+                        "type": "text/plain"
+                      },
+                      "key": "write_only",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86d32039-f0ca-4dbf-afa1-4d81c75c0181",
+          "name": "Get a dictionary",
+          "request": {
+            "name": "Get a dictionary",
+            "description": {
+              "content": "Retrieves the details of a specific dictionary container for a version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "dictionary",
+                ":dictionary_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_name",
+                  "description": "(Required) The name of the dictionary."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "94b4c220-f49a-4db3-bf00-be5f59e96437",
+              "name": "Successfully retrieved the dictionary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary",
+                    ":dictionary_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_name",
+                      "description": "(Required) The name of the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"service_id\": \"string\",\n  \"version\": 198,\n  \"write_only\": true,\n  \"created_at\": \"1955-09-02T05:34:17.462Z\",\n  \"updated_at\": \"1976-01-25T03:10:36.324Z\",\n  \"deleted_at\": \"1981-04-01T03:35:09.394Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2f3cfe5-a981-4686-acd6-7fa5bd3a6106",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary",
+                    ":dictionary_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_name",
+                      "description": "(Required) The name of the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f4642f92-306d-40f6-addb-f8e2ba371266",
+              "name": "Dictionary not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary",
+                    ":dictionary_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_name",
+                      "description": "(Required) The name of the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6bce19d-944c-4770-8a9e-92cc1e8c1aa3",
+          "name": "Update a dictionary",
+          "request": {
+            "name": "Update a dictionary",
+            "description": {
+              "content": "Updates a specific dictionary container for a version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "dictionary",
+                ":dictionary_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_name",
+                  "description": "(Required) The name of the dictionary."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "The new name of the dictionary."
+                },
+                {
+                  "disabled": false,
+                  "key": "write_only",
+                  "value": "<boolean>",
+                  "description": "Whether the dictionary is write-only."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d4ecc17c-a26f-48c3-be31-caae1430a170",
+              "name": "Successfully updated the dictionary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary",
+                    ":dictionary_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_name",
+                      "description": "(Required) The name of the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The new name of the dictionary.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether the dictionary is write-only.",
+                        "type": "text/plain"
+                      },
+                      "key": "write_only",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"service_id\": \"string\",\n  \"version\": 198,\n  \"write_only\": true,\n  \"created_at\": \"1955-09-02T05:34:17.462Z\",\n  \"updated_at\": \"1976-01-25T03:10:36.324Z\",\n  \"deleted_at\": \"1981-04-01T03:35:09.394Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5858c223-eb58-4e86-91ad-a2b5c1c333b9",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary",
+                    ":dictionary_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_name",
+                      "description": "(Required) The name of the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The new name of the dictionary.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether the dictionary is write-only.",
+                        "type": "text/plain"
+                      },
+                      "key": "write_only",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "da906e80-7407-47ee-b14d-36fef11cbeba",
+              "name": "Dictionary not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary",
+                    ":dictionary_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_name",
+                      "description": "(Required) The name of the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The new name of the dictionary.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether the dictionary is write-only.",
+                        "type": "text/plain"
+                      },
+                      "key": "write_only",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ac3d9e2-9b15-4032-acdc-2e526c9e6480",
+          "name": "Delete a dictionary",
+          "request": {
+            "name": "Delete a dictionary",
+            "description": {
+              "content": "Deletes a specific dictionary container from a version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "dictionary",
+                ":dictionary_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_name",
+                  "description": "(Required) The name of the dictionary."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51cc1e3e-7a29-49ca-bdcd-722a29478ef1",
+              "name": "Successfully deleted the dictionary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary",
+                    ":dictionary_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_name",
+                      "description": "(Required) The name of the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "833cc081-25b6-4e3d-b909-7f48adb319b3",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary",
+                    ":dictionary_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_name",
+                      "description": "(Required) The name of the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0357c4d0-7259-4072-930e-56f67f51159e",
+              "name": "Dictionary not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "dictionary",
+                    ":dictionary_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_name",
+                      "description": "(Required) The name of the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4c250ea4-bed4-401a-9af6-7e0eaef57e42",
+      "name": "Dictionary Info",
+      "description": {
+        "content": "Operations for retrieving metadata about a dictionary.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4f4fd946-5723-452c-8ac0-e099a34cc4d3",
+          "name": "Get dictionary info",
+          "request": {
+            "name": "Get dictionary info",
+            "description": {
+              "content": "Retrieves metadata about a specific dictionary, including the number of items it contains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "dictionary",
+                ":dictionary_id",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_id",
+                  "description": "(Required) The alphanumeric string identifying the dictionary."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34719894-910b-43eb-b09a-48553f90f320",
+              "name": "Successfully retrieved the dictionary info.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"digest\": \"string\",\n  \"item_count\": 2197,\n  \"last_updated\": \"1960-05-22T16:19:09.412Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c992279-87d1-4c80-864d-2c4f0572301b",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a930a8e0-e7d7-43a4-9ee9-b0df01d8087b",
+              "name": "Dictionary not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9d47cbdd-0aad-46d0-9a57-bca74b73246f",
+      "name": "Dictionary Item",
+      "description": {
+        "content": "Operations for managing individual key-value pairs within a dictionary. Items are versionless and take effect within approximately 30 seconds.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0186f2c9-6b26-40ab-a273-0198aec01d55",
+          "name": "List dictionary items",
+          "request": {
+            "name": "List dictionary items",
+            "description": {
+              "content": "Retrieves a list of all key-value pairs within a specific dictionary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "dictionary",
+                ":dictionary_id",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page number to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "The number of items per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_id",
+                  "description": "(Required) The alphanumeric string identifying the dictionary."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "972938d6-86cf-4728-98ae-0cac03d5dd82",
+              "name": "Successfully retrieved the list of dictionary items.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"dictionary_id\": \"string\",\n    \"service_id\": \"string\",\n    \"item_key\": \"string\",\n    \"item_value\": \"string\",\n    \"created_at\": \"1983-05-29T05:30:51.778Z\",\n    \"updated_at\": \"2004-09-11T15:50:05.704Z\",\n    \"deleted_at\": \"1964-10-16T11:10:32.195Z\"\n  },\n  {\n    \"dictionary_id\": \"string\",\n    \"service_id\": \"string\",\n    \"item_key\": \"string\",\n    \"item_value\": \"string\",\n    \"created_at\": \"1966-08-16T11:08:54.648Z\",\n    \"updated_at\": \"2007-06-06T19:17:02.018Z\",\n    \"deleted_at\": \"1977-01-29T15:34:18.824Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "269db31d-80b2-4f6c-ae99-1dc8a300dca1",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ea4bebb-debd-4c87-9fd0-423090fdf479",
+          "name": "Bulk update dictionary items",
+          "request": {
+            "name": "Bulk update dictionary items",
+            "description": {
+              "content": "Updates multiple dictionary items in a single request. Supports create, update, upsert, and delete operations in the same batch.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "dictionary",
+                ":dictionary_id",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_id",
+                  "description": "(Required) The alphanumeric string identifying the dictionary."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"op\": \"<string>\",\n      \"item_key\": \"<string>\",\n      \"item_value\": \"<string>\"\n    },\n    {\n      \"op\": \"<string>\",\n      \"item_key\": \"<string>\",\n      \"item_value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f44f580e-df3d-4233-aeb8-28681b739890",
+              "name": "Successfully performed bulk update on dictionary items.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"op\": \"<string>\",\n      \"item_key\": \"<string>\",\n      \"item_value\": \"<string>\"\n    },\n    {\n      \"op\": \"<string>\",\n      \"item_key\": \"<string>\",\n      \"item_value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6027a7e7-ca56-424d-a4ae-084ed46e7c9f",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"op\": \"<string>\",\n      \"item_key\": \"<string>\",\n      \"item_value\": \"<string>\"\n    },\n    {\n      \"op\": \"<string>\",\n      \"item_key\": \"<string>\",\n      \"item_value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "98c8c3fa-1f48-4053-a885-c855ab9cad54",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"op\": \"<string>\",\n      \"item_key\": \"<string>\",\n      \"item_value\": \"<string>\"\n    },\n    {\n      \"op\": \"<string>\",\n      \"item_key\": \"<string>\",\n      \"item_value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2039d19-20a6-4921-96d3-9892ab0c13c4",
+          "name": "Create a dictionary item",
+          "request": {
+            "name": "Create a dictionary item",
+            "description": {
+              "content": "Creates a new key-value pair within a specific dictionary. The item takes effect within approximately 30 seconds without requiring a new service version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "dictionary",
+                ":dictionary_id",
+                "item"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_id",
+                  "description": "(Required) The alphanumeric string identifying the dictionary."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "dictionary_id",
+                  "value": "<string>",
+                  "description": "The alphanumeric string identifying the dictionary."
+                },
+                {
+                  "disabled": false,
+                  "key": "service_id",
+                  "value": "<string>",
+                  "description": "The alphanumeric string identifying the service."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_key",
+                  "value": "<string>",
+                  "description": "The key of the dictionary item."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_value",
+                  "value": "<string>",
+                  "description": "The value of the dictionary item."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at",
+                  "value": "<dateTime>",
+                  "description": "The date and time the item was created."
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_at",
+                  "value": "<dateTime>",
+                  "description": "The date and time the item was last updated."
+                },
+                {
+                  "disabled": false,
+                  "key": "deleted_at",
+                  "value": "<dateTime>",
+                  "description": "The date and time the item was deleted."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "da4c7cea-7590-4972-b854-40c318277762",
+              "name": "Successfully created the dictionary item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The alphanumeric string identifying the dictionary.",
+                        "type": "text/plain"
+                      },
+                      "key": "dictionary_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The alphanumeric string identifying the service.",
+                        "type": "text/plain"
+                      },
+                      "key": "service_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key of the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The date and time the item was created.",
+                        "type": "text/plain"
+                      },
+                      "key": "created_at",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The date and time the item was last updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "updated_at",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The date and time the item was deleted.",
+                        "type": "text/plain"
+                      },
+                      "key": "deleted_at",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dictionary_id\": \"string\",\n  \"service_id\": \"string\",\n  \"item_key\": \"string\",\n  \"item_value\": \"string\",\n  \"created_at\": \"2007-12-10T00:54:26.902Z\",\n  \"updated_at\": \"1989-08-29T17:49:58.923Z\",\n  \"deleted_at\": \"1959-04-14T00:11:38.654Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60ab4d58-7f34-4a2d-bf62-ed72341052da",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The alphanumeric string identifying the dictionary.",
+                        "type": "text/plain"
+                      },
+                      "key": "dictionary_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The alphanumeric string identifying the service.",
+                        "type": "text/plain"
+                      },
+                      "key": "service_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key of the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The date and time the item was created.",
+                        "type": "text/plain"
+                      },
+                      "key": "created_at",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The date and time the item was last updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "updated_at",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The date and time the item was deleted.",
+                        "type": "text/plain"
+                      },
+                      "key": "deleted_at",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "56ce90c3-2d7e-4cc9-a701-94d07303d6dc",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The alphanumeric string identifying the dictionary.",
+                        "type": "text/plain"
+                      },
+                      "key": "dictionary_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The alphanumeric string identifying the service.",
+                        "type": "text/plain"
+                      },
+                      "key": "service_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The key of the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value of the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The date and time the item was created.",
+                        "type": "text/plain"
+                      },
+                      "key": "created_at",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The date and time the item was last updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "updated_at",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The date and time the item was deleted.",
+                        "type": "text/plain"
+                      },
+                      "key": "deleted_at",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70a0e11b-7738-4532-ada1-2d2fd25b2fa8",
+          "name": "Get a dictionary item",
+          "request": {
+            "name": "Get a dictionary item",
+            "description": {
+              "content": "Retrieves the details of a specific key-value pair within a dictionary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "dictionary",
+                ":dictionary_id",
+                "item",
+                ":dictionary_item_key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_id",
+                  "description": "(Required) The alphanumeric string identifying the dictionary."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_item_key",
+                  "description": "(Required) The key of the dictionary item."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98d80ae0-4d91-4a5f-919e-27a11e8dee44",
+              "name": "Successfully retrieved the dictionary item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dictionary_id\": \"string\",\n  \"service_id\": \"string\",\n  \"item_key\": \"string\",\n  \"item_value\": \"string\",\n  \"created_at\": \"2007-12-10T00:54:26.902Z\",\n  \"updated_at\": \"1989-08-29T17:49:58.923Z\",\n  \"deleted_at\": \"1959-04-14T00:11:38.654Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1481e290-480c-4282-917c-a33c7201936a",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "160fc5b2-8ca9-4402-91b7-e7cb225621ce",
+              "name": "Dictionary item not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7006b188-a5b7-46cb-bd1e-55f6f8ed45fd",
+          "name": "Upsert a dictionary item",
+          "request": {
+            "name": "Upsert a dictionary item",
+            "description": {
+              "content": "Creates or updates a key-value pair within a specific dictionary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "dictionary",
+                ":dictionary_id",
+                "item",
+                ":dictionary_item_key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_id",
+                  "description": "(Required) The alphanumeric string identifying the dictionary."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_item_key",
+                  "description": "(Required) The key of the dictionary item."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "item_value",
+                  "value": "<string>",
+                  "description": "The value for the dictionary item."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9bacffcd-bce9-4c15-87d5-9eb5f21c338c",
+              "name": "Successfully upserted the dictionary item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value for the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_value",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dictionary_id\": \"string\",\n  \"service_id\": \"string\",\n  \"item_key\": \"string\",\n  \"item_value\": \"string\",\n  \"created_at\": \"2007-12-10T00:54:26.902Z\",\n  \"updated_at\": \"1989-08-29T17:49:58.923Z\",\n  \"deleted_at\": \"1959-04-14T00:11:38.654Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a2bb554-4143-4563-8609-875b515cdc55",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The value for the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_value",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b42c9aa-4864-4834-ac5c-0d6647d456c4",
+          "name": "Update a dictionary item",
+          "request": {
+            "name": "Update a dictionary item",
+            "description": {
+              "content": "Updates a specific key-value pair within a dictionary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "dictionary",
+                ":dictionary_id",
+                "item",
+                ":dictionary_item_key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_id",
+                  "description": "(Required) The alphanumeric string identifying the dictionary."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_item_key",
+                  "description": "(Required) The key of the dictionary item."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "item_value",
+                  "value": "<string>",
+                  "description": "The new value for the dictionary item."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "38500f8e-0952-418a-8ad4-860db4f0d101",
+              "name": "Successfully updated the dictionary item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The new value for the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_value",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dictionary_id\": \"string\",\n  \"service_id\": \"string\",\n  \"item_key\": \"string\",\n  \"item_value\": \"string\",\n  \"created_at\": \"2007-12-10T00:54:26.902Z\",\n  \"updated_at\": \"1989-08-29T17:49:58.923Z\",\n  \"deleted_at\": \"1959-04-14T00:11:38.654Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c15a178b-8010-4afc-b7a5-8cf4eac9a6a2",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The new value for the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_value",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9eb98ff3-db46-4af1-8da0-74011c84ba53",
+              "name": "Dictionary item not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The new value for the dictionary item.",
+                        "type": "text/plain"
+                      },
+                      "key": "item_value",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57e26890-3521-4031-9095-445ea0b506f1",
+          "name": "Delete a dictionary item",
+          "request": {
+            "name": "Delete a dictionary item",
+            "description": {
+              "content": "Deletes a specific key-value pair from a dictionary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "dictionary",
+                ":dictionary_id",
+                "item",
+                ":dictionary_item_key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_id",
+                  "description": "(Required) The alphanumeric string identifying the dictionary."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dictionary_item_key",
+                  "description": "(Required) The key of the dictionary item."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bbaa2c6-e3de-42ad-9f10-83c97dbf9622",
+              "name": "Successfully deleted the dictionary item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f838b1b-4d71-41ee-b32b-726a24020966",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b0cc0468-7922-489e-aaa2-9d76f10183e5",
+              "name": "Dictionary item not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "dictionary",
+                    ":dictionary_id",
+                    "item",
+                    ":dictionary_item_key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_id",
+                      "description": "(Required) The alphanumeric string identifying the dictionary."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dictionary_item_key",
+                      "description": "(Required) The key of the dictionary item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fastly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a4754732-b09d-47ec-b961-967a3d95b357",
+    "name": "Fastly Edge Dictionaries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fastly Edge Dictionaries API provides endpoints for creating and managing key-value lookup tables that are accessible at the edge without requiring a service version change. Dictionaries can store configuration data, feature flags, redirect mappings, and other dynamic values that VCL or Compute services can reference during request processing. The API supports CRUD operations on both dictionary containers and their individual items, as well as bulk updates for efficient management of large datasets.\n\nContact Support:\n Name: Fastly Support",
+      "type": "text/plain"
+    }
+  }
+}

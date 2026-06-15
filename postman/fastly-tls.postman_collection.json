@@ -1,0 +1,3636 @@
+{
+  "info": {
+    "_postman_id": "3cfcf623-aa00-4674-a612-9176242975a2",
+    "name": "Fastly TLS API",
+    "description": "The Fastly TLS API enables developers to manage TLS certificates, private keys, and domain configurations for securing traffic delivered through Fastly's edge network. It supports both platform TLS (managed certificates) and custom TLS configurations where customers bring their own certificates. The API allows uploading certificates, managing bulk certificate operations, configuring TLS activations, and managing mutual TLS authentication for origin connections.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:38.000Z",
+    "updatedAt": "2026-06-05T15:08:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3cfcf623-aa00-4674-a612-9176242975a2"
+  },
+  "item": [
+    {
+      "name": "tls",
+      "item": [
+        {
+          "name": "certificates",
+          "item": [
+            {
+              "name": "{tls_certificate_id}",
+              "item": [
+                {
+                  "name": "Get a TLS certificate",
+                  "id": "17ecc7c1-436f-44a1-854a-3dd102c51b86",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "certificates",
+                        ":tls_certificate_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ddca7d56-b9ce-47e9-b035-30438eee1200",
+                          "key": "tls_certificate_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the TLS certificate."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the details of a specific custom TLS certificate."
+                  },
+                  "response": [
+                    {
+                      "id": "629b6c64-6ce5-4826-bfe8-5d4330fa2a9a",
+                      "name": "Successfully retrieved the TLS certificate.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"cert_blob\": \"<string>\",\n      \"issued_to\": \"<string>\",\n      \"issuer\": \"<string>\",\n      \"serial_number\": \"<string>\",\n      \"signature_algorithm\": \"<string>\",\n      \"not_before\": \"<dateTime>\",\n      \"not_after\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-629b6c64-6ce5-4826-bfe8-5d4330fa2a9a"
+                    },
+                    {
+                      "id": "fe0970a9-ba07-43e9-b18a-d11dbe6e4f1b",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-fe0970a9-ba07-43e9-b18a-d11dbe6e4f1b"
+                    },
+                    {
+                      "id": "4503840f-ae49-41e1-800e-c761cc5425a0",
+                      "name": "TLS certificate not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-4503840f-ae49-41e1-800e-c761cc5425a0"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-17ecc7c1-436f-44a1-854a-3dd102c51b86"
+                },
+                {
+                  "name": "Update a TLS certificate",
+                  "id": "9b0ace45-22cc-490a-8f10-37f29340d042",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "certificates",
+                        ":tls_certificate_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b8649e1b-9a65-4c32-b9d8-cd16d9343518",
+                          "key": "tls_certificate_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the TLS certificate."
+                        }
+                      ]
+                    },
+                    "description": "Replaces a TLS certificate with a new one. The new certificate must cover the same domains as the original."
+                  },
+                  "response": [
+                    {
+                      "id": "58c87112-2cb7-4304-aa70-2543da36a11e",
+                      "name": "Successfully updated the TLS certificate.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"cert_blob\": \"<string>\",\n      \"issued_to\": \"<string>\",\n      \"issuer\": \"<string>\",\n      \"serial_number\": \"<string>\",\n      \"signature_algorithm\": \"<string>\",\n      \"not_before\": \"<dateTime>\",\n      \"not_after\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-58c87112-2cb7-4304-aa70-2543da36a11e"
+                    },
+                    {
+                      "id": "417396c3-8ff6-4c77-a2ee-a555538b92be",
+                      "name": "Bad request. Missing or invalid certificate data.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-417396c3-8ff6-4c77-a2ee-a555538b92be"
+                    },
+                    {
+                      "id": "09bb357f-0f33-4aa1-b13f-78983485af17",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-09bb357f-0f33-4aa1-b13f-78983485af17"
+                    },
+                    {
+                      "id": "b69953c9-39e3-4cb2-a227-fabb702371ec",
+                      "name": "TLS certificate not found.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-b69953c9-39e3-4cb2-a227-fabb702371ec"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-9b0ace45-22cc-490a-8f10-37f29340d042"
+                },
+                {
+                  "name": "Delete a TLS certificate",
+                  "id": "b9daf945-2f5e-4d62-9187-0c503e8c3a90",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "certificates",
+                        ":tls_certificate_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ed37a2f8-d919-4193-9eaf-ead38d89dbff",
+                          "key": "tls_certificate_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the TLS certificate."
+                        }
+                      ]
+                    },
+                    "description": "Deletes a custom TLS certificate. The certificate must not have any active TLS activations."
+                  },
+                  "response": [
+                    {
+                      "id": "12e31aab-a729-4da9-8155-ff72411eb7ea",
+                      "name": "Successfully deleted the TLS certificate.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-12e31aab-a729-4da9-8155-ff72411eb7ea"
+                    },
+                    {
+                      "id": "f51caa8d-cc73-42ac-b15f-79fd9de36af4",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-f51caa8d-cc73-42ac-b15f-79fd9de36af4"
+                    },
+                    {
+                      "id": "af6affb3-826c-4485-8a18-bd7d05c24fe8",
+                      "name": "TLS certificate not found.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/certificates/:tls_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "certificates",
+                            ":tls_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_certificate_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-af6affb3-826c-4485-8a18-bd7d05c24fe8"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-b9daf945-2f5e-4d62-9187-0c503e8c3a90"
+                }
+              ],
+              "id": "30f1983e-429d-4201-940e-086b919e168f",
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-30f1983e-429d-4201-940e-086b919e168f"
+            },
+            {
+              "name": "List TLS certificates",
+              "id": "2a54f99f-bbd2-424e-8d36-f667ebb840eb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tls/certificates?page[number]=<integer>&page[size]=<integer>&filter[tls_domains.id]=<string>&sort=-created_at",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tls",
+                    "certificates"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The number of items per page.",
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Filter certificates by TLS domain ID.",
+                      "key": "filter[tls_domains.id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The field to sort results by.",
+                      "key": "sort",
+                      "value": "-created_at"
+                    }
+                  ]
+                },
+                "description": "Retrieves a list of all custom TLS certificates associated with the account."
+              },
+              "response": [
+                {
+                  "id": "4959da2f-edb7-494b-a403-5544323bfcee",
+                  "name": "Successfully retrieved the list of TLS certificates.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/certificates?page[number]=<integer>&page[size]=<integer>&filter[tls_domains.id]=<string>&sort=-created_at",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "certificates"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter certificates by TLS domain ID.",
+                          "key": "filter[tls_domains.id]",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The field to sort results by.",
+                          "key": "sort",
+                          "value": "-created_at"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"tls_certificate\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"cert_blob\": \"<string>\",\n        \"issued_to\": \"<string>\",\n        \"issuer\": \"<string>\",\n        \"serial_number\": \"<string>\",\n        \"signature_algorithm\": \"<string>\",\n        \"not_before\": \"<dateTime>\",\n        \"not_after\": \"<dateTime>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"tls_certificate\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"cert_blob\": \"<string>\",\n        \"issued_to\": \"<string>\",\n        \"issuer\": \"<string>\",\n        \"serial_number\": \"<string>\",\n        \"signature_algorithm\": \"<string>\",\n        \"not_before\": \"<dateTime>\",\n        \"not_after\": \"<dateTime>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-4959da2f-edb7-494b-a403-5544323bfcee"
+                },
+                {
+                  "id": "b92a04af-8252-41e2-8d01-9d9e26d2bb57",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/certificates?page[number]=<integer>&page[size]=<integer>&filter[tls_domains.id]=<string>&sort=-created_at",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "certificates"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter certificates by TLS domain ID.",
+                          "key": "filter[tls_domains.id]",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The field to sort results by.",
+                          "key": "sort",
+                          "value": "-created_at"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-b92a04af-8252-41e2-8d01-9d9e26d2bb57"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-2a54f99f-bbd2-424e-8d36-f667ebb840eb"
+            },
+            {
+              "name": "Create a TLS certificate",
+              "id": "5bf7c143-01c6-4be4-85ec-f0fb29bee178",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"relationships\": {\n      \"tls_domains\": {}\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tls/certificates",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tls",
+                    "certificates"
+                  ]
+                },
+                "description": "Uploads a new custom TLS certificate. Uploading a new certificate automatically enables TLS for all domains listed as Subject Alternative Names (SAN entries) on the certificate. Certificate deployment takes approximately 20 minutes on average but may take up to an hour."
+              },
+              "response": [
+                {
+                  "id": "63797459-1583-499f-ad07-ef5bb30c1a50",
+                  "name": "Successfully created the TLS certificate.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"relationships\": {\n      \"tls_domains\": {}\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/certificates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "certificates"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"cert_blob\": \"<string>\",\n      \"issued_to\": \"<string>\",\n      \"issuer\": \"<string>\",\n      \"serial_number\": \"<string>\",\n      \"signature_algorithm\": \"<string>\",\n      \"not_before\": \"<dateTime>\",\n      \"not_after\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-63797459-1583-499f-ad07-ef5bb30c1a50"
+                },
+                {
+                  "id": "c1b0c800-8fc5-4f79-9942-78127d9898f3",
+                  "name": "Bad request. Missing or invalid certificate data.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"relationships\": {\n      \"tls_domains\": {}\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/certificates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "certificates"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-c1b0c800-8fc5-4f79-9942-78127d9898f3"
+                },
+                {
+                  "id": "db5462d1-c383-4311-b218-15c56b4e0976",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"relationships\": {\n      \"tls_domains\": {}\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/certificates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "certificates"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-db5462d1-c383-4311-b218-15c56b4e0976"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-5bf7c143-01c6-4be4-85ec-f0fb29bee178"
+            }
+          ],
+          "id": "df426b0e-96d5-4b28-a148-d7dc807ffd08",
+          "createdAt": "2026-06-05T15:08:39.000Z",
+          "updatedAt": "2026-06-05T15:08:39.000Z",
+          "uid": "35240-df426b0e-96d5-4b28-a148-d7dc807ffd08"
+        },
+        {
+          "name": "private_keys",
+          "item": [
+            {
+              "name": "{tls_private_key_id}",
+              "item": [
+                {
+                  "name": "Get a TLS private key",
+                  "id": "03831d10-fe92-406c-a29e-52d15abbe44e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/private_keys/:tls_private_key_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "private_keys",
+                        ":tls_private_key_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "661f1c78-32b2-4226-9edf-1cdccbe3aad0",
+                          "key": "tls_private_key_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the TLS private key."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the details of a specific TLS private key."
+                  },
+                  "response": [
+                    {
+                      "id": "f18418bc-5812-411c-a95f-6e68be47ab30",
+                      "name": "Successfully retrieved the TLS private key.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/private_keys/:tls_private_key_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "private_keys",
+                            ":tls_private_key_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_private_key_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_private_key\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"key_length\": \"<integer>\",\n      \"key_type\": \"ECDSA\",\n      \"public_key_sha1\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-f18418bc-5812-411c-a95f-6e68be47ab30"
+                    },
+                    {
+                      "id": "7a85aa1f-4f80-45c7-98a7-f18f53d9c3f3",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/private_keys/:tls_private_key_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "private_keys",
+                            ":tls_private_key_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_private_key_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-7a85aa1f-4f80-45c7-98a7-f18f53d9c3f3"
+                    },
+                    {
+                      "id": "e4147d76-9479-474a-8925-244d8fdfc7b4",
+                      "name": "TLS private key not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/private_keys/:tls_private_key_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "private_keys",
+                            ":tls_private_key_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_private_key_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-e4147d76-9479-474a-8925-244d8fdfc7b4"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-03831d10-fe92-406c-a29e-52d15abbe44e"
+                },
+                {
+                  "name": "Delete a TLS private key",
+                  "id": "b943a76b-daef-4025-895d-93c6da9678e4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/private_keys/:tls_private_key_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "private_keys",
+                        ":tls_private_key_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "20648206-7c48-4182-8989-3522ad64f805",
+                          "key": "tls_private_key_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the TLS private key."
+                        }
+                      ]
+                    },
+                    "description": "Deletes a TLS private key. The key must not be associated with any active certificates."
+                  },
+                  "response": [
+                    {
+                      "id": "28fb88c6-3a97-4a8c-ac30-90b9c6184968",
+                      "name": "Successfully deleted the TLS private key.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/private_keys/:tls_private_key_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "private_keys",
+                            ":tls_private_key_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_private_key_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-28fb88c6-3a97-4a8c-ac30-90b9c6184968"
+                    },
+                    {
+                      "id": "999f9ea5-7384-4efb-bc3f-861a685666ce",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/private_keys/:tls_private_key_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "private_keys",
+                            ":tls_private_key_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_private_key_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-999f9ea5-7384-4efb-bc3f-861a685666ce"
+                    },
+                    {
+                      "id": "6ba56f8d-e3a7-4a1e-8b80-d7a6f065d745",
+                      "name": "TLS private key not found.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/private_keys/:tls_private_key_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "private_keys",
+                            ":tls_private_key_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_private_key_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-6ba56f8d-e3a7-4a1e-8b80-d7a6f065d745"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-b943a76b-daef-4025-895d-93c6da9678e4"
+                }
+              ],
+              "id": "f3a8cf38-2d51-4f42-ab36-83be2fc47223",
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-f3a8cf38-2d51-4f42-ab36-83be2fc47223"
+            },
+            {
+              "name": "List TLS private keys",
+              "id": "e9804a98-80fd-43cd-aee3-6b6858a94ba9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tls/private_keys?page[number]=<integer>&page[size]=<integer>&filter[in_use]=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tls",
+                    "private_keys"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The number of items per page.",
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Filter to show only keys currently in use.",
+                      "key": "filter[in_use]",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves a list of all TLS private keys associated with the account."
+              },
+              "response": [
+                {
+                  "id": "f72506d9-8dfd-4c40-80de-1756e9b7097d",
+                  "name": "Successfully retrieved the list of TLS private keys.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/private_keys?page[number]=<integer>&page[size]=<integer>&filter[in_use]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "private_keys"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter to show only keys currently in use.",
+                          "key": "filter[in_use]",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"tls_private_key\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"key_length\": \"<integer>\",\n        \"key_type\": \"RSA\",\n        \"public_key_sha1\": \"<string>\",\n        \"created_at\": \"<dateTime>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"tls_private_key\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"key_length\": \"<integer>\",\n        \"key_type\": \"RSA\",\n        \"public_key_sha1\": \"<string>\",\n        \"created_at\": \"<dateTime>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-f72506d9-8dfd-4c40-80de-1756e9b7097d"
+                },
+                {
+                  "id": "2b0a390d-b31a-4208-bbc9-34536db9d75c",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/private_keys?page[number]=<integer>&page[size]=<integer>&filter[in_use]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "private_keys"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter to show only keys currently in use.",
+                          "key": "filter[in_use]",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-2b0a390d-b31a-4208-bbc9-34536db9d75c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-e9804a98-80fd-43cd-aee3-6b6858a94ba9"
+            },
+            {
+              "name": "Create a TLS private key",
+              "id": "04b0ac0c-afe2-41c9-8338-07f0c36c7113",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"tls_private_key\",\n    \"attributes\": {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tls/private_keys",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tls",
+                    "private_keys"
+                  ]
+                },
+                "description": "Uploads a new TLS private key. A key can be used to sign multiple certificates."
+              },
+              "response": [
+                {
+                  "id": "7723f0e4-f46b-4424-9e13-f963f4278855",
+                  "name": "Successfully created the TLS private key.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_private_key\",\n    \"attributes\": {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/private_keys",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "private_keys"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_private_key\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"key_length\": \"<integer>\",\n      \"key_type\": \"ECDSA\",\n      \"public_key_sha1\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-7723f0e4-f46b-4424-9e13-f963f4278855"
+                },
+                {
+                  "id": "4b7c6f73-6a39-4178-b3b3-42229032624f",
+                  "name": "Bad request. Missing or invalid key data.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_private_key\",\n    \"attributes\": {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/private_keys",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "private_keys"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-4b7c6f73-6a39-4178-b3b3-42229032624f"
+                },
+                {
+                  "id": "39748534-07f8-4f2e-9011-e9b2a8db92d2",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_private_key\",\n    \"attributes\": {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/private_keys",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "private_keys"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-39748534-07f8-4f2e-9011-e9b2a8db92d2"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-04b0ac0c-afe2-41c9-8338-07f0c36c7113"
+            }
+          ],
+          "id": "109d4b4b-4ad2-4a3b-8f8c-e66ee9738e1e",
+          "createdAt": "2026-06-05T15:08:39.000Z",
+          "updatedAt": "2026-06-05T15:08:39.000Z",
+          "uid": "35240-109d4b4b-4ad2-4a3b-8f8c-e66ee9738e1e"
+        },
+        {
+          "name": "activations",
+          "item": [
+            {
+              "name": "{tls_activation_id}",
+              "item": [
+                {
+                  "name": "Get a TLS activation",
+                  "id": "3a1bb80a-b891-45a3-b9b2-fcbb35d2fa92",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "activations",
+                        ":tls_activation_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "63b028ca-40b0-49c3-bfeb-f9f3cea42af3",
+                          "key": "tls_activation_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the TLS activation."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the details of a specific TLS activation."
+                  },
+                  "response": [
+                    {
+                      "id": "129aa122-e6a2-4a37-ad0f-67bb415b57bf",
+                      "name": "Successfully retrieved the TLS activation.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "activations",
+                            ":tls_activation_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_activation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_activation\",\n    \"attributes\": {\n      \"created_at\": \"<dateTime>\"\n    },\n    \"relationships\": {\n      \"tls_certificate\": {},\n      \"tls_configuration\": {},\n      \"tls_domain\": {}\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-129aa122-e6a2-4a37-ad0f-67bb415b57bf"
+                    },
+                    {
+                      "id": "bb5d6a96-8332-499e-8773-e641d7ce739d",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "activations",
+                            ":tls_activation_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_activation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-bb5d6a96-8332-499e-8773-e641d7ce739d"
+                    },
+                    {
+                      "id": "e2c27638-c2c2-4410-b39f-f15157dd256e",
+                      "name": "TLS activation not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "activations",
+                            ":tls_activation_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_activation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-e2c27638-c2c2-4410-b39f-f15157dd256e"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-3a1bb80a-b891-45a3-b9b2-fcbb35d2fa92"
+                },
+                {
+                  "name": "Update a TLS activation",
+                  "id": "b28c2316-9ac7-43ec-af61-f43a432fb863",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_activation\",\n    \"relationships\": {\n      \"tls_certificate\": {}\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "activations",
+                        ":tls_activation_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "35b6da4b-7f6d-4496-8fc2-db3be230cce4",
+                          "key": "tls_activation_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the TLS activation."
+                        }
+                      ]
+                    },
+                    "description": "Updates a TLS activation, such as changing the certificate used for the domain."
+                  },
+                  "response": [
+                    {
+                      "id": "91c52e2c-f547-4b44-b090-059efd9ae329",
+                      "name": "Successfully updated the TLS activation.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_activation\",\n    \"relationships\": {\n      \"tls_certificate\": {}\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "activations",
+                            ":tls_activation_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_activation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_activation\",\n    \"attributes\": {\n      \"created_at\": \"<dateTime>\"\n    },\n    \"relationships\": {\n      \"tls_certificate\": {},\n      \"tls_configuration\": {},\n      \"tls_domain\": {}\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-91c52e2c-f547-4b44-b090-059efd9ae329"
+                    },
+                    {
+                      "id": "85f0f909-3854-4144-90f4-a5d8db21c20b",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_activation\",\n    \"relationships\": {\n      \"tls_certificate\": {}\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "activations",
+                            ":tls_activation_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_activation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-85f0f909-3854-4144-90f4-a5d8db21c20b"
+                    },
+                    {
+                      "id": "a8797edd-553e-4f28-8b0e-5038f22f40b1",
+                      "name": "TLS activation not found.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_activation\",\n    \"relationships\": {\n      \"tls_certificate\": {}\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "activations",
+                            ":tls_activation_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_activation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-a8797edd-553e-4f28-8b0e-5038f22f40b1"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-b28c2316-9ac7-43ec-af61-f43a432fb863"
+                },
+                {
+                  "name": "Delete a TLS activation",
+                  "id": "d0675e4a-b920-41b1-bdeb-7386e4aa9535",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "activations",
+                        ":tls_activation_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4e5100f4-57bc-44a6-bc31-71a4afcedd95",
+                          "key": "tls_activation_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the TLS activation."
+                        }
+                      ]
+                    },
+                    "description": "Disables TLS for the domain by removing the TLS activation."
+                  },
+                  "response": [
+                    {
+                      "id": "81f9dae4-6fc6-4b1a-8a07-0ba5d497de0e",
+                      "name": "Successfully deleted the TLS activation.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "activations",
+                            ":tls_activation_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_activation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-81f9dae4-6fc6-4b1a-8a07-0ba5d497de0e"
+                    },
+                    {
+                      "id": "9584ba99-32cc-4936-9661-8f982349049a",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "activations",
+                            ":tls_activation_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_activation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-9584ba99-32cc-4936-9661-8f982349049a"
+                    },
+                    {
+                      "id": "7ce76039-f983-42ec-a6b2-b1faa22f71d9",
+                      "name": "TLS activation not found.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/activations/:tls_activation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "activations",
+                            ":tls_activation_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tls_activation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-7ce76039-f983-42ec-a6b2-b1faa22f71d9"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-d0675e4a-b920-41b1-bdeb-7386e4aa9535"
+                }
+              ],
+              "id": "19b1afaf-86da-4b97-bfb4-118dcb8cf412",
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-19b1afaf-86da-4b97-bfb4-118dcb8cf412"
+            },
+            {
+              "name": "List TLS activations",
+              "id": "f9994f01-bbae-44e5-ae05-8c630de6625b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tls/activations?page[number]=<integer>&page[size]=<integer>&filter[tls_certificate.id]=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tls",
+                    "activations"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The number of items per page.",
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Filter activations by TLS certificate ID.",
+                      "key": "filter[tls_certificate.id]",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves a list of all TLS activations that enable TLS traffic termination for specific domains."
+              },
+              "response": [
+                {
+                  "id": "6008640d-7e21-4c21-87e3-5619d6324efa",
+                  "name": "Successfully retrieved the list of TLS activations.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/activations?page[number]=<integer>&page[size]=<integer>&filter[tls_certificate.id]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "activations"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter activations by TLS certificate ID.",
+                          "key": "filter[tls_certificate.id]",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"tls_activation\",\n      \"attributes\": {\n        \"created_at\": \"<dateTime>\"\n      },\n      \"relationships\": {\n        \"tls_certificate\": {},\n        \"tls_configuration\": {},\n        \"tls_domain\": {}\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"tls_activation\",\n      \"attributes\": {\n        \"created_at\": \"<dateTime>\"\n      },\n      \"relationships\": {\n        \"tls_certificate\": {},\n        \"tls_configuration\": {},\n        \"tls_domain\": {}\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-6008640d-7e21-4c21-87e3-5619d6324efa"
+                },
+                {
+                  "id": "089d3d71-226b-4580-bdeb-07025f5c90f3",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/activations?page[number]=<integer>&page[size]=<integer>&filter[tls_certificate.id]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "activations"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter activations by TLS certificate ID.",
+                          "key": "filter[tls_certificate.id]",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-089d3d71-226b-4580-bdeb-07025f5c90f3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-f9994f01-bbae-44e5-ae05-8c630de6625b"
+            },
+            {
+              "name": "Create a TLS activation",
+              "id": "a12d0c59-37d8-4518-841c-225252b48f51",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"tls_activation\",\n    \"relationships\": {\n      \"tls_certificate\": {},\n      \"tls_configuration\": {},\n      \"tls_domain\": {}\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tls/activations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tls",
+                    "activations"
+                  ]
+                },
+                "description": "Enables TLS traffic termination for a specific domain using the specified certificate and configuration."
+              },
+              "response": [
+                {
+                  "id": "dfe1785b-1ea7-4df0-833f-32ae9e071b22",
+                  "name": "Successfully created the TLS activation.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_activation\",\n    \"relationships\": {\n      \"tls_certificate\": {},\n      \"tls_configuration\": {},\n      \"tls_domain\": {}\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/activations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "activations"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_activation\",\n    \"attributes\": {\n      \"created_at\": \"<dateTime>\"\n    },\n    \"relationships\": {\n      \"tls_certificate\": {},\n      \"tls_configuration\": {},\n      \"tls_domain\": {}\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-dfe1785b-1ea7-4df0-833f-32ae9e071b22"
+                },
+                {
+                  "id": "5f9f9d4b-3e10-43ae-8d74-7a13fdfed4ae",
+                  "name": "Bad request. Missing or invalid activation data.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_activation\",\n    \"relationships\": {\n      \"tls_certificate\": {},\n      \"tls_configuration\": {},\n      \"tls_domain\": {}\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/activations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "activations"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-5f9f9d4b-3e10-43ae-8d74-7a13fdfed4ae"
+                },
+                {
+                  "id": "b5ec3a80-f9fc-4740-b544-906ffad94b84",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_activation\",\n    \"relationships\": {\n      \"tls_certificate\": {},\n      \"tls_configuration\": {},\n      \"tls_domain\": {}\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/activations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "activations"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-b5ec3a80-f9fc-4740-b544-906ffad94b84"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-a12d0c59-37d8-4518-841c-225252b48f51"
+            }
+          ],
+          "id": "3a3fa107-9c59-4f9e-b203-dd0039b366d0",
+          "createdAt": "2026-06-05T15:08:39.000Z",
+          "updatedAt": "2026-06-05T15:08:39.000Z",
+          "uid": "35240-3a3fa107-9c59-4f9e-b203-dd0039b366d0"
+        },
+        {
+          "name": "bulk",
+          "item": [
+            {
+              "name": "certificates",
+              "item": [
+                {
+                  "name": "{tls_bulk_certificate_id}",
+                  "item": [
+                    {
+                      "name": "Get a platform TLS bulk certificate",
+                      "id": "db4ebfe1-28e1-4180-a8c6-57c2d504d59b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "bulk",
+                            "certificates",
+                            ":tls_bulk_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "eb8e2a62-e90c-4d66-a1ee-1f0e826962d3",
+                              "key": "tls_bulk_certificate_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the bulk TLS certificate."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the details of a specific platform TLS bulk certificate."
+                      },
+                      "response": [
+                        {
+                          "id": "6cc2d8c6-ace5-4885-a112-285abd4e9a31",
+                          "name": "Successfully retrieved the bulk TLS certificate.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tls",
+                                "bulk",
+                                "certificates",
+                                ":tls_bulk_certificate_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tls_bulk_certificate_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"not_before\": \"<dateTime>\",\n      \"not_after\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                          "createdAt": "2026-06-05T15:08:39.000Z",
+                          "updatedAt": "2026-06-05T15:08:39.000Z",
+                          "uid": "35240-6cc2d8c6-ace5-4885-a112-285abd4e9a31"
+                        },
+                        {
+                          "id": "2a6354b7-2af2-4e7d-91f8-bad6bc9a3c30",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tls",
+                                "bulk",
+                                "certificates",
+                                ":tls_bulk_certificate_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tls_bulk_certificate_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:39.000Z",
+                          "updatedAt": "2026-06-05T15:08:39.000Z",
+                          "uid": "35240-2a6354b7-2af2-4e7d-91f8-bad6bc9a3c30"
+                        },
+                        {
+                          "id": "320f3ae9-c6f2-486f-800b-af05f3f6882b",
+                          "name": "Bulk TLS certificate not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tls",
+                                "bulk",
+                                "certificates",
+                                ":tls_bulk_certificate_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tls_bulk_certificate_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:39.000Z",
+                          "updatedAt": "2026-06-05T15:08:39.000Z",
+                          "uid": "35240-320f3ae9-c6f2-486f-800b-af05f3f6882b"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-db4ebfe1-28e1-4180-a8c6-57c2d504d59b"
+                    },
+                    {
+                      "name": "Update a platform TLS bulk certificate",
+                      "id": "a656fa5a-3b41-4df7-8aac-f6d7815ec64a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"intermediates_blob\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "bulk",
+                            "certificates",
+                            ":tls_bulk_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "6b3a05b3-da31-47ae-a74a-b1434b7de633",
+                              "key": "tls_bulk_certificate_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the bulk TLS certificate."
+                            }
+                          ]
+                        },
+                        "description": "Replaces a platform TLS bulk certificate with a new one."
+                      },
+                      "response": [
+                        {
+                          "id": "589414e1-a7d0-4d8d-bca5-26b3d462647e",
+                          "name": "Successfully updated the bulk TLS certificate.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"intermediates_blob\": \"<string>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tls",
+                                "bulk",
+                                "certificates",
+                                ":tls_bulk_certificate_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tls_bulk_certificate_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"not_before\": \"<dateTime>\",\n      \"not_after\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                          "createdAt": "2026-06-05T15:08:39.000Z",
+                          "updatedAt": "2026-06-05T15:08:39.000Z",
+                          "uid": "35240-589414e1-a7d0-4d8d-bca5-26b3d462647e"
+                        },
+                        {
+                          "id": "2574b63d-3df9-4cc5-ba85-3803b56760f4",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"intermediates_blob\": \"<string>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tls",
+                                "bulk",
+                                "certificates",
+                                ":tls_bulk_certificate_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tls_bulk_certificate_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:39.000Z",
+                          "updatedAt": "2026-06-05T15:08:39.000Z",
+                          "uid": "35240-2574b63d-3df9-4cc5-ba85-3803b56760f4"
+                        },
+                        {
+                          "id": "3f8c1617-df02-429a-84e7-1e595f922273",
+                          "name": "Bulk TLS certificate not found.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"data\": {\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"intermediates_blob\": \"<string>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tls",
+                                "bulk",
+                                "certificates",
+                                ":tls_bulk_certificate_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tls_bulk_certificate_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:39.000Z",
+                          "updatedAt": "2026-06-05T15:08:39.000Z",
+                          "uid": "35240-3f8c1617-df02-429a-84e7-1e595f922273"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-a656fa5a-3b41-4df7-8aac-f6d7815ec64a"
+                    },
+                    {
+                      "name": "Delete a platform TLS bulk certificate",
+                      "id": "679837a3-f1bd-4520-98fc-6c6dcc383210",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "bulk",
+                            "certificates",
+                            ":tls_bulk_certificate_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "68e0979d-e224-4536-a426-bd3d2d60c7ed",
+                              "key": "tls_bulk_certificate_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the bulk TLS certificate."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a platform TLS bulk certificate."
+                      },
+                      "response": [
+                        {
+                          "id": "04856d23-9493-4e8c-b0a4-f580c1d5db99",
+                          "name": "Successfully deleted the bulk TLS certificate.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tls",
+                                "bulk",
+                                "certificates",
+                                ":tls_bulk_certificate_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tls_bulk_certificate_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:39.000Z",
+                          "updatedAt": "2026-06-05T15:08:39.000Z",
+                          "uid": "35240-04856d23-9493-4e8c-b0a4-f580c1d5db99"
+                        },
+                        {
+                          "id": "f7abc0d6-0ace-4c8e-ab7f-5961f967c145",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tls",
+                                "bulk",
+                                "certificates",
+                                ":tls_bulk_certificate_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tls_bulk_certificate_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:39.000Z",
+                          "updatedAt": "2026-06-05T15:08:39.000Z",
+                          "uid": "35240-f7abc0d6-0ace-4c8e-ab7f-5961f967c145"
+                        },
+                        {
+                          "id": "f411a13f-ecd3-4811-bf6d-5a8ade1cb9ba",
+                          "name": "Bulk TLS certificate not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tls/bulk/certificates/:tls_bulk_certificate_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tls",
+                                "bulk",
+                                "certificates",
+                                ":tls_bulk_certificate_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tls_bulk_certificate_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:39.000Z",
+                          "updatedAt": "2026-06-05T15:08:39.000Z",
+                          "uid": "35240-f411a13f-ecd3-4811-bf6d-5a8ade1cb9ba"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-679837a3-f1bd-4520-98fc-6c6dcc383210"
+                    }
+                  ],
+                  "id": "439e7fe0-e47f-4db5-bd26-e7ebf1838ddd",
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-439e7fe0-e47f-4db5-bd26-e7ebf1838ddd"
+                },
+                {
+                  "name": "List platform TLS bulk certificates",
+                  "id": "9915f0a2-c33a-4f31-b5b5-aa40e36ff0a2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/bulk/certificates?page[number]=<integer>&page[size]=<integer>&sort=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "bulk",
+                        "certificates"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page[number]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "page[size]",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The field to sort results by.",
+                          "key": "sort",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a list of all platform TLS bulk certificates. Available to Platform TLS customers for streamlined upload, deployment, and management of large numbers of TLS certificates."
+                  },
+                  "response": [
+                    {
+                      "id": "b8471fc0-e93a-42e6-a72c-c7f1042ac1ae",
+                      "name": "Successfully retrieved the list of bulk certificates.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/bulk/certificates?page[number]=<integer>&page[size]=<integer>&sort=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "bulk",
+                            "certificates"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to retrieve.",
+                              "key": "page[number]",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "page[size]",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The field to sort results by.",
+                              "key": "sort",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"tls_bulk_certificate\",\n      \"attributes\": {\n        \"not_before\": \"<dateTime>\",\n        \"not_after\": \"<dateTime>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"tls_bulk_certificate\",\n      \"attributes\": {\n        \"not_before\": \"<dateTime>\",\n        \"not_after\": \"<dateTime>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-b8471fc0-e93a-42e6-a72c-c7f1042ac1ae"
+                    },
+                    {
+                      "id": "2e3a94cd-44ce-4ba7-9883-5ceb2b73c5a0",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/bulk/certificates?page[number]=<integer>&page[size]=<integer>&sort=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "bulk",
+                            "certificates"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to retrieve.",
+                              "key": "page[number]",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "page[size]",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The field to sort results by.",
+                              "key": "sort",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-2e3a94cd-44ce-4ba7-9883-5ceb2b73c5a0"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-9915f0a2-c33a-4f31-b5b5-aa40e36ff0a2"
+                },
+                {
+                  "name": "Upload a platform TLS bulk certificate",
+                  "id": "1f5e8679-4e6a-49ac-bb89-cdc3f1c19a7a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": {\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"intermediates_blob\": \"<string>\"\n    },\n    \"relationships\": {\n      \"tls_configurations\": {}\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tls/bulk/certificates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tls",
+                        "bulk",
+                        "certificates"
+                      ]
+                    },
+                    "description": "Uploads a new platform TLS bulk certificate and corresponding intermediates for deployment across Fastly's edge network."
+                  },
+                  "response": [
+                    {
+                      "id": "f45d117c-c01c-4f68-baa3-3cfe4deb501f",
+                      "name": "Successfully created the bulk TLS certificate.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"intermediates_blob\": \"<string>\"\n    },\n    \"relationships\": {\n      \"tls_configurations\": {}\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/bulk/certificates",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "bulk",
+                            "certificates"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"not_before\": \"<dateTime>\",\n      \"not_after\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-f45d117c-c01c-4f68-baa3-3cfe4deb501f"
+                    },
+                    {
+                      "id": "217dd081-999a-4047-a7aa-f913e221c1c9",
+                      "name": "Bad request. Missing or invalid certificate data.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"intermediates_blob\": \"<string>\"\n    },\n    \"relationships\": {\n      \"tls_configurations\": {}\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/bulk/certificates",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "bulk",
+                            "certificates"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-217dd081-999a-4047-a7aa-f913e221c1c9"
+                    },
+                    {
+                      "id": "0cb22480-bc75-4966-9543-a8663466dd32",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": {\n    \"type\": \"tls_bulk_certificate\",\n    \"attributes\": {\n      \"cert_blob\": \"<string>\",\n      \"intermediates_blob\": \"<string>\"\n    },\n    \"relationships\": {\n      \"tls_configurations\": {}\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/tls/bulk/certificates",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tls",
+                            "bulk",
+                            "certificates"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:39.000Z",
+                      "updatedAt": "2026-06-05T15:08:39.000Z",
+                      "uid": "35240-0cb22480-bc75-4966-9543-a8663466dd32"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:39.000Z",
+                  "updatedAt": "2026-06-05T15:08:39.000Z",
+                  "uid": "35240-1f5e8679-4e6a-49ac-bb89-cdc3f1c19a7a"
+                }
+              ],
+              "id": "b061e8aa-990f-4e35-ab26-7ccfff72ec24",
+              "createdAt": "2026-06-05T15:08:39.000Z",
+              "updatedAt": "2026-06-05T15:08:39.000Z",
+              "uid": "35240-b061e8aa-990f-4e35-ab26-7ccfff72ec24"
+            }
+          ],
+          "id": "529670cc-f2cc-4a53-9886-560a5ac00e8a",
+          "createdAt": "2026-06-05T15:08:39.000Z",
+          "updatedAt": "2026-06-05T15:08:39.000Z",
+          "uid": "35240-529670cc-f2cc-4a53-9886-560a5ac00e8a"
+        }
+      ],
+      "id": "1a2e3f06-ff43-4bd2-8d1a-ab686a570e81",
+      "createdAt": "2026-06-05T15:08:39.000Z",
+      "updatedAt": "2026-06-05T15:08:39.000Z",
+      "uid": "35240-1a2e3f06-ff43-4bd2-8d1a-ab686a570e81"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

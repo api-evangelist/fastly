@@ -1,0 +1,304 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Metrics and Stats API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Real-Time Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get real-time analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rt.fastly.com/v1/channel/:service_id/ts/:start_timestamp",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "start_timestamp",
+                "value": "",
+                "type": "path",
+                "description": "The Unix timestamp to start retrieving analytics data from."
+              }
+            ]
+          },
+          "docs": "Retrieves real-time analytics data for a Fastly service starting from the specified Unix timestamp. Returns a list of records, each representing one second of time, with measurement data grouped in various ways. The real-time analytics API is rate limited internally and is cached behind Fastly with a 1-second expiration time."
+        },
+        {
+          "info": {
+            "name": "Get real-time analytics for the last 120 seconds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rt.fastly.com/v1/channel/:service_id/ts/h",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Retrieves real-time analytics data for the last 120 seconds for the specified Fastly service."
+        },
+        {
+          "info": {
+            "name": "Get real-time analytics with a limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rt.fastly.com/v1/channel/:service_id/ts/h/limit/:max_entries",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "max_entries",
+                "value": "",
+                "type": "path",
+                "description": "The maximum number of entries to return."
+              }
+            ]
+          },
+          "docs": "Retrieves real-time analytics data for the specified Fastly service limited to the most recent entries up to the specified maximum."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Historical Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get historical stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rt.fastly.com/stats",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start date/time for the query in ISO 8601 or Unix timestamp format."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end date/time for the query in ISO 8601 or Unix timestamp format."
+              },
+              {
+                "name": "by",
+                "value": "",
+                "type": "query",
+                "description": "The duration of each time bucket in the response."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by Fastly POP region."
+              }
+            ]
+          },
+          "docs": "Retrieves historical statistics for all Fastly services associated with the account. Data with day resolution is bucketed based on UTC days and becomes available around 2 AM the following day. Hour resolution becomes available approximately 15 minutes after the end of each hour. Minute data usually becomes available two minutes after the end of the minute. Minutely data older than 35 days and hourly data older than 375 days are not available."
+        },
+        {
+          "info": {
+            "name": "Get historical stats for a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rt.fastly.com/stats/service/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start date/time for the query."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end date/time for the query."
+              },
+              {
+                "name": "by",
+                "value": "",
+                "type": "query",
+                "description": "The duration of each time bucket in the response."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by Fastly POP region."
+              }
+            ]
+          },
+          "docs": "Retrieves historical statistics for a specific Fastly service over the specified time range and resolution."
+        },
+        {
+          "info": {
+            "name": "Get historical stats for a specific field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rt.fastly.com/stats/field/:field",
+            "params": [
+              {
+                "name": "field",
+                "value": "",
+                "type": "path",
+                "description": "The stats field to retrieve."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start date/time for the query."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end date/time for the query."
+              },
+              {
+                "name": "by",
+                "value": "",
+                "type": "query",
+                "description": "The duration of each time bucket in the response."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by Fastly POP region."
+              }
+            ]
+          },
+          "docs": "Retrieves a single historical statistics field for all services associated with the account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Domain Inspector",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get real-time domain metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rt.fastly.com/v1/channel/:service_id/ts/h/domains/:domain/limit/:max_entries",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The domain to retrieve metrics for."
+              },
+              {
+                "name": "max_entries",
+                "value": "",
+                "type": "path",
+                "description": "The maximum number of entries to return."
+              }
+            ]
+          },
+          "docs": "Retrieves real-time per-domain analytics data for a specific domain on a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Origin Inspector",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get real-time origin metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rt.fastly.com/v1/channel/:service_id/ts/h/origins/:origin/limit/:max_entries",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "origin",
+                "value": "",
+                "type": "path",
+                "description": "The origin host to retrieve metrics for."
+              },
+              {
+                "name": "max_entries",
+                "value": "",
+                "type": "path",
+                "description": "The maximum number of entries to return."
+              }
+            ]
+          },
+          "docs": "Retrieves real-time per-origin analytics data for a specific origin on a Fastly service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

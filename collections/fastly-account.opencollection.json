@@ -1,0 +1,355 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the current customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/current_customer"
+          },
+          "docs": "Retrieves the customer account information for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/customer/:customer_id",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the customer."
+              }
+            ]
+          },
+          "docs": "Retrieves the account information for a specific customer."
+        },
+        {
+          "info": {
+            "name": "Update a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/customer/:customer_id",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the customer."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates the account information for a specific customer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/current_user"
+          },
+          "docs": "Retrieves the profile information for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/user/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the user."
+              }
+            ]
+          },
+          "docs": "Retrieves the profile information for a specific user."
+        },
+        {
+          "info": {
+            "name": "Update a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/user/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the user."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                },
+                {
+                  "name": "role",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates the profile information for a specific user."
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/user/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the user."
+              }
+            ]
+          },
+          "docs": "Removes a user from the customer account."
+        },
+        {
+          "info": {
+            "name": "List users for a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/customer/:customer_id/users",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the customer."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all users associated with a specific customer account."
+        },
+        {
+          "info": {
+            "name": "Create a user invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/invitations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an invitation to join the customer account. The invited user will receive an email with a link to accept the invitation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "IAM Roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List IAM roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/roles",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor for pagination."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all identity and access management roles. Supports cursor-based pagination."
+        },
+        {
+          "info": {
+            "name": "Get an IAM role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/roles/:role_id",
+            "params": [
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the IAM role."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific IAM role, optionally including its associated permissions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "IAM Service Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List IAM service groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service-groups",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor for pagination."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all service groups used for access control."
+        },
+        {
+          "info": {
+            "name": "Create an IAM service group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service-groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new service group for organizing services."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "IAM User Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List IAM user groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/user-groups",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor for pagination."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all user groups used for organizing users and assigning roles."
+        },
+        {
+          "info": {
+            "name": "Create an IAM user group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/user-groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user group for organizing users and assigning roles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

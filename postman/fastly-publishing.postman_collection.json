@@ -1,0 +1,228 @@
+{
+  "info": {
+    "_postman_id": "536c3409-f135-402d-b477-02da8adb8d9b",
+    "name": "Fastly Publishing (Fanout) API",
+    "description": "The Fastly Publishing API sends messages to Fanout subscribers. Fanout is\ndesigned to be GRIP-compatible, such that\nhttps://api.fastly.com/service/{service_id} can be used as a GRIP URL in\napplication configurations. Messages can be delivered to subscribers across\nHTTP responses, HTTP streams, and WebSocket connections.\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:56.000Z",
+    "updatedAt": "2026-06-05T15:08:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-536c3409-f135-402d-b477-02da8adb8d9b"
+  },
+  "item": [
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "{service_id}",
+          "item": [
+            {
+              "name": "publish",
+              "item": [
+                {
+                  "name": "Publish Messages To Fanout",
+                  "id": "719361e4-c061-4dbd-b788-c41f0d1a4995",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"items\": [\n    {\n      \"channel\": \"<string>\",\n      \"id\": \"<string>\",\n      \"prev_id\": \"<string>\",\n      \"formats\": {\n        \"http-response\": {\n          \"code\": \"<integer>\",\n          \"body\": \"<string>\"\n        },\n        \"http-stream\": {\n          \"content\": \"<string>\"\n        },\n        \"ws-message\": {\n          \"content\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"channel\": \"<string>\",\n      \"id\": \"<string>\",\n      \"prev_id\": \"<string>\",\n      \"formats\": {\n        \"http-response\": {\n          \"code\": \"<integer>\",\n          \"body\": \"<string>\"\n        },\n        \"http-stream\": {\n          \"content\": \"<string>\"\n        },\n        \"ws-message\": {\n          \"content\": \"<string>\"\n        }\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id/publish/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id",
+                        "publish",
+                        ""
+                      ],
+                      "variable": [
+                        {
+                          "id": "440d6a09-7865-4bdc-9b67-e36a16d8f7bd",
+                          "key": "service_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "87fe9205-20d6-4944-a97a-0df113007816",
+                      "name": "Messages published",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"items\": [\n    {\n      \"channel\": \"<string>\",\n      \"id\": \"<string>\",\n      \"prev_id\": \"<string>\",\n      \"formats\": {\n        \"http-response\": {\n          \"code\": \"<integer>\",\n          \"body\": \"<string>\"\n        },\n        \"http-stream\": {\n          \"content\": \"<string>\"\n        },\n        \"ws-message\": {\n          \"content\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"channel\": \"<string>\",\n      \"id\": \"<string>\",\n      \"prev_id\": \"<string>\",\n      \"formats\": {\n        \"http-response\": {\n          \"code\": \"<integer>\",\n          \"body\": \"<string>\"\n        },\n        \"http-stream\": {\n          \"content\": \"<string>\"\n        },\n        \"ws-message\": {\n          \"content\": \"<string>\"\n        }\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/publish/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "publish",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:56.000Z",
+                      "updatedAt": "2026-06-05T15:08:56.000Z",
+                      "uid": "35240-87fe9205-20d6-4944-a97a-0df113007816"
+                    },
+                    {
+                      "id": "41f75b30-5d2e-44e3-9825-15c392577141",
+                      "name": "Authorization failed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"items\": [\n    {\n      \"channel\": \"<string>\",\n      \"id\": \"<string>\",\n      \"prev_id\": \"<string>\",\n      \"formats\": {\n        \"http-response\": {\n          \"code\": \"<integer>\",\n          \"body\": \"<string>\"\n        },\n        \"http-stream\": {\n          \"content\": \"<string>\"\n        },\n        \"ws-message\": {\n          \"content\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"channel\": \"<string>\",\n      \"id\": \"<string>\",\n      \"prev_id\": \"<string>\",\n      \"formats\": {\n        \"http-response\": {\n          \"code\": \"<integer>\",\n          \"body\": \"<string>\"\n        },\n        \"http-stream\": {\n          \"content\": \"<string>\"\n        },\n        \"ws-message\": {\n          \"content\": \"<string>\"\n        }\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/publish/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "publish",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:56.000Z",
+                      "updatedAt": "2026-06-05T15:08:56.000Z",
+                      "uid": "35240-41f75b30-5d2e-44e3-9825-15c392577141"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:56.000Z",
+                  "updatedAt": "2026-06-05T15:08:56.000Z",
+                  "uid": "35240-719361e4-c061-4dbd-b788-c41f0d1a4995"
+                }
+              ],
+              "id": "1108eb49-a731-4610-b622-a2b3dc1e0574",
+              "createdAt": "2026-06-05T15:08:56.000Z",
+              "updatedAt": "2026-06-05T15:08:56.000Z",
+              "uid": "35240-1108eb49-a731-4610-b622-a2b3dc1e0574"
+            }
+          ],
+          "id": "5ce53009-c764-4509-88e2-81273d94b680",
+          "createdAt": "2026-06-05T15:08:56.000Z",
+          "updatedAt": "2026-06-05T15:08:56.000Z",
+          "uid": "35240-5ce53009-c764-4509-88e2-81273d94b680"
+        }
+      ],
+      "id": "5559094f-c262-42d7-86b4-531ad6ad03ae",
+      "createdAt": "2026-06-05T15:08:56.000Z",
+      "updatedAt": "2026-06-05T15:08:56.000Z",
+      "uid": "35240-5559094f-c262-42d7-86b4-531ad6ad03ae"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

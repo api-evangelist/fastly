@@ -1,0 +1,2669 @@
+{
+  "info": {
+    "_postman_id": "4974628b-1ef3-4861-ad2d-7b70dd6ca43d",
+    "name": "Fastly Account API",
+    "description": "The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:43.000Z",
+    "updatedAt": "2026-06-05T15:08:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4974628b-1ef3-4861-ad2d-7b70dd6ca43d"
+  },
+  "item": [
+    {
+      "name": "current_customer",
+      "item": [
+        {
+          "name": "Get the current customer",
+          "id": "f1f988e0-05f9-4c8b-bc64-d9e0d322828b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/current_customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "current_customer"
+              ]
+            },
+            "description": "Retrieves the customer account information for the authenticated user."
+          },
+          "response": [
+            {
+              "id": "e533c31c-29b8-461e-adea-f04c271a0d75",
+              "name": "Successfully retrieved the customer information.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/current_customer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "current_customer"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"owner_id\": \"<string>\",\n  \"pricing_plan\": \"<string>\",\n  \"can_configure_wordpress\": \"<boolean>\",\n  \"legal_contact_id\": \"<string>\",\n  \"technical_contact_id\": \"<string>\",\n  \"security_contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-e533c31c-29b8-461e-adea-f04c271a0d75"
+            },
+            {
+              "id": "9a6eee4b-b7e5-4c88-8f60-07fdb6126aed",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/current_customer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "current_customer"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-9a6eee4b-b7e5-4c88-8f60-07fdb6126aed"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-f1f988e0-05f9-4c8b-bc64-d9e0d322828b"
+        }
+      ],
+      "id": "434fff56-84f6-404a-a871-06d1f9078e76",
+      "createdAt": "2026-06-05T15:08:43.000Z",
+      "updatedAt": "2026-06-05T15:08:43.000Z",
+      "uid": "35240-434fff56-84f6-404a-a871-06d1f9078e76"
+    },
+    {
+      "name": "customer",
+      "item": [
+        {
+          "name": "{customer_id}",
+          "item": [
+            {
+              "name": "users",
+              "item": [
+                {
+                  "name": "List users for a customer",
+                  "id": "426f0c45-9d74-4ffc-ba2b-a276f68a2153",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customer/:customer_id/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customer",
+                        ":customer_id",
+                        "users"
+                      ],
+                      "variable": [
+                        {
+                          "id": "2e9418f1-aeec-45f0-9b56-f2519115a785",
+                          "key": "customer_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the customer."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a list of all users associated with a specific customer account."
+                  },
+                  "response": [
+                    {
+                      "id": "c7003f4b-a478-4eab-a425-a134f74cb1b3",
+                      "name": "Successfully retrieved the list of users.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customer/:customer_id/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customer",
+                            ":customer_id",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"login\": \"<email>\",\n    \"name\": \"<string>\",\n    \"role\": \"superuser\",\n    \"customer_id\": \"<string>\",\n    \"email_hash\": \"<string>\",\n    \"two_factor_auth_enabled\": \"<boolean>\",\n    \"limit_services\": \"<boolean>\",\n    \"locked\": \"<boolean>\",\n    \"require_new_password\": \"<boolean>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"login\": \"<email>\",\n    \"name\": \"<string>\",\n    \"role\": \"engineer\",\n    \"customer_id\": \"<string>\",\n    \"email_hash\": \"<string>\",\n    \"two_factor_auth_enabled\": \"<boolean>\",\n    \"limit_services\": \"<boolean>\",\n    \"locked\": \"<boolean>\",\n    \"require_new_password\": \"<boolean>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:08:43.000Z",
+                      "updatedAt": "2026-06-05T15:08:43.000Z",
+                      "uid": "35240-c7003f4b-a478-4eab-a425-a134f74cb1b3"
+                    },
+                    {
+                      "id": "7cbb77e2-e143-47f5-a6fc-053ac42565c8",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customer/:customer_id/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customer",
+                            ":customer_id",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:43.000Z",
+                      "updatedAt": "2026-06-05T15:08:43.000Z",
+                      "uid": "35240-7cbb77e2-e143-47f5-a6fc-053ac42565c8"
+                    },
+                    {
+                      "id": "0a0dfda9-f44f-4c7d-8d5b-759962a0d98f",
+                      "name": "Customer not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customer/:customer_id/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customer",
+                            ":customer_id",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:43.000Z",
+                      "updatedAt": "2026-06-05T15:08:43.000Z",
+                      "uid": "35240-0a0dfda9-f44f-4c7d-8d5b-759962a0d98f"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-426f0c45-9d74-4ffc-ba2b-a276f68a2153"
+                }
+              ],
+              "id": "75578e6a-a991-4743-a075-b247dbe70255",
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-75578e6a-a991-4743-a075-b247dbe70255"
+            },
+            {
+              "name": "Get a customer",
+              "id": "d631fe8b-e641-46bb-b8c7-382a720833be",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customer/:customer_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customer",
+                    ":customer_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "be7e6006-1543-4aa1-9b9e-80a7b0dd180f",
+                      "key": "customer_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the customer."
+                    }
+                  ]
+                },
+                "description": "Retrieves the account information for a specific customer."
+              },
+              "response": [
+                {
+                  "id": "77f050f0-58c2-420d-a8ac-ba9aff9466bf",
+                  "name": "Successfully retrieved the customer information.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customer/:customer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customer",
+                        ":customer_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customer_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"owner_id\": \"<string>\",\n  \"pricing_plan\": \"<string>\",\n  \"can_configure_wordpress\": \"<boolean>\",\n  \"legal_contact_id\": \"<string>\",\n  \"technical_contact_id\": \"<string>\",\n  \"security_contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-77f050f0-58c2-420d-a8ac-ba9aff9466bf"
+                },
+                {
+                  "id": "f1d2f69d-73fc-4957-97b6-9ce819a5ced8",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customer/:customer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customer",
+                        ":customer_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customer_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-f1d2f69d-73fc-4957-97b6-9ce819a5ced8"
+                },
+                {
+                  "id": "981f6e62-1d32-41ae-b5aa-82e50aaa12d2",
+                  "name": "Customer not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customer/:customer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customer",
+                        ":customer_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customer_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-981f6e62-1d32-41ae-b5aa-82e50aaa12d2"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-d631fe8b-e641-46bb-b8c7-382a720833be"
+            },
+            {
+              "name": "Update a customer",
+              "id": "f1b48126-a7cf-4adf-8848-b9b630789958",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "The name of the customer account.",
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customer/:customer_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customer",
+                    ":customer_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "53c87645-3483-4da1-92a8-b9f732d319c0",
+                      "key": "customer_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the customer."
+                    }
+                  ]
+                },
+                "description": "Updates the account information for a specific customer."
+              },
+              "response": [
+                {
+                  "id": "624fd12e-1072-4f5d-bf84-28304324d0c0",
+                  "name": "Successfully updated the customer information.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the customer account.",
+                          "key": "name",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customer/:customer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customer",
+                        ":customer_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customer_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"owner_id\": \"<string>\",\n  \"pricing_plan\": \"<string>\",\n  \"can_configure_wordpress\": \"<boolean>\",\n  \"legal_contact_id\": \"<string>\",\n  \"technical_contact_id\": \"<string>\",\n  \"security_contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-624fd12e-1072-4f5d-bf84-28304324d0c0"
+                },
+                {
+                  "id": "e3491937-4bc0-4042-8664-6c175dfc7187",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the customer account.",
+                          "key": "name",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customer/:customer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customer",
+                        ":customer_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customer_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-e3491937-4bc0-4042-8664-6c175dfc7187"
+                },
+                {
+                  "id": "617c330f-ce3e-467e-816b-ccda103f478b",
+                  "name": "Customer not found.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the customer account.",
+                          "key": "name",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customer/:customer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customer",
+                        ":customer_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "customer_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-617c330f-ce3e-467e-816b-ccda103f478b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-f1b48126-a7cf-4adf-8848-b9b630789958"
+            }
+          ],
+          "id": "a0f29023-facd-4a03-880b-d9fb79243432",
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-a0f29023-facd-4a03-880b-d9fb79243432"
+        }
+      ],
+      "id": "f4ddadcb-0641-493a-a537-748c78bc6202",
+      "createdAt": "2026-06-05T15:08:43.000Z",
+      "updatedAt": "2026-06-05T15:08:43.000Z",
+      "uid": "35240-f4ddadcb-0641-493a-a537-748c78bc6202"
+    },
+    {
+      "name": "current_user",
+      "item": [
+        {
+          "name": "Get the current user",
+          "id": "1cb77f63-677a-4070-a83a-3958dc831217",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/current_user",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "current_user"
+              ]
+            },
+            "description": "Retrieves the profile information for the authenticated user."
+          },
+          "response": [
+            {
+              "id": "66bfda71-6f71-4189-b5b7-8a9576eba4b3",
+              "name": "Successfully retrieved the user profile.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/current_user",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "current_user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"login\": \"<email>\",\n  \"name\": \"<string>\",\n  \"role\": \"superuser\",\n  \"customer_id\": \"<string>\",\n  \"email_hash\": \"<string>\",\n  \"two_factor_auth_enabled\": \"<boolean>\",\n  \"limit_services\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"require_new_password\": \"<boolean>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-66bfda71-6f71-4189-b5b7-8a9576eba4b3"
+            },
+            {
+              "id": "adfc10eb-efde-46b9-ae55-affa39cf386d",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/current_user",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "current_user"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-adfc10eb-efde-46b9-ae55-affa39cf386d"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-1cb77f63-677a-4070-a83a-3958dc831217"
+        }
+      ],
+      "id": "8b23dbc5-105e-4988-ab35-cd7b62350cd5",
+      "createdAt": "2026-06-05T15:08:43.000Z",
+      "updatedAt": "2026-06-05T15:08:43.000Z",
+      "uid": "35240-8b23dbc5-105e-4988-ab35-cd7b62350cd5"
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "{user_id}",
+          "item": [
+            {
+              "name": "Get a user",
+              "id": "b6c6c882-a059-4d3f-984c-722b5c6a6603",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/user/:user_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user",
+                    ":user_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "8e920982-1338-4c24-8642-1a8c03110b8a",
+                      "key": "user_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the user."
+                    }
+                  ]
+                },
+                "description": "Retrieves the profile information for a specific user."
+              },
+              "response": [
+                {
+                  "id": "0e40480b-1b31-49f3-937d-63b32dee5a40",
+                  "name": "Successfully retrieved the user profile.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/user/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "user",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "user_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"login\": \"<email>\",\n  \"name\": \"<string>\",\n  \"role\": \"superuser\",\n  \"customer_id\": \"<string>\",\n  \"email_hash\": \"<string>\",\n  \"two_factor_auth_enabled\": \"<boolean>\",\n  \"limit_services\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"require_new_password\": \"<boolean>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-0e40480b-1b31-49f3-937d-63b32dee5a40"
+                },
+                {
+                  "id": "8cd459f3-7033-4ea9-9e45-58c1b2e5380a",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/user/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "user",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "user_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-8cd459f3-7033-4ea9-9e45-58c1b2e5380a"
+                },
+                {
+                  "id": "6afdc9e7-e74e-4b44-8343-a1728af5d57f",
+                  "name": "User not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/user/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "user",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "user_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-6afdc9e7-e74e-4b44-8343-a1728af5d57f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-b6c6c882-a059-4d3f-984c-722b5c6a6603"
+            },
+            {
+              "name": "Update a user",
+              "id": "9c6e71fb-b730-473f-bf9e-845864fcda59",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "The name of the user.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The role assigned to the user.",
+                      "key": "role",
+                      "value": "billing"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user/:user_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user",
+                    ":user_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "1899f6ef-6f8c-48d9-80e8-84776848a1de",
+                      "key": "user_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the user."
+                    }
+                  ]
+                },
+                "description": "Updates the profile information for a specific user."
+              },
+              "response": [
+                {
+                  "id": "1b135bde-7c0b-4eee-a0e0-0cbca902497d",
+                  "name": "Successfully updated the user profile.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the user.",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The role assigned to the user.",
+                          "key": "role",
+                          "value": "billing"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/user/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "user",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "user_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"login\": \"<email>\",\n  \"name\": \"<string>\",\n  \"role\": \"superuser\",\n  \"customer_id\": \"<string>\",\n  \"email_hash\": \"<string>\",\n  \"two_factor_auth_enabled\": \"<boolean>\",\n  \"limit_services\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"require_new_password\": \"<boolean>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-1b135bde-7c0b-4eee-a0e0-0cbca902497d"
+                },
+                {
+                  "id": "1cea577d-2781-42e8-94b0-464bfeb27fb1",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the user.",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The role assigned to the user.",
+                          "key": "role",
+                          "value": "billing"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/user/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "user",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "user_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-1cea577d-2781-42e8-94b0-464bfeb27fb1"
+                },
+                {
+                  "id": "011b55ff-158d-4a03-ad97-8fd131d98c3a",
+                  "name": "User not found.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the user.",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The role assigned to the user.",
+                          "key": "role",
+                          "value": "billing"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/user/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "user",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "user_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-011b55ff-158d-4a03-ad97-8fd131d98c3a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-9c6e71fb-b730-473f-bf9e-845864fcda59"
+            },
+            {
+              "name": "Delete a user",
+              "id": "930e591d-b572-49f2-b3ed-b96b8d323d19",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/user/:user_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user",
+                    ":user_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "541cd2d2-0c1b-4ac7-ab31-3bf1f4c97bcc",
+                      "key": "user_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the user."
+                    }
+                  ]
+                },
+                "description": "Removes a user from the customer account."
+              },
+              "response": [
+                {
+                  "id": "32151447-eebc-490c-ade6-e89f82709836",
+                  "name": "Successfully deleted the user.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/user/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "user",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "user_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-32151447-eebc-490c-ade6-e89f82709836"
+                },
+                {
+                  "id": "ce7d0b97-e52d-44be-8fc4-71b9a8a9d106",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/user/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "user",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "user_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-ce7d0b97-e52d-44be-8fc4-71b9a8a9d106"
+                },
+                {
+                  "id": "abf93661-91b8-4096-81cc-9dfb95c2f18e",
+                  "name": "User not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/user/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "user",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "user_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-abf93661-91b8-4096-81cc-9dfb95c2f18e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-930e591d-b572-49f2-b3ed-b96b8d323d19"
+            }
+          ],
+          "id": "b5403fab-f7b7-4e1a-a464-d1be18c160e3",
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-b5403fab-f7b7-4e1a-a464-d1be18c160e3"
+        }
+      ],
+      "id": "5fed5de1-ac1d-44ba-a659-68259317b56f",
+      "createdAt": "2026-06-05T15:08:43.000Z",
+      "updatedAt": "2026-06-05T15:08:43.000Z",
+      "uid": "35240-5fed5de1-ac1d-44ba-a659-68259317b56f"
+    },
+    {
+      "name": "invitations",
+      "item": [
+        {
+          "name": "Create a user invitation",
+          "id": "60d2ec47-3585-4d6c-a50e-54ccb8bf612e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"invitation\",\n    \"attributes\": {\n      \"email\": \"<email>\",\n      \"role\": \"engineer\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/invitations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invitations"
+              ]
+            },
+            "description": "Creates an invitation to join the customer account. The invited user will receive an email with a link to accept the invitation."
+          },
+          "response": [
+            {
+              "id": "3c77d6d1-aafc-4035-bb7f-b0fbdcce598a",
+              "name": "Successfully created the invitation.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"invitation\",\n    \"attributes\": {\n      \"email\": \"<email>\",\n      \"role\": \"engineer\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/invitations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "invitations"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"type\": \"invitation\",\n  \"attributes\": {\n    \"email\": \"<email>\",\n    \"role\": \"<string>\",\n    \"status\": \"expired\",\n    \"created_at\": \"<dateTime>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-3c77d6d1-aafc-4035-bb7f-b0fbdcce598a"
+            },
+            {
+              "id": "70b46bab-7d77-4df2-8d7f-9f239ab8905f",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"invitation\",\n    \"attributes\": {\n      \"email\": \"<email>\",\n      \"role\": \"engineer\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/invitations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "invitations"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-70b46bab-7d77-4df2-8d7f-9f239ab8905f"
+            },
+            {
+              "id": "160682de-0099-4dad-823b-11211930618d",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"invitation\",\n    \"attributes\": {\n      \"email\": \"<email>\",\n      \"role\": \"engineer\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/invitations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "invitations"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-160682de-0099-4dad-823b-11211930618d"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-60d2ec47-3585-4d6c-a50e-54ccb8bf612e"
+        }
+      ],
+      "id": "125d3753-a8a3-4b8e-8d24-841c29fa3180",
+      "createdAt": "2026-06-05T15:08:43.000Z",
+      "updatedAt": "2026-06-05T15:08:43.000Z",
+      "uid": "35240-125d3753-a8a3-4b8e-8d24-841c29fa3180"
+    },
+    {
+      "name": "roles",
+      "item": [
+        {
+          "name": "{role_id}",
+          "item": [
+            {
+              "name": "Get an IAM role",
+              "id": "eb65687d-0483-42e6-b4d6-49aaa665ab01",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/roles/:role_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "roles",
+                    ":role_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "fe02ea66-e36c-4854-8cdb-1813a15ded5b",
+                      "key": "role_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the IAM role."
+                    }
+                  ]
+                },
+                "description": "Retrieves the details of a specific IAM role, optionally including its associated permissions."
+              },
+              "response": [
+                {
+                  "id": "209a96c6-70e1-434b-9d86-10cd274a12c2",
+                  "name": "Successfully retrieved the IAM role.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/roles/:role_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "roles",
+                        ":role_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "role_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"custom\": \"<boolean>\",\n  \"permissions_count\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-209a96c6-70e1-434b-9d86-10cd274a12c2"
+                },
+                {
+                  "id": "8dec6516-7933-4fcf-8700-967acc341dbf",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/roles/:role_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "roles",
+                        ":role_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "role_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-8dec6516-7933-4fcf-8700-967acc341dbf"
+                },
+                {
+                  "id": "b5e5baa3-15c8-4266-869b-526552e6ca13",
+                  "name": "IAM role not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/roles/:role_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "roles",
+                        ":role_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "role_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:43.000Z",
+                  "updatedAt": "2026-06-05T15:08:43.000Z",
+                  "uid": "35240-b5e5baa3-15c8-4266-869b-526552e6ca13"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-eb65687d-0483-42e6-b4d6-49aaa665ab01"
+            }
+          ],
+          "id": "b1a35b6f-a5f1-4bb1-a7ae-f3b63f98a921",
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-b1a35b6f-a5f1-4bb1-a7ae-f3b63f98a921"
+        },
+        {
+          "name": "List IAM roles",
+          "id": "88f92d6e-8064-4115-ac9d-04d23291b710",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/roles?per_page=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles"
+              ],
+              "query": [
+                {
+                  "description": "The number of items per page.",
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The cursor for pagination.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieves a list of all identity and access management roles. Supports cursor-based pagination."
+          },
+          "response": [
+            {
+              "id": "c4781374-8647-4a00-a6d3-a3792f1a388d",
+              "name": "Successfully retrieved the list of IAM roles.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/roles?per_page=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "roles"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"custom\": \"<boolean>\",\n      \"permissions_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"custom\": \"<boolean>\",\n      \"permissions_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-c4781374-8647-4a00-a6d3-a3792f1a388d"
+            },
+            {
+              "id": "670525c1-2317-40cd-a74e-8514c8da2583",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/roles?per_page=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "roles"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-670525c1-2317-40cd-a74e-8514c8da2583"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-88f92d6e-8064-4115-ac9d-04d23291b710"
+        }
+      ],
+      "id": "c36da34d-f298-42ef-bbbd-17b40b94f62a",
+      "createdAt": "2026-06-05T15:08:43.000Z",
+      "updatedAt": "2026-06-05T15:08:43.000Z",
+      "uid": "35240-c36da34d-f298-42ef-bbbd-17b40b94f62a"
+    },
+    {
+      "name": "service-groups",
+      "item": [
+        {
+          "name": "List IAM service groups",
+          "id": "4ddcb056-a851-44e4-825c-9da1fd75de51",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/service-groups?per_page=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "service-groups"
+              ],
+              "query": [
+                {
+                  "description": "The number of items per page.",
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The cursor for pagination.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieves a list of all service groups used for access control."
+          },
+          "response": [
+            {
+              "id": "f5a125d3-ee0d-4704-9f47-dfffacc10ed3",
+              "name": "Successfully retrieved the list of service groups.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/service-groups?per_page=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service-groups"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"services_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"services_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-f5a125d3-ee0d-4704-9f47-dfffacc10ed3"
+            },
+            {
+              "id": "b1c9d5cf-35ca-42ff-9b54-564cb6735ace",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/service-groups?per_page=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service-groups"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-b1c9d5cf-35ca-42ff-9b54-564cb6735ace"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-4ddcb056-a851-44e4-825c-9da1fd75de51"
+        },
+        {
+          "name": "Create an IAM service group",
+          "id": "2ab08cbe-b716-4141-94e9-3d36e2e8523a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/service-groups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "service-groups"
+              ]
+            },
+            "description": "Creates a new service group for organizing services."
+          },
+          "response": [
+            {
+              "id": "8d6d6d84-2398-4216-8c42-400c76a43223",
+              "name": "Successfully created the service group.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/service-groups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service-groups"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"services_count\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-8d6d6d84-2398-4216-8c42-400c76a43223"
+            },
+            {
+              "id": "559fe84a-edc9-4ee6-9007-adacd55884c4",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/service-groups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service-groups"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-559fe84a-edc9-4ee6-9007-adacd55884c4"
+            },
+            {
+              "id": "a380857b-c31e-4234-8ba4-291b8ad275b8",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/service-groups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service-groups"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-a380857b-c31e-4234-8ba4-291b8ad275b8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-2ab08cbe-b716-4141-94e9-3d36e2e8523a"
+        }
+      ],
+      "id": "e8402e83-1b3b-447b-8895-2d590b4e58fb",
+      "createdAt": "2026-06-05T15:08:43.000Z",
+      "updatedAt": "2026-06-05T15:08:43.000Z",
+      "uid": "35240-e8402e83-1b3b-447b-8895-2d590b4e58fb"
+    },
+    {
+      "name": "user-groups",
+      "item": [
+        {
+          "name": "List IAM user groups",
+          "id": "86864803-e621-4002-9007-aea57e567e17",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/user-groups?per_page=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user-groups"
+              ],
+              "query": [
+                {
+                  "description": "The number of items per page.",
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The cursor for pagination.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieves a list of all user groups used for organizing users and assigning roles."
+          },
+          "response": [
+            {
+              "id": "2bdca796-18eb-4afc-b797-6fbdc37b123d",
+              "name": "Successfully retrieved the list of user groups.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/user-groups?per_page=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user-groups"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"users_count\": \"<integer>\",\n      \"roles_count\": \"<integer>\",\n      \"service_groups_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"users_count\": \"<integer>\",\n      \"roles_count\": \"<integer>\",\n      \"service_groups_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-2bdca796-18eb-4afc-b797-6fbdc37b123d"
+            },
+            {
+              "id": "1dce825b-c90e-4eaa-8049-7af1a1a26ac7",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/user-groups?per_page=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user-groups"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-1dce825b-c90e-4eaa-8049-7af1a1a26ac7"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-86864803-e621-4002-9007-aea57e567e17"
+        },
+        {
+          "name": "Create an IAM user group",
+          "id": "fbc0a0d9-5d2a-40ac-a077-099ca1d27f7f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user-groups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user-groups"
+              ]
+            },
+            "description": "Creates a new user group for organizing users and assigning roles."
+          },
+          "response": [
+            {
+              "id": "2c328eed-9961-4142-9497-35e6c389abf5",
+              "name": "Successfully created the user group.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user-groups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user-groups"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"users_count\": \"<integer>\",\n  \"roles_count\": \"<integer>\",\n  \"service_groups_count\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-2c328eed-9961-4142-9497-35e6c389abf5"
+            },
+            {
+              "id": "45d82b8b-65c4-4843-875c-667b32cbaa35",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user-groups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user-groups"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-45d82b8b-65c4-4843-875c-667b32cbaa35"
+            },
+            {
+              "id": "a6e351a5-703e-4e5c-8a98-247a6146965b",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user-groups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "user-groups"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:43.000Z",
+              "updatedAt": "2026-06-05T15:08:43.000Z",
+              "uid": "35240-a6e351a5-703e-4e5c-8a98-247a6146965b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:43.000Z",
+          "updatedAt": "2026-06-05T15:08:43.000Z",
+          "uid": "35240-fbc0a0d9-5d2a-40ac-a077-099ca1d27f7f"
+        }
+      ],
+      "id": "063dee23-2f88-413f-887c-56dcd26e2e61",
+      "createdAt": "2026-06-05T15:08:43.000Z",
+      "updatedAt": "2026-06-05T15:08:43.000Z",
+      "uid": "35240-063dee23-2f88-413f-887c-56dcd26e2e61"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

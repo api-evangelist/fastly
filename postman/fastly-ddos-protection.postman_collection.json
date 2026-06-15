@@ -1,0 +1,614 @@
+{
+  "info": {
+    "_postman_id": "eb7e7d54-9e80-49c3-b22a-5cf43eab80be",
+    "name": "Fastly DDoS Protection Events API",
+    "description": "The Fastly DDoS Protection Events API allows you to configure Fastly DDoS\nProtection and view attack insights including events, rules, and traffic\nstatistics. Endpoints are exposed under /ddos-protection/v1/.\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:54.000Z",
+    "updatedAt": "2026-06-05T15:08:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-eb7e7d54-9e80-49c3-b22a-5cf43eab80be"
+  },
+  "item": [
+    {
+      "name": "ddos-protection",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "events",
+              "item": [
+                {
+                  "name": "{event_id}",
+                  "item": [
+                    {
+                      "name": "rules",
+                      "item": [
+                        {
+                          "name": "{rule_id}",
+                          "item": [
+                            {
+                              "name": "traffic-stats",
+                              "item": [
+                                {
+                                  "name": "Get Traffic Stats For A Rule",
+                                  "id": "769425bb-ce00-4246-9a7d-990bd7bf9d77",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/ddos-protection/v1/events/:event_id/rules/:rule_id/traffic-stats",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "ddos-protection",
+                                        "v1",
+                                        "events",
+                                        ":event_id",
+                                        "rules",
+                                        ":rule_id",
+                                        "traffic-stats"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "6358c209-7d24-40f2-9680-a16c581ee9e8",
+                                          "key": "event_id",
+                                          "value": "<string>",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "d4f3a425-cf42-423a-9193-fcaf5f78a061",
+                                          "key": "rule_id",
+                                          "value": "<string>",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "267f4302-b7a6-4394-82cb-8fa9eade577b",
+                                      "name": "Traffic statistics",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "Fastly-Key",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/ddos-protection/v1/events/:event_id/rules/:rule_id/traffic-stats",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "ddos-protection",
+                                            "v1",
+                                            "events",
+                                            ":event_id",
+                                            "rules",
+                                            ":rule_id",
+                                            "traffic-stats"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "event_id"
+                                            },
+                                            {
+                                              "key": "rule_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-06-05T15:08:54.000Z",
+                                      "updatedAt": "2026-06-05T15:08:54.000Z",
+                                      "uid": "35240-267f4302-b7a6-4394-82cb-8fa9eade577b"
+                                    }
+                                  ],
+                                  "createdAt": "2026-06-05T15:08:54.000Z",
+                                  "updatedAt": "2026-06-05T15:08:54.000Z",
+                                  "uid": "35240-769425bb-ce00-4246-9a7d-990bd7bf9d77"
+                                }
+                              ],
+                              "id": "7331fcbb-19a7-4408-a438-5e3df6a148ac",
+                              "createdAt": "2026-06-05T15:08:54.000Z",
+                              "updatedAt": "2026-06-05T15:08:54.000Z",
+                              "uid": "35240-7331fcbb-19a7-4408-a438-5e3df6a148ac"
+                            }
+                          ],
+                          "id": "c745458a-81c5-4b4b-bc93-88599c3c5bbd",
+                          "createdAt": "2026-06-05T15:08:54.000Z",
+                          "updatedAt": "2026-06-05T15:08:54.000Z",
+                          "uid": "35240-c745458a-81c5-4b4b-bc93-88599c3c5bbd"
+                        },
+                        {
+                          "name": "Get All Rules For An Event",
+                          "id": "208f2872-2f54-4324-87a8-bb04e678d844",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/ddos-protection/v1/events/:event_id/rules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "ddos-protection",
+                                "v1",
+                                "events",
+                                ":event_id",
+                                "rules"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3778fdc3-a7e5-496c-8b6e-6031b861496f",
+                                  "key": "event_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "5377775d-671e-4807-a99c-3bed0aaac8b8",
+                              "name": "Rules applied during a DDoS event",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/ddos-protection/v1/events/:event_id/rules",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "ddos-protection",
+                                    "v1",
+                                    "events",
+                                    ":event_id",
+                                    "rules"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "event_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:54.000Z",
+                              "updatedAt": "2026-06-05T15:08:54.000Z",
+                              "uid": "35240-5377775d-671e-4807-a99c-3bed0aaac8b8"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:54.000Z",
+                          "updatedAt": "2026-06-05T15:08:54.000Z",
+                          "uid": "35240-208f2872-2f54-4324-87a8-bb04e678d844"
+                        }
+                      ],
+                      "id": "b4b2afcb-ebde-4065-ad30-1964b1a76307",
+                      "createdAt": "2026-06-05T15:08:54.000Z",
+                      "updatedAt": "2026-06-05T15:08:54.000Z",
+                      "uid": "35240-b4b2afcb-ebde-4065-ad30-1964b1a76307"
+                    },
+                    {
+                      "name": "Get DDoS Event By Id",
+                      "id": "45002c4d-62a1-49c1-9b89-1d677a2f0a98",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/ddos-protection/v1/events/:event_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ddos-protection",
+                            "v1",
+                            "events",
+                            ":event_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "af241391-52bb-4376-904d-1d07af7ab991",
+                              "key": "event_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "cc8663e0-2474-410e-b5ed-4ead05e44700",
+                          "name": "A DDoS event",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/ddos-protection/v1/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "ddos-protection",
+                                "v1",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:54.000Z",
+                          "updatedAt": "2026-06-05T15:08:54.000Z",
+                          "uid": "35240-cc8663e0-2474-410e-b5ed-4ead05e44700"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:54.000Z",
+                      "updatedAt": "2026-06-05T15:08:54.000Z",
+                      "uid": "35240-45002c4d-62a1-49c1-9b89-1d677a2f0a98"
+                    }
+                  ],
+                  "id": "590671a6-998f-4942-869f-b137d0291b75",
+                  "createdAt": "2026-06-05T15:08:54.000Z",
+                  "updatedAt": "2026-06-05T15:08:54.000Z",
+                  "uid": "35240-590671a6-998f-4942-869f-b137d0291b75"
+                },
+                {
+                  "name": "List DDoS Events",
+                  "id": "20e8c836-d456-4ffe-81dc-aa339a9bb68e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/ddos-protection/v1/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ddos-protection",
+                        "v1",
+                        "events"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "4a9911a3-e885-43ed-b794-1107dcb7dd6e",
+                      "name": "A list of DDoS events",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ddos-protection/v1/events",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ddos-protection",
+                            "v1",
+                            "events"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:54.000Z",
+                      "updatedAt": "2026-06-05T15:08:54.000Z",
+                      "uid": "35240-4a9911a3-e885-43ed-b794-1107dcb7dd6e"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:54.000Z",
+                  "updatedAt": "2026-06-05T15:08:54.000Z",
+                  "uid": "35240-20e8c836-d456-4ffe-81dc-aa339a9bb68e"
+                }
+              ],
+              "id": "40c8db7c-1408-4421-b409-c5884d13aa4d",
+              "createdAt": "2026-06-05T15:08:54.000Z",
+              "updatedAt": "2026-06-05T15:08:54.000Z",
+              "uid": "35240-40c8db7c-1408-4421-b409-c5884d13aa4d"
+            },
+            {
+              "name": "rules",
+              "item": [
+                {
+                  "name": "{rule_id}",
+                  "item": [
+                    {
+                      "name": "Get A Rule By Id",
+                      "id": "563d1ab5-9b23-47c9-9494-f8d05de26302",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/ddos-protection/v1/rules/:rule_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ddos-protection",
+                            "v1",
+                            "rules",
+                            ":rule_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "61cb3193-c2c6-487f-bb69-e3dc2a4af75f",
+                              "key": "rule_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "7b44ec25-ad9e-4271-92e2-551621504ee2",
+                          "name": "A DDoS protection rule",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/ddos-protection/v1/rules/:rule_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "ddos-protection",
+                                "v1",
+                                "rules",
+                                ":rule_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "rule_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:54.000Z",
+                          "updatedAt": "2026-06-05T15:08:54.000Z",
+                          "uid": "35240-7b44ec25-ad9e-4271-92e2-551621504ee2"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:54.000Z",
+                      "updatedAt": "2026-06-05T15:08:54.000Z",
+                      "uid": "35240-563d1ab5-9b23-47c9-9494-f8d05de26302"
+                    },
+                    {
+                      "name": "Update Rule",
+                      "id": "734a3934-cad2-4b2a-b03a-1fad5214e373",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"action\": \"log\",\n  \"enabled\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ddos-protection/v1/rules/:rule_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ddos-protection",
+                            "v1",
+                            "rules",
+                            ":rule_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "631de4bc-2314-469e-a584-af42645ba1e8",
+                              "key": "rule_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "e20b927a-7ea7-4b9b-a73b-54ecf25f5246",
+                          "name": "Updated DDoS rule",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"action\": \"log\",\n  \"enabled\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/ddos-protection/v1/rules/:rule_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "ddos-protection",
+                                "v1",
+                                "rules",
+                                ":rule_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "rule_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:54.000Z",
+                          "updatedAt": "2026-06-05T15:08:54.000Z",
+                          "uid": "35240-e20b927a-7ea7-4b9b-a73b-54ecf25f5246"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:54.000Z",
+                      "updatedAt": "2026-06-05T15:08:54.000Z",
+                      "uid": "35240-734a3934-cad2-4b2a-b03a-1fad5214e373"
+                    }
+                  ],
+                  "id": "7cf281eb-872f-4efe-bb31-4843b2758e9b",
+                  "createdAt": "2026-06-05T15:08:54.000Z",
+                  "updatedAt": "2026-06-05T15:08:54.000Z",
+                  "uid": "35240-7cf281eb-872f-4efe-bb31-4843b2758e9b"
+                }
+              ],
+              "id": "581233cf-105c-4984-9777-28b4161d5ab2",
+              "createdAt": "2026-06-05T15:08:54.000Z",
+              "updatedAt": "2026-06-05T15:08:54.000Z",
+              "uid": "35240-581233cf-105c-4984-9777-28b4161d5ab2"
+            }
+          ],
+          "id": "cf71fc9f-960b-4137-8be9-d0f0949f91de",
+          "createdAt": "2026-06-05T15:08:54.000Z",
+          "updatedAt": "2026-06-05T15:08:54.000Z",
+          "uid": "35240-cf71fc9f-960b-4137-8be9-d0f0949f91de"
+        }
+      ],
+      "id": "d6e88285-f13e-452f-9e07-04489f6bc363",
+      "createdAt": "2026-06-05T15:08:54.000Z",
+      "updatedAt": "2026-06-05T15:08:54.000Z",
+      "uid": "35240-d6e88285-f13e-452f-9e07-04489f6bc363"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

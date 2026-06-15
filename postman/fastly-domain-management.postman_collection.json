@@ -1,0 +1,1608 @@
+{
+  "info": {
+    "_postman_id": "3a75ab13-aed1-42ad-b74e-cbabf2a7653b",
+    "name": "Fastly Domain Management API",
+    "description": "The Fastly Domain Management API allows developers to programmatically associate domain names with Fastly services. Domains serve as the entry point for traffic routed through Fastly's edge network. The API supports adding, listing, and removing domains from service versions, checking domain DNS configurations, and validating that domains are correctly pointed to Fastly. It is essential for managing the routing configuration that connects end-user requests to the appropriate Fastly service.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:50.000Z",
+    "updatedAt": "2026-06-05T15:08:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3a75ab13-aed1-42ad-b74e-cbabf2a7653b"
+  },
+  "item": [
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "{service_id}",
+          "item": [
+            {
+              "name": "version",
+              "item": [
+                {
+                  "name": "{version_id}",
+                  "item": [
+                    {
+                      "name": "domain",
+                      "item": [
+                        {
+                          "name": "{domain_name}",
+                          "item": [
+                            {
+                              "name": "check",
+                              "item": [
+                                {
+                                  "name": "Check domain DNS configuration",
+                                  "id": "8f8254ec-815f-4f92-81ed-8a025ee843a1",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name/check",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name",
+                                        "check"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "9314d8b5-6b4d-41b9-a336-7211fcd3be8e",
+                                          "key": "service_id",
+                                          "value": "<string>",
+                                          "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                        },
+                                        {
+                                          "id": "b2e36602-4691-4432-a6e4-0526569b040a",
+                                          "key": "version_id",
+                                          "value": "<integer>",
+                                          "description": "(Required) The integer identifying the service version."
+                                        },
+                                        {
+                                          "id": "dbf43e54-d6d2-4b88-b654-f89858f86d62",
+                                          "key": "domain_name",
+                                          "value": "<string>",
+                                          "description": "(Required) The domain name."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Validates the DNS configuration for a single domain on a service version. Returns the domain details, the current CNAME record, and a boolean indicating whether the domain is correctly configured to use Fastly."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "b7630936-fed3-4bc6-ae1e-e2e18af119d3",
+                                      "name": "Successfully checked the domain DNS configuration.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "Fastly-Key",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name/check",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "service",
+                                            ":service_id",
+                                            "version",
+                                            ":version_id",
+                                            "domain",
+                                            ":domain_name",
+                                            "check"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "service_id"
+                                            },
+                                            {
+                                              "key": "version_id"
+                                            },
+                                            {
+                                              "key": "domain_name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "[\n  {\n    \"name\": \"<string>\",\n    \"comment\": \"<string>\",\n    \"service_id\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"comment\": \"<string>\",\n    \"service_id\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  }\n]",
+                                      "createdAt": "2026-06-05T15:08:51.000Z",
+                                      "updatedAt": "2026-06-05T15:08:51.000Z",
+                                      "uid": "35240-b7630936-fed3-4bc6-ae1e-e2e18af119d3"
+                                    },
+                                    {
+                                      "id": "7a9f9497-3d37-439c-883f-197eaf5a4488",
+                                      "name": "Unauthorized. The API token is missing or invalid.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "Fastly-Key",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name/check",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "service",
+                                            ":service_id",
+                                            "version",
+                                            ":version_id",
+                                            "domain",
+                                            ":domain_name",
+                                            "check"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "service_id"
+                                            },
+                                            {
+                                              "key": "version_id"
+                                            },
+                                            {
+                                              "key": "domain_name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-06-05T15:08:51.000Z",
+                                      "updatedAt": "2026-06-05T15:08:51.000Z",
+                                      "uid": "35240-7a9f9497-3d37-439c-883f-197eaf5a4488"
+                                    },
+                                    {
+                                      "id": "b0b481bc-ef4e-4cf8-bacc-b04738cfa275",
+                                      "name": "Domain not found.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "Fastly-Key",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name/check",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "service",
+                                            ":service_id",
+                                            "version",
+                                            ":version_id",
+                                            "domain",
+                                            ":domain_name",
+                                            "check"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "service_id"
+                                            },
+                                            {
+                                              "key": "version_id"
+                                            },
+                                            {
+                                              "key": "domain_name"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-06-05T15:08:51.000Z",
+                                      "updatedAt": "2026-06-05T15:08:51.000Z",
+                                      "uid": "35240-b0b481bc-ef4e-4cf8-bacc-b04738cfa275"
+                                    }
+                                  ],
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-8f8254ec-815f-4f92-81ed-8a025ee843a1"
+                                }
+                              ],
+                              "id": "9562f0ce-2a61-4237-af37-aee6105df4e6",
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-9562f0ce-2a61-4237-af37-aee6105df4e6"
+                            },
+                            {
+                              "name": "Get a domain",
+                              "id": "995d2da1-0afd-4732-a299-0516b877617f",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "domain",
+                                    ":domain_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "65422bc1-d0fe-419d-b641-d2c08383d6f2",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "724755f8-38ca-4bfe-9678-a0e53d8641e2",
+                                      "key": "version_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The integer identifying the service version."
+                                    },
+                                    {
+                                      "id": "6a0de7eb-b45e-48a7-b288-95255d0851d9",
+                                      "key": "domain_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The domain name."
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves the details of a specific domain for a version of a Fastly service."
+                              },
+                              "response": [
+                                {
+                                  "id": "f9eab2aa-3178-4ae2-aa1e-c17b1108df56",
+                                  "name": "Successfully retrieved the domain.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "domain_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"name\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"service_id\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-f9eab2aa-3178-4ae2-aa1e-c17b1108df56"
+                                },
+                                {
+                                  "id": "f0954f79-778e-47ec-933f-f351382356a7",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "domain_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-f0954f79-778e-47ec-933f-f351382356a7"
+                                },
+                                {
+                                  "id": "412d5831-76c1-45de-ba2c-5a2407a007d5",
+                                  "name": "Domain not found.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "domain_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-412d5831-76c1-45de-ba2c-5a2407a007d5"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-995d2da1-0afd-4732-a299-0516b877617f"
+                            },
+                            {
+                              "name": "Update a domain",
+                              "id": "4b2702ab-2d68-4dc9-a36c-c727b4a93661",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "The domain name.",
+                                      "key": "name",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "A freeform descriptive note about the domain.",
+                                      "key": "comment",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "domain",
+                                    ":domain_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "baee324f-e812-49d3-b140-6f8fc0191afd",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "28b4dfd6-b22c-4dab-a31a-41322ce07314",
+                                      "key": "version_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The integer identifying the service version."
+                                    },
+                                    {
+                                      "id": "be12d761-dff2-47d0-9155-53665640a10f",
+                                      "key": "domain_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The domain name."
+                                    }
+                                  ]
+                                },
+                                "description": "Updates a specific domain for a version of a Fastly service."
+                              },
+                              "response": [
+                                {
+                                  "id": "cde71521-21b6-478e-ab49-e22dd4a90874",
+                                  "name": "Successfully updated the domain.",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The domain name.",
+                                          "key": "name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "A freeform descriptive note about the domain.",
+                                          "key": "comment",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "domain_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"name\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"service_id\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-cde71521-21b6-478e-ab49-e22dd4a90874"
+                                },
+                                {
+                                  "id": "c87f80ee-2586-48f8-abb0-a3e3d639e264",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The domain name.",
+                                          "key": "name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "A freeform descriptive note about the domain.",
+                                          "key": "comment",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "domain_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-c87f80ee-2586-48f8-abb0-a3e3d639e264"
+                                },
+                                {
+                                  "id": "e37dcfe0-d4c0-47c1-a1ed-ae240778aa24",
+                                  "name": "Domain not found.",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The domain name.",
+                                          "key": "name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "A freeform descriptive note about the domain.",
+                                          "key": "comment",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "domain_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-e37dcfe0-d4c0-47c1-a1ed-ae240778aa24"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-4b2702ab-2d68-4dc9-a36c-c727b4a93661"
+                            },
+                            {
+                              "name": "Delete a domain",
+                              "id": "4e2c6abb-2c4c-46df-9872-a20d69b2e280",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "domain",
+                                    ":domain_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "fc077909-b545-442c-8a4e-d35df3665b52",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "a7a99781-4740-4678-8349-8406bba7cbbb",
+                                      "key": "version_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The integer identifying the service version."
+                                    },
+                                    {
+                                      "id": "81f5cbcd-bb03-4a93-87bd-68348ec18d14",
+                                      "key": "domain_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The domain name."
+                                    }
+                                  ]
+                                },
+                                "description": "Removes a domain from a version of a Fastly service."
+                              },
+                              "response": [
+                                {
+                                  "id": "423e41d3-f7ab-40b7-9da3-cf5f94810f37",
+                                  "name": "Successfully deleted the domain.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "domain_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"status\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-423e41d3-f7ab-40b7-9da3-cf5f94810f37"
+                                },
+                                {
+                                  "id": "15cfc518-1750-41c9-81c4-9e16903be28e",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "domain_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-15cfc518-1750-41c9-81c4-9e16903be28e"
+                                },
+                                {
+                                  "id": "584c368a-3e83-4c2d-a833-7fdee43dcce7",
+                                  "name": "Domain not found.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/:domain_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        ":domain_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "domain_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-584c368a-3e83-4c2d-a833-7fdee43dcce7"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-4e2c6abb-2c4c-46df-9872-a20d69b2e280"
+                            }
+                          ],
+                          "id": "f18ab88f-7c70-4c5d-ae83-88dd844c5c9d",
+                          "createdAt": "2026-06-05T15:08:51.000Z",
+                          "updatedAt": "2026-06-05T15:08:51.000Z",
+                          "uid": "35240-f18ab88f-7c70-4c5d-ae83-88dd844c5c9d"
+                        },
+                        {
+                          "name": "check_all",
+                          "item": [
+                            {
+                              "name": "Check all domains DNS configuration",
+                              "id": "2a5a1624-6ca2-48de-86ed-1be242c822b3",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/check_all",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "domain",
+                                    "check_all"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "56a0add0-6585-4186-80cc-60b3e50298e8",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "2bc7a11a-f41a-4772-a45e-2adbf7265a89",
+                                      "key": "version_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The integer identifying the service version."
+                                    }
+                                  ]
+                                },
+                                "description": "Validates the DNS configuration for all domains on a service version. Returns an array of results, each containing domain details, the current CNAME record, and whether the domain is correctly configured."
+                              },
+                              "response": [
+                                {
+                                  "id": "b55302ae-8715-4c53-ba22-c5567cac031b",
+                                  "name": "Successfully checked all domain DNS configurations.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/check_all",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        "check_all"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  [\n    {\n      \"name\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"service_id\": \"<string>\",\n      \"version\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"service_id\": \"<string>\",\n      \"version\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    }\n  ],\n  [\n    {\n      \"name\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"service_id\": \"<string>\",\n      \"version\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"service_id\": \"<string>\",\n      \"version\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    }\n  ]\n]",
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-b55302ae-8715-4c53-ba22-c5567cac031b"
+                                },
+                                {
+                                  "id": "8a5a140b-7402-4632-ab6b-fb154c908057",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain/check_all",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "domain",
+                                        "check_all"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:51.000Z",
+                                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                                  "uid": "35240-8a5a140b-7402-4632-ab6b-fb154c908057"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-2a5a1624-6ca2-48de-86ed-1be242c822b3"
+                            }
+                          ],
+                          "id": "5fc943b6-149d-4591-b32f-584ded3aff6b",
+                          "createdAt": "2026-06-05T15:08:51.000Z",
+                          "updatedAt": "2026-06-05T15:08:51.000Z",
+                          "uid": "35240-5fc943b6-149d-4591-b32f-584ded3aff6b"
+                        },
+                        {
+                          "name": "List domains",
+                          "id": "211dd15a-5a2c-495c-881c-538c8c77a43f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "domain"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4b10663f-43ec-480c-bb1e-bf530a4a1d98",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "83767c0e-60fb-4b2c-9186-5542c8cc82b9",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The integer identifying the service version."
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a list of all domains associated with a specific version of a Fastly service."
+                          },
+                          "response": [
+                            {
+                              "id": "bac6296c-60ca-494b-8b04-f034069d058d",
+                              "name": "Successfully retrieved the list of domains.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "domain"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"name\": \"<string>\",\n    \"comment\": \"<string>\",\n    \"service_id\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"comment\": \"<string>\",\n    \"service_id\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  }\n]",
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-bac6296c-60ca-494b-8b04-f034069d058d"
+                            },
+                            {
+                              "id": "b305490b-84a2-407b-bde3-fd8a0c3424a6",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "domain"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-b305490b-84a2-407b-bde3-fd8a0c3424a6"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:51.000Z",
+                          "updatedAt": "2026-06-05T15:08:51.000Z",
+                          "uid": "35240-211dd15a-5a2c-495c-881c-538c8c77a43f"
+                        },
+                        {
+                          "name": "Create a domain",
+                          "id": "7c892cc6-8bdc-480e-b7a5-816df9ac6da3",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/x-www-form-urlencoded"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "urlencoded",
+                              "urlencoded": [
+                                {
+                                  "description": "(Required) The domain name to associate with the service.",
+                                  "key": "name",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "A freeform descriptive note about the domain.",
+                                  "key": "comment",
+                                  "value": "<string>"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "domain"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "1f85aec6-d6e9-4926-90b2-d532b5e9628e",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "a9dafe48-464a-424e-b24f-33104747044f",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The integer identifying the service version."
+                                }
+                              ]
+                            },
+                            "description": "Associates a new domain name with a specific version of a Fastly service."
+                          },
+                          "response": [
+                            {
+                              "id": "d060c40f-26d0-4ba0-8646-6850f81cda80",
+                              "name": "Successfully created the domain association.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The domain name to associate with the service.",
+                                      "key": "name",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "A freeform descriptive note about the domain.",
+                                      "key": "comment",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "domain"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"name\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"service_id\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-d060c40f-26d0-4ba0-8646-6850f81cda80"
+                            },
+                            {
+                              "id": "cf8f8f42-060f-4e23-ad6f-90891d045d4c",
+                              "name": "Bad request. Missing or invalid parameters.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The domain name to associate with the service.",
+                                      "key": "name",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "A freeform descriptive note about the domain.",
+                                      "key": "comment",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "domain"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-cf8f8f42-060f-4e23-ad6f-90891d045d4c"
+                            },
+                            {
+                              "id": "dc550879-0c3a-474e-abc9-b6a783a674be",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The domain name to associate with the service.",
+                                      "key": "name",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "A freeform descriptive note about the domain.",
+                                      "key": "comment",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/domain",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "domain"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:51.000Z",
+                              "updatedAt": "2026-06-05T15:08:51.000Z",
+                              "uid": "35240-dc550879-0c3a-474e-abc9-b6a783a674be"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:51.000Z",
+                          "updatedAt": "2026-06-05T15:08:51.000Z",
+                          "uid": "35240-7c892cc6-8bdc-480e-b7a5-816df9ac6da3"
+                        }
+                      ],
+                      "id": "a5ee58eb-9201-41fc-a180-ac9747748b9b",
+                      "createdAt": "2026-06-05T15:08:51.000Z",
+                      "updatedAt": "2026-06-05T15:08:51.000Z",
+                      "uid": "35240-a5ee58eb-9201-41fc-a180-ac9747748b9b"
+                    }
+                  ],
+                  "id": "45ac1bfe-2216-42c4-b772-ae125ff7a243",
+                  "createdAt": "2026-06-05T15:08:51.000Z",
+                  "updatedAt": "2026-06-05T15:08:51.000Z",
+                  "uid": "35240-45ac1bfe-2216-42c4-b772-ae125ff7a243"
+                }
+              ],
+              "id": "6d020e71-60ae-4358-bb99-e4821aa74ea5",
+              "createdAt": "2026-06-05T15:08:51.000Z",
+              "updatedAt": "2026-06-05T15:08:51.000Z",
+              "uid": "35240-6d020e71-60ae-4358-bb99-e4821aa74ea5"
+            }
+          ],
+          "id": "4c6bdb57-2191-4f6f-aaaf-c6009cd8aad3",
+          "createdAt": "2026-06-05T15:08:51.000Z",
+          "updatedAt": "2026-06-05T15:08:51.000Z",
+          "uid": "35240-4c6bdb57-2191-4f6f-aaaf-c6009cd8aad3"
+        }
+      ],
+      "id": "7152c965-bb6e-4ddb-bb9d-8b551a886b3f",
+      "createdAt": "2026-06-05T15:08:51.000Z",
+      "updatedAt": "2026-06-05T15:08:51.000Z",
+      "uid": "35240-7152c965-bb6e-4ddb-bb9d-8b551a886b3f"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

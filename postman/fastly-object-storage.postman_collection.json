@@ -1,0 +1,725 @@
+{
+  "info": {
+    "_postman_id": "d6f07db6-bf47-470d-b6ac-4eb718fe46e6",
+    "name": "Fastly Object Storage",
+    "description": "Fastly Object Storage is an S3-compatible cloud storage solution designed\nas a drop-in replacement for traditional object storage services, featuring\nzero egress fees and 99.999999999% (11 9's) data durability. The API is\nAmazon S3-compatible, allowing existing tooling to be used unmodified.\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:01.000Z",
+    "updatedAt": "2026-06-05T15:09:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d6f07db6-bf47-470d-b6ac-4eb718fe46e6"
+  },
+  "item": [
+    {
+      "name": "/",
+      "item": [
+        {
+          "name": "List Buckets",
+          "id": "fd49da52-a5be-4fe6-ba67-6de3d05be5d8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "391fc135-388c-470e-b370-f02a348dc103",
+              "name": "A list of buckets",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:09:02.000Z",
+              "updatedAt": "2026-06-05T15:09:02.000Z",
+              "uid": "35240-391fc135-388c-470e-b370-f02a348dc103"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:02.000Z",
+          "updatedAt": "2026-06-05T15:09:02.000Z",
+          "uid": "35240-fd49da52-a5be-4fe6-ba67-6de3d05be5d8"
+        }
+      ],
+      "id": "5551cc70-d167-44a8-8e9f-a87c5c908581",
+      "createdAt": "2026-06-05T15:09:01.000Z",
+      "updatedAt": "2026-06-05T15:09:01.000Z",
+      "uid": "35240-5551cc70-d167-44a8-8e9f-a87c5c908581"
+    },
+    {
+      "name": "{bucket}",
+      "item": [
+        {
+          "name": "{key}",
+          "item": [
+            {
+              "name": "Put Object",
+              "id": "66657132-e7a8-4b0b-b037-76e90516c7de",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:bucket/:key",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":bucket",
+                    ":key"
+                  ],
+                  "variable": [
+                    {
+                      "id": "85449d82-7ab9-4a30-a64b-75ca6d2dab7d",
+                      "key": "bucket",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    },
+                    {
+                      "id": "800501ce-20ff-429b-beb0-bff0ef60ce35",
+                      "key": "key",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "6efa3dd2-0004-436b-ae18-fd95494c03e9",
+                  "name": "Object stored",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/octet-stream"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:bucket/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":bucket",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucket"
+                        },
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:09:02.000Z",
+                  "updatedAt": "2026-06-05T15:09:02.000Z",
+                  "uid": "35240-6efa3dd2-0004-436b-ae18-fd95494c03e9"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:02.000Z",
+              "updatedAt": "2026-06-05T15:09:02.000Z",
+              "uid": "35240-66657132-e7a8-4b0b-b037-76e90516c7de"
+            },
+            {
+              "name": "Get Object",
+              "id": "ff6e3383-8e9d-4663-b0bf-c347c0c788b7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:bucket/:key",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":bucket",
+                    ":key"
+                  ],
+                  "variable": [
+                    {
+                      "id": "14e37d6e-b092-4ec3-b30e-e70730878c71",
+                      "key": "bucket",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    },
+                    {
+                      "id": "a9b88ddc-605b-4550-b7d4-63805e328f31",
+                      "key": "key",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "1677206c-0618-4640-bac8-7b5cb4abf035",
+                  "name": "Object payload",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/octet-stream"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:bucket/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":bucket",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucket"
+                        },
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/octet-stream"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<binary>",
+                  "createdAt": "2026-06-05T15:09:02.000Z",
+                  "updatedAt": "2026-06-05T15:09:02.000Z",
+                  "uid": "35240-1677206c-0618-4640-bac8-7b5cb4abf035"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:02.000Z",
+              "updatedAt": "2026-06-05T15:09:02.000Z",
+              "uid": "35240-ff6e3383-8e9d-4663-b0bf-c347c0c788b7"
+            },
+            {
+              "name": "Head Object",
+              "id": "e612bbdf-d629-4d37-a9d7-e366898f6904",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "HEAD",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/:bucket/:key",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":bucket",
+                    ":key"
+                  ],
+                  "variable": [
+                    {
+                      "id": "079bdf4d-2382-47fc-ba21-888bf672aa87",
+                      "key": "bucket",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    },
+                    {
+                      "id": "45e65605-7891-4946-b7b1-a20318d960a7",
+                      "key": "key",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "0c39d073-fcb1-4e1f-9c99-ad15bd5375fe",
+                  "name": "Object metadata",
+                  "originalRequest": {
+                    "method": "HEAD",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:bucket/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":bucket",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucket"
+                        },
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:09:02.000Z",
+                  "updatedAt": "2026-06-05T15:09:02.000Z",
+                  "uid": "35240-0c39d073-fcb1-4e1f-9c99-ad15bd5375fe"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:02.000Z",
+              "updatedAt": "2026-06-05T15:09:02.000Z",
+              "uid": "35240-e612bbdf-d629-4d37-a9d7-e366898f6904"
+            },
+            {
+              "name": "Delete Object",
+              "id": "e59aeb14-6b0e-4f68-9113-72f99ac32acc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/:bucket/:key",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":bucket",
+                    ":key"
+                  ],
+                  "variable": [
+                    {
+                      "id": "cc463468-4a1b-4bae-b9b7-8f47ea3b37e0",
+                      "key": "bucket",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    },
+                    {
+                      "id": "a5e68a4e-f9aa-40f5-aadc-724b54ae0c5d",
+                      "key": "key",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "257d7479-01db-4581-8c4c-db0ed4d15fe9",
+                  "name": "Object deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:bucket/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":bucket",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucket"
+                        },
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:09:02.000Z",
+                  "updatedAt": "2026-06-05T15:09:02.000Z",
+                  "uid": "35240-257d7479-01db-4581-8c4c-db0ed4d15fe9"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:02.000Z",
+              "updatedAt": "2026-06-05T15:09:02.000Z",
+              "uid": "35240-e59aeb14-6b0e-4f68-9113-72f99ac32acc"
+            }
+          ],
+          "id": "c87571bc-254a-44ad-964f-6d7599c26480",
+          "createdAt": "2026-06-05T15:09:01.000Z",
+          "updatedAt": "2026-06-05T15:09:01.000Z",
+          "uid": "35240-c87571bc-254a-44ad-964f-6d7599c26480"
+        },
+        {
+          "name": "Create Bucket",
+          "id": "efcb48b5-f1f1-4fad-a500-1e9c7d1320b6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/:bucket",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":bucket"
+              ],
+              "variable": [
+                {
+                  "id": "4e32fc6b-6d45-4785-87d0-f589920a4c99",
+                  "key": "bucket",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2f2b9278-1ea5-4f92-9840-9c584fb72520",
+              "name": "Bucket created",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:bucket",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":bucket"
+                  ],
+                  "variable": [
+                    {
+                      "key": "bucket"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:09:02.000Z",
+              "updatedAt": "2026-06-05T15:09:02.000Z",
+              "uid": "35240-2f2b9278-1ea5-4f92-9840-9c584fb72520"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:02.000Z",
+          "updatedAt": "2026-06-05T15:09:02.000Z",
+          "uid": "35240-efcb48b5-f1f1-4fad-a500-1e9c7d1320b6"
+        },
+        {
+          "name": "List Objects In Bucket",
+          "id": "85ae5b31-9efe-442b-b00a-981f76c77ff3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/:bucket?prefix=<string>&marker=<string>&max-keys=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":bucket"
+              ],
+              "query": [
+                {
+                  "key": "prefix",
+                  "value": "<string>"
+                },
+                {
+                  "key": "marker",
+                  "value": "<string>"
+                },
+                {
+                  "key": "max-keys",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "id": "9e270d80-94bd-453a-a34a-67f9575e2840",
+                  "key": "bucket",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb903af4-5570-4d6a-b4a7-5542c59dac96",
+              "name": "A list of objects",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:bucket?prefix=<string>&marker=<string>&max-keys=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":bucket"
+                  ],
+                  "query": [
+                    {
+                      "key": "prefix",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "marker",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max-keys",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "bucket"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:09:02.000Z",
+              "updatedAt": "2026-06-05T15:09:02.000Z",
+              "uid": "35240-cb903af4-5570-4d6a-b4a7-5542c59dac96"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:02.000Z",
+          "updatedAt": "2026-06-05T15:09:02.000Z",
+          "uid": "35240-85ae5b31-9efe-442b-b00a-981f76c77ff3"
+        },
+        {
+          "name": "Delete Bucket",
+          "id": "8506080f-e30c-422b-9185-1dd0436fd2b2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/:bucket",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":bucket"
+              ],
+              "variable": [
+                {
+                  "id": "c7373148-c63a-4362-8e06-d298aa589fc3",
+                  "key": "bucket",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b29a3dc4-a81f-4d69-a00e-105752dc0c82",
+              "name": "Bucket deleted",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:bucket",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":bucket"
+                  ],
+                  "variable": [
+                    {
+                      "key": "bucket"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:09:02.000Z",
+              "updatedAt": "2026-06-05T15:09:02.000Z",
+              "uid": "35240-b29a3dc4-a81f-4d69-a00e-105752dc0c82"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:02.000Z",
+          "updatedAt": "2026-06-05T15:09:02.000Z",
+          "uid": "35240-8506080f-e30c-422b-9185-1dd0436fd2b2"
+        }
+      ],
+      "id": "9e813571-dff4-4c3c-848f-f09c8ed3e0da",
+      "createdAt": "2026-06-05T15:09:01.000Z",
+      "updatedAt": "2026-06-05T15:09:01.000Z",
+      "uid": "35240-9e813571-dff4-4c3c-848f-f09c8ed3e0da"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://storage.fastly.com"
+    }
+  ]
+}

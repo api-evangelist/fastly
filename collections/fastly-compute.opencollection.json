@@ -1,0 +1,485 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Compute API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Package",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Compute package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/package",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of the Compute package associated with a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Upload a Compute package",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/package",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "package",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a Compute package (WebAssembly binary) for a specific version of a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "KV Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List KV stores",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/kv",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "A cursor for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all KV stores associated with the account."
+        },
+        {
+          "info": {
+            "name": "Create a KV store",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/resources/stores/kv",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new KV store for persistent key-value storage accessible from Compute services."
+        },
+        {
+          "info": {
+            "name": "Get a KV store",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/kv/:store_id",
+            "params": [
+              {
+                "name": "store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the store."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific KV store."
+        },
+        {
+          "info": {
+            "name": "Delete a KV store",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/resources/stores/kv/:store_id",
+            "params": [
+              {
+                "name": "store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the store."
+              }
+            ]
+          },
+          "docs": "Deletes a specific KV store and all of its items."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "KV Store Item",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List keys in a KV store",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/kv/:store_id/keys",
+            "params": [
+              {
+                "name": "store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the store."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "A cursor for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of keys to return."
+              },
+              {
+                "name": "prefix",
+                "value": "",
+                "type": "query",
+                "description": "A prefix to filter keys by."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all keys stored in a specific KV store."
+        },
+        {
+          "info": {
+            "name": "Get a KV store item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/kv/:store_id/keys/:key_name",
+            "params": [
+              {
+                "name": "store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the store."
+              },
+              {
+                "name": "key_name",
+                "value": "",
+                "type": "path",
+                "description": "The key name of the item."
+              }
+            ]
+          },
+          "docs": "Retrieves the value and metadata of a specific item in a KV store."
+        },
+        {
+          "info": {
+            "name": "Insert or update a KV store item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/resources/stores/kv/:store_id/keys/:key_name",
+            "params": [
+              {
+                "name": "store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the store."
+              },
+              {
+                "name": "key_name",
+                "value": "",
+                "type": "path",
+                "description": "The key name of the item."
+              },
+              {
+                "name": "time_to_live_sec",
+                "value": "",
+                "type": "query",
+                "description": "The time to live in seconds for the item."
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query",
+                "description": "Optional metadata to attach to the item."
+              }
+            ]
+          },
+          "docs": "Creates or updates an item in a KV store."
+        },
+        {
+          "info": {
+            "name": "Delete a KV store item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/resources/stores/kv/:store_id/keys/:key_name",
+            "params": [
+              {
+                "name": "store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the store."
+              },
+              {
+                "name": "key_name",
+                "value": "",
+                "type": "path",
+                "description": "The key name of the item."
+              }
+            ]
+          },
+          "docs": "Deletes a specific item from a KV store."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Config Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List config stores",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/config"
+          },
+          "docs": "Retrieves a list of all config stores associated with the account."
+        },
+        {
+          "info": {
+            "name": "Create a config store",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/resources/stores/config",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new config store for storing small amounts of textual configuration data accessible from Compute services."
+        },
+        {
+          "info": {
+            "name": "Get a config store",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/config/:config_store_id",
+            "params": [
+              {
+                "name": "config_store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the config store."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific config store."
+        },
+        {
+          "info": {
+            "name": "Update a config store",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/resources/stores/config/:config_store_id",
+            "params": [
+              {
+                "name": "config_store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the config store."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of a specific config store."
+        },
+        {
+          "info": {
+            "name": "Delete a config store",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/resources/stores/config/:config_store_id",
+            "params": [
+              {
+                "name": "config_store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the config store."
+              }
+            ]
+          },
+          "docs": "Deletes a specific config store and all of its items."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Secret Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List secret stores",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/secret",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "A cursor for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all secret stores associated with the account."
+        },
+        {
+          "info": {
+            "name": "Create a secret store",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/resources/stores/secret",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new secret store for encrypted storage of credentials and tokens accessible from Compute services."
+        },
+        {
+          "info": {
+            "name": "Get a secret store",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/secret/:store_id",
+            "params": [
+              {
+                "name": "store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the store."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific secret store."
+        },
+        {
+          "info": {
+            "name": "Delete a secret store",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/resources/stores/secret/:store_id",
+            "params": [
+              {
+                "name": "store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the store."
+              }
+            ]
+          },
+          "docs": "Deletes a specific secret store and all of its secrets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1887 @@
+{
+  "info": {
+    "_postman_id": "7659c647-72bd-45de-a302-1e4ef0f18f24",
+    "name": "Fastly Authentication Tokens API",
+    "description": "The Fastly Authentication Tokens API enables developers to create and manage API tokens used to authenticate requests to the Fastly API. Tokens can be scoped to specific services and permissions, allowing fine-grained access control for users and automated systems. The API supports creating user tokens, automation tokens for CI/CD pipelines, and managing token lifecycle including listing, revoking, and expiring tokens.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:44.000Z",
+    "updatedAt": "2026-06-05T15:08:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7659c647-72bd-45de-a302-1e4ef0f18f24"
+  },
+  "item": [
+    {
+      "name": "tokens",
+      "item": [
+        {
+          "name": "{token_id}",
+          "item": [
+            {
+              "name": "Get an API token",
+              "id": "888ae641-4f73-4175-a96c-f67d917ba3db",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tokens/:token_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9f239d37-0d39-4826-9720-ada44a4143f9",
+                      "key": "token_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the token."
+                    }
+                  ]
+                },
+                "description": "Retrieves the details of a specific API token."
+              },
+              "response": [
+                {
+                  "id": "d5f99280-7b97-410a-ac27-4a558d9c2dd9",
+                  "name": "Successfully retrieved the token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/:token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        ":token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"access_token\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"last_used_at\": \"<dateTime>\",\n  \"expires_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-d5f99280-7b97-410a-ac27-4a558d9c2dd9"
+                },
+                {
+                  "id": "06cf15d9-a118-4af3-aeb5-12be4aca1d0c",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/:token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        ":token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-06cf15d9-a118-4af3-aeb5-12be4aca1d0c"
+                },
+                {
+                  "id": "09457007-47f1-4def-b246-d1c98f851e3f",
+                  "name": "Token not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/:token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        ":token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-09457007-47f1-4def-b246-d1c98f851e3f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-888ae641-4f73-4175-a96c-f67d917ba3db"
+            },
+            {
+              "name": "Revoke an API token",
+              "id": "df010a60-8bba-4725-ba47-7d806e606152",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/tokens/:token_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "df663ca1-d110-400f-be72-20bfa9aa5d60",
+                      "key": "token_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the token."
+                    }
+                  ]
+                },
+                "description": "Revokes a specific API token, immediately invalidating it for future API requests."
+              },
+              "response": [
+                {
+                  "id": "e5f140cd-d040-4d5a-b5d2-43f26f967519",
+                  "name": "Successfully revoked the token.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/:token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        ":token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-e5f140cd-d040-4d5a-b5d2-43f26f967519"
+                },
+                {
+                  "id": "2503dae8-21c4-4eb2-9da5-66d81ea36f1a",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/:token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        ":token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-2503dae8-21c4-4eb2-9da5-66d81ea36f1a"
+                },
+                {
+                  "id": "c3c0007e-9126-45f6-ba1b-c954bdf0a8d1",
+                  "name": "Token not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/:token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        ":token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-c3c0007e-9126-45f6-ba1b-c954bdf0a8d1"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-df010a60-8bba-4725-ba47-7d806e606152"
+            }
+          ],
+          "id": "733b3222-d6a4-46ac-9186-96af393c09fc",
+          "createdAt": "2026-06-05T15:08:44.000Z",
+          "updatedAt": "2026-06-05T15:08:44.000Z",
+          "uid": "35240-733b3222-d6a4-46ac-9186-96af393c09fc"
+        },
+        {
+          "name": "self",
+          "item": [
+            {
+              "name": "Get the current token",
+              "id": "d59fa428-ba81-4963-8aad-6d0eac2a3adf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tokens/self",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tokens",
+                    "self"
+                  ]
+                },
+                "description": "Retrieves the details of the API token used to authenticate the current request."
+              },
+              "response": [
+                {
+                  "id": "a14c49e9-9ded-418f-83a6-247baae4f723",
+                  "name": "Successfully retrieved the current token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/self",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        "self"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"access_token\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"last_used_at\": \"<dateTime>\",\n  \"expires_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-a14c49e9-9ded-418f-83a6-247baae4f723"
+                },
+                {
+                  "id": "32a6221c-15a0-4574-b54d-3778856af431",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/self",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        "self"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-32a6221c-15a0-4574-b54d-3778856af431"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-d59fa428-ba81-4963-8aad-6d0eac2a3adf"
+            },
+            {
+              "name": "Revoke the current token",
+              "id": "1adc6e14-ff43-4992-9d8c-ff2e54ad4695",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/tokens/self",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tokens",
+                    "self"
+                  ]
+                },
+                "description": "Revokes the API token used to authenticate the current request."
+              },
+              "response": [
+                {
+                  "id": "813d06c2-5163-4268-b9e7-65cf80940ce7",
+                  "name": "Successfully revoked the current token.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/self",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        "self"
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-813d06c2-5163-4268-b9e7-65cf80940ce7"
+                },
+                {
+                  "id": "bae50340-08ab-445f-a3e6-271cb37ddb72",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tokens/self",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tokens",
+                        "self"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-bae50340-08ab-445f-a3e6-271cb37ddb72"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-1adc6e14-ff43-4992-9d8c-ff2e54ad4695"
+            }
+          ],
+          "id": "fc366f67-b5b5-4df7-813b-a3f35cf553f7",
+          "createdAt": "2026-06-05T15:08:44.000Z",
+          "updatedAt": "2026-06-05T15:08:44.000Z",
+          "uid": "35240-fc366f67-b5b5-4df7-813b-a3f35cf553f7"
+        },
+        {
+          "name": "List API tokens",
+          "id": "1594d005-bfd2-482a-b47e-ce202a11a205",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tokens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tokens"
+              ]
+            },
+            "description": "Retrieves a list of all API tokens associated with the authenticated user."
+          },
+          "response": [
+            {
+              "id": "6848f2b2-7b9b-4595-a61b-3efe9eb14bc8",
+              "name": "Successfully retrieved the list of tokens.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tokens"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"customer_id\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"access_token\": \"<string>\",\n    \"ip\": \"<string>\",\n    \"last_used_at\": \"<dateTime>\",\n    \"expires_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"customer_id\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"access_token\": \"<string>\",\n    \"ip\": \"<string>\",\n    \"last_used_at\": \"<dateTime>\",\n    \"expires_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-6848f2b2-7b9b-4595-a61b-3efe9eb14bc8"
+            },
+            {
+              "id": "597d696f-6ae7-48d8-9cd0-8dd8be8eb78e",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tokens"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-597d696f-6ae7-48d8-9cd0-8dd8be8eb78e"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:44.000Z",
+          "updatedAt": "2026-06-05T15:08:44.000Z",
+          "uid": "35240-1594d005-bfd2-482a-b47e-ce202a11a205"
+        },
+        {
+          "name": "Create an API token",
+          "id": "4f78b192-7576-4d1e-aed6-97d33a6d7f56",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The name of the token.",
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) A space-delimited list of authorization scopes.",
+                  "key": "scope",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A list of service IDs the token is scoped to.",
+                  "key": "services",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A list of service IDs the token is scoped to.",
+                  "key": "services",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The expiration date and time of the token.",
+                  "key": "expires_at",
+                  "value": "<dateTime>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tokens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tokens"
+              ]
+            },
+            "description": "Creates a new API token for the authenticated user. Tokens can be scoped to specific services and permissions."
+          },
+          "response": [
+            {
+              "id": "83f03a4d-b30a-449f-bd02-0df2f111cc56",
+              "name": "Successfully created the token.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The name of the token.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A space-delimited list of authorization scopes.",
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A list of service IDs the token is scoped to.",
+                      "key": "services",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A list of service IDs the token is scoped to.",
+                      "key": "services",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The expiration date and time of the token.",
+                      "key": "expires_at",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tokens"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"access_token\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"last_used_at\": \"<dateTime>\",\n  \"expires_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-83f03a4d-b30a-449f-bd02-0df2f111cc56"
+            },
+            {
+              "id": "5c54f627-d1cd-4932-9266-c0a5993ab8e9",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The name of the token.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A space-delimited list of authorization scopes.",
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A list of service IDs the token is scoped to.",
+                      "key": "services",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A list of service IDs the token is scoped to.",
+                      "key": "services",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The expiration date and time of the token.",
+                      "key": "expires_at",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tokens"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-5c54f627-d1cd-4932-9266-c0a5993ab8e9"
+            },
+            {
+              "id": "80939fea-bd00-4ade-819a-9e5ce2dbc1c1",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The name of the token.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A space-delimited list of authorization scopes.",
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A list of service IDs the token is scoped to.",
+                      "key": "services",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A list of service IDs the token is scoped to.",
+                      "key": "services",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The expiration date and time of the token.",
+                      "key": "expires_at",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tokens"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-80939fea-bd00-4ade-819a-9e5ce2dbc1c1"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:44.000Z",
+          "updatedAt": "2026-06-05T15:08:44.000Z",
+          "uid": "35240-4f78b192-7576-4d1e-aed6-97d33a6d7f56"
+        }
+      ],
+      "id": "87f791b6-aa49-4ace-a903-3f1e48159d31",
+      "createdAt": "2026-06-05T15:08:44.000Z",
+      "updatedAt": "2026-06-05T15:08:44.000Z",
+      "uid": "35240-87f791b6-aa49-4ace-a903-3f1e48159d31"
+    },
+    {
+      "name": "customer",
+      "item": [
+        {
+          "name": "{customer_id}",
+          "item": [
+            {
+              "name": "tokens",
+              "item": [
+                {
+                  "name": "List customer tokens",
+                  "id": "64d2770d-8ccb-4c8b-9a1a-f07dee7b4234",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customer/:customer_id/tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customer",
+                        ":customer_id",
+                        "tokens"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8f927dad-7148-46ee-a8e4-d2d3237ca18a",
+                          "key": "customer_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the customer."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a list of all API tokens for a specific customer. Requires superuser access."
+                  },
+                  "response": [
+                    {
+                      "id": "214ed14a-3cbc-479b-bfaa-b3ce0e387926",
+                      "name": "Successfully retrieved the list of customer tokens.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customer/:customer_id/tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customer",
+                            ":customer_id",
+                            "tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"customer_id\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"access_token\": \"<string>\",\n    \"ip\": \"<string>\",\n    \"last_used_at\": \"<dateTime>\",\n    \"expires_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"customer_id\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"access_token\": \"<string>\",\n    \"ip\": \"<string>\",\n    \"last_used_at\": \"<dateTime>\",\n    \"expires_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:08:44.000Z",
+                      "updatedAt": "2026-06-05T15:08:44.000Z",
+                      "uid": "35240-214ed14a-3cbc-479b-bfaa-b3ce0e387926"
+                    },
+                    {
+                      "id": "b174bfc4-0950-4166-806e-7208a4fb5f5b",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customer/:customer_id/tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customer",
+                            ":customer_id",
+                            "tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:44.000Z",
+                      "updatedAt": "2026-06-05T15:08:44.000Z",
+                      "uid": "35240-b174bfc4-0950-4166-806e-7208a4fb5f5b"
+                    },
+                    {
+                      "id": "a61aa912-cc00-4512-8cc9-8f627dd6b7fc",
+                      "name": "Forbidden. Superuser access required.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/customer/:customer_id/tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "customer",
+                            ":customer_id",
+                            "tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:44.000Z",
+                      "updatedAt": "2026-06-05T15:08:44.000Z",
+                      "uid": "35240-a61aa912-cc00-4512-8cc9-8f627dd6b7fc"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-64d2770d-8ccb-4c8b-9a1a-f07dee7b4234"
+                }
+              ],
+              "id": "d207b400-75e0-4db7-a0ca-1a0eae35fec8",
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-d207b400-75e0-4db7-a0ca-1a0eae35fec8"
+            }
+          ],
+          "id": "8920f4da-43ed-4779-abc6-6463e9ef5b77",
+          "createdAt": "2026-06-05T15:08:44.000Z",
+          "updatedAt": "2026-06-05T15:08:44.000Z",
+          "uid": "35240-8920f4da-43ed-4779-abc6-6463e9ef5b77"
+        }
+      ],
+      "id": "4a97833a-d43d-41bb-a4c0-bcc94e975235",
+      "createdAt": "2026-06-05T15:08:44.000Z",
+      "updatedAt": "2026-06-05T15:08:44.000Z",
+      "uid": "35240-4a97833a-d43d-41bb-a4c0-bcc94e975235"
+    },
+    {
+      "name": "automation-tokens",
+      "item": [
+        {
+          "name": "{automation_token_id}",
+          "item": [
+            {
+              "name": "Get an automation token",
+              "id": "e38551fc-f69d-4c51-a182-d77237553fbc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automation-tokens/:automation_token_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automation-tokens",
+                    ":automation_token_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d3ae8f33-73bb-4cec-bfbf-0e88bd460ae5",
+                      "key": "automation_token_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the automation token."
+                    }
+                  ]
+                },
+                "description": "Retrieves the details of a specific automation token."
+              },
+              "response": [
+                {
+                  "id": "cb0a2f81-aa49-40c5-996c-eb810e02a422",
+                  "name": "Successfully retrieved the automation token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automation-tokens/:automation_token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automation-tokens",
+                        ":automation_token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automation_token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"role\": \"billing\",\n  \"scope\": \"<string>\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ip\": \"<string>\",\n  \"last_used_at\": \"<dateTime>\",\n  \"expires_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\",\n  \"sudo_expires_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-cb0a2f81-aa49-40c5-996c-eb810e02a422"
+                },
+                {
+                  "id": "ee13cde3-b8c0-45a0-9814-92be99a389ae",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automation-tokens/:automation_token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automation-tokens",
+                        ":automation_token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automation_token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-ee13cde3-b8c0-45a0-9814-92be99a389ae"
+                },
+                {
+                  "id": "13a2db2d-74cd-43d3-9975-1a77af51d307",
+                  "name": "Automation token not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automation-tokens/:automation_token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automation-tokens",
+                        ":automation_token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automation_token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-13a2db2d-74cd-43d3-9975-1a77af51d307"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-e38551fc-f69d-4c51-a182-d77237553fbc"
+            },
+            {
+              "name": "Revoke an automation token",
+              "id": "937b1327-9ae3-4e47-8d02-ab6edfc79935",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/automation-tokens/:automation_token_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automation-tokens",
+                    ":automation_token_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "4ec122c2-9a42-4bd9-990d-1950a6e79b95",
+                      "key": "automation_token_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the automation token."
+                    }
+                  ]
+                },
+                "description": "Revokes a specific automation token, immediately invalidating it."
+              },
+              "response": [
+                {
+                  "id": "8c8647fb-5971-4de8-b2b8-f92045ab3574",
+                  "name": "Successfully revoked the automation token.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automation-tokens/:automation_token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automation-tokens",
+                        ":automation_token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automation_token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-8c8647fb-5971-4de8-b2b8-f92045ab3574"
+                },
+                {
+                  "id": "eb8a107a-526a-4195-871a-806170c1a3e9",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automation-tokens/:automation_token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automation-tokens",
+                        ":automation_token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automation_token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-eb8a107a-526a-4195-871a-806170c1a3e9"
+                },
+                {
+                  "id": "226acf5b-61f9-47bb-a5ce-c994538c1cd3",
+                  "name": "Automation token not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automation-tokens/:automation_token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automation-tokens",
+                        ":automation_token_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automation_token_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:44.000Z",
+                  "updatedAt": "2026-06-05T15:08:44.000Z",
+                  "uid": "35240-226acf5b-61f9-47bb-a5ce-c994538c1cd3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-937b1327-9ae3-4e47-8d02-ab6edfc79935"
+            }
+          ],
+          "id": "ec068f68-29bb-4a31-8076-a7b40b9d4745",
+          "createdAt": "2026-06-05T15:08:44.000Z",
+          "updatedAt": "2026-06-05T15:08:44.000Z",
+          "uid": "35240-ec068f68-29bb-4a31-8076-a7b40b9d4745"
+        },
+        {
+          "name": "List automation tokens",
+          "id": "0a196455-5035-4344-9415-386ec8f3635f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/automation-tokens?per_page=<integer>&page=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "automation-tokens"
+              ],
+              "query": [
+                {
+                  "description": "The number of items per page.",
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The page number to retrieve.",
+                  "key": "page",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "Retrieves a list of all automation tokens for the customer account. Automation tokens are not tied to a specific user and are designed for CI/CD pipelines and build systems."
+          },
+          "response": [
+            {
+              "id": "58beb883-d0b7-4daa-b18f-29af7031499a",
+              "name": "Successfully retrieved the list of automation tokens.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automation-tokens?per_page=<integer>&page=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automation-tokens"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"customer_id\": \"<string>\",\n    \"role\": \"engineer\",\n    \"scope\": \"<string>\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ip\": \"<string>\",\n    \"last_used_at\": \"<dateTime>\",\n    \"expires_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"sudo_expires_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"customer_id\": \"<string>\",\n    \"role\": \"billing\",\n    \"scope\": \"<string>\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ip\": \"<string>\",\n    \"last_used_at\": \"<dateTime>\",\n    \"expires_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"sudo_expires_at\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-58beb883-d0b7-4daa-b18f-29af7031499a"
+            },
+            {
+              "id": "42b654f9-40c7-4d75-97af-c2b69ed23928",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automation-tokens?per_page=<integer>&page=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automation-tokens"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-42b654f9-40c7-4d75-97af-c2b69ed23928"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:44.000Z",
+          "updatedAt": "2026-06-05T15:08:44.000Z",
+          "uid": "35240-0a196455-5035-4344-9415-386ec8f3635f"
+        },
+        {
+          "name": "Create an automation token",
+          "id": "796663d8-7a94-435f-af07-44ded74fd193",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"role\": \"engineer\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expires_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/automation-tokens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "automation-tokens"
+              ]
+            },
+            "description": "Creates a new automation token. Only users with the superuser role can create automation tokens and must be in sudo mode. Automation tokens can remain active indefinitely because they are not tied to a human user."
+          },
+          "response": [
+            {
+              "id": "ad234c70-b863-4a65-a122-15983594a4cc",
+              "name": "Successfully created the automation token.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"role\": \"engineer\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expires_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/automation-tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automation-tokens"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"role\": \"billing\",\n  \"scope\": \"<string>\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ip\": \"<string>\",\n  \"last_used_at\": \"<dateTime>\",\n  \"expires_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\",\n  \"sudo_expires_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-ad234c70-b863-4a65-a122-15983594a4cc"
+            },
+            {
+              "id": "13ad2b9b-15cb-4594-930a-21378e971dd1",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"role\": \"engineer\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expires_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/automation-tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automation-tokens"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-13ad2b9b-15cb-4594-930a-21378e971dd1"
+            },
+            {
+              "id": "e6f10dd4-3bc2-4eb0-91ed-e028d8c0ff39",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"role\": \"engineer\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expires_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/automation-tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automation-tokens"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-e6f10dd4-3bc2-4eb0-91ed-e028d8c0ff39"
+            },
+            {
+              "id": "c3c08287-5d08-4ae3-b7af-145cb2ab9afc",
+              "name": "Forbidden. Superuser access in sudo mode required.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"role\": \"engineer\",\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expires_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/automation-tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automation-tokens"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:44.000Z",
+              "updatedAt": "2026-06-05T15:08:44.000Z",
+              "uid": "35240-c3c08287-5d08-4ae3-b7af-145cb2ab9afc"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:44.000Z",
+          "updatedAt": "2026-06-05T15:08:44.000Z",
+          "uid": "35240-796663d8-7a94-435f-af07-44ded74fd193"
+        }
+      ],
+      "id": "c1b6041e-842f-4f5c-bad4-5d8546df46d1",
+      "createdAt": "2026-06-05T15:08:44.000Z",
+      "updatedAt": "2026-06-05T15:08:44.000Z",
+      "uid": "35240-c1b6041e-842f-4f5c-bad4-5d8546df46d1"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

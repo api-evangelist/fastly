@@ -1,0 +1,387 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Access Control Lists API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ACL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List ACLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/acl",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all ACL containers configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create an ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/acl",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Creates a new ACL container for a specific version of a Fastly service. Once the service version is activated, entries within the ACL become versionless and can be updated without requiring a new service version."
+        },
+        {
+          "info": {
+            "name": "Get an ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/acl/:acl_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "acl_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the ACL."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific ACL container for a version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Update an ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/acl/:acl_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "acl_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the ACL."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates a specific ACL container for a version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Delete an ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/acl/:acl_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "acl_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the ACL."
+              }
+            ]
+          },
+          "docs": "Deletes a specific ACL container from a version of a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ACL Entry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List ACL entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/acl/:acl_id/entries",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "acl_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the ACL."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all entries within a specific ACL. ACL entries are versionless and any updates take effect immediately."
+        },
+        {
+          "info": {
+            "name": "Create an ACL entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/acl/:acl_id/entries",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "acl_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the ACL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new entry within a specific ACL. The entry takes effect immediately without requiring a new service version."
+        },
+        {
+          "info": {
+            "name": "Bulk update ACL entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/service/:service_id/acl/:acl_id/entries",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "acl_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the ACL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates multiple ACL entries in a single request. Supports create, update, and delete operations in the same batch. Maximum batch size is 1000 entries."
+        },
+        {
+          "info": {
+            "name": "Get an ACL entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "acl_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the ACL."
+              },
+              {
+                "name": "acl_entry_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the ACL entry."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific ACL entry."
+        },
+        {
+          "info": {
+            "name": "Update an ACL entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "acl_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the ACL."
+              },
+              {
+                "name": "acl_entry_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the ACL entry."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a specific ACL entry. The update takes effect immediately without requiring a new service version."
+        },
+        {
+          "info": {
+            "name": "Delete an ACL entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "acl_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the ACL."
+              },
+              {
+                "name": "acl_entry_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the ACL entry."
+              }
+            ]
+          },
+          "docs": "Deletes a specific ACL entry. The deletion takes effect immediately without requiring a new service version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

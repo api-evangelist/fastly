@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Utilities API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check Content Cache Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/content/edge_check",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Check Content Cache Status"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Diff",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Diff Service Versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/diff/from/:from_version/to/:to_version",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from_version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "to_version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Diff Service Versions"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Docs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API Documentation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/docs"
+          },
+          "docs": "Get API Documentation"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "POPs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Points Of Presence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/datacenters"
+          },
+          "docs": "List Points Of Presence"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Public IP List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Fastly Public IP Ranges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/public-ip-list"
+          },
+          "docs": "Get Fastly Public IP Ranges"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sudo Mode",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Enable Sudo Mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/sudo"
+          },
+          "docs": "Enable Sudo Mode"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

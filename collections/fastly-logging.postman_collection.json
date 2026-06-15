@@ -1,0 +1,5253 @@
+{
+  "item": [
+    {
+      "id": "abfef75b-cfd8-429b-928b-a01bf094a74e",
+      "name": "Logging BigQuery",
+      "description": {
+        "content": "Operations for managing Google BigQuery logging endpoints on Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0154d114-2709-44e6-af3a-4199ac0011eb",
+          "name": "List BigQuery logging endpoints",
+          "request": {
+            "name": "List BigQuery logging endpoints",
+            "description": {
+              "content": "Retrieves a list of all Google BigQuery logging endpoints configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "bigquery"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bdc23c71-d8e7-4b0b-960c-751bd63e798f",
+              "name": "Successfully retrieved the list of BigQuery logging endpoints.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"placement\": \"null\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"project_id\": \"string\",\n    \"dataset\": \"string\",\n    \"table\": \"string\",\n    \"user\": \"string\",\n    \"secret_key\": \"string\",\n    \"template_suffix\": \"string\",\n    \"account_name\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"placement\": \"null\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"project_id\": \"string\",\n    \"dataset\": \"string\",\n    \"table\": \"string\",\n    \"user\": \"string\",\n    \"secret_key\": \"string\",\n    \"template_suffix\": \"string\",\n    \"account_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "115f9cbc-5802-4744-b246-e439fd429add",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "025dda10-b1f5-4667-bca3-ae8a3dffe6a1",
+          "name": "Create a BigQuery logging endpoint",
+          "request": {
+            "name": "Create a BigQuery logging endpoint",
+            "description": {
+              "content": "Creates a new Google BigQuery logging endpoint for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "bigquery"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placement",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format_version",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_condition",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "table",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "secret_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "template_suffix",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_name",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "464d84fe-0105-4cb8-aeea-e68c872c4c1b",
+              "name": "Successfully created the BigQuery logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "2"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "secret_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "template_suffix",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"placement\": \"waf_debug\",\n  \"format_version\": 1,\n  \"response_condition\": \"string\",\n  \"format\": \"string\",\n  \"project_id\": \"string\",\n  \"dataset\": \"string\",\n  \"table\": \"string\",\n  \"user\": \"string\",\n  \"secret_key\": \"string\",\n  \"template_suffix\": \"string\",\n  \"account_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "047f01ed-ac63-4050-a3a8-37482d3c22cd",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "2"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "secret_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "template_suffix",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb2126ad-cc8a-4ebe-96da-53b0ba9032ba",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "2"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "secret_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "template_suffix",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6dd6d041-e1c9-48b0-aac2-4396add47ec1",
+      "name": "Logging Datadog",
+      "description": {
+        "content": "Operations for managing Datadog logging endpoints on Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7574ae5e-4a78-43f8-97c7-4e021b710bc7",
+          "name": "List Datadog logging endpoints",
+          "request": {
+            "name": "List Datadog logging endpoints",
+            "description": {
+              "content": "Retrieves a list of all Datadog logging endpoints configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "datadog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a857a1d-177b-4d55-b798-2deb94494005",
+              "name": "Successfully retrieved the list of Datadog logging endpoints.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "datadog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"placement\": \"waf_debug\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"token\": \"string\",\n    \"region\": \"US\"\n  },\n  {\n    \"name\": \"string\",\n    \"placement\": \"none\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"token\": \"string\",\n    \"region\": \"US\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27296a94-5613-4960-b4bd-8f35207b87b9",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "datadog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "daae6aa1-261b-467a-9206-7dd45c1be0a9",
+          "name": "Create a Datadog logging endpoint",
+          "request": {
+            "name": "Create a Datadog logging endpoint",
+            "description": {
+              "content": "Creates a new Datadog logging endpoint for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "datadog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placement",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format_version",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_condition",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "US"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eb691b94-d660-4d5f-b1fc-778de3b0b92c",
+              "name": "Successfully created the Datadog logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "datadog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "none"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "region",
+                      "value": "US"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"placement\": \"none\",\n  \"format_version\": 1,\n  \"response_condition\": \"string\",\n  \"format\": \"string\",\n  \"token\": \"string\",\n  \"region\": \"US\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19b1858e-3f17-46f1-929f-b25e6822dc52",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "datadog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "none"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "region",
+                      "value": "US"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f77faad8-80d3-4216-91b8-fc97c8ebec7b",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "datadog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "none"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "region",
+                      "value": "US"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e5a04c1d-be61-4f00-9f17-6566d20ac034",
+      "name": "Logging HTTPS",
+      "description": {
+        "content": "Operations for managing HTTPS logging endpoints on Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "25eef41f-664c-4255-8cfd-6f277d4083a4",
+          "name": "List HTTPS logging endpoints",
+          "request": {
+            "name": "List HTTPS logging endpoints",
+            "description": {
+              "content": "Retrieves a list of all HTTPS logging endpoints configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "https"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0485dd4-6910-4050-875a-e148f7d405d7",
+              "name": "Successfully retrieved the list of HTTPS logging endpoints.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "https"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"placement\": \"waf_debug\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"url\": \"https://ZHQTkjMPMSaUPVJL.ramCycP\",\n    \"request_max_entries\": 0,\n    \"request_max_bytes\": 0,\n    \"content_type\": \"string\",\n    \"header_name\": \"string\",\n    \"header_value\": \"string\",\n    \"method\": \"POST\",\n    \"json_format\": \"0\",\n    \"tls_hostname\": \"string\",\n    \"tls_ca_cert\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"placement\": \"null\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"url\": \"http://g.erlCkLvbea\",\n    \"request_max_entries\": 0,\n    \"request_max_bytes\": 0,\n    \"content_type\": \"string\",\n    \"header_name\": \"string\",\n    \"header_value\": \"string\",\n    \"method\": \"POST\",\n    \"json_format\": \"2\",\n    \"tls_hostname\": \"string\",\n    \"tls_ca_cert\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b0a72a2-3421-4b00-bd06-bd8efd252f6a",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "https"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1c659f8-717c-4137-b777-86fe15c93b17",
+          "name": "Create an HTTPS logging endpoint",
+          "request": {
+            "name": "Create an HTTPS logging endpoint",
+            "description": {
+              "content": "Creates a new HTTPS logging endpoint for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "https"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placement",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format_version",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_condition",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<uri>"
+                },
+                {
+                  "disabled": false,
+                  "key": "request_max_entries",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "request_max_bytes",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "content_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "header_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "header_value",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "method",
+                  "value": "POST"
+                },
+                {
+                  "disabled": false,
+                  "key": "json_format",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_hostname",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_ca_cert",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8d4f199e-3b85-4719-b69f-765c4bd934e6",
+              "name": "Successfully created the HTTPS logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "https"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "request_max_entries",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "request_max_bytes",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "content_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "header_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "header_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "method",
+                      "value": "POST"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "json_format",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"placement\": \"waf_debug\",\n  \"format_version\": 1,\n  \"response_condition\": \"string\",\n  \"format\": \"string\",\n  \"url\": \"http://xZKQDjtjebo.rtm8jeNoT01Yjk9lLr\",\n  \"request_max_entries\": 0,\n  \"request_max_bytes\": 0,\n  \"content_type\": \"string\",\n  \"header_name\": \"string\",\n  \"header_value\": \"string\",\n  \"method\": \"POST\",\n  \"json_format\": \"1\",\n  \"tls_hostname\": \"string\",\n  \"tls_ca_cert\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0ed625e-40be-4eb9-9f07-e14ccc2b3425",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "https"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "request_max_entries",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "request_max_bytes",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "content_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "header_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "header_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "method",
+                      "value": "POST"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "json_format",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "206e21a3-aa90-4ecb-a252-4c9a534b1cee",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "https"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "request_max_entries",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "request_max_bytes",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "content_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "header_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "header_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "method",
+                      "value": "POST"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "json_format",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "05960a95-11a8-465b-9ac5-1c3b0469c1f7",
+      "name": "Logging S3",
+      "description": {
+        "content": "Operations for managing Amazon S3 logging endpoints on Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64673a98-1771-4310-8346-022bfa575c63",
+          "name": "List S3 logging endpoints",
+          "request": {
+            "name": "List S3 logging endpoints",
+            "description": {
+              "content": "Retrieves a list of all Amazon S3 logging endpoints configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "s3"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e5dbd68-5e82-428c-87e3-eba5e5d9fb8d",
+              "name": "Successfully retrieved the list of S3 logging endpoints.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "s3"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"placement\": \"waf_debug\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"bucket_name\": \"string\",\n    \"access_key\": \"string\",\n    \"secret_key\": \"string\",\n    \"iam_role\": \"string\",\n    \"domain\": \"string\",\n    \"path\": \"string\",\n    \"period\": 3600,\n    \"gzip_level\": 0,\n    \"redundancy\": \"standard\"\n  },\n  {\n    \"name\": \"string\",\n    \"placement\": \"waf_debug\",\n    \"format_version\": 2,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"bucket_name\": \"string\",\n    \"access_key\": \"string\",\n    \"secret_key\": \"string\",\n    \"iam_role\": \"string\",\n    \"domain\": \"string\",\n    \"path\": \"string\",\n    \"period\": 3600,\n    \"gzip_level\": 0,\n    \"redundancy\": \"reduced_redundancy\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a31689f3-9966-4a7f-a1be-19a8d928c610",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "s3"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05241624-3ec3-4635-bedf-37f377054d04",
+          "name": "Create an S3 logging endpoint",
+          "request": {
+            "name": "Create an S3 logging endpoint",
+            "description": {
+              "content": "Creates a new Amazon S3 logging endpoint for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "s3"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placement",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format_version",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_condition",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "bucket_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "access_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "secret_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "iam_role",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "3600"
+                },
+                {
+                  "disabled": false,
+                  "key": "gzip_level",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "redundancy",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6a67cc45-d10a-4ae7-bd0b-6f66859dbb61",
+              "name": "Successfully created the S3 logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "s3"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "bucket_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "access_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "secret_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "iam_role",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "path",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "period",
+                      "value": "3600"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gzip_level",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "redundancy",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"placement\": \"none\",\n  \"format_version\": 1,\n  \"response_condition\": \"string\",\n  \"format\": \"string\",\n  \"bucket_name\": \"string\",\n  \"access_key\": \"string\",\n  \"secret_key\": \"string\",\n  \"iam_role\": \"string\",\n  \"domain\": \"string\",\n  \"path\": \"string\",\n  \"period\": 3600,\n  \"gzip_level\": 0,\n  \"redundancy\": \"standard\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2862fd82-fbd6-4813-b22d-17159fba8103",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "s3"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "bucket_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "access_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "secret_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "iam_role",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "path",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "period",
+                      "value": "3600"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gzip_level",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "redundancy",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "caca3c76-6a06-44a0-b696-0abb04b7d4c8",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "s3"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "bucket_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "access_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "secret_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "iam_role",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "path",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "period",
+                      "value": "3600"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gzip_level",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "redundancy",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "eeee6f88-4579-4547-8c46-fdd3f849d435",
+      "name": "Logging Splunk",
+      "description": {
+        "content": "Operations for managing Splunk logging endpoints on Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "db90e12d-a044-4431-ba75-faea78c6c054",
+          "name": "List Splunk logging endpoints",
+          "request": {
+            "name": "List Splunk logging endpoints",
+            "description": {
+              "content": "Retrieves a list of all Splunk logging endpoints configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "splunk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78629558-b49c-4663-8a41-e6defe371dbc",
+              "name": "Successfully retrieved the list of Splunk logging endpoints.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "splunk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"placement\": \"waf_debug\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"url\": \"https://rMCCXn.wbeyTTq8MHiL7q7vy8+28.lcdskYLHfXLBtBoJ,GHBxCgktOF9vXESqz4PYJWPmE\",\n    \"token\": \"string\",\n    \"use_tls\": 0,\n    \"tls_hostname\": \"string\",\n    \"tls_ca_cert\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"placement\": \"waf_debug\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"url\": \"http://UpPqv.grcQ\",\n    \"token\": \"string\",\n    \"use_tls\": 0,\n    \"tls_hostname\": \"string\",\n    \"tls_ca_cert\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd50ef5b-ad32-46a7-9c08-ce23129df540",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "splunk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13ad9f14-11ab-41cc-8bcc-2a211a940a5e",
+          "name": "Create a Splunk logging endpoint",
+          "request": {
+            "name": "Create a Splunk logging endpoint",
+            "description": {
+              "content": "Creates a new Splunk logging endpoint for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "splunk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placement",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format_version",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_condition",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<uri>"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "use_tls",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_hostname",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_ca_cert",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "95312794-f3d9-44d4-a02d-6345d56e87d9",
+              "name": "Successfully created the Splunk logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "splunk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "2"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "use_tls",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"placement\": \"none\",\n  \"format_version\": 2,\n  \"response_condition\": \"string\",\n  \"format\": \"string\",\n  \"url\": \"https://BFvsnRFYsIUjOzoUtxNlJqwCY.pqNyfOhwQG,qPKTy0sAxhquYogkwskAfwZOr2kJ2CcoTx8WKciRe,Ux6\",\n  \"token\": \"string\",\n  \"use_tls\": 0,\n  \"tls_hostname\": \"string\",\n  \"tls_ca_cert\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "335e95c8-c480-4d91-9070-f81ce4c31155",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "splunk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "2"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "use_tls",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13031314-199c-4846-8300-88a27fe81357",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "splunk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "waf_debug"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "2"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "use_tls",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "bc0d12e6-5f00-4536-a25e-c6049e5a28b7",
+      "name": "Logging Syslog",
+      "description": {
+        "content": "Operations for managing syslog logging endpoints on Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9edf7b99-a260-4f8b-9e11-0873d3345cf6",
+          "name": "List syslog logging endpoints",
+          "request": {
+            "name": "List syslog logging endpoints",
+            "description": {
+              "content": "Retrieves a list of all syslog logging endpoints configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "syslog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b53370ae-c9b7-428a-b154-e29ccb0ee657",
+              "name": "Successfully retrieved the list of syslog logging endpoints.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"placement\": \"none\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"address\": \"string\",\n    \"port\": 514,\n    \"use_tls\": 0,\n    \"tls_hostname\": \"string\",\n    \"tls_ca_cert\": \"string\",\n    \"tls_client_cert\": \"string\",\n    \"tls_client_key\": \"string\",\n    \"token\": \"string\",\n    \"message_type\": \"classic\"\n  },\n  {\n    \"name\": \"string\",\n    \"placement\": \"waf_debug\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"address\": \"string\",\n    \"port\": 514,\n    \"use_tls\": 0,\n    \"tls_hostname\": \"string\",\n    \"tls_ca_cert\": \"string\",\n    \"tls_client_cert\": \"string\",\n    \"tls_client_key\": \"string\",\n    \"token\": \"string\",\n    \"message_type\": \"classic\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3221ee0b-9e33-49da-ae58-87612b4028c3",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f00e5bab-b777-4b24-8dc2-cb29e29b9a87",
+          "name": "Create a syslog logging endpoint",
+          "request": {
+            "name": "Create a syslog logging endpoint",
+            "description": {
+              "content": "Creates a new syslog logging endpoint for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "syslog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placement",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format_version",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_condition",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "port",
+                  "value": "514"
+                },
+                {
+                  "disabled": false,
+                  "key": "use_tls",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_hostname",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_ca_cert",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_client_cert",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_client_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "message_type",
+                  "value": "classic"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3e26a472-5c5d-40e7-8f2c-b37fa74295a8",
+              "name": "Successfully created the syslog logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "null"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "port",
+                      "value": "514"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "use_tls",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message_type",
+                      "value": "classic"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"placement\": \"waf_debug\",\n  \"format_version\": 1,\n  \"response_condition\": \"string\",\n  \"format\": \"string\",\n  \"address\": \"string\",\n  \"port\": 514,\n  \"use_tls\": 0,\n  \"tls_hostname\": \"string\",\n  \"tls_ca_cert\": \"string\",\n  \"tls_client_cert\": \"string\",\n  \"tls_client_key\": \"string\",\n  \"token\": \"string\",\n  \"message_type\": \"classic\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6db50e35-4a98-4540-aeb2-fd8e2a19e5b3",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "null"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "port",
+                      "value": "514"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "use_tls",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message_type",
+                      "value": "classic"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fd66e325-c128-4307-b4ab-92c4d9a96977",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "null"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "port",
+                      "value": "514"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "use_tls",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message_type",
+                      "value": "classic"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63f71a6e-3633-45db-9679-373f61194d77",
+          "name": "Get a syslog logging endpoint",
+          "request": {
+            "name": "Get a syslog logging endpoint",
+            "description": {
+              "content": "Retrieves the details of a specific syslog logging endpoint for a version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "syslog",
+                ":logging_syslog_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "logging_syslog_name",
+                  "description": "(Required) The name of the syslog logging endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c7dd7e2f-b825-4578-b63e-2525ce638c71",
+              "name": "Successfully retrieved the syslog logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog",
+                    ":logging_syslog_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logging_syslog_name",
+                      "description": "(Required) The name of the syslog logging endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"placement\": \"waf_debug\",\n  \"format_version\": 1,\n  \"response_condition\": \"string\",\n  \"format\": \"string\",\n  \"address\": \"string\",\n  \"port\": 514,\n  \"use_tls\": 0,\n  \"tls_hostname\": \"string\",\n  \"tls_ca_cert\": \"string\",\n  \"tls_client_cert\": \"string\",\n  \"tls_client_key\": \"string\",\n  \"token\": \"string\",\n  \"message_type\": \"classic\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c023220e-cc4c-4c6d-b73a-7c93e4d79aef",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog",
+                    ":logging_syslog_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logging_syslog_name",
+                      "description": "(Required) The name of the syslog logging endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8c6a7c55-26a6-4abb-8fd7-d5736298c55c",
+              "name": "Logging endpoint not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog",
+                    ":logging_syslog_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logging_syslog_name",
+                      "description": "(Required) The name of the syslog logging endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e7575d0-a1b3-43e6-b375-2a9efbc8cd3b",
+          "name": "Update a syslog logging endpoint",
+          "request": {
+            "name": "Update a syslog logging endpoint",
+            "description": {
+              "content": "Updates a specific syslog logging endpoint for a version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "syslog",
+                ":logging_syslog_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "logging_syslog_name",
+                  "description": "(Required) The name of the syslog logging endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placement",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format_version",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_condition",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "port",
+                  "value": "514"
+                },
+                {
+                  "disabled": false,
+                  "key": "use_tls",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_hostname",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_ca_cert",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_client_cert",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tls_client_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "message_type",
+                  "value": "classic"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e803276d-9334-4a8d-8569-f84edc787c9f",
+              "name": "Successfully updated the syslog logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog",
+                    ":logging_syslog_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logging_syslog_name",
+                      "description": "(Required) The name of the syslog logging endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "null"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "port",
+                      "value": "514"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "use_tls",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message_type",
+                      "value": "classic"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"placement\": \"waf_debug\",\n  \"format_version\": 1,\n  \"response_condition\": \"string\",\n  \"format\": \"string\",\n  \"address\": \"string\",\n  \"port\": 514,\n  \"use_tls\": 0,\n  \"tls_hostname\": \"string\",\n  \"tls_ca_cert\": \"string\",\n  \"tls_client_cert\": \"string\",\n  \"tls_client_key\": \"string\",\n  \"token\": \"string\",\n  \"message_type\": \"classic\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f891c9fa-ae26-4757-ada7-3a59d149d005",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog",
+                    ":logging_syslog_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logging_syslog_name",
+                      "description": "(Required) The name of the syslog logging endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "null"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "port",
+                      "value": "514"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "use_tls",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message_type",
+                      "value": "classic"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac560e74-16d7-4df1-850d-2f83dae6656a",
+              "name": "Logging endpoint not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog",
+                    ":logging_syslog_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logging_syslog_name",
+                      "description": "(Required) The name of the syslog logging endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "null"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "port",
+                      "value": "514"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "use_tls",
+                      "value": "0"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_ca_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_cert",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tls_client_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message_type",
+                      "value": "classic"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e561ddfb-5507-4c2a-916f-f57eb3db8f4e",
+          "name": "Delete a syslog logging endpoint",
+          "request": {
+            "name": "Delete a syslog logging endpoint",
+            "description": {
+              "content": "Deletes a specific syslog logging endpoint for a version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "syslog",
+                ":logging_syslog_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "logging_syslog_name",
+                  "description": "(Required) The name of the syslog logging endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bbf6635b-1535-4739-8bd2-b59b2659aa0d",
+              "name": "Successfully deleted the syslog logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog",
+                    ":logging_syslog_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logging_syslog_name",
+                      "description": "(Required) The name of the syslog logging endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c30525a7-bebe-4dd1-bbab-38e064fb83ef",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog",
+                    ":logging_syslog_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logging_syslog_name",
+                      "description": "(Required) The name of the syslog logging endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c84ec598-902b-406c-b712-ab4ebeaf170e",
+              "name": "Logging endpoint not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "syslog",
+                    ":logging_syslog_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logging_syslog_name",
+                      "description": "(Required) The name of the syslog logging endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fastly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "237accd9-6c77-4b76-9816-7853ceff437c",
+    "name": "Fastly Real-Time Logging API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fastly Real-Time Logging API allows developers to configure and manage logging endpoints that receive streamed log data from Fastly's edge network. Fastly supports logging to a variety of formats and platforms including syslog, Amazon S3, Google Cloud Storage, BigQuery, Datadog, Splunk, Elasticsearch, and many other providers. Developers can create, update, and delete logging configurations per service version, controlling the format, placement, and conditions under which log entries are generated.\n\nContact Support:\n Name: Fastly Support",
+      "type": "text/plain"
+    }
+  }
+}

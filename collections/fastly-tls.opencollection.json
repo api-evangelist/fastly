@@ -1,0 +1,461 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly TLS API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TLS Certificates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List TLS certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/certificates",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "filter[tls_domains.id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter certificates by TLS domain ID."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all custom TLS certificates associated with the account."
+        },
+        {
+          "info": {
+            "name": "Create a TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/tls/certificates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new custom TLS certificate. Uploading a new certificate automatically enables TLS for all domains listed as Subject Alternative Names (SAN entries) on the certificate. Certificate deployment takes approximately 20 minutes on average but may take up to an hour."
+        },
+        {
+          "info": {
+            "name": "Get a TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/certificates/:tls_certificate_id",
+            "params": [
+              {
+                "name": "tls_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS certificate."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific custom TLS certificate."
+        },
+        {
+          "info": {
+            "name": "Update a TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/tls/certificates/:tls_certificate_id",
+            "params": [
+              {
+                "name": "tls_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS certificate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces a TLS certificate with a new one. The new certificate must cover the same domains as the original."
+        },
+        {
+          "info": {
+            "name": "Delete a TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/tls/certificates/:tls_certificate_id",
+            "params": [
+              {
+                "name": "tls_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS certificate."
+              }
+            ]
+          },
+          "docs": "Deletes a custom TLS certificate. The certificate must not have any active TLS activations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "TLS Private Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List TLS private keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/private_keys",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "filter[in_use]",
+                "value": "",
+                "type": "query",
+                "description": "Filter to show only keys currently in use."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all TLS private keys associated with the account."
+        },
+        {
+          "info": {
+            "name": "Create a TLS private key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/tls/private_keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new TLS private key. A key can be used to sign multiple certificates."
+        },
+        {
+          "info": {
+            "name": "Get a TLS private key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/private_keys/:tls_private_key_id",
+            "params": [
+              {
+                "name": "tls_private_key_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS private key."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific TLS private key."
+        },
+        {
+          "info": {
+            "name": "Delete a TLS private key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/tls/private_keys/:tls_private_key_id",
+            "params": [
+              {
+                "name": "tls_private_key_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS private key."
+              }
+            ]
+          },
+          "docs": "Deletes a TLS private key. The key must not be associated with any active certificates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "TLS Activations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List TLS activations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/activations",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "filter[tls_certificate.id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by TLS certificate ID."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all TLS activations that enable TLS traffic termination for specific domains."
+        },
+        {
+          "info": {
+            "name": "Create a TLS activation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/tls/activations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enables TLS traffic termination for a specific domain using the specified certificate and configuration."
+        },
+        {
+          "info": {
+            "name": "Get a TLS activation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/activations/:tls_activation_id",
+            "params": [
+              {
+                "name": "tls_activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS activation."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific TLS activation."
+        },
+        {
+          "info": {
+            "name": "Update a TLS activation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/tls/activations/:tls_activation_id",
+            "params": [
+              {
+                "name": "tls_activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS activation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a TLS activation, such as changing the certificate used for the domain."
+        },
+        {
+          "info": {
+            "name": "Delete a TLS activation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/tls/activations/:tls_activation_id",
+            "params": [
+              {
+                "name": "tls_activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS activation."
+              }
+            ]
+          },
+          "docs": "Disables TLS for the domain by removing the TLS activation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Platform TLS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List platform TLS bulk certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/bulk/certificates",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all platform TLS bulk certificates. Available to Platform TLS customers for streamlined upload, deployment, and management of large numbers of TLS certificates."
+        },
+        {
+          "info": {
+            "name": "Upload a platform TLS bulk certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/tls/bulk/certificates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new platform TLS bulk certificate and corresponding intermediates for deployment across Fastly's edge network."
+        },
+        {
+          "info": {
+            "name": "Get a platform TLS bulk certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/bulk/certificates/:tls_bulk_certificate_id",
+            "params": [
+              {
+                "name": "tls_bulk_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the bulk TLS certificate."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific platform TLS bulk certificate."
+        },
+        {
+          "info": {
+            "name": "Update a platform TLS bulk certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/tls/bulk/certificates/:tls_bulk_certificate_id",
+            "params": [
+              {
+                "name": "tls_bulk_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the bulk TLS certificate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces a platform TLS bulk certificate with a new one."
+        },
+        {
+          "info": {
+            "name": "Delete a platform TLS bulk certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/tls/bulk/certificates/:tls_bulk_certificate_id",
+            "params": [
+              {
+                "name": "tls_bulk_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the bulk TLS certificate."
+              }
+            ]
+          },
+          "docs": "Deletes a platform TLS bulk certificate."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

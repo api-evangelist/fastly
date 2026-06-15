@@ -1,0 +1,2602 @@
+{
+  "info": {
+    "_postman_id": "c26eca7c-aaa3-4516-985d-74a22a08062a",
+    "name": "Fastly Access Control Lists API",
+    "description": "The Fastly Access Control Lists API allows developers to create and manage ACLs that can be used to control access to content at the edge. ACLs contain entries of IP addresses or CIDR ranges that can be referenced in VCL to allow or deny requests. The API supports creating ACL containers, adding and removing individual entries, and performing bulk updates to efficiently manage large IP allowlists or blocklists without requiring a new service version deployment.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:45.000Z",
+    "updatedAt": "2026-06-05T15:08:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c26eca7c-aaa3-4516-985d-74a22a08062a"
+  },
+  "item": [
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "{service_id}",
+          "item": [
+            {
+              "name": "version",
+              "item": [
+                {
+                  "name": "{version_id}",
+                  "item": [
+                    {
+                      "name": "acl",
+                      "item": [
+                        {
+                          "name": "{acl_name}",
+                          "item": [
+                            {
+                              "name": "Get an ACL",
+                              "id": "f2e92cdc-25b0-4b06-8e10-0a06b4c75409",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "acl",
+                                    ":acl_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "0f66204d-8cf3-4d26-a380-56ed301e89f2",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "7728cdee-e02a-42b3-9f1a-654e6665ab03",
+                                      "key": "version_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The integer identifying the service version."
+                                    },
+                                    {
+                                      "id": "0bb520bb-de1b-4006-8647-3526b57617d7",
+                                      "key": "acl_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The name of the ACL."
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves the details of a specific ACL container for a version of a Fastly service."
+                              },
+                              "response": [
+                                {
+                                  "id": "0efa8c35-0247-4b57-b7b4-a2487a72cba1",
+                                  "name": "Successfully retrieved the ACL.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "acl",
+                                        ":acl_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "acl_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"service_id\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-0efa8c35-0247-4b57-b7b4-a2487a72cba1"
+                                },
+                                {
+                                  "id": "5a8e9947-b9bb-420d-9205-1f9e2454a9c8",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "acl",
+                                        ":acl_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "acl_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-5a8e9947-b9bb-420d-9205-1f9e2454a9c8"
+                                },
+                                {
+                                  "id": "953d72cc-d938-4eab-8793-d8b4573d8713",
+                                  "name": "ACL not found.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "acl",
+                                        ":acl_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "acl_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-953d72cc-d938-4eab-8793-d8b4573d8713"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:45.000Z",
+                              "updatedAt": "2026-06-05T15:08:45.000Z",
+                              "uid": "35240-f2e92cdc-25b0-4b06-8e10-0a06b4c75409"
+                            },
+                            {
+                              "name": "Update an ACL",
+                              "id": "2228212d-fa6d-4fd1-a080-c5e6681625be",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "The new name of the ACL.",
+                                      "key": "name",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "acl",
+                                    ":acl_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "8859b71c-0159-422f-ac27-5daf54873941",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "a78d3424-6742-4551-96ba-f9214d60a455",
+                                      "key": "version_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The integer identifying the service version."
+                                    },
+                                    {
+                                      "id": "cdfa4f7e-2e62-4568-8933-38ab36090f94",
+                                      "key": "acl_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The name of the ACL."
+                                    }
+                                  ]
+                                },
+                                "description": "Updates a specific ACL container for a version of a Fastly service."
+                              },
+                              "response": [
+                                {
+                                  "id": "5bd70407-1b2d-497a-8629-6ecd189a2593",
+                                  "name": "Successfully updated the ACL.",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The new name of the ACL.",
+                                          "key": "name",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "acl",
+                                        ":acl_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "acl_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"service_id\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-5bd70407-1b2d-497a-8629-6ecd189a2593"
+                                },
+                                {
+                                  "id": "b05ac7ce-c2fd-46c9-ace5-50d887f156d6",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The new name of the ACL.",
+                                          "key": "name",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "acl",
+                                        ":acl_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "acl_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-b05ac7ce-c2fd-46c9-ace5-50d887f156d6"
+                                },
+                                {
+                                  "id": "64b96e8c-49f6-4a30-bd52-77f6ce116fd6",
+                                  "name": "ACL not found.",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The new name of the ACL.",
+                                          "key": "name",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "acl",
+                                        ":acl_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "acl_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-64b96e8c-49f6-4a30-bd52-77f6ce116fd6"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:45.000Z",
+                              "updatedAt": "2026-06-05T15:08:45.000Z",
+                              "uid": "35240-2228212d-fa6d-4fd1-a080-c5e6681625be"
+                            },
+                            {
+                              "name": "Delete an ACL",
+                              "id": "3ed92787-c12e-4b6a-b7f3-b64cedff9ae3",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "acl",
+                                    ":acl_name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "a1bf03b0-1e56-4598-b6ec-feb6aafa24ed",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "f8a28b44-aeb2-443e-8d6e-59262103ad61",
+                                      "key": "version_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The integer identifying the service version."
+                                    },
+                                    {
+                                      "id": "f9206856-f7b1-4f62-af47-bfdcdd7195d9",
+                                      "key": "acl_name",
+                                      "value": "<string>",
+                                      "description": "(Required) The name of the ACL."
+                                    }
+                                  ]
+                                },
+                                "description": "Deletes a specific ACL container from a version of a Fastly service."
+                              },
+                              "response": [
+                                {
+                                  "id": "bdb3434a-e4ad-437e-832e-ddb90a7cbbc9",
+                                  "name": "Successfully deleted the ACL.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "acl",
+                                        ":acl_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "acl_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"status\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-bdb3434a-e4ad-437e-832e-ddb90a7cbbc9"
+                                },
+                                {
+                                  "id": "5f4dc003-3696-4f8b-be8c-ec4581e29483",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "acl",
+                                        ":acl_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "acl_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-5f4dc003-3696-4f8b-be8c-ec4581e29483"
+                                },
+                                {
+                                  "id": "227f2638-9688-4182-bd6c-fc08baaa04c3",
+                                  "name": "ACL not found.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl/:acl_name",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "version",
+                                        ":version_id",
+                                        "acl",
+                                        ":acl_name"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "version_id"
+                                        },
+                                        {
+                                          "key": "acl_name"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-227f2638-9688-4182-bd6c-fc08baaa04c3"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:45.000Z",
+                              "updatedAt": "2026-06-05T15:08:45.000Z",
+                              "uid": "35240-3ed92787-c12e-4b6a-b7f3-b64cedff9ae3"
+                            }
+                          ],
+                          "id": "de8c9a7d-6aaf-4c0b-b967-df9f97f1b808",
+                          "createdAt": "2026-06-05T15:08:45.000Z",
+                          "updatedAt": "2026-06-05T15:08:45.000Z",
+                          "uid": "35240-de8c9a7d-6aaf-4c0b-b967-df9f97f1b808"
+                        },
+                        {
+                          "name": "List ACLs",
+                          "id": "b4f705ef-bf54-45ff-8274-65ae8747cb27",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "acl"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "5c4da0cf-2bbb-4c7f-aae8-72e0a207c68f",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "0fb4e209-d20d-4e93-9fc3-75ea41ceac8e",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The integer identifying the service version."
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a list of all ACL containers configured for a specific version of a Fastly service."
+                          },
+                          "response": [
+                            {
+                              "id": "778011c6-fa22-48bb-b553-f2e647ab9ff4",
+                              "name": "Successfully retrieved the list of ACLs.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "acl"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"service_id\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"service_id\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  }\n]",
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-778011c6-fa22-48bb-b553-f2e647ab9ff4"
+                            },
+                            {
+                              "id": "fdf3ce06-960c-4c21-90c7-6d826c95808b",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "acl"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-fdf3ce06-960c-4c21-90c7-6d826c95808b"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:45.000Z",
+                          "updatedAt": "2026-06-05T15:08:45.000Z",
+                          "uid": "35240-b4f705ef-bf54-45ff-8274-65ae8747cb27"
+                        },
+                        {
+                          "name": "Create an ACL",
+                          "id": "3bc175fd-0c7c-4216-94cb-37c33239d75b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/x-www-form-urlencoded"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "urlencoded",
+                              "urlencoded": [
+                                {
+                                  "description": "(Required) The name of the ACL.",
+                                  "key": "name",
+                                  "value": "<string>"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "acl"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3a6b85ac-25e2-463e-b342-0c429682f682",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "a529ec50-60d6-44a4-bb30-2748932f1924",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The integer identifying the service version."
+                                }
+                              ]
+                            },
+                            "description": "Creates a new ACL container for a specific version of a Fastly service. Once the service version is activated, entries within the ACL become versionless and can be updated without requiring a new service version."
+                          },
+                          "response": [
+                            {
+                              "id": "21045cdb-3b94-4f56-902c-b732976375de",
+                              "name": "Successfully created the ACL.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The name of the ACL.",
+                                      "key": "name",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "acl"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"service_id\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-21045cdb-3b94-4f56-902c-b732976375de"
+                            },
+                            {
+                              "id": "9d9fdd16-1f55-4bd4-a2b4-2715fb40b145",
+                              "name": "Bad request. Missing or invalid parameters.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The name of the ACL.",
+                                      "key": "name",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "acl"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-9d9fdd16-1f55-4bd4-a2b4-2715fb40b145"
+                            },
+                            {
+                              "id": "bf9be1e1-39a8-4c5a-94c0-b11906c6aeb1",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The name of the ACL.",
+                                      "key": "name",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/acl",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "acl"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-bf9be1e1-39a8-4c5a-94c0-b11906c6aeb1"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:45.000Z",
+                          "updatedAt": "2026-06-05T15:08:45.000Z",
+                          "uid": "35240-3bc175fd-0c7c-4216-94cb-37c33239d75b"
+                        }
+                      ],
+                      "id": "d921c539-2450-4419-83cf-552f4b7d7b07",
+                      "createdAt": "2026-06-05T15:08:45.000Z",
+                      "updatedAt": "2026-06-05T15:08:45.000Z",
+                      "uid": "35240-d921c539-2450-4419-83cf-552f4b7d7b07"
+                    }
+                  ],
+                  "id": "03defc50-1e06-452c-b723-bb79add6e93f",
+                  "createdAt": "2026-06-05T15:08:45.000Z",
+                  "updatedAt": "2026-06-05T15:08:45.000Z",
+                  "uid": "35240-03defc50-1e06-452c-b723-bb79add6e93f"
+                }
+              ],
+              "id": "4203a65a-3a8d-4382-9156-9d318fd1b7cb",
+              "createdAt": "2026-06-05T15:08:45.000Z",
+              "updatedAt": "2026-06-05T15:08:45.000Z",
+              "uid": "35240-4203a65a-3a8d-4382-9156-9d318fd1b7cb"
+            },
+            {
+              "name": "acl",
+              "item": [
+                {
+                  "name": "{acl_id}",
+                  "item": [
+                    {
+                      "name": "entries",
+                      "item": [
+                        {
+                          "name": "List ACL entries",
+                          "id": "f1973e44-d3b7-46fa-98d7-a64e147e343c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries?page=<integer>&per_page=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "acl",
+                                ":acl_id",
+                                "entries"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The page number to retrieve.",
+                                  "key": "page",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "The number of items per page.",
+                                  "key": "per_page",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b3b43ff4-b9c6-4102-8cb4-dabf7af658bb",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "a3366e24-474c-494e-9d09-a4f37b37cb94",
+                                  "key": "acl_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the ACL."
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a list of all entries within a specific ACL. ACL entries are versionless and any updates take effect immediately."
+                          },
+                          "response": [
+                            {
+                              "id": "6d57e441-ea34-419e-9165-c24fe506bf7e",
+                              "name": "Successfully retrieved the list of ACL entries.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries?page=<integer>&per_page=<integer>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entries"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The page number to retrieve.",
+                                      "key": "page",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "The number of items per page.",
+                                      "key": "per_page",
+                                      "value": "<integer>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "acl_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"acl_id\": \"<string>\",\n    \"ip\": \"<string>\",\n    \"subnet\": \"<integer>\",\n    \"negated\": 1,\n    \"comment\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"acl_id\": \"<string>\",\n    \"ip\": \"<string>\",\n    \"subnet\": \"<integer>\",\n    \"negated\": 1,\n    \"comment\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  }\n]",
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-6d57e441-ea34-419e-9165-c24fe506bf7e"
+                            },
+                            {
+                              "id": "6e02231b-987f-488d-a4f7-9363fe852c37",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries?page=<integer>&per_page=<integer>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entries"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The page number to retrieve.",
+                                      "key": "page",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "The number of items per page.",
+                                      "key": "per_page",
+                                      "value": "<integer>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "acl_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-6e02231b-987f-488d-a4f7-9363fe852c37"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:45.000Z",
+                          "updatedAt": "2026-06-05T15:08:45.000Z",
+                          "uid": "35240-f1973e44-d3b7-46fa-98d7-a64e147e343c"
+                        },
+                        {
+                          "name": "Create an ACL entry",
+                          "id": "d1e2a51c-3d6a-4645-a331-a204d631d1b8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "acl",
+                                ":acl_id",
+                                "entries"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "352dbddb-9b29-4282-a94f-b70d4cf7ca73",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "a80a7fe2-2d41-4875-9fcc-49430c057151",
+                                  "key": "acl_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the ACL."
+                                }
+                              ]
+                            },
+                            "description": "Creates a new entry within a specific ACL. The entry takes effect immediately without requiring a new service version."
+                          },
+                          "response": [
+                            {
+                              "id": "07136444-6be0-4811-9597-4d2fb5896a06",
+                              "name": "Successfully created the ACL entry.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entries"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "acl_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-07136444-6be0-4811-9597-4d2fb5896a06"
+                            },
+                            {
+                              "id": "58a41168-780a-4583-a2f5-a15252e4f044",
+                              "name": "Bad request. Missing or invalid parameters.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entries"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "acl_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-58a41168-780a-4583-a2f5-a15252e4f044"
+                            },
+                            {
+                              "id": "eec98ae0-a951-41d0-9958-217a6a6b360a",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entries"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "acl_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-eec98ae0-a951-41d0-9958-217a6a6b360a"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:45.000Z",
+                          "updatedAt": "2026-06-05T15:08:45.000Z",
+                          "uid": "35240-d1e2a51c-3d6a-4645-a331-a204d631d1b8"
+                        },
+                        {
+                          "name": "Bulk update ACL entries",
+                          "id": "65534001-f2fe-4af3-a5b7-72a2f556bf3d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"entries\": [\n    {\n      \"op\": \"delete\",\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"subnet\": \"<integer>\",\n      \"negated\": 1,\n      \"comment\": \"<string>\"\n    },\n    {\n      \"op\": \"update\",\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"subnet\": \"<integer>\",\n      \"negated\": 0,\n      \"comment\": \"<string>\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "acl",
+                                ":acl_id",
+                                "entries"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "68344803-a765-4370-bcf5-1e51090e32ef",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "b36a919c-b7e2-49e3-8010-f827d877524e",
+                                  "key": "acl_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the ACL."
+                                }
+                              ]
+                            },
+                            "description": "Updates multiple ACL entries in a single request. Supports create, update, and delete operations in the same batch. Maximum batch size is 1000 entries."
+                          },
+                          "response": [
+                            {
+                              "id": "dfd732e4-cb6e-4d3b-828d-e31e1ad2e2e9",
+                              "name": "Successfully performed bulk update on ACL entries.",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"entries\": [\n    {\n      \"op\": \"delete\",\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"subnet\": \"<integer>\",\n      \"negated\": 1,\n      \"comment\": \"<string>\"\n    },\n    {\n      \"op\": \"update\",\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"subnet\": \"<integer>\",\n      \"negated\": 0,\n      \"comment\": \"<string>\"\n    }\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entries"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "acl_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-dfd732e4-cb6e-4d3b-828d-e31e1ad2e2e9"
+                            },
+                            {
+                              "id": "23a3efd8-87df-48ad-b9d3-e00bfbaebbeb",
+                              "name": "Bad request. Missing or invalid parameters.",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"entries\": [\n    {\n      \"op\": \"delete\",\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"subnet\": \"<integer>\",\n      \"negated\": 1,\n      \"comment\": \"<string>\"\n    },\n    {\n      \"op\": \"update\",\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"subnet\": \"<integer>\",\n      \"negated\": 0,\n      \"comment\": \"<string>\"\n    }\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entries"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "acl_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-23a3efd8-87df-48ad-b9d3-e00bfbaebbeb"
+                            },
+                            {
+                              "id": "626c93d1-6670-4f43-8656-e1b2c4e6de61",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"entries\": [\n    {\n      \"op\": \"delete\",\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"subnet\": \"<integer>\",\n      \"negated\": 1,\n      \"comment\": \"<string>\"\n    },\n    {\n      \"op\": \"update\",\n      \"id\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"subnet\": \"<integer>\",\n      \"negated\": 0,\n      \"comment\": \"<string>\"\n    }\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entries",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entries"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "acl_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:46.000Z",
+                              "updatedAt": "2026-06-05T15:08:46.000Z",
+                              "uid": "35240-626c93d1-6670-4f43-8656-e1b2c4e6de61"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:45.000Z",
+                          "updatedAt": "2026-06-05T15:08:45.000Z",
+                          "uid": "35240-65534001-f2fe-4af3-a5b7-72a2f556bf3d"
+                        }
+                      ],
+                      "id": "f798a825-71f5-44a6-9d95-1c1c4d8995b2",
+                      "createdAt": "2026-06-05T15:08:45.000Z",
+                      "updatedAt": "2026-06-05T15:08:45.000Z",
+                      "uid": "35240-f798a825-71f5-44a6-9d95-1c1c4d8995b2"
+                    },
+                    {
+                      "name": "entry",
+                      "item": [
+                        {
+                          "name": "{acl_entry_id}",
+                          "item": [
+                            {
+                              "name": "Get an ACL entry",
+                              "id": "03e7f48f-e927-4008-8729-7f4e82ca80e1",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entry",
+                                    ":acl_entry_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "b3bda2e5-6652-4063-a07a-5b8ef2eeb1f2",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "ac708396-d9c1-4fd7-ab86-151a0818692c",
+                                      "key": "acl_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the ACL."
+                                    },
+                                    {
+                                      "id": "e65c5ce3-6775-48e7-8396-62e26254ef93",
+                                      "key": "acl_entry_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the ACL entry."
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves the details of a specific ACL entry."
+                              },
+                              "response": [
+                                {
+                                  "id": "4143d5e3-7979-41d1-8186-ae7ba8c42198",
+                                  "name": "Successfully retrieved the ACL entry.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "acl",
+                                        ":acl_id",
+                                        "entry",
+                                        ":acl_entry_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "acl_id"
+                                        },
+                                        {
+                                          "key": "acl_entry_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-4143d5e3-7979-41d1-8186-ae7ba8c42198"
+                                },
+                                {
+                                  "id": "71cf4137-c46b-43c8-9c9d-ba664c52781a",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "acl",
+                                        ":acl_id",
+                                        "entry",
+                                        ":acl_entry_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "acl_id"
+                                        },
+                                        {
+                                          "key": "acl_entry_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-71cf4137-c46b-43c8-9c9d-ba664c52781a"
+                                },
+                                {
+                                  "id": "df6e5a9d-e4cd-4490-b0a9-e8c9803c124b",
+                                  "name": "ACL entry not found.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "acl",
+                                        ":acl_id",
+                                        "entry",
+                                        ":acl_entry_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "acl_id"
+                                        },
+                                        {
+                                          "key": "acl_entry_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-df6e5a9d-e4cd-4490-b0a9-e8c9803c124b"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:45.000Z",
+                              "updatedAt": "2026-06-05T15:08:45.000Z",
+                              "uid": "35240-03e7f48f-e927-4008-8729-7f4e82ca80e1"
+                            },
+                            {
+                              "name": "Update an ACL entry",
+                              "id": "68260fce-d276-45ac-8e52-c3e01d32deda",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entry",
+                                    ":acl_entry_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "5fcc3e86-2f55-4f70-be41-9938ee855831",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "2f5de818-e83f-4dc8-89f1-64be2a05e7d2",
+                                      "key": "acl_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the ACL."
+                                    },
+                                    {
+                                      "id": "b4863174-220e-42eb-a4c6-ee5a888da467",
+                                      "key": "acl_entry_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the ACL entry."
+                                    }
+                                  ]
+                                },
+                                "description": "Updates a specific ACL entry. The update takes effect immediately without requiring a new service version."
+                              },
+                              "response": [
+                                {
+                                  "id": "88020c17-a588-4897-a943-1afb150d0006",
+                                  "name": "Successfully updated the ACL entry.",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "acl",
+                                        ":acl_id",
+                                        "entry",
+                                        ":acl_entry_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "acl_id"
+                                        },
+                                        {
+                                          "key": "acl_entry_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-88020c17-a588-4897-a943-1afb150d0006"
+                                },
+                                {
+                                  "id": "eece5060-82ed-4f40-a7c2-7652d5f4e2a6",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "acl",
+                                        ":acl_id",
+                                        "entry",
+                                        ":acl_entry_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "acl_id"
+                                        },
+                                        {
+                                          "key": "acl_entry_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-eece5060-82ed-4f40-a7c2-7652d5f4e2a6"
+                                },
+                                {
+                                  "id": "1648b1bb-5cf8-4e47-92fa-37cc6d256dba",
+                                  "name": "ACL entry not found.",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"id\": \"<string>\",\n  \"acl_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"subnet\": \"<integer>\",\n  \"negated\": 1,\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "acl",
+                                        ":acl_id",
+                                        "entry",
+                                        ":acl_entry_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "acl_id"
+                                        },
+                                        {
+                                          "key": "acl_entry_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-1648b1bb-5cf8-4e47-92fa-37cc6d256dba"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:45.000Z",
+                              "updatedAt": "2026-06-05T15:08:45.000Z",
+                              "uid": "35240-68260fce-d276-45ac-8e52-c3e01d32deda"
+                            },
+                            {
+                              "name": "Delete an ACL entry",
+                              "id": "d1544b09-fba4-45ac-9db7-3f19caf52ad5",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "acl",
+                                    ":acl_id",
+                                    "entry",
+                                    ":acl_entry_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "222c5cbf-4a0d-4065-b6d4-363d1e19789e",
+                                      "key": "service_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                    },
+                                    {
+                                      "id": "123d01b1-7fc9-4794-be5b-7aab7d4c72b6",
+                                      "key": "acl_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the ACL."
+                                    },
+                                    {
+                                      "id": "030914a4-85c2-4176-85d5-7c5ae2bb9227",
+                                      "key": "acl_entry_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The alphanumeric string identifying the ACL entry."
+                                    }
+                                  ]
+                                },
+                                "description": "Deletes a specific ACL entry. The deletion takes effect immediately without requiring a new service version."
+                              },
+                              "response": [
+                                {
+                                  "id": "43c9fc61-9fa5-4dc0-a6de-4eac901f740f",
+                                  "name": "Successfully deleted the ACL entry.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "acl",
+                                        ":acl_id",
+                                        "entry",
+                                        ":acl_entry_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "acl_id"
+                                        },
+                                        {
+                                          "key": "acl_entry_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"status\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-43c9fc61-9fa5-4dc0-a6de-4eac901f740f"
+                                },
+                                {
+                                  "id": "3a361bf0-dbe2-46e1-a4d6-bdb0e6502c4d",
+                                  "name": "Unauthorized. The API token is missing or invalid.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "acl",
+                                        ":acl_id",
+                                        "entry",
+                                        ":acl_entry_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "acl_id"
+                                        },
+                                        {
+                                          "key": "acl_entry_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-3a361bf0-dbe2-46e1-a4d6-bdb0e6502c4d"
+                                },
+                                {
+                                  "id": "b02772ef-e480-4303-9d84-20974531d80d",
+                                  "name": "ACL entry not found.",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Fastly-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/acl/:acl_id/entry/:acl_entry_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "acl",
+                                        ":acl_id",
+                                        "entry",
+                                        ":acl_entry_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "service_id"
+                                        },
+                                        {
+                                          "key": "acl_id"
+                                        },
+                                        {
+                                          "key": "acl_entry_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-06-05T15:08:46.000Z",
+                                  "updatedAt": "2026-06-05T15:08:46.000Z",
+                                  "uid": "35240-b02772ef-e480-4303-9d84-20974531d80d"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:08:45.000Z",
+                              "updatedAt": "2026-06-05T15:08:45.000Z",
+                              "uid": "35240-d1544b09-fba4-45ac-9db7-3f19caf52ad5"
+                            }
+                          ],
+                          "id": "d6995d83-bbd9-42a1-841f-5d4a574f69ff",
+                          "createdAt": "2026-06-05T15:08:45.000Z",
+                          "updatedAt": "2026-06-05T15:08:45.000Z",
+                          "uid": "35240-d6995d83-bbd9-42a1-841f-5d4a574f69ff"
+                        }
+                      ],
+                      "id": "0639da91-8128-43b3-9e84-88f439bd11dd",
+                      "createdAt": "2026-06-05T15:08:45.000Z",
+                      "updatedAt": "2026-06-05T15:08:45.000Z",
+                      "uid": "35240-0639da91-8128-43b3-9e84-88f439bd11dd"
+                    }
+                  ],
+                  "id": "5655d1f6-5701-49fb-b84c-c647e11a8390",
+                  "createdAt": "2026-06-05T15:08:45.000Z",
+                  "updatedAt": "2026-06-05T15:08:45.000Z",
+                  "uid": "35240-5655d1f6-5701-49fb-b84c-c647e11a8390"
+                }
+              ],
+              "id": "afd5fdbe-f551-4556-88b1-ee36494c2239",
+              "createdAt": "2026-06-05T15:08:45.000Z",
+              "updatedAt": "2026-06-05T15:08:45.000Z",
+              "uid": "35240-afd5fdbe-f551-4556-88b1-ee36494c2239"
+            }
+          ],
+          "id": "bda7f80e-2666-4b08-a070-0416a60634fc",
+          "createdAt": "2026-06-05T15:08:45.000Z",
+          "updatedAt": "2026-06-05T15:08:45.000Z",
+          "uid": "35240-bda7f80e-2666-4b08-a070-0416a60634fc"
+        }
+      ],
+      "id": "b593bec1-89cb-4e1c-89aa-57e4ffbe139f",
+      "createdAt": "2026-06-05T15:08:45.000Z",
+      "updatedAt": "2026-06-05T15:08:45.000Z",
+      "uid": "35240-b593bec1-89cb-4e1c-89aa-57e4ffbe139f"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

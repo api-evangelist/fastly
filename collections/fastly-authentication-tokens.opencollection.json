@@ -1,0 +1,234 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Authentication Tokens API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List API tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tokens"
+          },
+          "docs": "Retrieves a list of all API tokens associated with the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/tokens",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "value": ""
+                },
+                {
+                  "name": "services",
+                  "value": ""
+                },
+                {
+                  "name": "expires_at",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Creates a new API token for the authenticated user. Tokens can be scoped to specific services and permissions."
+        },
+        {
+          "info": {
+            "name": "Get an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the token."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific API token."
+        },
+        {
+          "info": {
+            "name": "Revoke an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the token."
+              }
+            ]
+          },
+          "docs": "Revokes a specific API token, immediately invalidating it for future API requests."
+        },
+        {
+          "info": {
+            "name": "Get the current token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tokens/self"
+          },
+          "docs": "Retrieves the details of the API token used to authenticate the current request."
+        },
+        {
+          "info": {
+            "name": "Revoke the current token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/tokens/self"
+          },
+          "docs": "Revokes the API token used to authenticate the current request."
+        },
+        {
+          "info": {
+            "name": "List customer tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/customer/:customer_id/tokens",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the customer."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all API tokens for a specific customer. Requires superuser access."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automation Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List automation tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/automation-tokens",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all automation tokens for the customer account. Automation tokens are not tied to a specific user and are designed for CI/CD pipelines and build systems."
+        },
+        {
+          "info": {
+            "name": "Create an automation token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/automation-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new automation token. Only users with the superuser role can create automation tokens and must be in sudo mode. Automation tokens can remain active indefinitely because they are not tied to a human user."
+        },
+        {
+          "info": {
+            "name": "Get an automation token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/automation-tokens/:automation_token_id",
+            "params": [
+              {
+                "name": "automation_token_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the automation token."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific automation token."
+        },
+        {
+          "info": {
+            "name": "Revoke an automation token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/automation-tokens/:automation_token_id",
+            "params": [
+              {
+                "name": "automation_token_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the automation token."
+              }
+            ]
+          },
+          "docs": "Revokes a specific automation token, immediately invalidating it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

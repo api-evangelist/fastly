@@ -1,0 +1,487 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Real-Time Logging API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logging Syslog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List syslog logging endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/syslog",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all syslog logging endpoints configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a syslog logging endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/syslog",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new syslog logging endpoint for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Get a syslog logging endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/syslog/:logging_syslog_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "logging_syslog_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the syslog logging endpoint."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific syslog logging endpoint for a version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Update a syslog logging endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/syslog/:logging_syslog_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "logging_syslog_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the syslog logging endpoint."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Updates a specific syslog logging endpoint for a version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Delete a syslog logging endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/syslog/:logging_syslog_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              },
+              {
+                "name": "logging_syslog_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the syslog logging endpoint."
+              }
+            ]
+          },
+          "docs": "Deletes a specific syslog logging endpoint for a version of a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Logging S3",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List S3 logging endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/s3",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Amazon S3 logging endpoints configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create an S3 logging endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/s3",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new Amazon S3 logging endpoint for a specific version of a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Logging Datadog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Datadog logging endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/datadog",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Datadog logging endpoints configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a Datadog logging endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/datadog",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new Datadog logging endpoint for a specific version of a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Logging Splunk",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Splunk logging endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/splunk",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Splunk logging endpoints configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a Splunk logging endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/splunk",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new Splunk logging endpoint for a specific version of a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Logging HTTPS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List HTTPS logging endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/https",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all HTTPS logging endpoints configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create an HTTPS logging endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/https",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new HTTPS logging endpoint for a specific version of a Fastly service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Logging BigQuery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List BigQuery logging endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/bigquery",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Google BigQuery logging endpoints configured for a specific version of a Fastly service."
+        },
+        {
+          "info": {
+            "name": "Create a BigQuery logging endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/logging/bigquery",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The integer identifying the service version."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new Google BigQuery logging endpoint for a specific version of a Fastly service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

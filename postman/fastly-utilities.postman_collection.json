@@ -1,0 +1,578 @@
+{
+  "info": {
+    "_postman_id": "b4bee96f-b010-4c46-8aa2-51f9ab09855b",
+    "name": "Fastly Utilities API",
+    "description": "The Fastly Utilities API covers various utilities and extra functionality\nprovided in addition to the configuration services. Endpoints include\nContent Status, Diff, Docs, POPs, Public IP List, and Sudo Mode.\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:59.000Z",
+    "updatedAt": "2026-06-05T15:08:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b4bee96f-b010-4c46-8aa2-51f9ab09855b"
+  },
+  "item": [
+    {
+      "name": "content",
+      "item": [
+        {
+          "name": "edge_check",
+          "item": [
+            {
+              "name": "Check Content Cache Status",
+              "id": "c53df5e0-d1b1-4c59-9970-6fb6b3a133a6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/content/edge_check?url=<uri>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "content",
+                    "edge_check"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "url",
+                      "value": "<uri>"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "a59499da-ab87-4127-baf2-2b7035e3f4a6",
+                  "name": "Cache status by POP",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/content/edge_check?url=<uri>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "content",
+                        "edge_check"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "url",
+                          "value": "<uri>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:59.000Z",
+                  "updatedAt": "2026-06-05T15:08:59.000Z",
+                  "uid": "35240-a59499da-ab87-4127-baf2-2b7035e3f4a6"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:59.000Z",
+              "updatedAt": "2026-06-05T15:08:59.000Z",
+              "uid": "35240-c53df5e0-d1b1-4c59-9970-6fb6b3a133a6"
+            }
+          ],
+          "id": "0dec8d11-76dc-48b1-a244-6879dcab0175",
+          "createdAt": "2026-06-05T15:08:59.000Z",
+          "updatedAt": "2026-06-05T15:08:59.000Z",
+          "uid": "35240-0dec8d11-76dc-48b1-a244-6879dcab0175"
+        }
+      ],
+      "id": "d0a62cff-97bb-46a4-a1a9-cb83631512bc",
+      "createdAt": "2026-06-05T15:08:59.000Z",
+      "updatedAt": "2026-06-05T15:08:59.000Z",
+      "uid": "35240-d0a62cff-97bb-46a4-a1a9-cb83631512bc"
+    },
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "{service_id}",
+          "item": [
+            {
+              "name": "diff",
+              "item": [
+                {
+                  "name": "from",
+                  "item": [
+                    {
+                      "name": "{from_version}",
+                      "item": [
+                        {
+                          "name": "to",
+                          "item": [
+                            {
+                              "name": "{to_version}",
+                              "item": [
+                                {
+                                  "name": "Diff Service Versions",
+                                  "id": "36fb54f4-3522-4dc3-8d10-2181e3e6b15d",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/service/:service_id/diff/from/:from_version/to/:to_version",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "service",
+                                        ":service_id",
+                                        "diff",
+                                        "from",
+                                        ":from_version",
+                                        "to",
+                                        ":to_version"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "77370133-938a-4dc9-8345-0af0a87a5adc",
+                                          "key": "service_id",
+                                          "value": "<string>",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "3b239283-3272-4e32-adbc-d49d008b9906",
+                                          "key": "from_version",
+                                          "value": "<integer>",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "a0d29a4d-ca80-40d2-a1cf-36a59ee4581c",
+                                          "key": "to_version",
+                                          "value": "<integer>",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "67804d6f-8f2a-4ab9-89a3-4b5c07d3d716",
+                                      "name": "Line-by-line configuration differences",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "Fastly-Key",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/service/:service_id/diff/from/:from_version/to/:to_version",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "service",
+                                            ":service_id",
+                                            "diff",
+                                            "from",
+                                            ":from_version",
+                                            "to",
+                                            ":to_version"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "service_id"
+                                            },
+                                            {
+                                              "key": "from_version"
+                                            },
+                                            {
+                                              "key": "to_version"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-06-05T15:08:59.000Z",
+                                      "updatedAt": "2026-06-05T15:08:59.000Z",
+                                      "uid": "35240-67804d6f-8f2a-4ab9-89a3-4b5c07d3d716"
+                                    }
+                                  ],
+                                  "createdAt": "2026-06-05T15:08:59.000Z",
+                                  "updatedAt": "2026-06-05T15:08:59.000Z",
+                                  "uid": "35240-36fb54f4-3522-4dc3-8d10-2181e3e6b15d"
+                                }
+                              ],
+                              "id": "f18de79f-e8fe-45b8-ae41-b14e2fea09f8",
+                              "createdAt": "2026-06-05T15:08:59.000Z",
+                              "updatedAt": "2026-06-05T15:08:59.000Z",
+                              "uid": "35240-f18de79f-e8fe-45b8-ae41-b14e2fea09f8"
+                            }
+                          ],
+                          "id": "059a485b-372c-4477-8bf5-3fb09f2aabd6",
+                          "createdAt": "2026-06-05T15:08:59.000Z",
+                          "updatedAt": "2026-06-05T15:08:59.000Z",
+                          "uid": "35240-059a485b-372c-4477-8bf5-3fb09f2aabd6"
+                        }
+                      ],
+                      "id": "4ccd90d2-7389-422b-9ade-4f9aa3c1e7e2",
+                      "createdAt": "2026-06-05T15:08:59.000Z",
+                      "updatedAt": "2026-06-05T15:08:59.000Z",
+                      "uid": "35240-4ccd90d2-7389-422b-9ade-4f9aa3c1e7e2"
+                    }
+                  ],
+                  "id": "6e44c6d8-14e7-44ff-836b-e5dc23e9a1e5",
+                  "createdAt": "2026-06-05T15:08:59.000Z",
+                  "updatedAt": "2026-06-05T15:08:59.000Z",
+                  "uid": "35240-6e44c6d8-14e7-44ff-836b-e5dc23e9a1e5"
+                }
+              ],
+              "id": "feb895ca-bf8e-4fe7-a668-df0d01e0d76c",
+              "createdAt": "2026-06-05T15:08:59.000Z",
+              "updatedAt": "2026-06-05T15:08:59.000Z",
+              "uid": "35240-feb895ca-bf8e-4fe7-a668-df0d01e0d76c"
+            }
+          ],
+          "id": "4c1db09b-437d-41fe-a150-069e679fb6ae",
+          "createdAt": "2026-06-05T15:08:59.000Z",
+          "updatedAt": "2026-06-05T15:08:59.000Z",
+          "uid": "35240-4c1db09b-437d-41fe-a150-069e679fb6ae"
+        }
+      ],
+      "id": "3ab58b75-ebb2-4091-8552-62da42d5fcd7",
+      "createdAt": "2026-06-05T15:08:59.000Z",
+      "updatedAt": "2026-06-05T15:08:59.000Z",
+      "uid": "35240-3ab58b75-ebb2-4091-8552-62da42d5fcd7"
+    },
+    {
+      "name": "docs",
+      "item": [
+        {
+          "name": "Get API Documentation",
+          "id": "647287ce-536d-4c8b-99c0-4b8990595449",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/docs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "docs"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "39d86e3e-23d3-4525-b645-7c90823c0bd2",
+              "name": "Fastly API documentation",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/docs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "docs"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:59.000Z",
+              "updatedAt": "2026-06-05T15:08:59.000Z",
+              "uid": "35240-39d86e3e-23d3-4525-b645-7c90823c0bd2"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:59.000Z",
+          "updatedAt": "2026-06-05T15:08:59.000Z",
+          "uid": "35240-647287ce-536d-4c8b-99c0-4b8990595449"
+        }
+      ],
+      "id": "be4bc634-55c7-4d09-969a-7b6ee5ea9738",
+      "createdAt": "2026-06-05T15:08:59.000Z",
+      "updatedAt": "2026-06-05T15:08:59.000Z",
+      "uid": "35240-be4bc634-55c7-4d09-969a-7b6ee5ea9738"
+    },
+    {
+      "name": "datacenters",
+      "item": [
+        {
+          "name": "List Points Of Presence",
+          "id": "b1540c55-8978-45d1-ab0a-ee0dde3647de",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/datacenters",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "datacenters"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d8c28bf5-0ac6-4dd2-aaa8-6a40bad58683",
+              "name": "Fastly Points of Presence with geographic locations",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/datacenters",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "datacenters"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:59.000Z",
+              "updatedAt": "2026-06-05T15:08:59.000Z",
+              "uid": "35240-d8c28bf5-0ac6-4dd2-aaa8-6a40bad58683"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:59.000Z",
+          "updatedAt": "2026-06-05T15:08:59.000Z",
+          "uid": "35240-b1540c55-8978-45d1-ab0a-ee0dde3647de"
+        }
+      ],
+      "id": "f33b416d-108a-4b08-a7e7-3674baf8524b",
+      "createdAt": "2026-06-05T15:08:59.000Z",
+      "updatedAt": "2026-06-05T15:08:59.000Z",
+      "uid": "35240-f33b416d-108a-4b08-a7e7-3674baf8524b"
+    },
+    {
+      "name": "public-ip-list",
+      "item": [
+        {
+          "name": "Get Fastly Public IP Ranges",
+          "id": "35436ab2-1c18-4e5c-9d4f-1b9f45593b06",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/public-ip-list",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "public-ip-list"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "44a1e760-52c8-4fe5-b918-085b7743f833",
+              "name": "Fastly's assigned IP ranges for firewall rules",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/public-ip-list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "public-ip-list"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipv6_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:59.000Z",
+              "updatedAt": "2026-06-05T15:08:59.000Z",
+              "uid": "35240-44a1e760-52c8-4fe5-b918-085b7743f833"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:59.000Z",
+          "updatedAt": "2026-06-05T15:08:59.000Z",
+          "uid": "35240-35436ab2-1c18-4e5c-9d4f-1b9f45593b06"
+        }
+      ],
+      "id": "691d02af-c6c0-47b8-854c-1494f481eec8",
+      "createdAt": "2026-06-05T15:08:59.000Z",
+      "updatedAt": "2026-06-05T15:08:59.000Z",
+      "uid": "35240-691d02af-c6c0-47b8-854c-1494f481eec8"
+    },
+    {
+      "name": "sudo",
+      "item": [
+        {
+          "name": "Enable Sudo Mode",
+          "id": "b9b266d2-fa7d-492a-a413-580ea703aed7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sudo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sudo"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7ec33579-6bfc-4de3-93a0-94c9402bb4f7",
+              "name": "Sudo mode enabled",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sudo",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sudo"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:59.000Z",
+              "updatedAt": "2026-06-05T15:08:59.000Z",
+              "uid": "35240-7ec33579-6bfc-4de3-93a0-94c9402bb4f7"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:59.000Z",
+          "updatedAt": "2026-06-05T15:08:59.000Z",
+          "uid": "35240-b9b266d2-fa7d-492a-a413-580ea703aed7"
+        }
+      ],
+      "id": "fcf081f2-85d3-4237-b74b-20ef9affd30f",
+      "createdAt": "2026-06-05T15:08:59.000Z",
+      "updatedAt": "2026-06-05T15:08:59.000Z",
+      "uid": "35240-fcf081f2-85d3-4237-b74b-20ef9affd30f"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}

@@ -1,0 +1,2966 @@
+{
+  "info": {
+    "_postman_id": "4c9d3e27-8e85-4da6-aa97-078a9e63ff54",
+    "name": "Fastly Services API",
+    "description": "The Fastly Services API allows developers to create, configure, and manage Fastly CDN services and their versions programmatically. Services are the primary organizational unit in Fastly, representing a configuration that maps domains to backends. The API supports creating service versions, activating and deactivating configurations, cloning versions, and managing the complete lifecycle of a CDN service deployment.\n\nContact Support:\n Name: Fastly Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:33.000Z",
+    "updatedAt": "2026-06-05T15:08:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4c9d3e27-8e85-4da6-aa97-078a9e63ff54"
+  },
+  "item": [
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "{service_id}",
+          "item": [
+            {
+              "name": "details",
+              "item": [
+                {
+                  "name": "Get service details",
+                  "id": "f7cfa710-5b41-4ae0-9646-552191e9b2eb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id/details",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id",
+                        "details"
+                      ],
+                      "variable": [
+                        {
+                          "id": "29139e66-1db0-4399-b573-a9092b61413e",
+                          "key": "service_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the Fastly service."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves detailed information about a specific service including all of its versions and their associated settings."
+                  },
+                  "response": [
+                    {
+                      "id": "89da8086-e4fd-411d-9f23-56fb10205025",
+                      "name": "Successfully retrieved detailed service information.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-89da8086-e4fd-411d-9f23-56fb10205025"
+                    },
+                    {
+                      "id": "7d50d1d6-1fc9-4f68-91f3-451f39aba415",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-7d50d1d6-1fc9-4f68-91f3-451f39aba415"
+                    },
+                    {
+                      "id": "180c08c4-68d7-4caf-9caa-5cb5c51e832a",
+                      "name": "Service not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-180c08c4-68d7-4caf-9caa-5cb5c51e832a"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-f7cfa710-5b41-4ae0-9646-552191e9b2eb"
+                }
+              ],
+              "id": "0fcdc989-aa3a-4386-98df-9ec5034c01d2",
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-0fcdc989-aa3a-4386-98df-9ec5034c01d2"
+            },
+            {
+              "name": "version",
+              "item": [
+                {
+                  "name": "{version_id}",
+                  "item": [
+                    {
+                      "name": "activate",
+                      "item": [
+                        {
+                          "name": "Activate a service version",
+                          "id": "464f3406-d83c-422d-8359-d2af12356e28",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/activate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "activate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "dcb51f7a-3d9a-4b65-af64-cfd04c15f911",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "b7e3acb7-2504-4d8b-b0ed-706428f963ca",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The integer identifying the service version."
+                                }
+                              ]
+                            },
+                            "description": "Activates a specific version of a Fastly service, making it the live configuration that handles traffic for the service."
+                          },
+                          "response": [
+                            {
+                              "id": "319ae239-0274-4dc7-893c-8de59c6eade2",
+                              "name": "Successfully activated the service version.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "activate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"number\": \"<integer>\",\n  \"service_id\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"deployed\": \"<boolean>\",\n  \"staging\": \"<boolean>\",\n  \"testing\": \"<boolean>\",\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:08:34.000Z",
+                              "updatedAt": "2026-06-05T15:08:34.000Z",
+                              "uid": "35240-319ae239-0274-4dc7-893c-8de59c6eade2"
+                            },
+                            {
+                              "id": "10605bf3-229c-46e1-a2c7-a573a915c577",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "activate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:34.000Z",
+                              "updatedAt": "2026-06-05T15:08:34.000Z",
+                              "uid": "35240-10605bf3-229c-46e1-a2c7-a573a915c577"
+                            },
+                            {
+                              "id": "cc349704-51f5-4f33-ad16-b01ab699e43a",
+                              "name": "Service version not found.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/activate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "activate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:34.000Z",
+                              "updatedAt": "2026-06-05T15:08:34.000Z",
+                              "uid": "35240-cc349704-51f5-4f33-ad16-b01ab699e43a"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:34.000Z",
+                          "updatedAt": "2026-06-05T15:08:34.000Z",
+                          "uid": "35240-464f3406-d83c-422d-8359-d2af12356e28"
+                        }
+                      ],
+                      "id": "7c9fc04b-2dd3-49e3-be2c-0a140082126f",
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-7c9fc04b-2dd3-49e3-be2c-0a140082126f"
+                    },
+                    {
+                      "name": "deactivate",
+                      "item": [
+                        {
+                          "name": "Deactivate a service version",
+                          "id": "342671e8-d9be-4eb7-ad1c-8a97fe1a8b39",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/deactivate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "deactivate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d92c5205-72fd-43ba-8ca5-069393e477a5",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "15e69a87-23d4-4c71-9090-22dc5e445b0e",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The integer identifying the service version."
+                                }
+                              ]
+                            },
+                            "description": "Deactivates a specific version of a Fastly service, removing it from active traffic handling."
+                          },
+                          "response": [
+                            {
+                              "id": "cd3632b2-8a32-4162-bf0d-5465bbbde3d1",
+                              "name": "Successfully deactivated the service version.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "deactivate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"number\": \"<integer>\",\n  \"service_id\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"deployed\": \"<boolean>\",\n  \"staging\": \"<boolean>\",\n  \"testing\": \"<boolean>\",\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:08:34.000Z",
+                              "updatedAt": "2026-06-05T15:08:34.000Z",
+                              "uid": "35240-cd3632b2-8a32-4162-bf0d-5465bbbde3d1"
+                            },
+                            {
+                              "id": "da1cd848-959c-4046-81f5-26110a44aaad",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "deactivate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:34.000Z",
+                              "updatedAt": "2026-06-05T15:08:34.000Z",
+                              "uid": "35240-da1cd848-959c-4046-81f5-26110a44aaad"
+                            },
+                            {
+                              "id": "0a2bdb35-740e-4cfc-b98c-75ea2bd9b8c8",
+                              "name": "Service version not found.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "deactivate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:34.000Z",
+                              "updatedAt": "2026-06-05T15:08:34.000Z",
+                              "uid": "35240-0a2bdb35-740e-4cfc-b98c-75ea2bd9b8c8"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:34.000Z",
+                          "updatedAt": "2026-06-05T15:08:34.000Z",
+                          "uid": "35240-342671e8-d9be-4eb7-ad1c-8a97fe1a8b39"
+                        }
+                      ],
+                      "id": "1f72c36f-cd6d-4af1-b612-e852b93654f2",
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-1f72c36f-cd6d-4af1-b612-e852b93654f2"
+                    },
+                    {
+                      "name": "clone",
+                      "item": [
+                        {
+                          "name": "Clone a service version",
+                          "id": "8a1c993d-0cbd-493e-8dee-c87e2eb36e07",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id/clone",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id",
+                                "clone"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "60677002-e7e7-42b3-9900-6db0f635f83b",
+                                  "key": "service_id",
+                                  "value": "<string>",
+                                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                                },
+                                {
+                                  "id": "97563ccb-7e4d-42e8-a859-c22b31b57bbc",
+                                  "key": "version_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The integer identifying the service version."
+                                }
+                              ]
+                            },
+                            "description": "Creates a new version of a Fastly service by cloning an existing version, including all of its configuration settings."
+                          },
+                          "response": [
+                            {
+                              "id": "61b14ecc-1c68-4112-9046-e3df34e86533",
+                              "name": "Successfully cloned the service version.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/clone",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "clone"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"number\": \"<integer>\",\n  \"service_id\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"deployed\": \"<boolean>\",\n  \"staging\": \"<boolean>\",\n  \"testing\": \"<boolean>\",\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:08:34.000Z",
+                              "updatedAt": "2026-06-05T15:08:34.000Z",
+                              "uid": "35240-61b14ecc-1c68-4112-9046-e3df34e86533"
+                            },
+                            {
+                              "id": "1c05dcf6-2dc6-4ea0-8953-87e38cbd1be8",
+                              "name": "Unauthorized. The API token is missing or invalid.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/clone",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "clone"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:34.000Z",
+                              "updatedAt": "2026-06-05T15:08:34.000Z",
+                              "uid": "35240-1c05dcf6-2dc6-4ea0-8953-87e38cbd1be8"
+                            },
+                            {
+                              "id": "dd886422-72c6-4214-8a88-988ae8759f7e",
+                              "name": "Service version not found.",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Fastly-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/service/:service_id/version/:version_id/clone",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "service",
+                                    ":service_id",
+                                    "version",
+                                    ":version_id",
+                                    "clone"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "service_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:08:34.000Z",
+                              "updatedAt": "2026-06-05T15:08:34.000Z",
+                              "uid": "35240-dd886422-72c6-4214-8a88-988ae8759f7e"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:08:34.000Z",
+                          "updatedAt": "2026-06-05T15:08:34.000Z",
+                          "uid": "35240-8a1c993d-0cbd-493e-8dee-c87e2eb36e07"
+                        }
+                      ],
+                      "id": "56464d2f-57d7-4ae3-8138-e3d6705a7ec9",
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-56464d2f-57d7-4ae3-8138-e3d6705a7ec9"
+                    },
+                    {
+                      "name": "Get a service version",
+                      "id": "ff4dee0e-1e34-4de1-945e-2ce600615cb6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/version/:version_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "version",
+                            ":version_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "641caf19-06a8-4cd2-9ce0-765fa53b6bc5",
+                              "key": "service_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the Fastly service."
+                            },
+                            {
+                              "id": "6b7c2da7-a8e5-4a77-9c57-b4a430f11448",
+                              "key": "version_id",
+                              "value": "<integer>",
+                              "description": "(Required) The integer identifying the service version."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the details of a specific version of a Fastly service."
+                      },
+                      "response": [
+                        {
+                          "id": "ad456f6d-0504-400e-b854-fad3c395b9f9",
+                          "name": "Successfully retrieved the service version details.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "version_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"number\": \"<integer>\",\n  \"service_id\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"deployed\": \"<boolean>\",\n  \"staging\": \"<boolean>\",\n  \"testing\": \"<boolean>\",\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:08:34.000Z",
+                          "updatedAt": "2026-06-05T15:08:34.000Z",
+                          "uid": "35240-ad456f6d-0504-400e-b854-fad3c395b9f9"
+                        },
+                        {
+                          "id": "475d73cc-35fe-4c4c-952b-cb1b732d4999",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "version_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:34.000Z",
+                          "updatedAt": "2026-06-05T15:08:34.000Z",
+                          "uid": "35240-475d73cc-35fe-4c4c-952b-cb1b732d4999"
+                        },
+                        {
+                          "id": "0adcfc96-4f7b-430e-9122-76ac1268b4b3",
+                          "name": "Service version not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "version_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:34.000Z",
+                          "updatedAt": "2026-06-05T15:08:34.000Z",
+                          "uid": "35240-0adcfc96-4f7b-430e-9122-76ac1268b4b3"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-ff4dee0e-1e34-4de1-945e-2ce600615cb6"
+                    },
+                    {
+                      "name": "Update a service version",
+                      "id": "39dab692-60fd-40b3-a488-40a28b8a8c35",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "A comment describing the version.",
+                              "key": "comment",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/version/:version_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "version",
+                            ":version_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "30b074ee-09d7-49cb-abac-921e2323b700",
+                              "key": "service_id",
+                              "value": "<string>",
+                              "description": "(Required) The alphanumeric string identifying the Fastly service."
+                            },
+                            {
+                              "id": "33b54495-e8d0-462f-90fa-284d4fa9f2f1",
+                              "key": "version_id",
+                              "value": "<integer>",
+                              "description": "(Required) The integer identifying the service version."
+                            }
+                          ]
+                        },
+                        "description": "Updates a specific version of a Fastly service, such as changing its comment or locking status."
+                      },
+                      "response": [
+                        {
+                          "id": "66f546b2-5514-45d6-9ab5-eb5d218be896",
+                          "name": "Successfully updated the service version.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/x-www-form-urlencoded"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "urlencoded",
+                              "urlencoded": [
+                                {
+                                  "description": "A comment describing the version.",
+                                  "key": "comment",
+                                  "value": "<string>"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "version_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"number\": \"<integer>\",\n  \"service_id\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"deployed\": \"<boolean>\",\n  \"staging\": \"<boolean>\",\n  \"testing\": \"<boolean>\",\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:08:34.000Z",
+                          "updatedAt": "2026-06-05T15:08:34.000Z",
+                          "uid": "35240-66f546b2-5514-45d6-9ab5-eb5d218be896"
+                        },
+                        {
+                          "id": "333a9f82-0fec-45a1-b486-b35555c80dc6",
+                          "name": "Unauthorized. The API token is missing or invalid.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/x-www-form-urlencoded"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "urlencoded",
+                              "urlencoded": [
+                                {
+                                  "description": "A comment describing the version.",
+                                  "key": "comment",
+                                  "value": "<string>"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "version_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:34.000Z",
+                          "updatedAt": "2026-06-05T15:08:34.000Z",
+                          "uid": "35240-333a9f82-0fec-45a1-b486-b35555c80dc6"
+                        },
+                        {
+                          "id": "7683b2aa-1dac-4b2d-a42a-9fd973c9ad80",
+                          "name": "Service version not found.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/x-www-form-urlencoded"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Fastly-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "urlencoded",
+                              "urlencoded": [
+                                {
+                                  "description": "A comment describing the version.",
+                                  "key": "comment",
+                                  "value": "<string>"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/service/:service_id/version/:version_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "service",
+                                ":service_id",
+                                "version",
+                                ":version_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "service_id"
+                                },
+                                {
+                                  "key": "version_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:34.000Z",
+                          "updatedAt": "2026-06-05T15:08:34.000Z",
+                          "uid": "35240-7683b2aa-1dac-4b2d-a42a-9fd973c9ad80"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-39dab692-60fd-40b3-a488-40a28b8a8c35"
+                    }
+                  ],
+                  "id": "f4590b72-8733-4608-86b8-15013cb9f632",
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-f4590b72-8733-4608-86b8-15013cb9f632"
+                },
+                {
+                  "name": "List versions of a service",
+                  "id": "5c71946e-d55f-42ab-bf7f-ab6246229bdd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id/version",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id",
+                        "version"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f3d1efad-184b-4f6d-bc01-76523d4aaf1d",
+                          "key": "service_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the Fastly service."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a list of all versions associated with a specific Fastly service."
+                  },
+                  "response": [
+                    {
+                      "id": "a355bde0-069e-45c5-a93e-148dd275e71d",
+                      "name": "Successfully retrieved the list of service versions.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/version",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "version"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"number\": \"<integer>\",\n    \"service_id\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"locked\": \"<boolean>\",\n    \"deployed\": \"<boolean>\",\n    \"staging\": \"<boolean>\",\n    \"testing\": \"<boolean>\",\n    \"comment\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  },\n  {\n    \"number\": \"<integer>\",\n    \"service_id\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"locked\": \"<boolean>\",\n    \"deployed\": \"<boolean>\",\n    \"staging\": \"<boolean>\",\n    \"testing\": \"<boolean>\",\n    \"comment\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-a355bde0-069e-45c5-a93e-148dd275e71d"
+                    },
+                    {
+                      "id": "6bc7b3c1-81e0-4975-b385-7f9f4879c736",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/version",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "version"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-6bc7b3c1-81e0-4975-b385-7f9f4879c736"
+                    },
+                    {
+                      "id": "535e09e0-0447-4f75-b17e-a734395e8b4e",
+                      "name": "Service not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/version",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "version"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-535e09e0-0447-4f75-b17e-a734395e8b4e"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-5c71946e-d55f-42ab-bf7f-ab6246229bdd"
+                },
+                {
+                  "name": "Create a service version",
+                  "id": "ceb2009e-ef3d-46a6-8d77-8685d22597ba",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id/version",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id",
+                        "version"
+                      ],
+                      "variable": [
+                        {
+                          "id": "91780078-fc14-4082-98ed-373050b1016d",
+                          "key": "service_id",
+                          "value": "<string>",
+                          "description": "(Required) The alphanumeric string identifying the Fastly service."
+                        }
+                      ]
+                    },
+                    "description": "Creates a new version of a specific Fastly service. New versions are created as drafts that can be configured and then activated."
+                  },
+                  "response": [
+                    {
+                      "id": "c6a15ca6-96d0-4640-89aa-3a36baa65b62",
+                      "name": "Successfully created a new service version.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/version",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "version"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"number\": \"<integer>\",\n  \"service_id\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"deployed\": \"<boolean>\",\n  \"staging\": \"<boolean>\",\n  \"testing\": \"<boolean>\",\n  \"comment\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-c6a15ca6-96d0-4640-89aa-3a36baa65b62"
+                    },
+                    {
+                      "id": "9b5ecae3-663b-4a16-ab00-bc9067044d4c",
+                      "name": "Unauthorized. The API token is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/version",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "version"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-9b5ecae3-663b-4a16-ab00-bc9067044d4c"
+                    },
+                    {
+                      "id": "a93a0723-feea-46ef-8e4a-fdc8b879c0f3",
+                      "name": "Service not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Fastly-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/service/:service_id/version",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "service",
+                            ":service_id",
+                            "version"
+                          ],
+                          "variable": [
+                            {
+                              "key": "service_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:34.000Z",
+                      "updatedAt": "2026-06-05T15:08:34.000Z",
+                      "uid": "35240-a93a0723-feea-46ef-8e4a-fdc8b879c0f3"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-ceb2009e-ef3d-46a6-8d77-8685d22597ba"
+                }
+              ],
+              "id": "4eff9f57-de21-4550-b883-12360fe75a3c",
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-4eff9f57-de21-4550-b883-12360fe75a3c"
+            },
+            {
+              "name": "Get a service",
+              "id": "cd51157d-5a21-4a66-8519-2e4176882ea9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/service/:service_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service",
+                    ":service_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "69d1e2f8-62a2-40af-9f54-21afe43379f2",
+                      "key": "service_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "description": "Retrieves detailed information about a specific Fastly service identified by its service ID."
+              },
+              "response": [
+                {
+                  "id": "dbc2a491-324c-4825-a6ef-1c6ae8e3863a",
+                  "name": "Successfully retrieved the service details.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"type\": \"vcl\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\",\n  \"active_version\": \"<integer>\",\n  \"versions\": [\n    {\n      \"number\": \"<integer>\",\n      \"service_id\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"deployed\": \"<boolean>\",\n      \"staging\": \"<boolean>\",\n      \"testing\": \"<boolean>\",\n      \"comment\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    },\n    {\n      \"number\": \"<integer>\",\n      \"service_id\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"deployed\": \"<boolean>\",\n      \"staging\": \"<boolean>\",\n      \"testing\": \"<boolean>\",\n      \"comment\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-dbc2a491-324c-4825-a6ef-1c6ae8e3863a"
+                },
+                {
+                  "id": "4361ca89-b0e7-4788-8fd4-dce416de9de4",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-4361ca89-b0e7-4788-8fd4-dce416de9de4"
+                },
+                {
+                  "id": "39deb7f8-15de-4223-81ef-eb16b0ff55a8",
+                  "name": "Service not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-39deb7f8-15de-4223-81ef-eb16b0ff55a8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-cd51157d-5a21-4a66-8519-2e4176882ea9"
+            },
+            {
+              "name": "Update a service",
+              "id": "a3c2a16f-5946-496a-8097-99e017db332b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "The name of the service.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "An optional comment about the service.",
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/service/:service_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service",
+                    ":service_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "25e0195d-3abb-490f-976f-f3a08dcf6c19",
+                      "key": "service_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "description": "Updates the details of a specific Fastly service, such as its name or comment."
+              },
+              "response": [
+                {
+                  "id": "2c0139ed-b834-46e2-89aa-c908294207f6",
+                  "name": "Successfully updated the service.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the service.",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "An optional comment about the service.",
+                          "key": "comment",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"type\": \"vcl\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\",\n  \"active_version\": \"<integer>\",\n  \"versions\": [\n    {\n      \"number\": \"<integer>\",\n      \"service_id\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"deployed\": \"<boolean>\",\n      \"staging\": \"<boolean>\",\n      \"testing\": \"<boolean>\",\n      \"comment\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    },\n    {\n      \"number\": \"<integer>\",\n      \"service_id\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"deployed\": \"<boolean>\",\n      \"staging\": \"<boolean>\",\n      \"testing\": \"<boolean>\",\n      \"comment\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-2c0139ed-b834-46e2-89aa-c908294207f6"
+                },
+                {
+                  "id": "d80971d0-9e44-4dee-b605-08b3100b4d24",
+                  "name": "Bad request. Missing or invalid parameters.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the service.",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "An optional comment about the service.",
+                          "key": "comment",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-d80971d0-9e44-4dee-b605-08b3100b4d24"
+                },
+                {
+                  "id": "e861f5d0-7520-4ef5-ae50-c5cd669a3f6d",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the service.",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "An optional comment about the service.",
+                          "key": "comment",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-e861f5d0-7520-4ef5-ae50-c5cd669a3f6d"
+                },
+                {
+                  "id": "fe8eea6e-5461-43d6-a416-b58188ec2fbb",
+                  "name": "Service not found.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "The name of the service.",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "An optional comment about the service.",
+                          "key": "comment",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-fe8eea6e-5461-43d6-a416-b58188ec2fbb"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-a3c2a16f-5946-496a-8097-99e017db332b"
+            },
+            {
+              "name": "Delete a service",
+              "id": "2a03ca23-3e5a-4d97-bda4-14d3d179acf5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/service/:service_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service",
+                    ":service_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "bdd2b705-4487-4c88-88bd-1b503579f96f",
+                      "key": "service_id",
+                      "value": "<string>",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    }
+                  ]
+                },
+                "description": "Permanently deletes a specific Fastly service. This action cannot be undone and the service must be deactivated before deletion."
+              },
+              "response": [
+                {
+                  "id": "d2fed68a-560e-4646-884a-91a91a405bdf",
+                  "name": "Successfully deleted the service.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-d2fed68a-560e-4646-884a-91a91a405bdf"
+                },
+                {
+                  "id": "ff5b8bb5-5997-4b44-8916-0f37e8565b4c",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-ff5b8bb5-5997-4b44-8916-0f37e8565b4c"
+                },
+                {
+                  "id": "a9179da9-ac3e-4483-bf60-927c01a0c807",
+                  "name": "Service not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/:service_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        ":service_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "service_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-a9179da9-ac3e-4483-bf60-927c01a0c807"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-2a03ca23-3e5a-4d97-bda4-14d3d179acf5"
+            }
+          ],
+          "id": "7c7bd061-4d63-4d3b-a71d-2fad1fd67bd7",
+          "createdAt": "2026-06-05T15:08:34.000Z",
+          "updatedAt": "2026-06-05T15:08:34.000Z",
+          "uid": "35240-7c7bd061-4d63-4d3b-a71d-2fad1fd67bd7"
+        },
+        {
+          "name": "search",
+          "item": [
+            {
+              "name": "Search for a service by name",
+              "id": "79b5ae7a-c54c-4b9c-bdd3-f20144a7ca36",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/service/search?name=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The name of the service to search for.",
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Searches for a service by its name and returns the matching service details."
+              },
+              "response": [
+                {
+                  "id": "6163463d-5de4-4052-8fb6-fe762328c7f7",
+                  "name": "Successfully found the service.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/search?name=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        "search"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The name of the service to search for.",
+                          "key": "name",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"type\": \"vcl\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\",\n  \"active_version\": \"<integer>\",\n  \"versions\": [\n    {\n      \"number\": \"<integer>\",\n      \"service_id\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"deployed\": \"<boolean>\",\n      \"staging\": \"<boolean>\",\n      \"testing\": \"<boolean>\",\n      \"comment\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    },\n    {\n      \"number\": \"<integer>\",\n      \"service_id\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"deployed\": \"<boolean>\",\n      \"staging\": \"<boolean>\",\n      \"testing\": \"<boolean>\",\n      \"comment\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-6163463d-5de4-4052-8fb6-fe762328c7f7"
+                },
+                {
+                  "id": "d7a89e07-6559-47a0-aa0a-e8fb619ad0f9",
+                  "name": "Unauthorized. The API token is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/search?name=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        "search"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The name of the service to search for.",
+                          "key": "name",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-d7a89e07-6559-47a0-aa0a-e8fb619ad0f9"
+                },
+                {
+                  "id": "f93825cf-8e2e-48f7-aa2e-1323c464e38a",
+                  "name": "Service not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Fastly-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/service/search?name=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "service",
+                        "search"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The name of the service to search for.",
+                          "key": "name",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:34.000Z",
+                  "updatedAt": "2026-06-05T15:08:34.000Z",
+                  "uid": "35240-f93825cf-8e2e-48f7-aa2e-1323c464e38a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-79b5ae7a-c54c-4b9c-bdd3-f20144a7ca36"
+            }
+          ],
+          "id": "def0947f-1f9a-4165-939f-4a16675989eb",
+          "createdAt": "2026-06-05T15:08:34.000Z",
+          "updatedAt": "2026-06-05T15:08:34.000Z",
+          "uid": "35240-def0947f-1f9a-4165-939f-4a16675989eb"
+        },
+        {
+          "name": "List services",
+          "id": "de052987-ad22-46ad-bff0-5a6a9452d980",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/service?page=<integer>&per_page=<integer>&sort=name&direction=descend",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "service"
+              ],
+              "query": [
+                {
+                  "description": "The page number to return.",
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The number of items to return per page.",
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The field to sort results by.",
+                  "key": "sort",
+                  "value": "name"
+                },
+                {
+                  "description": "The direction to sort results in.",
+                  "key": "direction",
+                  "value": "descend"
+                }
+              ]
+            },
+            "description": "Retrieves a list of all services associated with the authenticated account. Returns basic information about each service including its name, ID, and current active version."
+          },
+          "response": [
+            {
+              "id": "be9c64a5-cbe7-4997-820f-cbf9b4430dcd",
+              "name": "Successfully retrieved list of services.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/service?page=<integer>&per_page=<integer>&sort=name&direction=descend",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to return.",
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The number of items to return per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The field to sort results by.",
+                      "key": "sort",
+                      "value": "name"
+                    },
+                    {
+                      "description": "The direction to sort results in.",
+                      "key": "direction",
+                      "value": "descend"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"customer_id\": \"<string>\",\n    \"comment\": \"<string>\",\n    \"type\": \"vcl\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\",\n    \"active_version\": \"<integer>\",\n    \"versions\": [\n      {\n        \"number\": \"<integer>\",\n        \"service_id\": \"<string>\",\n        \"active\": \"<boolean>\",\n        \"locked\": \"<boolean>\",\n        \"deployed\": \"<boolean>\",\n        \"staging\": \"<boolean>\",\n        \"testing\": \"<boolean>\",\n        \"comment\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"deleted_at\": \"<dateTime>\"\n      },\n      {\n        \"number\": \"<integer>\",\n        \"service_id\": \"<string>\",\n        \"active\": \"<boolean>\",\n        \"locked\": \"<boolean>\",\n        \"deployed\": \"<boolean>\",\n        \"staging\": \"<boolean>\",\n        \"testing\": \"<boolean>\",\n        \"comment\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"deleted_at\": \"<dateTime>\"\n      }\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"customer_id\": \"<string>\",\n    \"comment\": \"<string>\",\n    \"type\": \"wasm\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"deleted_at\": \"<dateTime>\",\n    \"active_version\": \"<integer>\",\n    \"versions\": [\n      {\n        \"number\": \"<integer>\",\n        \"service_id\": \"<string>\",\n        \"active\": \"<boolean>\",\n        \"locked\": \"<boolean>\",\n        \"deployed\": \"<boolean>\",\n        \"staging\": \"<boolean>\",\n        \"testing\": \"<boolean>\",\n        \"comment\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"deleted_at\": \"<dateTime>\"\n      },\n      {\n        \"number\": \"<integer>\",\n        \"service_id\": \"<string>\",\n        \"active\": \"<boolean>\",\n        \"locked\": \"<boolean>\",\n        \"deployed\": \"<boolean>\",\n        \"staging\": \"<boolean>\",\n        \"testing\": \"<boolean>\",\n        \"comment\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"deleted_at\": \"<dateTime>\"\n      }\n    ]\n  }\n]",
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-be9c64a5-cbe7-4997-820f-cbf9b4430dcd"
+            },
+            {
+              "id": "f004eaf1-8928-4242-b6a7-08e9e4ac1802",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/service?page=<integer>&per_page=<integer>&sort=name&direction=descend",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to return.",
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The number of items to return per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The field to sort results by.",
+                      "key": "sort",
+                      "value": "name"
+                    },
+                    {
+                      "description": "The direction to sort results in.",
+                      "key": "direction",
+                      "value": "descend"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-f004eaf1-8928-4242-b6a7-08e9e4ac1802"
+            },
+            {
+              "id": "8a6a1377-1ca3-4db5-87d7-c429505d8ffc",
+              "name": "Forbidden. The API token does not have the required permissions.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/service?page=<integer>&per_page=<integer>&sort=name&direction=descend",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to return.",
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The number of items to return per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The field to sort results by.",
+                      "key": "sort",
+                      "value": "name"
+                    },
+                    {
+                      "description": "The direction to sort results in.",
+                      "key": "direction",
+                      "value": "descend"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-8a6a1377-1ca3-4db5-87d7-c429505d8ffc"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:34.000Z",
+          "updatedAt": "2026-06-05T15:08:34.000Z",
+          "uid": "35240-de052987-ad22-46ad-bff0-5a6a9452d980"
+        },
+        {
+          "name": "Create a service",
+          "id": "fdbd782d-b555-4775-a485-d555c7707d8a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The name of the service.",
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "An optional comment about the service.",
+                  "key": "comment",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The type of service, either vcl or wasm.",
+                  "key": "type",
+                  "value": "vcl"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/service",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "service"
+              ]
+            },
+            "description": "Creates a new Fastly service. A service represents the configuration for a website, application, API, or other resource to be served through Fastly's edge network."
+          },
+          "response": [
+            {
+              "id": "80442e23-49a0-4471-bb3a-9fc985cf5170",
+              "name": "Successfully created the service.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The name of the service.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "An optional comment about the service.",
+                      "key": "comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The type of service, either vcl or wasm.",
+                      "key": "type",
+                      "value": "vcl"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/service",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"type\": \"vcl\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"deleted_at\": \"<dateTime>\",\n  \"active_version\": \"<integer>\",\n  \"versions\": [\n    {\n      \"number\": \"<integer>\",\n      \"service_id\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"deployed\": \"<boolean>\",\n      \"staging\": \"<boolean>\",\n      \"testing\": \"<boolean>\",\n      \"comment\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    },\n    {\n      \"number\": \"<integer>\",\n      \"service_id\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"deployed\": \"<boolean>\",\n      \"staging\": \"<boolean>\",\n      \"testing\": \"<boolean>\",\n      \"comment\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"deleted_at\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-80442e23-49a0-4471-bb3a-9fc985cf5170"
+            },
+            {
+              "id": "0301b5ad-699b-4195-b278-e21e14f171af",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The name of the service.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "An optional comment about the service.",
+                      "key": "comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The type of service, either vcl or wasm.",
+                      "key": "type",
+                      "value": "vcl"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/service",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-0301b5ad-699b-4195-b278-e21e14f171af"
+            },
+            {
+              "id": "a69dc7b9-ce6c-4829-a71c-ac9a0aa24a6b",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The name of the service.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "An optional comment about the service.",
+                      "key": "comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The type of service, either vcl or wasm.",
+                      "key": "type",
+                      "value": "vcl"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/service",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-a69dc7b9-ce6c-4829-a71c-ac9a0aa24a6b"
+            },
+            {
+              "id": "be394d5b-c800-479a-8706-e93e52b7550b",
+              "name": "Forbidden. The API token does not have the required permissions.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The name of the service.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "An optional comment about the service.",
+                      "key": "comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The type of service, either vcl or wasm.",
+                      "key": "type",
+                      "value": "vcl"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/service",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "service"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:34.000Z",
+              "updatedAt": "2026-06-05T15:08:34.000Z",
+              "uid": "35240-be394d5b-c800-479a-8706-e93e52b7550b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:34.000Z",
+          "updatedAt": "2026-06-05T15:08:34.000Z",
+          "uid": "35240-fdbd782d-b555-4775-a485-d555c7707d8a"
+        }
+      ],
+      "id": "073aafd3-1dd8-47e2-b7a8-f5c9e40f6b00",
+      "createdAt": "2026-06-05T15:08:34.000Z",
+      "updatedAt": "2026-06-05T15:08:34.000Z",
+      "uid": "35240-073aafd3-1dd8-47e2-b7a8-f5c9e40f6b00"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fastly.com"
+    }
+  ]
+}
