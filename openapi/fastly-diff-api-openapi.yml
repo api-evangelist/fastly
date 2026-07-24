@@ -1,0 +1,52 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Diff API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Diff
+paths:
+  /service/{service_id}/diff/from/{from_version}/to/{to_version}:
+    parameters:
+    - in: path
+      name: service_id
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: from_version
+      required: true
+      schema:
+        type: integer
+    - in: path
+      name: to_version
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+      - Diff
+      summary: Diff Service Versions
+      operationId: diffServiceVersions
+      responses:
+        '200':
+          description: Line-by-line configuration differences
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

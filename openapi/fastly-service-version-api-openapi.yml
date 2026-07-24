@@ -1,0 +1,239 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Service Version API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Service Version
+  description: Operations for managing versions of a Fastly service. Each change to a service configuration creates a new version that can be activated or deactivated independently.
+paths:
+  /service/{service_id}/version:
+    get:
+      operationId: listServiceVersions
+      summary: List versions of a service
+      description: Retrieves a list of all versions associated with a specific Fastly service.
+      tags:
+      - Service Version
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of service versions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceVersion'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+    post:
+      operationId: createServiceVersion
+      summary: Create a service version
+      description: Creates a new version of a specific Fastly service. New versions are created as drafts that can be configured and then activated.
+      tags:
+      - Service Version
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully created a new service version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceVersion'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /service/{service_id}/version/{version_id}:
+    get:
+      operationId: getServiceVersion
+      summary: Get a service version
+      description: Retrieves the details of a specific version of a Fastly service.
+      tags:
+      - Service Version
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the service version details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceVersion'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service version not found.
+    put:
+      operationId: updateServiceVersion
+      summary: Update a service version
+      description: Updates a specific version of a Fastly service, such as changing its comment or locking status.
+      tags:
+      - Service Version
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+                  description: A comment describing the version.
+      responses:
+        '200':
+          description: Successfully updated the service version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceVersion'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service version not found.
+  /service/{service_id}/version/{version_id}/activate:
+    put:
+      operationId: activateServiceVersion
+      summary: Activate a service version
+      description: Activates a specific version of a Fastly service, making it the live configuration that handles traffic for the service.
+      tags:
+      - Service Version
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully activated the service version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceVersion'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service version not found.
+  /service/{service_id}/version/{version_id}/deactivate:
+    put:
+      operationId: deactivateServiceVersion
+      summary: Deactivate a service version
+      description: Deactivates a specific version of a Fastly service, removing it from active traffic handling.
+      tags:
+      - Service Version
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully deactivated the service version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceVersion'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service version not found.
+  /service/{service_id}/version/{version_id}/clone:
+    put:
+      operationId: cloneServiceVersion
+      summary: Clone a service version
+      description: Creates a new version of a Fastly service by cloning an existing version, including all of its configuration settings.
+      tags:
+      - Service Version
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully cloned the service version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceVersion'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service version not found.
+components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  schemas:
+    ServiceVersion:
+      type: object
+      description: A version of a Fastly service. Versions represent distinct configurations that can be activated or deactivated independently.
+      properties:
+        number:
+          type: integer
+          description: The version number.
+        service_id:
+          type: string
+          description: The alphanumeric string identifying the service.
+        active:
+          type: boolean
+          description: Whether this version is currently active.
+        locked:
+          type: boolean
+          description: Whether this version is locked and cannot be modified.
+        deployed:
+          type: boolean
+          description: Whether this version has been deployed.
+        staging:
+          type: boolean
+          description: Whether this version is in the staging environment.
+        testing:
+          type: boolean
+          description: Whether this version is in the testing environment.
+        comment:
+          type: string
+          description: A freeform descriptive note about the version.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time in ISO 8601 format when the version was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time in ISO 8601 format when the version was last updated.
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time in ISO 8601 format when the version was deleted.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

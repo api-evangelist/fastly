@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Pages API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Pages
+paths:
+  /client-side-protection/websites/{website_id}/pages:
+    parameters:
+    - in: path
+      name: website_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Pages
+      summary: List Pages
+      operationId: listCspPages
+      responses:
+        '200':
+          description: A list of pages
+    post:
+      tags:
+      - Pages
+      summary: Create Page
+      operationId: createCspPage
+      responses:
+        '201':
+          description: Created
+  /client-side-protection/websites/{website_id}/pages/{page_id}:
+    parameters:
+    - in: path
+      name: website_id
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: page_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Pages
+      summary: Get Page
+      operationId: getCspPage
+      responses:
+        '200':
+          description: A page
+    patch:
+      tags:
+      - Pages
+      summary: Update Page
+      operationId: updateCspPage
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - Pages
+      summary: Delete Page
+      operationId: deleteCspPage
+      responses:
+        '204':
+          description: Deleted
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

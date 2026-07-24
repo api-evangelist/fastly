@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL IAM Roles API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: IAM Roles
+  description: Operations for managing identity and access management roles that define sets of permissions for users.
+paths:
+  /roles:
+    get:
+      operationId: listRoles
+      summary: List IAM roles
+      description: Retrieves a list of all identity and access management roles. Supports cursor-based pagination.
+      tags:
+      - IAM Roles
+      parameters:
+      - name: per_page
+        in: query
+        description: The number of items per page.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: The cursor for pagination.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of IAM roles.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /roles/{role_id}:
+    get:
+      operationId: getRole
+      summary: Get an IAM role
+      description: Retrieves the details of a specific IAM role, optionally including its associated permissions.
+      tags:
+      - IAM Roles
+      parameters:
+      - name: role_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the IAM role.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the IAM role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: IAM role not found.
+components:
+  schemas:
+    Role:
+      type: object
+      description: An IAM role that defines a set of permissions for Fastly resources.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the role.
+        name:
+          type: string
+          description: The name of the role.
+        description:
+          type: string
+          description: A description of the role.
+        custom:
+          type: boolean
+          description: Whether this is a custom role.
+        permissions_count:
+          type: integer
+          description: The number of permissions associated with the role.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time the role was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time the role was last updated.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

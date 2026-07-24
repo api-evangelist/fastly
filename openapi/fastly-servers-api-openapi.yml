@@ -1,0 +1,96 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Servers API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Servers
+paths:
+  /service/{service_id}/pool/{pool_id}/server:
+    parameters:
+    - in: path
+      name: service_id
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: pool_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Servers
+      summary: List Servers
+      operationId: listPoolServers
+      responses:
+        '200':
+          description: A list of servers
+    post:
+      tags:
+      - Servers
+      summary: Create Server
+      operationId: createPoolServer
+      responses:
+        '201':
+          description: Server created
+  /service/{service_id}/pool/{pool_id}/server/{server_id}:
+    parameters:
+    - in: path
+      name: service_id
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: pool_id
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: server_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Servers
+      summary: Get Server
+      operationId: getPoolServer
+      responses:
+        '200':
+          description: A server
+    patch:
+      tags:
+      - Servers
+      summary: Update Server
+      operationId: updatePoolServer
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - Servers
+      summary: Delete Server
+      operationId: deletePoolServer
+      responses:
+        '204':
+          description: Deleted
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

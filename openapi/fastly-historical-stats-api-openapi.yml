@@ -1,0 +1,207 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Historical Stats API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Historical Stats
+  description: Historical statistics endpoints providing aggregated analytics data for Fastly services over configurable time ranges.
+paths:
+  /stats:
+    get:
+      operationId: getHistoricalStats
+      summary: Get historical stats
+      description: Retrieves historical statistics for all Fastly services associated with the account. Data with day resolution is bucketed based on UTC days and becomes available around 2 AM the following day. Hour resolution becomes available approximately 15 minutes after the end of each hour. Minute data usually becomes available two minutes after the end of the minute. Minutely data older than 35 days and hourly data older than 375 days are not available.
+      tags:
+      - Historical Stats
+      servers:
+      - url: https://api.fastly.com
+        description: Fastly API Production Server
+      parameters:
+      - name: from
+        in: query
+        description: The start date/time for the query in ISO 8601 or Unix timestamp format.
+        schema:
+          type: string
+      - name: to
+        in: query
+        description: The end date/time for the query in ISO 8601 or Unix timestamp format.
+        schema:
+          type: string
+      - name: by
+        in: query
+        description: The duration of each time bucket in the response.
+        schema:
+          type: string
+          enum:
+          - minute
+          - hour
+          - day
+      - name: region
+        in: query
+        description: Filter results by Fastly POP region.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved historical statistics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalStatsResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /stats/service/{service_id}:
+    get:
+      operationId: getHistoricalStatsByService
+      summary: Get historical stats for a service
+      description: Retrieves historical statistics for a specific Fastly service over the specified time range and resolution.
+      tags:
+      - Historical Stats
+      servers:
+      - url: https://api.fastly.com
+        description: Fastly API Production Server
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: from
+        in: query
+        description: The start date/time for the query.
+        schema:
+          type: string
+      - name: to
+        in: query
+        description: The end date/time for the query.
+        schema:
+          type: string
+      - name: by
+        in: query
+        description: The duration of each time bucket in the response.
+        schema:
+          type: string
+          enum:
+          - minute
+          - hour
+          - day
+      - name: region
+        in: query
+        description: Filter results by Fastly POP region.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved historical statistics for the service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalStatsResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /stats/field/{field}:
+    get:
+      operationId: getHistoricalStatsByField
+      summary: Get historical stats for a specific field
+      description: Retrieves a single historical statistics field for all services associated with the account.
+      tags:
+      - Historical Stats
+      servers:
+      - url: https://api.fastly.com
+        description: Fastly API Production Server
+      parameters:
+      - name: field
+        in: path
+        required: true
+        description: The stats field to retrieve.
+        schema:
+          type: string
+      - name: from
+        in: query
+        description: The start date/time for the query.
+        schema:
+          type: string
+      - name: to
+        in: query
+        description: The end date/time for the query.
+        schema:
+          type: string
+      - name: by
+        in: query
+        description: The duration of each time bucket in the response.
+        schema:
+          type: string
+          enum:
+          - minute
+          - hour
+          - day
+      - name: region
+        in: query
+        description: Filter results by Fastly POP region.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved historical statistics for the field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalStatsResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+  schemas:
+    HistoricalStatsResponse:
+      type: object
+      description: A response containing historical statistics data for the requested time range and resolution.
+      properties:
+        status:
+          type: string
+          description: The status of the request.
+        meta:
+          type: object
+          description: Metadata about the query including the time range and filters.
+          properties:
+            to:
+              type: string
+              description: The end time of the query.
+            from:
+              type: string
+              description: The start time of the query.
+            by:
+              type: string
+              description: The time bucket duration used.
+            region:
+              type: string
+              description: The region filter applied, if any.
+        data:
+          type: array
+          description: A list of data points with measurements for each time bucket.
+          items:
+            type: object
+            additionalProperties: true
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL WAF Rules API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: WAF Rules
+  description: Operations for managing WAF rules that define detection and response behaviors for web attacks.
+paths:
+  /waf/rules:
+    get:
+      operationId: listWafRules
+      summary: List WAF rules
+      description: Retrieves a list of all available WAF rules.
+      tags:
+      - WAF Rules
+      parameters:
+      - name: page[number]
+        in: query
+        description: The page number to retrieve.
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of items per page.
+        schema:
+          type: integer
+      - name: filter[waf_tags][name]
+        in: query
+        description: Filter rules by tag name.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of WAF rules.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WafRule'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /waf/rules/{waf_rule_id}:
+    get:
+      operationId: getWafRule
+      summary: Get a WAF rule
+      description: Retrieves the details of a specific WAF rule.
+      tags:
+      - WAF Rules
+      parameters:
+      - name: waf_rule_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the WAF rule.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the WAF rule.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafRule'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: WAF rule not found.
+components:
+  schemas:
+    WafRule:
+      type: object
+      description: A WAF rule that defines detection logic for a specific type of web attack.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the WAF rule.
+        type:
+          type: string
+          description: The resource type.
+          enum:
+          - waf_rule
+        attributes:
+          type: object
+          properties:
+            modsec_rule_id:
+              type: integer
+              description: The ModSecurity rule ID.
+            type:
+              type: string
+              description: The type of the rule.
+            severity:
+              type: integer
+              description: The severity level of the rule.
+            source:
+              type: string
+              description: The source of the rule.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

@@ -1,0 +1,249 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Logging Syslog API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Logging Syslog
+  description: Operations for managing syslog logging endpoints on Fastly services.
+paths:
+  /service/{service_id}/version/{version_id}/logging/syslog:
+    get:
+      operationId: listLogSyslog
+      summary: List syslog logging endpoints
+      description: Retrieves a list of all syslog logging endpoints configured for a specific version of a Fastly service.
+      tags:
+      - Logging Syslog
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of syslog logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingSyslog'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogSyslog
+      summary: Create a syslog logging endpoint
+      description: Creates a new syslog logging endpoint for a specific version of a Fastly service.
+      tags:
+      - Logging Syslog
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingSyslog'
+      responses:
+        '200':
+          description: Successfully created the syslog logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingSyslog'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/logging/syslog/{logging_syslog_name}:
+    get:
+      operationId: getLogSyslog
+      summary: Get a syslog logging endpoint
+      description: Retrieves the details of a specific syslog logging endpoint for a version of a Fastly service.
+      tags:
+      - Logging Syslog
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      - name: logging_syslog_name
+        in: path
+        required: true
+        description: The name of the syslog logging endpoint.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the syslog logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingSyslog'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Logging endpoint not found.
+    put:
+      operationId: updateLogSyslog
+      summary: Update a syslog logging endpoint
+      description: Updates a specific syslog logging endpoint for a version of a Fastly service.
+      tags:
+      - Logging Syslog
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      - name: logging_syslog_name
+        in: path
+        required: true
+        description: The name of the syslog logging endpoint.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingSyslog'
+      responses:
+        '200':
+          description: Successfully updated the syslog logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingSyslog'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Logging endpoint not found.
+    delete:
+      operationId: deleteLogSyslog
+      summary: Delete a syslog logging endpoint
+      description: Deletes a specific syslog logging endpoint for a version of a Fastly service.
+      tags:
+      - Logging Syslog
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      - name: logging_syslog_name
+        in: path
+        required: true
+        description: The name of the syslog logging endpoint.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully deleted the syslog logging endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Logging endpoint not found.
+components:
+  schemas:
+    LoggingCommon:
+      type: object
+      description: Common properties shared across all logging endpoint types.
+      properties:
+        name:
+          type: string
+          description: The name for the real-time logging configuration.
+        placement:
+          type: string
+          description: Where in the generated VCL the logging call should be placed.
+          enum:
+          - none
+          - waf_debug
+          - null
+        format_version:
+          type: integer
+          description: The version of the custom logging format used for the configured endpoint.
+          enum:
+          - 1
+          - 2
+        response_condition:
+          type: string
+          description: The name of an existing condition in the configured endpoint, or leave blank to always execute.
+        format:
+          type: string
+          description: A Fastly log format string. Supports Apache Common Log variables.
+    LoggingSyslog:
+      allOf:
+      - $ref: '#/components/schemas/LoggingCommon'
+      - type: object
+        description: Configuration for a syslog logging endpoint.
+        properties:
+          address:
+            type: string
+            description: A hostname or IPv4 address of the syslog endpoint.
+          port:
+            type: integer
+            description: The port number of the syslog endpoint.
+            default: 514
+          use_tls:
+            type: integer
+            description: Whether to use TLS for the syslog connection.
+            enum:
+            - 0
+            - 1
+            default: 0
+          tls_hostname:
+            type: string
+            description: The hostname to verify the server certificate against.
+          tls_ca_cert:
+            type: string
+            description: A secure certificate to authenticate a server with.
+          tls_client_cert:
+            type: string
+            description: The client certificate used to make authenticated requests.
+          tls_client_key:
+            type: string
+            description: The client private key used to make authenticated requests.
+          token:
+            type: string
+            description: A token to prepend to the syslog message.
+          message_type:
+            type: string
+            description: How the message should be formatted.
+            enum:
+            - classic
+            - loggly
+            - logplex
+            - blank
+            default: classic
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

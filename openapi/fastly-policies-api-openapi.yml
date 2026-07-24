@@ -1,0 +1,98 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Policies API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Policies
+paths:
+  /client-side-protection/websites/{website_id}/policies:
+    parameters:
+    - in: path
+      name: website_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Policies
+      summary: List Policies
+      operationId: listCspPolicies
+      responses:
+        '200':
+          description: A list of policies
+    post:
+      tags:
+      - Policies
+      summary: Create Policy
+      operationId: createCspPolicy
+      responses:
+        '201':
+          description: Created
+  /client-side-protection/websites/{website_id}/policies/{policy_id}:
+    parameters:
+    - in: path
+      name: website_id
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: policy_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Policies
+      summary: Get Policy
+      operationId: getCspPolicy
+      responses:
+        '200':
+          description: A CSP policy
+    patch:
+      tags:
+      - Policies
+      summary: Update Policy
+      operationId: updateCspPolicy
+      responses:
+        '200':
+          description: Updated
+  /client-side-protection/websites/{website_id}/policies/{policy_id}/reports:
+    parameters:
+    - in: path
+      name: website_id
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: policy_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Policies
+      summary: List Policy Reports
+      operationId: listCspPolicyReports
+      responses:
+        '200':
+          description: Policy violation reports
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

@@ -1,0 +1,144 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Logging BigQuery API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Logging BigQuery
+  description: Operations for managing Google BigQuery logging endpoints on Fastly services.
+paths:
+  /service/{service_id}/version/{version_id}/logging/bigquery:
+    get:
+      operationId: listLogBigQuery
+      summary: List BigQuery logging endpoints
+      description: Retrieves a list of all Google BigQuery logging endpoints configured for a specific version of a Fastly service.
+      tags:
+      - Logging BigQuery
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of BigQuery logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingBigQuery'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogBigQuery
+      summary: Create a BigQuery logging endpoint
+      description: Creates a new Google BigQuery logging endpoint for a specific version of a Fastly service.
+      tags:
+      - Logging BigQuery
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingBigQuery'
+      responses:
+        '200':
+          description: Successfully created the BigQuery logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingBigQuery'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  schemas:
+    LoggingCommon:
+      type: object
+      description: Common properties shared across all logging endpoint types.
+      properties:
+        name:
+          type: string
+          description: The name for the real-time logging configuration.
+        placement:
+          type: string
+          description: Where in the generated VCL the logging call should be placed.
+          enum:
+          - none
+          - waf_debug
+          - null
+        format_version:
+          type: integer
+          description: The version of the custom logging format used for the configured endpoint.
+          enum:
+          - 1
+          - 2
+        response_condition:
+          type: string
+          description: The name of an existing condition in the configured endpoint, or leave blank to always execute.
+        format:
+          type: string
+          description: A Fastly log format string. Supports Apache Common Log variables.
+    LoggingBigQuery:
+      allOf:
+      - $ref: '#/components/schemas/LoggingCommon'
+      - type: object
+        description: Configuration for a Google BigQuery logging endpoint.
+        properties:
+          project_id:
+            type: string
+            description: The Google Cloud project ID where the BigQuery dataset is located.
+          dataset:
+            type: string
+            description: The BigQuery dataset to send logs to.
+          table:
+            type: string
+            description: The BigQuery table to send logs to.
+          user:
+            type: string
+            description: The Google Cloud service account email address.
+          secret_key:
+            type: string
+            description: The Google Cloud service account private key.
+          template_suffix:
+            type: string
+            description: A BigQuery table name suffix for date-partitioned tables.
+          account_name:
+            type: string
+            description: The name of the Google Cloud Platform service account.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

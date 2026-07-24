@@ -1,0 +1,164 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Logging HTTPS API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Logging HTTPS
+  description: Operations for managing HTTPS logging endpoints on Fastly services.
+paths:
+  /service/{service_id}/version/{version_id}/logging/https:
+    get:
+      operationId: listLogHttps
+      summary: List HTTPS logging endpoints
+      description: Retrieves a list of all HTTPS logging endpoints configured for a specific version of a Fastly service.
+      tags:
+      - Logging HTTPS
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of HTTPS logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingHttps'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogHttps
+      summary: Create an HTTPS logging endpoint
+      description: Creates a new HTTPS logging endpoint for a specific version of a Fastly service.
+      tags:
+      - Logging HTTPS
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingHttps'
+      responses:
+        '200':
+          description: Successfully created the HTTPS logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingHttps'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  schemas:
+    LoggingCommon:
+      type: object
+      description: Common properties shared across all logging endpoint types.
+      properties:
+        name:
+          type: string
+          description: The name for the real-time logging configuration.
+        placement:
+          type: string
+          description: Where in the generated VCL the logging call should be placed.
+          enum:
+          - none
+          - waf_debug
+          - null
+        format_version:
+          type: integer
+          description: The version of the custom logging format used for the configured endpoint.
+          enum:
+          - 1
+          - 2
+        response_condition:
+          type: string
+          description: The name of an existing condition in the configured endpoint, or leave blank to always execute.
+        format:
+          type: string
+          description: A Fastly log format string. Supports Apache Common Log variables.
+    LoggingHttps:
+      allOf:
+      - $ref: '#/components/schemas/LoggingCommon'
+      - type: object
+        description: Configuration for an HTTPS logging endpoint.
+        properties:
+          url:
+            type: string
+            format: uri
+            description: The URL to send logs to via HTTPS.
+          request_max_entries:
+            type: integer
+            description: The maximum number of log entries per batch.
+            default: 0
+          request_max_bytes:
+            type: integer
+            description: The maximum number of bytes per batch.
+            default: 0
+          content_type:
+            type: string
+            description: The content type of the log payload.
+          header_name:
+            type: string
+            description: Name of the custom header sent with the log payload.
+          header_value:
+            type: string
+            description: Value of the custom header sent with the log payload.
+          method:
+            type: string
+            description: The HTTP method used for sending logs.
+            enum:
+            - POST
+            - PUT
+            default: POST
+          json_format:
+            type: string
+            description: Enforces valid JSON formatting for log entries.
+            enum:
+            - '0'
+            - '1'
+            - '2'
+          tls_hostname:
+            type: string
+            description: The hostname to verify the server certificate against.
+          tls_ca_cert:
+            type: string
+            description: A secure certificate to authenticate a server with.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

@@ -1,0 +1,238 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL TLS Activations API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: TLS Activations
+  description: Operations for managing TLS activations that enable TLS traffic termination for specific domains using custom certificates.
+paths:
+  /tls/activations:
+    get:
+      operationId: listTlsActivations
+      summary: List TLS activations
+      description: Retrieves a list of all TLS activations that enable TLS traffic termination for specific domains.
+      tags:
+      - TLS Activations
+      parameters:
+      - name: page[number]
+        in: query
+        description: The page number to retrieve.
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of items per page.
+        schema:
+          type: integer
+      - name: filter[tls_certificate.id]
+        in: query
+        description: Filter activations by TLS certificate ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of TLS activations.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TlsActivation'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createTlsActivation
+      summary: Create a TLS activation
+      description: Enables TLS traffic termination for a specific domain using the specified certificate and configuration.
+      tags:
+      - TLS Activations
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - tls_activation
+                    relationships:
+                      type: object
+                      properties:
+                        tls_certificate:
+                          type: object
+                          description: The TLS certificate to use for the activation.
+                        tls_configuration:
+                          type: object
+                          description: The TLS configuration to use for the activation.
+                        tls_domain:
+                          type: object
+                          description: The TLS domain to activate.
+      responses:
+        '201':
+          description: Successfully created the TLS activation.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsActivation'
+        '400':
+          description: Bad request. Missing or invalid activation data.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /tls/activations/{tls_activation_id}:
+    get:
+      operationId: getTlsActivation
+      summary: Get a TLS activation
+      description: Retrieves the details of a specific TLS activation.
+      tags:
+      - TLS Activations
+      parameters:
+      - name: tls_activation_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the TLS activation.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the TLS activation.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsActivation'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS activation not found.
+    patch:
+      operationId: updateTlsActivation
+      summary: Update a TLS activation
+      description: Updates a TLS activation, such as changing the certificate used for the domain.
+      tags:
+      - TLS Activations
+      parameters:
+      - name: tls_activation_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the TLS activation.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - tls_activation
+                    relationships:
+                      type: object
+                      properties:
+                        tls_certificate:
+                          type: object
+                          description: The TLS certificate to use.
+      responses:
+        '200':
+          description: Successfully updated the TLS activation.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TlsActivation'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS activation not found.
+    delete:
+      operationId: deleteTlsActivation
+      summary: Delete a TLS activation
+      description: Disables TLS for the domain by removing the TLS activation.
+      tags:
+      - TLS Activations
+      parameters:
+      - name: tls_activation_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the TLS activation.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted the TLS activation.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: TLS activation not found.
+components:
+  schemas:
+    TlsActivation:
+      type: object
+      description: A TLS activation that enables TLS traffic termination for a specific domain using a custom certificate and configuration.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the TLS activation.
+        type:
+          type: string
+          description: The resource type.
+          enum:
+          - tls_activation
+        attributes:
+          type: object
+          properties:
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the activation was created.
+        relationships:
+          type: object
+          properties:
+            tls_certificate:
+              type: object
+              description: The TLS certificate used for the activation.
+            tls_configuration:
+              type: object
+              description: The TLS configuration used for the activation.
+            tls_domain:
+              type: object
+              description: The domain the activation is for.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

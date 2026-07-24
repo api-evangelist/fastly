@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Condition API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Condition
+  description: Operations for managing conditions that control when configuration objects are applied during request processing.
+paths:
+  /service/{service_id}/version/{version_id}/condition:
+    get:
+      operationId: listConditions
+      summary: List conditions
+      description: Retrieves a list of all conditions configured for a specific version of a Fastly service.
+      tags:
+      - Condition
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of conditions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Condition'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createCondition
+      summary: Create a condition
+      description: Creates a new condition for a specific version of a Fastly service. Conditions use VCL syntax to define when configuration objects should be applied during request processing.
+      tags:
+      - Condition
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Condition'
+      responses:
+        '200':
+          description: Successfully created the condition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Condition'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  schemas:
+    Condition:
+      type: object
+      description: A condition uses VCL syntax to define when a configuration object should be applied during request processing.
+      properties:
+        name:
+          type: string
+          description: The name of the condition.
+        statement:
+          type: string
+          description: A VCL conditional expression that defines when the condition evaluates to true.
+        type:
+          type: string
+          description: The type of condition, determining when it is evaluated.
+          enum:
+          - REQUEST
+          - CACHE
+          - RESPONSE
+          - PREFETCH
+        priority:
+          type: integer
+          description: The priority of the condition, with lower numbers evaluated first.
+          default: 10
+        comment:
+          type: string
+          description: A freeform descriptive note about the condition.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

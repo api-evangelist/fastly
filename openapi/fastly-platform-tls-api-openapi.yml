@@ -1,0 +1,244 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Platform TLS API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Platform TLS
+  description: Operations for managing platform TLS bulk certificates where Fastly manages certificate deployment across the edge network.
+paths:
+  /tls/bulk/certificates:
+    get:
+      operationId: listBulkTlsCertificates
+      summary: List platform TLS bulk certificates
+      description: Retrieves a list of all platform TLS bulk certificates. Available to Platform TLS customers for streamlined upload, deployment, and management of large numbers of TLS certificates.
+      tags:
+      - Platform TLS
+      parameters:
+      - name: page[number]
+        in: query
+        description: The page number to retrieve.
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of items per page.
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: The field to sort results by.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of bulk certificates.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BulkTlsCertificate'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createBulkTlsCertificate
+      summary: Upload a platform TLS bulk certificate
+      description: Uploads a new platform TLS bulk certificate and corresponding intermediates for deployment across Fastly's edge network.
+      tags:
+      - Platform TLS
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - tls_bulk_certificate
+                    attributes:
+                      type: object
+                      properties:
+                        cert_blob:
+                          type: string
+                          description: The PEM-encoded certificate.
+                        intermediates_blob:
+                          type: string
+                          description: The PEM-encoded intermediate certificates.
+                    relationships:
+                      type: object
+                      properties:
+                        tls_configurations:
+                          type: object
+                          description: The TLS configurations to use with the certificate.
+      responses:
+        '201':
+          description: Successfully created the bulk TLS certificate.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BulkTlsCertificate'
+        '400':
+          description: Bad request. Missing or invalid certificate data.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /tls/bulk/certificates/{tls_bulk_certificate_id}:
+    get:
+      operationId: getBulkTlsCertificate
+      summary: Get a platform TLS bulk certificate
+      description: Retrieves the details of a specific platform TLS bulk certificate.
+      tags:
+      - Platform TLS
+      parameters:
+      - name: tls_bulk_certificate_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the bulk TLS certificate.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the bulk TLS certificate.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BulkTlsCertificate'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Bulk TLS certificate not found.
+    patch:
+      operationId: updateBulkTlsCertificate
+      summary: Update a platform TLS bulk certificate
+      description: Replaces a platform TLS bulk certificate with a new one.
+      tags:
+      - Platform TLS
+      parameters:
+      - name: tls_bulk_certificate_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the bulk TLS certificate.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - tls_bulk_certificate
+                    attributes:
+                      type: object
+                      properties:
+                        cert_blob:
+                          type: string
+                          description: The PEM-encoded replacement certificate.
+                        intermediates_blob:
+                          type: string
+                          description: The PEM-encoded intermediate certificates.
+      responses:
+        '200':
+          description: Successfully updated the bulk TLS certificate.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BulkTlsCertificate'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Bulk TLS certificate not found.
+    delete:
+      operationId: deleteBulkTlsCertificate
+      summary: Delete a platform TLS bulk certificate
+      description: Deletes a platform TLS bulk certificate.
+      tags:
+      - Platform TLS
+      parameters:
+      - name: tls_bulk_certificate_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the bulk TLS certificate.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted the bulk TLS certificate.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Bulk TLS certificate not found.
+components:
+  schemas:
+    BulkTlsCertificate:
+      type: object
+      description: A platform TLS bulk certificate for streamlined management of large numbers of certificates.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the bulk TLS certificate.
+        type:
+          type: string
+          description: The resource type.
+          enum:
+          - tls_bulk_certificate
+        attributes:
+          type: object
+          properties:
+            not_before:
+              type: string
+              format: date-time
+              description: The date the certificate is valid from.
+            not_after:
+              type: string
+              format: date-time
+              description: The date the certificate expires.
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the certificate was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the certificate was last updated.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

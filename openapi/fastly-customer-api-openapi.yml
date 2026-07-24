@@ -1,0 +1,142 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Customer API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Customer
+  description: Operations for retrieving and updating customer account information.
+paths:
+  /current_customer:
+    get:
+      operationId: getCurrentCustomer
+      summary: Get the current customer
+      description: Retrieves the customer account information for the authenticated user.
+      tags:
+      - Customer
+      responses:
+        '200':
+          description: Successfully retrieved the customer information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /customer/{customer_id}:
+    get:
+      operationId: getCustomer
+      summary: Get a customer
+      description: Retrieves the account information for a specific customer.
+      tags:
+      - Customer
+      parameters:
+      - name: customer_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the customer.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the customer information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Customer not found.
+    put:
+      operationId: updateCustomer
+      summary: Update a customer
+      description: Updates the account information for a specific customer.
+      tags:
+      - Customer
+      parameters:
+      - name: customer_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the customer.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the customer account.
+      responses:
+        '200':
+          description: Successfully updated the customer information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Customer not found.
+components:
+  schemas:
+    Customer:
+      type: object
+      description: A customer account in Fastly that owns services and manages users.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the customer.
+        name:
+          type: string
+          description: The name of the customer account.
+        owner_id:
+          type: string
+          description: The alphanumeric string identifying the account owner.
+        pricing_plan:
+          type: string
+          description: The pricing plan associated with the customer.
+        can_configure_wordpress:
+          type: boolean
+          description: Whether the customer can configure WordPress.
+        legal_contact_id:
+          type: string
+          nullable: true
+          description: The ID of the legal contact for the account.
+        technical_contact_id:
+          type: string
+          nullable: true
+          description: The ID of the technical contact for the account.
+        security_contact_id:
+          type: string
+          nullable: true
+          description: The ID of the security contact for the account.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time the customer was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time the customer was last updated.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

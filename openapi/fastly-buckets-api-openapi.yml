@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Buckets API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Buckets
+paths:
+  /:
+    get:
+      tags:
+      - Buckets
+      summary: List Buckets
+      operationId: listBuckets
+      responses:
+        '200':
+          description: A list of buckets
+  /{bucket}:
+    parameters:
+    - in: path
+      name: bucket
+      required: true
+      schema:
+        type: string
+    put:
+      tags:
+      - Buckets
+      summary: Create Bucket
+      operationId: createBucket
+      responses:
+        '200':
+          description: Bucket created
+    delete:
+      tags:
+      - Buckets
+      summary: Delete Bucket
+      operationId: deleteBucket
+      responses:
+        '204':
+          description: Bucket deleted
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

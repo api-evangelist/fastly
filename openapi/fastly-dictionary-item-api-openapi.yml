@@ -1,0 +1,337 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Dictionary Item API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Dictionary Item
+  description: Operations for managing individual key-value pairs within a dictionary. Items are versionless and take effect within approximately 30 seconds.
+paths:
+  /service/{service_id}/dictionary/{dictionary_id}/items:
+    get:
+      operationId: listDictionaryItems
+      summary: List dictionary items
+      description: Retrieves a list of all key-value pairs within a specific dictionary.
+      tags:
+      - Dictionary Item
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: dictionary_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the dictionary.
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page number to retrieve.
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: The number of items per page.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successfully retrieved the list of dictionary items.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DictionaryItem'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    patch:
+      operationId: bulkUpdateDictionaryItems
+      summary: Bulk update dictionary items
+      description: Updates multiple dictionary items in a single request. Supports create, update, upsert, and delete operations in the same batch.
+      tags:
+      - Dictionary Item
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: dictionary_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the dictionary.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  description: A list of dictionary item operations to perform.
+                  items:
+                    type: object
+                    properties:
+                      op:
+                        type: string
+                        description: The operation to perform on the item.
+                        enum:
+                        - create
+                        - update
+                        - upsert
+                        - delete
+                      item_key:
+                        type: string
+                        description: The key of the dictionary item.
+                      item_value:
+                        type: string
+                        description: The value of the dictionary item.
+      responses:
+        '200':
+          description: Successfully performed bulk update on dictionary items.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of the bulk operation.
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/dictionary/{dictionary_id}/item:
+    post:
+      operationId: createDictionaryItem
+      summary: Create a dictionary item
+      description: Creates a new key-value pair within a specific dictionary. The item takes effect within approximately 30 seconds without requiring a new service version.
+      tags:
+      - Dictionary Item
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: dictionary_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the dictionary.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DictionaryItem'
+      responses:
+        '200':
+          description: Successfully created the dictionary item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DictionaryItem'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/dictionary/{dictionary_id}/item/{dictionary_item_key}:
+    get:
+      operationId: getDictionaryItem
+      summary: Get a dictionary item
+      description: Retrieves the details of a specific key-value pair within a dictionary.
+      tags:
+      - Dictionary Item
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: dictionary_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the dictionary.
+        schema:
+          type: string
+      - name: dictionary_item_key
+        in: path
+        required: true
+        description: The key of the dictionary item.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the dictionary item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DictionaryItem'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Dictionary item not found.
+    put:
+      operationId: upsertDictionaryItem
+      summary: Upsert a dictionary item
+      description: Creates or updates a key-value pair within a specific dictionary.
+      tags:
+      - Dictionary Item
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: dictionary_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the dictionary.
+        schema:
+          type: string
+      - name: dictionary_item_key
+        in: path
+        required: true
+        description: The key of the dictionary item.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                item_value:
+                  type: string
+                  description: The value for the dictionary item.
+      responses:
+        '200':
+          description: Successfully upserted the dictionary item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DictionaryItem'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    patch:
+      operationId: updateDictionaryItem
+      summary: Update a dictionary item
+      description: Updates a specific key-value pair within a dictionary.
+      tags:
+      - Dictionary Item
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: dictionary_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the dictionary.
+        schema:
+          type: string
+      - name: dictionary_item_key
+        in: path
+        required: true
+        description: The key of the dictionary item.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                item_value:
+                  type: string
+                  description: The new value for the dictionary item.
+      responses:
+        '200':
+          description: Successfully updated the dictionary item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DictionaryItem'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Dictionary item not found.
+    delete:
+      operationId: deleteDictionaryItem
+      summary: Delete a dictionary item
+      description: Deletes a specific key-value pair from a dictionary.
+      tags:
+      - Dictionary Item
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: dictionary_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the dictionary.
+        schema:
+          type: string
+      - name: dictionary_item_key
+        in: path
+        required: true
+        description: The key of the dictionary item.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully deleted the dictionary item.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Dictionary item not found.
+components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+  schemas:
+    DictionaryItem:
+      type: object
+      description: A single key-value pair that makes up an entry in a dictionary.
+      properties:
+        dictionary_id:
+          type: string
+          description: The alphanumeric string identifying the dictionary.
+        service_id:
+          type: string
+          description: The alphanumeric string identifying the service.
+        item_key:
+          type: string
+          description: The key of the dictionary item.
+          maxLength: 256
+        item_value:
+          type: string
+          description: The value of the dictionary item.
+          maxLength: 8000
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time the item was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time the item was last updated.
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time the item was deleted.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

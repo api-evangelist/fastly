@@ -1,0 +1,136 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Package API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Package
+  description: Operations for managing Compute service packages (WebAssembly binaries).
+paths:
+  /service/{service_id}/version/{version_id}/package:
+    get:
+      operationId: getPackage
+      summary: Get a Compute package
+      description: Retrieves the details of the Compute package associated with a specific version of a Fastly service.
+      tags:
+      - Package
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the package details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Package not found.
+    put:
+      operationId: uploadPackage
+      summary: Upload a Compute package
+      description: Uploads a Compute package (WebAssembly binary) for a specific version of a Fastly service.
+      tags:
+      - Package
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - package
+              properties:
+                package:
+                  type: string
+                  format: binary
+                  description: The Compute package binary file (.tar.gz).
+      responses:
+        '200':
+          description: Successfully uploaded the package.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+        '400':
+          description: Bad request. Invalid package format.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  schemas:
+    Package:
+      type: object
+      description: A Compute package containing the WebAssembly binary for a Fastly Compute service.
+      properties:
+        service_id:
+          type: string
+          description: The alphanumeric string identifying the service.
+        version:
+          type: integer
+          description: The version number the package is associated with.
+        metadata:
+          type: object
+          description: Metadata about the package.
+          properties:
+            name:
+              type: string
+              description: The name of the package.
+            description:
+              type: string
+              description: A description of the package.
+            authors:
+              type: array
+              description: The authors of the package.
+              items:
+                type: string
+            language:
+              type: string
+              description: The programming language used.
+            size:
+              type: integer
+              description: The size of the package in bytes.
+            hashsum:
+              type: string
+              description: The hash checksum of the package.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time the package was created.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

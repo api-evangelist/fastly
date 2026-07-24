@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL VCL Snippet API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: VCL Snippet
+  description: Operations for managing VCL snippets, which are small pieces of VCL code that can be inserted into specific subroutines.
+paths:
+  /service/{service_id}/version/{version_id}/snippet:
+    get:
+      operationId: listSnippets
+      summary: List VCL snippets
+      description: Retrieves a list of all VCL snippets configured for a specific version of a Fastly service.
+      tags:
+      - VCL Snippet
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of VCL snippets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Snippet'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createSnippet
+      summary: Create a VCL snippet
+      description: Creates a new VCL snippet for a specific version of a Fastly service. Snippets are small pieces of VCL code that can be inserted into specific VCL subroutines.
+      tags:
+      - VCL Snippet
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+      responses:
+        '200':
+          description: Successfully created the VCL snippet.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  schemas:
+    Snippet:
+      type: object
+      description: A VCL snippet is a small piece of VCL code that can be inserted into a specific VCL subroutine without uploading a full custom VCL file.
+      properties:
+        name:
+          type: string
+          description: The name of the VCL snippet.
+        content:
+          type: string
+          description: The VCL code for the snippet.
+        type:
+          type: string
+          description: The VCL subroutine to insert the snippet into.
+          enum:
+          - init
+          - recv
+          - hash
+          - hit
+          - miss
+          - pass
+          - fetch
+          - error
+          - deliver
+          - log
+          - none
+        dynamic:
+          type: integer
+          description: Whether this snippet is dynamic (0 = versioned, 1 = dynamic).
+          enum:
+          - 0
+          - 1
+        priority:
+          type: integer
+          description: The priority of the snippet, determining its order of execution.
+          default: 100
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

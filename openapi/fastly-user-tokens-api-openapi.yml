@@ -1,0 +1,231 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL User Tokens API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: User Tokens
+  description: Operations for managing user API tokens that authenticate requests to the Fastly API on behalf of a specific user.
+paths:
+  /tokens:
+    get:
+      operationId: listTokens
+      summary: List API tokens
+      description: Retrieves a list of all API tokens associated with the authenticated user.
+      tags:
+      - User Tokens
+      responses:
+        '200':
+          description: Successfully retrieved the list of tokens.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createToken
+      summary: Create an API token
+      description: Creates a new API token for the authenticated user. Tokens can be scoped to specific services and permissions.
+      tags:
+      - User Tokens
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - name
+              - scope
+              properties:
+                name:
+                  type: string
+                  description: The name of the token.
+                scope:
+                  type: string
+                  description: A space-delimited list of authorization scopes.
+                services:
+                  type: array
+                  description: A list of service IDs the token is scoped to.
+                  items:
+                    type: string
+                expires_at:
+                  type: string
+                  format: date-time
+                  description: The expiration date and time of the token.
+      responses:
+        '200':
+          description: Successfully created the token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /tokens/{token_id}:
+    get:
+      operationId: getToken
+      summary: Get an API token
+      description: Retrieves the details of a specific API token.
+      tags:
+      - User Tokens
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the token.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Token not found.
+    delete:
+      operationId: revokeToken
+      summary: Revoke an API token
+      description: Revokes a specific API token, immediately invalidating it for future API requests.
+      tags:
+      - User Tokens
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the token.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully revoked the token.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Token not found.
+  /tokens/self:
+    get:
+      operationId: getTokenCurrent
+      summary: Get the current token
+      description: Retrieves the details of the API token used to authenticate the current request.
+      tags:
+      - User Tokens
+      responses:
+        '200':
+          description: Successfully retrieved the current token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    delete:
+      operationId: revokeTokenCurrent
+      summary: Revoke the current token
+      description: Revokes the API token used to authenticate the current request.
+      tags:
+      - User Tokens
+      responses:
+        '204':
+          description: Successfully revoked the current token.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /customer/{customer_id}/tokens:
+    get:
+      operationId: listCustomerTokens
+      summary: List customer tokens
+      description: Retrieves a list of all API tokens for a specific customer. Requires superuser access.
+      tags:
+      - User Tokens
+      parameters:
+      - name: customer_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the customer.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of customer tokens.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '403':
+          description: Forbidden. Superuser access required.
+components:
+  schemas:
+    Token:
+      type: object
+      description: An API token used to authenticate requests to the Fastly API on behalf of a specific user.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the token.
+        name:
+          type: string
+          description: The name of the token.
+        user_id:
+          type: string
+          description: The alphanumeric string identifying the user the token belongs to.
+        customer_id:
+          type: string
+          description: The alphanumeric string identifying the customer.
+        scope:
+          type: string
+          description: A space-delimited list of authorization scopes.
+        services:
+          type: array
+          description: A list of service IDs the token is scoped to.
+          items:
+            type: string
+        access_token:
+          type: string
+          description: The token value used for authentication. Only returned on creation.
+        ip:
+          type: string
+          description: The IP address of the client that last used the token.
+        last_used_at:
+          type: string
+          format: date-time
+          description: The date and time the token was last used.
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time the token expires.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time the token was created.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

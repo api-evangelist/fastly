@@ -1,0 +1,158 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL KV Store API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: KV Store
+  description: Operations for managing KV stores that provide persistent key-value storage accessible from Compute services.
+paths:
+  /resources/stores/kv:
+    get:
+      operationId: listKvStores
+      summary: List KV stores
+      description: Retrieves a list of all KV stores associated with the account.
+      tags:
+      - KV Store
+      parameters:
+      - name: cursor
+        in: query
+        description: A cursor for pagination.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return.
+        schema:
+          type: integer
+          maximum: 1000
+      responses:
+        '200':
+          description: Successfully retrieved the list of KV stores.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KvStore'
+                  meta:
+                    type: object
+                    properties:
+                      next_cursor:
+                        type: string
+                        description: A cursor for fetching the next page of results.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createKvStore
+      summary: Create a KV store
+      description: Creates a new KV store for persistent key-value storage accessible from Compute services.
+      tags:
+      - KV Store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: The name of the KV store.
+      responses:
+        '201':
+          description: Successfully created the KV store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvStore'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /resources/stores/kv/{store_id}:
+    get:
+      operationId: getKvStore
+      summary: Get a KV store
+      description: Retrieves the details of a specific KV store.
+      tags:
+      - KV Store
+      parameters:
+      - $ref: '#/components/parameters/storeId'
+      responses:
+        '200':
+          description: Successfully retrieved the KV store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvStore'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: KV store not found.
+    delete:
+      operationId: deleteKvStore
+      summary: Delete a KV store
+      description: Deletes a specific KV store and all of its items.
+      tags:
+      - KV Store
+      parameters:
+      - $ref: '#/components/parameters/storeId'
+      responses:
+        '204':
+          description: Successfully deleted the KV store.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: KV store not found.
+components:
+  parameters:
+    storeId:
+      name: store_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the store.
+      schema:
+        type: string
+  schemas:
+    KvStore:
+      type: object
+      description: A KV store providing persistent key-value storage accessible from Fastly Compute services.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the KV store.
+        name:
+          type: string
+          description: The name of the KV store.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time the KV store was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time the KV store was last updated.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

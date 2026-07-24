@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Custom Dashboards API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Custom Dashboards
+paths:
+  /observability/dashboards:
+    get:
+      tags:
+      - Custom Dashboards
+      summary: List Custom Dashboards
+      operationId: listCustomDashboards
+      responses:
+        '200':
+          description: A list of custom dashboards
+    post:
+      tags:
+      - Custom Dashboards
+      summary: Create Custom Dashboard
+      operationId: createCustomDashboard
+      responses:
+        '201':
+          description: Dashboard created
+  /observability/dashboards/{dashboard_id}:
+    parameters:
+    - in: path
+      name: dashboard_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Custom Dashboards
+      summary: Get Custom Dashboard
+      operationId: getCustomDashboard
+      responses:
+        '200':
+          description: A custom dashboard
+    patch:
+      tags:
+      - Custom Dashboards
+      summary: Update Custom Dashboard
+      operationId: updateCustomDashboard
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - Custom Dashboards
+      summary: Delete Custom Dashboard
+      operationId: deleteCustomDashboard
+      responses:
+        '204':
+          description: Deleted
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

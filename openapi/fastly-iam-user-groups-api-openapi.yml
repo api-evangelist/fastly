@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL IAM User Groups API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: IAM User Groups
+  description: Operations for managing user groups that organize users and assign them roles and service group access.
+paths:
+  /user-groups:
+    get:
+      operationId: listUserGroups
+      summary: List IAM user groups
+      description: Retrieves a list of all user groups used for organizing users and assigning roles.
+      tags:
+      - IAM User Groups
+      parameters:
+      - name: per_page
+        in: query
+        description: The number of items per page.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: The cursor for pagination.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of user groups.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserGroup'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createUserGroup
+      summary: Create an IAM user group
+      description: Creates a new user group for organizing users and assigning roles.
+      tags:
+      - IAM User Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the user group.
+                description:
+                  type: string
+                  description: A description of the user group.
+      responses:
+        '201':
+          description: Successfully created the user group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  schemas:
+    UserGroup:
+      type: object
+      description: An IAM user group that organizes users and assigns roles and service group access.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the user group.
+        name:
+          type: string
+          description: The name of the user group.
+        description:
+          type: string
+          description: A description of the user group.
+        users_count:
+          type: integer
+          description: The number of users in the group.
+        roles_count:
+          type: integer
+          description: The number of roles assigned to the group.
+        service_groups_count:
+          type: integer
+          description: The number of service groups associated with the user group.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time the user group was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time the user group was last updated.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

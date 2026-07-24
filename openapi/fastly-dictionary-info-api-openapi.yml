@@ -1,0 +1,73 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Dictionary Info API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Dictionary Info
+  description: Operations for retrieving metadata about a dictionary.
+paths:
+  /service/{service_id}/dictionary/{dictionary_id}/info:
+    get:
+      operationId: getDictionaryInfo
+      summary: Get dictionary info
+      description: Retrieves metadata about a specific dictionary, including the number of items it contains.
+      tags:
+      - Dictionary Info
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: dictionary_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the dictionary.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the dictionary info.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  digest:
+                    type: string
+                    description: A hash of the dictionary contents.
+                  item_count:
+                    type: integer
+                    description: The number of items in the dictionary.
+                  last_updated:
+                    type: string
+                    format: date-time
+                    description: The date and time the dictionary was last updated.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Dictionary not found.
+components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

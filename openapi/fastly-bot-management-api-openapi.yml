@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Bot Management API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Bot Management
+  description: Operations for enabling and managing the Bot Management product on Fastly services.
+paths:
+  /enabled-products/v1/bot_management/services/{service_id}:
+    get:
+      operationId: getBotManagementStatus
+      summary: Get Bot Management status
+      description: Checks the enablement status of the Bot Management product on a specific service.
+      tags:
+      - Bot Management
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully retrieved the Bot Management status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+    put:
+      operationId: enableBotManagement
+      summary: Enable Bot Management
+      description: Enables the Bot Management product on a specific service.
+      tags:
+      - Bot Management
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully enabled Bot Management.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductStatus'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+    delete:
+      operationId: disableBotManagement
+      summary: Disable Bot Management
+      description: Disables the Bot Management product on a specific service.
+      tags:
+      - Bot Management
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      responses:
+        '204':
+          description: Successfully disabled Bot Management.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found or product not enabled.
+components:
+  schemas:
+    ProductStatus:
+      type: object
+      description: The enablement status of a Fastly product on a service.
+      properties:
+        product:
+          type: object
+          description: Details about the product.
+          properties:
+            id:
+              type: string
+              description: The product identifier.
+            object:
+              type: string
+              description: The resource type.
+        service:
+          type: object
+          description: Details about the service.
+          properties:
+            id:
+              type: string
+              description: The alphanumeric string identifying the service.
+            object:
+              type: string
+              description: The resource type.
+        _links:
+          type: object
+          description: Links to related resources.
+          properties:
+            self:
+              type: string
+              description: A link to the current resource.
+            service:
+              type: string
+              description: A link to the associated service.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

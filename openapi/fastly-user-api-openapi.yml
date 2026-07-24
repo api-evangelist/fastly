@@ -1,0 +1,299 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL User API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: User
+  description: Operations for managing user accounts including invitations and profiles.
+paths:
+  /current_user:
+    get:
+      operationId: getCurrentUser
+      summary: Get the current user
+      description: Retrieves the profile information for the authenticated user.
+      tags:
+      - User
+      responses:
+        '200':
+          description: Successfully retrieved the user profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /user/{user_id}:
+    get:
+      operationId: getUser
+      summary: Get a user
+      description: Retrieves the profile information for a specific user.
+      tags:
+      - User
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the user.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the user profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: User not found.
+    put:
+      operationId: updateUser
+      summary: Update a user
+      description: Updates the profile information for a specific user.
+      tags:
+      - User
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the user.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the user.
+                role:
+                  type: string
+                  description: The role assigned to the user.
+                  enum:
+                  - user
+                  - billing
+                  - engineer
+                  - superuser
+      responses:
+        '200':
+          description: Successfully updated the user profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: User not found.
+    delete:
+      operationId: deleteUser
+      summary: Delete a user
+      description: Removes a user from the customer account.
+      tags:
+      - User
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the user.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully deleted the user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: User not found.
+  /customer/{customer_id}/users:
+    get:
+      operationId: listCustomerUsers
+      summary: List users for a customer
+      description: Retrieves a list of all users associated with a specific customer account.
+      tags:
+      - User
+      parameters:
+      - name: customer_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the customer.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Customer not found.
+  /invitations:
+    post:
+      operationId: createInvitation
+      summary: Create a user invitation
+      description: Creates an invitation to join the customer account. The invited user will receive an email with a link to accept the invitation.
+      tags:
+      - User
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - invitation
+                    attributes:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          format: email
+                          description: The email address of the user to invite.
+                        role:
+                          type: string
+                          description: The role to assign to the invited user.
+                          enum:
+                          - user
+                          - billing
+                          - engineer
+                          - superuser
+      responses:
+        '201':
+          description: Successfully created the invitation.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Invitation'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  schemas:
+    User:
+      type: object
+      description: A user within a Fastly customer account.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the user.
+        login:
+          type: string
+          format: email
+          description: The email address of the user, used as the login.
+        name:
+          type: string
+          description: The name of the user.
+        role:
+          type: string
+          description: The role assigned to the user.
+          enum:
+          - user
+          - billing
+          - engineer
+          - superuser
+        customer_id:
+          type: string
+          description: The alphanumeric string identifying the customer the user belongs to.
+        email_hash:
+          type: string
+          description: The hash of the user's email for Gravatar integration.
+        two_factor_auth_enabled:
+          type: boolean
+          description: Whether two-factor authentication is enabled for the user.
+        limit_services:
+          type: boolean
+          description: Whether the user's access is limited to specific services.
+        locked:
+          type: boolean
+          description: Whether the user account is locked.
+        require_new_password:
+          type: boolean
+          description: Whether the user must set a new password on next login.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time the user was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time the user was last updated.
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time the user was deleted.
+    Invitation:
+      type: object
+      description: An invitation to join a Fastly customer account.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the invitation.
+        type:
+          type: string
+          description: The resource type.
+          enum:
+          - invitation
+        attributes:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+              description: The email address of the invited user.
+            role:
+              type: string
+              description: The role assigned to the invited user.
+            status:
+              type: string
+              description: The current status of the invitation.
+              enum:
+              - pending
+              - accepted
+              - expired
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the invitation was created.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

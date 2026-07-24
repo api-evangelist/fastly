@@ -1,0 +1,104 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Custom VCL API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Custom VCL
+  description: Operations for uploading and managing full custom VCL files.
+paths:
+  /service/{service_id}/version/{version_id}/vcl:
+    get:
+      operationId: listCustomVcl
+      summary: List custom VCL files
+      description: Retrieves a list of all custom VCL files uploaded for a specific version of a Fastly service.
+      tags:
+      - Custom VCL
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of custom VCL files.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomVcl'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createCustomVcl
+      summary: Upload custom VCL
+      description: Uploads a full custom VCL file for a specific version of a Fastly service.
+      tags:
+      - Custom VCL
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomVcl'
+      responses:
+        '200':
+          description: Successfully uploaded the custom VCL file.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomVcl'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  schemas:
+    CustomVcl:
+      type: object
+      description: A full custom VCL file uploaded for a service version.
+      properties:
+        name:
+          type: string
+          description: The name of the custom VCL file.
+        content:
+          type: string
+          description: The VCL source code.
+        main:
+          type: boolean
+          description: Whether this is the main VCL file for the service version.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Config Store API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Config Store
+  description: Operations for managing config stores that provide low-latency read access to configuration data from Compute services.
+paths:
+  /resources/stores/config:
+    get:
+      operationId: listConfigStores
+      summary: List config stores
+      description: Retrieves a list of all config stores associated with the account.
+      tags:
+      - Config Store
+      responses:
+        '200':
+          description: Successfully retrieved the list of config stores.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConfigStore'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createConfigStore
+      summary: Create a config store
+      description: Creates a new config store for storing small amounts of textual configuration data accessible from Compute services.
+      tags:
+      - Config Store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: The name of the config store.
+      responses:
+        '201':
+          description: Successfully created the config store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigStore'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /resources/stores/config/{config_store_id}:
+    get:
+      operationId: getConfigStore
+      summary: Get a config store
+      description: Retrieves the details of a specific config store.
+      tags:
+      - Config Store
+      parameters:
+      - name: config_store_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the config store.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the config store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigStore'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Config store not found.
+    put:
+      operationId: updateConfigStore
+      summary: Update a config store
+      description: Updates the details of a specific config store.
+      tags:
+      - Config Store
+      parameters:
+      - name: config_store_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the config store.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The new name of the config store.
+      responses:
+        '200':
+          description: Successfully updated the config store.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigStore'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Config store not found.
+    delete:
+      operationId: deleteConfigStore
+      summary: Delete a config store
+      description: Deletes a specific config store and all of its items.
+      tags:
+      - Config Store
+      parameters:
+      - name: config_store_id
+        in: path
+        required: true
+        description: The alphanumeric string identifying the config store.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted the config store.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Config store not found.
+components:
+  schemas:
+    ConfigStore:
+      type: object
+      description: A config store providing low-latency read access to configuration data from Fastly Compute services.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the config store.
+        name:
+          type: string
+          description: The name of the config store.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time the config store was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time the config store was last updated.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

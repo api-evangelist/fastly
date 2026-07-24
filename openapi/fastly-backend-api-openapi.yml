@@ -1,0 +1,229 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Backend API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Backend
+  description: Operations for managing backends (origin servers) that a Fastly service routes requests to.
+paths:
+  /service/{service_id}/version/{version_id}/backend:
+    get:
+      operationId: listBackends
+      summary: List backends
+      description: Retrieves a list of all backends configured for a specific version of a Fastly service.
+      tags:
+      - Backend
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of backends.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Backend'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createBackend
+      summary: Create a backend
+      description: Creates a new backend for a specific version of a Fastly service. Backends define the origin servers that Fastly routes requests to.
+      tags:
+      - Backend
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Backend'
+      responses:
+        '200':
+          description: Successfully created the backend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /service/{service_id}/version/{version_id}/backend/{backend_name}:
+    get:
+      operationId: getBackend
+      summary: Get a backend
+      description: Retrieves the details of a specific backend for a version of a Fastly service.
+      tags:
+      - Backend
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      - $ref: '#/components/parameters/backendName'
+      responses:
+        '200':
+          description: Successfully retrieved the backend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Backend not found.
+    put:
+      operationId: updateBackend
+      summary: Update a backend
+      description: Updates a specific backend for a version of a Fastly service.
+      tags:
+      - Backend
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      - $ref: '#/components/parameters/backendName'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Backend'
+      responses:
+        '200':
+          description: Successfully updated the backend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Backend not found.
+    delete:
+      operationId: deleteBackend
+      summary: Delete a backend
+      description: Deletes a specific backend from a version of a Fastly service.
+      tags:
+      - Backend
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      - $ref: '#/components/parameters/backendName'
+      responses:
+        '200':
+          description: Successfully deleted the backend.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Confirmation status of the deletion.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Backend not found.
+components:
+  schemas:
+    Backend:
+      type: object
+      description: A backend represents an origin server that a Fastly service routes requests to for content that is not cached at the edge.
+      properties:
+        name:
+          type: string
+          description: The name of the backend.
+        address:
+          type: string
+          description: The hostname or IPv4 address of the backend.
+        port:
+          type: integer
+          description: The port number on the backend.
+          default: 80
+        use_ssl:
+          type: boolean
+          description: Whether to use SSL/TLS to connect to the backend.
+        ssl_hostname:
+          type: string
+          description: The hostname to verify for SSL certificate validation.
+        ssl_cert_hostname:
+          type: string
+          description: The hostname to use when checking the backend certificate.
+        ssl_sni_hostname:
+          type: string
+          description: The SNI hostname to use for the backend connection.
+        shield:
+          type: string
+          description: The data center to use as a shield POP.
+        weight:
+          type: integer
+          description: The weight assigned to this backend for load balancing.
+          minimum: 1
+          maximum: 100
+        connect_timeout:
+          type: integer
+          description: Maximum duration in milliseconds to wait for a connection.
+        first_byte_timeout:
+          type: integer
+          description: Maximum duration in milliseconds to wait for the first byte.
+        between_bytes_timeout:
+          type: integer
+          description: Maximum duration in milliseconds to wait between bytes.
+        max_conn:
+          type: integer
+          description: Maximum number of connections to the backend.
+        healthcheck:
+          type: string
+          description: The name of the healthcheck to use with the backend.
+        auto_loadbalance:
+          type: boolean
+          description: Whether to auto-load-balance this backend.
+        request_condition:
+          type: string
+          description: The name of a condition to apply to route requests to this backend.
+        comment:
+          type: string
+          description: A freeform descriptive note about the backend.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    backendName:
+      name: backend_name
+      in: path
+      required: true
+      description: The name of the backend.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

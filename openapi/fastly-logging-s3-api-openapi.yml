@@ -1,0 +1,157 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Logging S3 API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Logging S3
+  description: Operations for managing Amazon S3 logging endpoints on Fastly services.
+paths:
+  /service/{service_id}/version/{version_id}/logging/s3:
+    get:
+      operationId: listLogS3
+      summary: List S3 logging endpoints
+      description: Retrieves a list of all Amazon S3 logging endpoints configured for a specific version of a Fastly service.
+      tags:
+      - Logging S3
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of S3 logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingS3'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogS3
+      summary: Create an S3 logging endpoint
+      description: Creates a new Amazon S3 logging endpoint for a specific version of a Fastly service.
+      tags:
+      - Logging S3
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingS3'
+      responses:
+        '200':
+          description: Successfully created the S3 logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingS3'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  schemas:
+    LoggingCommon:
+      type: object
+      description: Common properties shared across all logging endpoint types.
+      properties:
+        name:
+          type: string
+          description: The name for the real-time logging configuration.
+        placement:
+          type: string
+          description: Where in the generated VCL the logging call should be placed.
+          enum:
+          - none
+          - waf_debug
+          - null
+        format_version:
+          type: integer
+          description: The version of the custom logging format used for the configured endpoint.
+          enum:
+          - 1
+          - 2
+        response_condition:
+          type: string
+          description: The name of an existing condition in the configured endpoint, or leave blank to always execute.
+        format:
+          type: string
+          description: A Fastly log format string. Supports Apache Common Log variables.
+    LoggingS3:
+      allOf:
+      - $ref: '#/components/schemas/LoggingCommon'
+      - type: object
+        description: Configuration for an Amazon S3 logging endpoint.
+        properties:
+          bucket_name:
+            type: string
+            description: The name of the S3 bucket to send logs to.
+          access_key:
+            type: string
+            description: The AWS access key ID used to authenticate.
+          secret_key:
+            type: string
+            description: The AWS secret access key used to authenticate.
+          iam_role:
+            type: string
+            description: The Amazon Resource Name of an IAM role to assume for S3 access.
+          domain:
+            type: string
+            description: The domain of the S3 endpoint.
+          path:
+            type: string
+            description: The path to store logs in the S3 bucket.
+          period:
+            type: integer
+            description: How frequently in seconds log files are finalized and sent.
+            default: 3600
+          gzip_level:
+            type: integer
+            description: The level of gzip encoding when sending logs.
+            minimum: 0
+            maximum: 9
+            default: 0
+          redundancy:
+            type: string
+            description: The S3 redundancy level.
+            enum:
+            - standard
+            - reduced_redundancy
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL WAF Active Rules API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: WAF Active Rules
+  description: Operations for managing which WAF rules are actively enforced on a firewall.
+paths:
+  /waf/firewalls/{firewall_id}/versions/{firewall_version_number}/active-rules:
+    get:
+      operationId: listWafActiveRules
+      summary: List active WAF rules
+      description: Retrieves a list of all active WAF rules for a specific firewall version.
+      tags:
+      - WAF Active Rules
+      parameters:
+      - $ref: '#/components/parameters/firewallId'
+      - $ref: '#/components/parameters/firewallVersionNumber'
+      - name: page[number]
+        in: query
+        description: The page number to retrieve.
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of items per page.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successfully retrieved the list of active WAF rules.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WafActiveRule'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createWafActiveRule
+      summary: Add an active WAF rule
+      description: Adds a WAF rule to the active rule set for a specific firewall version.
+      tags:
+      - WAF Active Rules
+      parameters:
+      - $ref: '#/components/parameters/firewallId'
+      - $ref: '#/components/parameters/firewallVersionNumber'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - waf_active_rule
+                    attributes:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                          description: The status of the active rule.
+                          enum:
+                          - log
+                          - block
+                        modsec_rule_id:
+                          type: integer
+                          description: The ModSecurity rule ID.
+                        revision:
+                          type: integer
+                          description: The revision number of the rule.
+                    relationships:
+                      type: object
+                      properties:
+                        waf_rule_revision:
+                          type: object
+                          description: The WAF rule revision to activate.
+      responses:
+        '201':
+          description: Successfully added the active WAF rule.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafActiveRule'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  parameters:
+    firewallVersionNumber:
+      name: firewall_version_number
+      in: path
+      required: true
+      description: The version number of the WAF firewall.
+      schema:
+        type: integer
+    firewallId:
+      name: firewall_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the WAF firewall.
+      schema:
+        type: string
+  schemas:
+    WafActiveRule:
+      type: object
+      description: An active WAF rule that is currently enforced on a firewall.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the active rule.
+        type:
+          type: string
+          description: The resource type.
+          enum:
+          - waf_active_rule
+        attributes:
+          type: object
+          properties:
+            status:
+              type: string
+              description: The enforcement status of the rule.
+              enum:
+              - log
+              - block
+            modsec_rule_id:
+              type: integer
+              description: The ModSecurity rule ID.
+            revision:
+              type: integer
+              description: The revision number of the rule.
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the active rule was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the active rule was last updated.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

@@ -1,0 +1,275 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL WAF Firewalls API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: WAF Firewalls
+  description: Operations for managing WAF firewall instances associated with Fastly services.
+paths:
+  /waf/firewalls:
+    get:
+      operationId: listWafFirewalls
+      summary: List WAF firewalls
+      description: Retrieves a list of all WAF firewall instances associated with the account.
+      tags:
+      - WAF Firewalls
+      parameters:
+      - name: page[number]
+        in: query
+        description: The page number to retrieve.
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of items per page.
+        schema:
+          type: integer
+      - name: filter[service_id]
+        in: query
+        description: Filter firewalls by service ID.
+        schema:
+          type: string
+      - name: include
+        in: query
+        description: Related resources to include in the response.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved the list of WAF firewalls.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WafFirewall'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createWafFirewall
+      summary: Create a WAF firewall
+      description: Creates a new WAF firewall instance associated with a Fastly service.
+      tags:
+      - WAF Firewalls
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - waf_firewall
+                    attributes:
+                      type: object
+                      properties:
+                        service_id:
+                          type: string
+                          description: The ID of the service to attach the firewall to.
+                        service_version_number:
+                          type: integer
+                          description: The version number of the service.
+                        prefetch_condition:
+                          type: string
+                          description: The condition that controls when the firewall is applied.
+                        response:
+                          type: string
+                          description: The name of the response object for blocked requests.
+      responses:
+        '201':
+          description: Successfully created the WAF firewall.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafFirewall'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+  /waf/firewalls/{firewall_id}:
+    get:
+      operationId: getWafFirewall
+      summary: Get a WAF firewall
+      description: Retrieves the details of a specific WAF firewall instance.
+      tags:
+      - WAF Firewalls
+      parameters:
+      - $ref: '#/components/parameters/firewallId'
+      responses:
+        '200':
+          description: Successfully retrieved the WAF firewall.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafFirewall'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: WAF firewall not found.
+    patch:
+      operationId: updateWafFirewall
+      summary: Update a WAF firewall
+      description: Updates the configuration of a specific WAF firewall instance.
+      tags:
+      - WAF Firewalls
+      parameters:
+      - $ref: '#/components/parameters/firewallId'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - waf_firewall
+                    attributes:
+                      type: object
+                      properties:
+                        service_version_number:
+                          type: integer
+                          description: The version number of the service.
+                        prefetch_condition:
+                          type: string
+                          description: The condition that controls when the firewall is applied.
+                        response:
+                          type: string
+                          description: The name of the response object for blocked requests.
+      responses:
+        '200':
+          description: Successfully updated the WAF firewall.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WafFirewall'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: WAF firewall not found.
+    delete:
+      operationId: deleteWafFirewall
+      summary: Delete a WAF firewall
+      description: Deletes a specific WAF firewall instance.
+      tags:
+      - WAF Firewalls
+      parameters:
+      - $ref: '#/components/parameters/firewallId'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - waf_firewall
+                    attributes:
+                      type: object
+                      properties:
+                        service_version_number:
+                          type: integer
+                          description: The version number of the service.
+      responses:
+        '204':
+          description: Successfully deleted the WAF firewall.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: WAF firewall not found.
+components:
+  schemas:
+    WafFirewall:
+      type: object
+      description: A WAF firewall instance associated with a Fastly service.
+      properties:
+        id:
+          type: string
+          description: The alphanumeric string identifying the WAF firewall.
+        type:
+          type: string
+          description: The resource type.
+          enum:
+          - waf_firewall
+        attributes:
+          type: object
+          properties:
+            service_id:
+              type: string
+              description: The ID of the associated service.
+            service_version_number:
+              type: integer
+              description: The service version number.
+            active_rules_fastly_block_count:
+              type: integer
+              description: The number of active rules in block mode managed by Fastly.
+            active_rules_fastly_log_count:
+              type: integer
+              description: The number of active rules in log mode managed by Fastly.
+            active_rules_owasp_block_count:
+              type: integer
+              description: The number of active OWASP rules in block mode.
+            active_rules_owasp_log_count:
+              type: integer
+              description: The number of active OWASP rules in log mode.
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the firewall was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the firewall was last updated.
+  parameters:
+    firewallId:
+      name: firewall_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the WAF firewall.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

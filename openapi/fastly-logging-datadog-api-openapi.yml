@@ -1,0 +1,133 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Logging Datadog API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Logging Datadog
+  description: Operations for managing Datadog logging endpoints on Fastly services.
+paths:
+  /service/{service_id}/version/{version_id}/logging/datadog:
+    get:
+      operationId: listLogDatadog
+      summary: List Datadog logging endpoints
+      description: Retrieves a list of all Datadog logging endpoints configured for a specific version of a Fastly service.
+      tags:
+      - Logging Datadog
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      responses:
+        '200':
+          description: Successfully retrieved the list of Datadog logging endpoints.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoggingDatadog'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+    post:
+      operationId: createLogDatadog
+      summary: Create a Datadog logging endpoint
+      description: Creates a new Datadog logging endpoint for a specific version of a Fastly service.
+      tags:
+      - Logging Datadog
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - $ref: '#/components/parameters/versionId'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoggingDatadog'
+      responses:
+        '200':
+          description: Successfully created the Datadog logging endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingDatadog'
+        '400':
+          description: Bad request. Missing or invalid parameters.
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+components:
+  schemas:
+    LoggingCommon:
+      type: object
+      description: Common properties shared across all logging endpoint types.
+      properties:
+        name:
+          type: string
+          description: The name for the real-time logging configuration.
+        placement:
+          type: string
+          description: Where in the generated VCL the logging call should be placed.
+          enum:
+          - none
+          - waf_debug
+          - null
+        format_version:
+          type: integer
+          description: The version of the custom logging format used for the configured endpoint.
+          enum:
+          - 1
+          - 2
+        response_condition:
+          type: string
+          description: The name of an existing condition in the configured endpoint, or leave blank to always execute.
+        format:
+          type: string
+          description: A Fastly log format string. Supports Apache Common Log variables.
+    LoggingDatadog:
+      allOf:
+      - $ref: '#/components/schemas/LoggingCommon'
+      - type: object
+        description: Configuration for a Datadog logging endpoint.
+        properties:
+          token:
+            type: string
+            description: The Datadog API key for authentication.
+          region:
+            type: string
+            description: The Datadog region to send logs to.
+            enum:
+            - US
+            - EU
+            default: US
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

@@ -1,0 +1,88 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Directors API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Directors
+paths:
+  /service/{service_id}/version/{version_id}/director:
+    parameters:
+    - in: path
+      name: service_id
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: version_id
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+      - Directors
+      summary: List Directors
+      operationId: listDirectors
+      responses:
+        '200':
+          description: A list of directors
+    post:
+      tags:
+      - Directors
+      summary: Create Director
+      operationId: createDirector
+      responses:
+        '201':
+          description: Director created
+  /service/{service_id}/version/{version_id}/director/{director_name}:
+    parameters:
+    - in: path
+      name: service_id
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: version_id
+      required: true
+      schema:
+        type: integer
+    - in: path
+      name: director_name
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Directors
+      summary: Get Director
+      operationId: getDirector
+      responses:
+        '200':
+          description: A director
+    delete:
+      tags:
+      - Directors
+      summary: Delete Director
+      operationId: deleteDirector
+      responses:
+        '204':
+          description: Deleted
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

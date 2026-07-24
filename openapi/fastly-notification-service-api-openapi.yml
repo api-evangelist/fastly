@@ -1,0 +1,67 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Notification Service API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Notification Service
+paths:
+  /notifications/integrations:
+    get:
+      tags:
+      - Notification Service
+      summary: List Notification Integrations
+      operationId: listNotificationIntegrations
+      responses:
+        '200':
+          description: A list of integrations
+    post:
+      tags:
+      - Notification Service
+      summary: Create Notification Integration
+      operationId: createNotificationIntegration
+      responses:
+        '201':
+          description: Created
+  /notifications/integrations/{integration_id}:
+    parameters:
+    - in: path
+      name: integration_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Notification Service
+      summary: Get Notification Integration
+      operationId: getNotificationIntegration
+      responses:
+        '200':
+          description: An integration
+    delete:
+      tags:
+      - Notification Service
+      summary: Delete Notification Integration
+      operationId: deleteNotificationIntegration
+      responses:
+        '204':
+          description: Deleted
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

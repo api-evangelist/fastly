@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Real-Time Analytics API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Real-Time Analytics
+  description: Real-time analytics endpoints providing second-by-second stats for Fastly services, served from rt.fastly.com.
+paths:
+  /v1/channel/{service_id}/ts/{start_timestamp}:
+    get:
+      operationId: getRealtimeStats
+      summary: Get real-time analytics
+      description: Retrieves real-time analytics data for a Fastly service starting from the specified Unix timestamp. Returns a list of records, each representing one second of time, with measurement data grouped in various ways. The real-time analytics API is rate limited internally and is cached behind Fastly with a 1-second expiration time.
+      tags:
+      - Real-Time Analytics
+      servers:
+      - url: https://rt.fastly.com
+        description: Fastly Real-Time Analytics Server
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: start_timestamp
+        in: path
+        required: true
+        description: The Unix timestamp to start retrieving analytics data from.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successfully retrieved real-time analytics data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /v1/channel/{service_id}/ts/h:
+    get:
+      operationId: getRealtimeStatsLast120Seconds
+      summary: Get real-time analytics for the last 120 seconds
+      description: Retrieves real-time analytics data for the last 120 seconds for the specified Fastly service.
+      tags:
+      - Real-Time Analytics
+      servers:
+      - url: https://rt.fastly.com
+        description: Fastly Real-Time Analytics Server
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully retrieved real-time analytics data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /v1/channel/{service_id}/ts/h/limit/{max_entries}:
+    get:
+      operationId: getRealtimeStatsLastSecond
+      summary: Get real-time analytics with a limit
+      description: Retrieves real-time analytics data for the specified Fastly service limited to the most recent entries up to the specified maximum.
+      tags:
+      - Real-Time Analytics
+      servers:
+      - url: https://rt.fastly.com
+        description: Fastly Real-Time Analytics Server
+      parameters:
+      - $ref: '#/components/parameters/serviceId'
+      - name: max_entries
+        in: path
+        required: true
+        description: The maximum number of entries to return.
+        schema:
+          type: integer
+          minimum: 1
+      responses:
+        '200':
+          description: Successfully retrieved real-time analytics data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+components:
+  schemas:
+    RealtimeRecord:
+      type: object
+      description: A single second of real-time analytics data with measurements grouped by data center.
+      properties:
+        datacenter:
+          type: object
+          description: A map of data center names to their respective measurement data.
+          additionalProperties:
+            $ref: '#/components/schemas/RealtimeMeasurements'
+        aggregated:
+          $ref: '#/components/schemas/RealtimeMeasurements'
+        recorded:
+          type: integer
+          description: The Unix timestamp when this record was recorded.
+    RealtimeMeasurements:
+      type: object
+      description: A set of measurements for a specific time period and data center or aggregated across all data centers.
+      properties:
+        requests:
+          type: integer
+          description: The total number of requests received.
+        hits:
+          type: integer
+          description: The number of cache hits.
+        miss:
+          type: integer
+          description: The number of cache misses.
+        pass:
+          type: integer
+          description: The number of requests that passed through to origin.
+        errors:
+          type: integer
+          description: The total number of errors.
+        bandwidth:
+          type: integer
+          description: The total bandwidth in bytes.
+        header_size:
+          type: integer
+          description: The total header size in bytes.
+        body_size:
+          type: integer
+          description: The total body size in bytes.
+        status_1xx:
+          type: integer
+          description: The number of responses with 1xx status codes.
+        status_2xx:
+          type: integer
+          description: The number of responses with 2xx status codes.
+        status_3xx:
+          type: integer
+          description: The number of responses with 3xx status codes.
+        status_4xx:
+          type: integer
+          description: The number of responses with 4xx status codes.
+        status_5xx:
+          type: integer
+          description: The number of responses with 5xx status codes.
+        hit_ratio:
+          type: number
+          format: float
+          description: The ratio of cache hits to total requests.
+    RealtimeResponse:
+      type: object
+      description: A response containing real-time analytics data with records representing one-second time intervals.
+      properties:
+        Timestamp:
+          type: integer
+          description: The Unix timestamp of the latest data point.
+        AggregateDelay:
+          type: integer
+          description: The offset of the latest data point from the current time.
+        Data:
+          type: array
+          description: A list of analytics records, each representing one second of data.
+          items:
+            $ref: '#/components/schemas/RealtimeRecord'
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

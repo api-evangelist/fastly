@@ -1,0 +1,83 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Rules API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Rules
+paths:
+  /ddos-protection/v1/events/{event_id}/rules:
+    parameters:
+    - in: path
+      name: event_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Rules
+      summary: Get All Rules For An Event
+      operationId: listRulesForEvent
+      responses:
+        '200':
+          description: Rules applied during a DDoS event
+  /ddos-protection/v1/rules/{rule_id}:
+    parameters:
+    - in: path
+      name: rule_id
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Rules
+      summary: Get A Rule By Id
+      operationId: getDdosRule
+      responses:
+        '200':
+          description: A DDoS protection rule
+    patch:
+      tags:
+      - Rules
+      summary: Update Rule
+      operationId: updateDdosRule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DdosRuleUpdate'
+      responses:
+        '200':
+          description: Updated DDoS rule
+components:
+  schemas:
+    DdosRuleUpdate:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+          - block
+          - challenge
+          - log
+        enabled:
+          type: boolean
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/

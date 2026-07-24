@@ -1,0 +1,143 @@
+openapi: 3.1.0
+info:
+  title: Fastly Account ACL Chat Completions API
+  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+servers:
+- url: https://api.fastly.com
+  description: Fastly API Production Server
+security:
+- apiKeyAuth: []
+tags:
+- name: Chat Completions
+paths:
+  /openai/v1/chat/completions:
+    post:
+      tags:
+      - Chat Completions
+      summary: Create Chat Completion Via OpenAI
+      description: OpenAI-compatible chat completion request, semantically cached at the Fastly edge.
+      operationId: createOpenAiChatCompletion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: Chat completion response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+  /gemini/v1/models/{model}:generateContent:
+    parameters:
+    - in: path
+      name: model
+      required: true
+      schema:
+        type: string
+        example: gemini-1.5-pro
+    post:
+      tags:
+      - Chat Completions
+      summary: Generate Content Via Google Gemini
+      operationId: generateGeminiContent
+      responses:
+        '200':
+          description: Gemini response
+components:
+  schemas:
+    ChatCompletionRequest:
+      type: object
+      required:
+      - model
+      - messages
+      properties:
+        model:
+          type: string
+          example: gpt-4o-mini
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+                enum:
+                - system
+                - user
+                - assistant
+                - tool
+              content:
+                type: string
+        temperature:
+          type: number
+          format: float
+        max_tokens:
+          type: integer
+        stream:
+          type: boolean
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        created:
+          type: integer
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+              message:
+                type: object
+                properties:
+                  role:
+                    type: string
+                  content:
+                    type: string
+              finish_reason:
+                type: string
+        usage:
+          type: object
+          properties:
+            prompt_tokens:
+              type: integer
+            completion_tokens:
+              type: integer
+            total_tokens:
+              type: integer
+        x_fastly_cache:
+          type: object
+          description: Fastly semantic cache metadata
+          properties:
+            status:
+              type: string
+              enum:
+              - HIT
+              - MISS
+              - SIMILAR
+            similarity:
+              type: number
+              format: float
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: API token used to authenticate requests to the Fastly API.
+externalDocs:
+  description: Fastly Account API Documentation
+  url: https://www.fastly.com/documentation/reference/api/account/
