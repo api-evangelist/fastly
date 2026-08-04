@@ -1,0 +1,215 @@
+openapi: 3.1.0
+info:
+  title: Fastly Purging API
+  description: >-
+    The Fastly Purging API enables developers to instantly remove cached content
+    from Fastly's edge network so it can be refreshed from origin servers. It
+    supports single URL purges, surrogate key purges for invalidating groups of
+    related objects, and purge-all operations to clear an entire service cache.
+    Surrogate key and URL purges are separately limited to an average of 100,000
+    purges per hour per customer and are not counted against the general API rate
+    limit.
+  version: '1.0'
+  contact:
+    name: Fastly Support
+    url: https://support.fastly.com
+  termsOfService: https://www.fastly.com/terms
+externalDocs:
+  description: Fastly Purging API Documentation
+  url: https://www.fastly.com/documentation/reference/api/purging/
+servers:
+  - url: https://api.fastly.com
+    description: Fastly API Production Server
+tags:
+  - name: Purging
+    description: >-
+      Operations for purging cached content from Fastly's edge network, including
+      single URL purges, surrogate key purges, bulk surrogate key purges, and
+      purge-all operations.
+security:
+  - apiKeyAuth: []
+paths:
+  /purge/{cached_url}:
+    post:
+      operationId: purgeSingleUrl
+      summary: Purge a URL
+      description: >-
+        Instantly purges a single URL from Fastly's edge cache. The cached URL
+        should be the full URL of the object to purge. Supports soft purge via
+        the Fastly-Soft-Purge header, which marks the object as stale rather
+        than removing it immediately.
+      tags:
+        - Purging
+      parameters:
+        - name: cached_url
+          in: path
+          required: true
+          description: >-
+            The full URL of the cached object to purge.
+          schema:
+            type: string
+            format: uri
+        - $ref: '#/components/parameters/softPurge'
+      responses:
+        '200':
+          description: Successfully purged the URL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurgeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: The cached URL was not found.
+  /service/{service_id}/purge/{surrogate_key}:
+    post:
+      operationId: purgeBySurrogateKey
+      summary: Purge by surrogate key
+      description: >-
+        Instantly purges all objects from Fastly's edge cache that match the
+        specified surrogate key tag for the given service. Supports soft purge
+        via the Fastly-Soft-Purge header.
+      tags:
+        - Purging
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - name: surrogate_key
+          in: path
+          required: true
+          description: >-
+            The surrogate key tag to purge.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/softPurge'
+      responses:
+        '200':
+          description: Successfully purged objects by surrogate key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurgeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /service/{service_id}/purge:
+    post:
+      operationId: bulkPurgeBySurrogateKey
+      summary: Bulk purge by surrogate key
+      description: >-
+        Purges multiple surrogate key tags from Fastly's edge cache in a single
+        request. Up to 256 surrogate keys can be purged in one batch request.
+        Keys can be sent in a JSON object in the request body or as a
+        Surrogate-Key request header. Supports soft purge via the
+        Fastly-Soft-Purge header.
+      tags:
+        - Purging
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/softPurge'
+        - name: Surrogate-Key
+          in: header
+          description: >-
+            Space-separated list of surrogate keys to purge. Alternative to
+            sending keys in the request body.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                surrogate_keys:
+                  type: array
+                  description: >-
+                    A list of surrogate key tags to purge. Maximum of 256 keys.
+                  items:
+                    type: string
+                  maxItems: 256
+      responses:
+        '200':
+          description: Successfully purged objects by surrogate keys.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  purge_statuses:
+                    type: object
+                    description: >-
+                      A map of surrogate keys to their purge status identifiers.
+                    additionalProperties:
+                      type: string
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+  /service/{service_id}/purge_all:
+    post:
+      operationId: purgeAll
+      summary: Purge all cached content
+      description: >-
+        Instantly purges all cached content from Fastly's edge network for
+        the specified service. This operation cannot be performed as a soft
+        purge and will always immediately invalidate all cached content
+        associated with the service.
+      tags:
+        - Purging
+      parameters:
+        - $ref: '#/components/parameters/serviceId'
+      responses:
+        '200':
+          description: Successfully purged all cached content for the service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurgeResponse'
+        '401':
+          description: Unauthorized. The API token is missing or invalid.
+        '404':
+          description: Service not found.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+      description: >-
+        API token used to authenticate requests to the Fastly API.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: >-
+        The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    softPurge:
+      name: Fastly-Soft-Purge
+      in: header
+      description: >-
+        Set to 1 to perform a soft purge, which marks the cached object as
+        stale rather than immediately removing it. Stale objects can still be
+        served while a fresh copy is fetched from origin.
+      schema:
+        type: integer
+        enum:
+          - 1
+  schemas:
+    PurgeResponse:
+      type: object
+      description: >-
+        The response from a purge operation confirming the purge was accepted.
+      properties:
+        status:
+          type: string
+          description: >-
+            The status of the purge operation.
+          enum:
+            - ok
+        id:
+          type: string
+          description: >-
+            A unique identifier for the purge operation.

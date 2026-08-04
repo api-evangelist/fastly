@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: Fastly AI Accelerator
+  description: |
+    Fastly AI Accelerator is a semantic caching solution that boosts the
+    performance of popular LLMs like OpenAI and Google Gemini by 9x. Semantic
+    caching maps queries to concepts as vectors so the system can cache answers
+    to similar questions regardless of exact wording. AI Accelerator exposes
+    drop-in compatible chat completions endpoints that proxy to upstream
+    providers while serving cached responses from the edge.
+  version: '1.0.0'
+servers:
+  - url: https://api.fastly.ai
+    description: Fastly AI Accelerator edge endpoint
+security:
+  - FastlyKey: []
+tags:
+  - name: Chat Completions
+  - name: Embeddings
+paths:
+  /openai/v1/chat/completions:
+    post:
+      tags: [Chat Completions]
+      summary: Create Chat Completion Via OpenAI
+      description: OpenAI-compatible chat completion request, semantically cached at the Fastly edge.
+      operationId: createOpenAiChatCompletion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ChatCompletionRequest' }
+      responses:
+        '200':
+          description: Chat completion response
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ChatCompletionResponse' }
+  /gemini/v1/models/{model}:generateContent:
+    parameters:
+      - { in: path, name: model, required: true, schema: { type: string, example: gemini-1.5-pro } }
+    post:
+      tags: [Chat Completions]
+      summary: Generate Content Via Google Gemini
+      operationId: generateGeminiContent
+      responses:
+        '200': { description: Gemini response }
+  /openai/v1/embeddings:
+    post:
+      tags: [Embeddings]
+      summary: Create Embeddings
+      operationId: createEmbeddings
+      responses:
+        '200': { description: Embeddings response }
+components:
+  securitySchemes:
+    FastlyKey:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+  schemas:
+    ChatCompletionRequest:
+      type: object
+      required: [model, messages]
+      properties:
+        model: { type: string, example: gpt-4o-mini }
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              role: { type: string, enum: [system, user, assistant, tool] }
+              content: { type: string }
+        temperature: { type: number, format: float }
+        max_tokens: { type: integer }
+        stream: { type: boolean }
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id: { type: string }
+        object: { type: string }
+        created: { type: integer }
+        model: { type: string }
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index: { type: integer }
+              message:
+                type: object
+                properties:
+                  role: { type: string }
+                  content: { type: string }
+              finish_reason: { type: string }
+        usage:
+          type: object
+          properties:
+            prompt_tokens: { type: integer }
+            completion_tokens: { type: integer }
+            total_tokens: { type: integer }
+        x_fastly_cache:
+          type: object
+          description: Fastly semantic cache metadata
+          properties:
+            status: { type: string, enum: [HIT, MISS, SIMILAR] }
+            similarity: { type: number, format: float }

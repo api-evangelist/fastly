@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: Fastly Object Storage
+  description: |
+    Fastly Object Storage is an S3-compatible cloud storage solution designed
+    as a drop-in replacement for traditional object storage services, featuring
+    zero egress fees and 99.999999999% (11 9's) data durability. The API is
+    Amazon S3-compatible, allowing existing tooling to be used unmodified.
+  version: '1.0.0'
+servers:
+  - url: https://storage.fastly.com
+security:
+  - SigV4: []
+tags:
+  - name: Buckets
+  - name: Objects
+paths:
+  /:
+    get:
+      tags: [Buckets]
+      summary: List Buckets
+      operationId: listBuckets
+      responses:
+        '200': { description: A list of buckets }
+  /{bucket}:
+    parameters:
+      - { in: path, name: bucket, required: true, schema: { type: string } }
+    put:
+      tags: [Buckets]
+      summary: Create Bucket
+      operationId: createBucket
+      responses:
+        '200': { description: Bucket created }
+    get:
+      tags: [Objects]
+      summary: List Objects In Bucket
+      operationId: listObjects
+      parameters:
+        - { name: prefix, in: query, schema: { type: string } }
+        - { name: marker, in: query, schema: { type: string } }
+        - { name: 'max-keys', in: query, schema: { type: integer } }
+      responses:
+        '200': { description: A list of objects }
+    delete:
+      tags: [Buckets]
+      summary: Delete Bucket
+      operationId: deleteBucket
+      responses:
+        '204': { description: Bucket deleted }
+  /{bucket}/{key}:
+    parameters:
+      - { in: path, name: bucket, required: true, schema: { type: string } }
+      - { in: path, name: key, required: true, schema: { type: string } }
+    put:
+      tags: [Objects]
+      summary: Put Object
+      operationId: putObject
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema: { type: string, format: binary }
+      responses:
+        '200': { description: Object stored }
+    get:
+      tags: [Objects]
+      summary: Get Object
+      operationId: getObject
+      responses:
+        '200':
+          description: Object payload
+          content:
+            application/octet-stream:
+              schema: { type: string, format: binary }
+    head:
+      tags: [Objects]
+      summary: Head Object
+      operationId: headObject
+      responses:
+        '200': { description: Object metadata }
+    delete:
+      tags: [Objects]
+      summary: Delete Object
+      operationId: deleteObject
+      responses:
+        '204': { description: Object deleted }
+components:
+  securitySchemes:
+    SigV4:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS SigV4 signed request using Fastly Object Storage access keys

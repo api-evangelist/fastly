@@ -1,0 +1,101 @@
+openapi: 3.0.3
+info:
+  title: Fastly DDoS Protection Events API
+  description: |
+    The Fastly DDoS Protection Events API allows you to configure Fastly DDoS
+    Protection and view attack insights including events, rules, and traffic
+    statistics. Endpoints are exposed under /ddos-protection/v1/.
+  version: '1.0.0'
+servers:
+  - url: https://api.fastly.com
+security:
+  - FastlyKey: []
+tags:
+  - name: Events
+  - name: Rules
+  - name: Traffic Stats
+paths:
+  /ddos-protection/v1/events:
+    get:
+      tags: [Events]
+      summary: List DDoS Events
+      operationId: listDdosEvents
+      responses:
+        '200': { description: A list of DDoS events }
+  /ddos-protection/v1/events/{event_id}:
+    parameters:
+      - { in: path, name: event_id, required: true, schema: { type: string } }
+    get:
+      tags: [Events]
+      summary: Get DDoS Event By Id
+      operationId: getDdosEvent
+      responses:
+        '200': { description: A DDoS event }
+  /ddos-protection/v1/events/{event_id}/rules:
+    parameters:
+      - { in: path, name: event_id, required: true, schema: { type: string } }
+    get:
+      tags: [Rules]
+      summary: Get All Rules For An Event
+      operationId: listRulesForEvent
+      responses:
+        '200': { description: Rules applied during a DDoS event }
+  /ddos-protection/v1/rules/{rule_id}:
+    parameters:
+      - { in: path, name: rule_id, required: true, schema: { type: string } }
+    get:
+      tags: [Rules]
+      summary: Get A Rule By Id
+      operationId: getDdosRule
+      responses:
+        '200': { description: A DDoS protection rule }
+    patch:
+      tags: [Rules]
+      summary: Update Rule
+      operationId: updateDdosRule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DdosRuleUpdate' }
+      responses:
+        '200': { description: Updated DDoS rule }
+  /ddos-protection/v1/events/{event_id}/rules/{rule_id}/traffic-stats:
+    parameters:
+      - { in: path, name: event_id, required: true, schema: { type: string } }
+      - { in: path, name: rule_id, required: true, schema: { type: string } }
+    get:
+      tags: [Traffic Stats]
+      summary: Get Traffic Stats For A Rule
+      operationId: getTrafficStatsForRule
+      responses:
+        '200': { description: Traffic statistics }
+components:
+  securitySchemes:
+    FastlyKey:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+  schemas:
+    DdosEvent:
+      type: object
+      properties:
+        id: { type: string }
+        service_id: { type: string }
+        status: { type: string, enum: [active, mitigated, ended] }
+        started_at: { type: string, format: date-time }
+        ended_at: { type: string, format: date-time }
+        peak_rps: { type: integer }
+    DdosRule:
+      type: object
+      properties:
+        id: { type: string }
+        action: { type: string, enum: [block, challenge, log] }
+        match: { type: string }
+        scope: { type: string }
+        enabled: { type: boolean }
+    DdosRuleUpdate:
+      type: object
+      properties:
+        action: { type: string, enum: [block, challenge, log] }
+        enabled: { type: boolean }

@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: Fastly Load Balancing API
+  description: |
+    The Fastly Load Balancing API spreads traffic across multiple backends
+    automatically. It exposes Directors bound to VCL service versions for locked
+    configurations with multiple director groups, and Dynamic Server Pools that
+    allow servers to be added or removed without activating new service versions.
+  version: '1.0.0'
+servers:
+  - url: https://api.fastly.com
+security:
+  - FastlyKey: []
+tags:
+  - name: Directors
+  - name: Server Pools
+  - name: Servers
+paths:
+  /service/{service_id}/version/{version_id}/director:
+    parameters:
+      - { in: path, name: service_id, required: true, schema: { type: string } }
+      - { in: path, name: version_id, required: true, schema: { type: integer } }
+    get:
+      tags: [Directors]
+      summary: List Directors
+      operationId: listDirectors
+      responses:
+        '200': { description: A list of directors }
+    post:
+      tags: [Directors]
+      summary: Create Director
+      operationId: createDirector
+      responses:
+        '201': { description: Director created }
+  /service/{service_id}/version/{version_id}/director/{director_name}:
+    parameters:
+      - { in: path, name: service_id, required: true, schema: { type: string } }
+      - { in: path, name: version_id, required: true, schema: { type: integer } }
+      - { in: path, name: director_name, required: true, schema: { type: string } }
+    get:
+      tags: [Directors]
+      summary: Get Director
+      operationId: getDirector
+      responses:
+        '200': { description: A director }
+    delete:
+      tags: [Directors]
+      summary: Delete Director
+      operationId: deleteDirector
+      responses:
+        '204': { description: Deleted }
+  /service/{service_id}/pool:
+    parameters:
+      - { in: path, name: service_id, required: true, schema: { type: string } }
+    get:
+      tags: [Server Pools]
+      summary: List Server Pools
+      operationId: listServerPools
+      responses:
+        '200': { description: A list of server pools }
+    post:
+      tags: [Server Pools]
+      summary: Create Server Pool
+      operationId: createServerPool
+      responses:
+        '201': { description: Pool created }
+  /service/{service_id}/pool/{pool_id}:
+    parameters:
+      - { in: path, name: service_id, required: true, schema: { type: string } }
+      - { in: path, name: pool_id, required: true, schema: { type: string } }
+    get:
+      tags: [Server Pools]
+      summary: Get Server Pool
+      operationId: getServerPool
+      responses:
+        '200': { description: A server pool }
+    patch:
+      tags: [Server Pools]
+      summary: Update Server Pool
+      operationId: updateServerPool
+      responses:
+        '200': { description: Updated }
+    delete:
+      tags: [Server Pools]
+      summary: Delete Server Pool
+      operationId: deleteServerPool
+      responses:
+        '204': { description: Deleted }
+  /service/{service_id}/pool/{pool_id}/server:
+    parameters:
+      - { in: path, name: service_id, required: true, schema: { type: string } }
+      - { in: path, name: pool_id, required: true, schema: { type: string } }
+    get:
+      tags: [Servers]
+      summary: List Servers
+      operationId: listPoolServers
+      responses:
+        '200': { description: A list of servers }
+    post:
+      tags: [Servers]
+      summary: Create Server
+      operationId: createPoolServer
+      responses:
+        '201': { description: Server created }
+  /service/{service_id}/pool/{pool_id}/server/{server_id}:
+    parameters:
+      - { in: path, name: service_id, required: true, schema: { type: string } }
+      - { in: path, name: pool_id, required: true, schema: { type: string } }
+      - { in: path, name: server_id, required: true, schema: { type: string } }
+    get:
+      tags: [Servers]
+      summary: Get Server
+      operationId: getPoolServer
+      responses:
+        '200': { description: A server }
+    patch:
+      tags: [Servers]
+      summary: Update Server
+      operationId: updatePoolServer
+      responses:
+        '200': { description: Updated }
+    delete:
+      tags: [Servers]
+      summary: Delete Server
+      operationId: deletePoolServer
+      responses:
+        '204': { description: Deleted }
+components:
+  securitySchemes:
+    FastlyKey:
+      type: apiKey
+      in: header
+      name: Fastly-Key

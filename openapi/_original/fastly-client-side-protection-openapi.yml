@@ -1,0 +1,200 @@
+openapi: 3.0.3
+info:
+  title: Fastly Client-Side Protection API
+  description: |
+    Fastly Client-Side Protection (CSP) provides visibility and control over
+    third-party scripts running on your web pages. The service monitors script
+    behavior, manages authorization status, and configures security policies to
+    defend against client-side attacks like Magecart and formjacking.
+  version: '1.0.0'
+servers:
+  - url: https://api.fastly.com
+security:
+  - FastlyKey: []
+tags:
+  - name: Websites
+  - name: Pages
+  - name: Scripts
+  - name: Policies
+  - name: Security Headers
+paths:
+  /client-side-protection/websites:
+    get:
+      tags: [Websites]
+      summary: List Websites
+      operationId: listCspWebsites
+      responses:
+        '200': { description: A list of websites }
+    post:
+      tags: [Websites]
+      summary: Create Website
+      operationId: createCspWebsite
+      responses:
+        '201': { description: Created }
+  /client-side-protection/websites/{website_id}:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+    get:
+      tags: [Websites]
+      summary: Get Website
+      operationId: getCspWebsite
+      responses:
+        '200': { description: A website }
+    patch:
+      tags: [Websites]
+      summary: Update Website
+      operationId: updateCspWebsite
+      responses:
+        '200': { description: Updated }
+    delete:
+      tags: [Websites]
+      summary: Delete Website
+      operationId: deleteCspWebsite
+      responses:
+        '204': { description: Deleted }
+  /client-side-protection/websites/{website_id}/pages:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+    get:
+      tags: [Pages]
+      summary: List Pages
+      operationId: listCspPages
+      responses:
+        '200': { description: A list of pages }
+    post:
+      tags: [Pages]
+      summary: Create Page
+      operationId: createCspPage
+      responses:
+        '201': { description: Created }
+  /client-side-protection/websites/{website_id}/pages/{page_id}:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+      - { in: path, name: page_id, required: true, schema: { type: string } }
+    get:
+      tags: [Pages]
+      summary: Get Page
+      operationId: getCspPage
+      responses:
+        '200': { description: A page }
+    patch:
+      tags: [Pages]
+      summary: Update Page
+      operationId: updateCspPage
+      responses:
+        '200': { description: Updated }
+    delete:
+      tags: [Pages]
+      summary: Delete Page
+      operationId: deleteCspPage
+      responses:
+        '204': { description: Deleted }
+  /client-side-protection/websites/{website_id}/scripts:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+    get:
+      tags: [Scripts]
+      summary: List Scripts
+      operationId: listCspScripts
+      responses:
+        '200': { description: A list of detected scripts }
+  /client-side-protection/websites/{website_id}/scripts/{script_id}:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+      - { in: path, name: script_id, required: true, schema: { type: string } }
+    get:
+      tags: [Scripts]
+      summary: Get Script
+      operationId: getCspScript
+      responses:
+        '200': { description: A script entry }
+    patch:
+      tags: [Scripts]
+      summary: Update Script
+      operationId: updateCspScript
+      responses:
+        '200': { description: Updated }
+  /client-side-protection/websites/{website_id}/policies:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+    get:
+      tags: [Policies]
+      summary: List Policies
+      operationId: listCspPolicies
+      responses:
+        '200': { description: A list of policies }
+    post:
+      tags: [Policies]
+      summary: Create Policy
+      operationId: createCspPolicy
+      responses:
+        '201': { description: Created }
+  /client-side-protection/websites/{website_id}/policies/{policy_id}:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+      - { in: path, name: policy_id, required: true, schema: { type: string } }
+    get:
+      tags: [Policies]
+      summary: Get Policy
+      operationId: getCspPolicy
+      responses:
+        '200': { description: A CSP policy }
+    patch:
+      tags: [Policies]
+      summary: Update Policy
+      operationId: updateCspPolicy
+      responses:
+        '200': { description: Updated }
+  /client-side-protection/websites/{website_id}/policies/{policy_id}/reports:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+      - { in: path, name: policy_id, required: true, schema: { type: string } }
+    get:
+      tags: [Policies]
+      summary: List Policy Reports
+      operationId: listCspPolicyReports
+      responses:
+        '200': { description: Policy violation reports }
+  /client-side-protection/websites/{website_id}/security-headers:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+    get:
+      tags: [Security Headers]
+      summary: List Security Headers
+      operationId: listSecurityHeaders
+      responses:
+        '200': { description: Security headers observed }
+  /client-side-protection/websites/{website_id}/security-headers/events:
+    parameters:
+      - { in: path, name: website_id, required: true, schema: { type: string } }
+    get:
+      tags: [Security Headers]
+      summary: List Header Events
+      operationId: listHeaderEvents
+      responses:
+        '200': { description: Header events }
+components:
+  securitySchemes:
+    FastlyKey:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+  schemas:
+    CspPolicy:
+      type: object
+      properties:
+        id: { type: string }
+        directives:
+          type: object
+          additionalProperties:
+            type: array
+            items: { type: string }
+        report_only: { type: boolean }
+    Script:
+      type: object
+      properties:
+        id: { type: string }
+        url: { type: string, format: uri }
+        host: { type: string }
+        first_seen_at: { type: string, format: date-time }
+        authorized: { type: boolean }

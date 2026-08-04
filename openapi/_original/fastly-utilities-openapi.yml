@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: Fastly Utilities API
+  description: |
+    The Fastly Utilities API covers various utilities and extra functionality
+    provided in addition to the configuration services. Endpoints include
+    Content Status, Diff, Docs, POPs, Public IP List, and Sudo Mode.
+  version: '1.0.0'
+servers:
+  - url: https://api.fastly.com
+security:
+  - FastlyKey: []
+tags:
+  - name: Content Status
+  - name: Diff
+  - name: Docs
+  - name: POPs
+  - name: Public IP List
+  - name: Sudo Mode
+paths:
+  /content/edge_check:
+    get:
+      tags: [Content Status]
+      summary: Check Content Cache Status
+      operationId: checkContentCacheStatus
+      parameters:
+        - { name: url, in: query, required: true, schema: { type: string, format: uri } }
+      responses:
+        '200': { description: Cache status by POP }
+  /service/{service_id}/diff/from/{from_version}/to/{to_version}:
+    parameters:
+      - { in: path, name: service_id, required: true, schema: { type: string } }
+      - { in: path, name: from_version, required: true, schema: { type: integer } }
+      - { in: path, name: to_version, required: true, schema: { type: integer } }
+    get:
+      tags: [Diff]
+      summary: Diff Service Versions
+      operationId: diffServiceVersions
+      responses:
+        '200': { description: Line-by-line configuration differences }
+  /docs:
+    get:
+      tags: [Docs]
+      summary: Get API Documentation
+      operationId: getApiDocs
+      responses:
+        '200': { description: Fastly API documentation }
+  /datacenters:
+    get:
+      tags: [POPs]
+      summary: List Points Of Presence
+      operationId: listPops
+      responses:
+        '200': { description: Fastly Points of Presence with geographic locations }
+  /public-ip-list:
+    get:
+      tags: [Public IP List]
+      summary: Get Fastly Public IP Ranges
+      operationId: getPublicIpList
+      responses:
+        '200':
+          description: Fastly's assigned IP ranges for firewall rules
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  addresses:
+                    type: array
+                    items: { type: string, example: 23.235.32.0/20 }
+                  ipv6_addresses:
+                    type: array
+                    items: { type: string }
+  /sudo:
+    post:
+      tags: [Sudo Mode]
+      summary: Enable Sudo Mode
+      operationId: enableSudoMode
+      responses:
+        '200': { description: Sudo mode enabled }
+components:
+  securitySchemes:
+    FastlyKey:
+      type: apiKey
+      in: header
+      name: Fastly-Key

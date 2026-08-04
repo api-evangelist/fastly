@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Fastly Publishing (Fanout) API
+  description: |
+    The Fastly Publishing API sends messages to Fanout subscribers. Fanout is
+    designed to be GRIP-compatible, such that
+    https://api.fastly.com/service/{service_id} can be used as a GRIP URL in
+    application configurations. Messages can be delivered to subscribers across
+    HTTP responses, HTTP streams, and WebSocket connections.
+  version: '1.0.0'
+servers:
+  - url: https://api.fastly.com
+security:
+  - FastlyKey: []
+tags:
+  - name: Publishing
+paths:
+  /service/{service_id}/publish/:
+    parameters:
+      - { in: path, name: service_id, required: true, schema: { type: string } }
+    post:
+      tags: [Publishing]
+      summary: Publish Messages To Fanout
+      operationId: publishMessages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PublishRequest' }
+      responses:
+        '200': { description: Messages published }
+        '401': { description: Authorization failed }
+components:
+  securitySchemes:
+    FastlyKey:
+      type: apiKey
+      in: header
+      name: Fastly-Key
+  schemas:
+    PublishRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/PublishItem' }
+    PublishItem:
+      type: object
+      properties:
+        channel: { type: string, example: chat-room-1 }
+        id: { type: string }
+        prev_id: { type: string }
+        formats:
+          type: object
+          properties:
+            http-response:
+              type: object
+              properties:
+                code: { type: integer }
+                body: { type: string }
+            http-stream:
+              type: object
+              properties:
+                content: { type: string }
+            ws-message:
+              type: object
+              properties:
+                content: { type: string }
