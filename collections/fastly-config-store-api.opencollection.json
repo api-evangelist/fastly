@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Config Store API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Config Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List config stores",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/config"
+          },
+          "docs": "Retrieves a list of all config stores associated with the account."
+        },
+        {
+          "info": {
+            "name": "Create a config store",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/resources/stores/config",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new config store for storing small amounts of textual configuration data accessible from Compute services."
+        },
+        {
+          "info": {
+            "name": "Get a config store",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/resources/stores/config/:config_store_id",
+            "params": [
+              {
+                "name": "config_store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the config store."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific config store."
+        },
+        {
+          "info": {
+            "name": "Update a config store",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/resources/stores/config/:config_store_id",
+            "params": [
+              {
+                "name": "config_store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the config store."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of a specific config store."
+        },
+        {
+          "info": {
+            "name": "Delete a config store",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/resources/stores/config/:config_store_id",
+            "params": [
+              {
+                "name": "config_store_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the config store."
+              }
+            ]
+          },
+          "docs": "Deletes a specific config store and all of its items."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

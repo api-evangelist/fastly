@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Public IP List API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Public IP List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Fastly Public IP Ranges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/public-ip-list"
+          },
+          "docs": "Get Fastly Public IP Ranges"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

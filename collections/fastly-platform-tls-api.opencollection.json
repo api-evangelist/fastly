@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Platform TLS API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Platform TLS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List platform TLS bulk certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/bulk/certificates",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all platform TLS bulk certificates. Available to Platform TLS customers for streamlined upload, deployment, and management of large numbers of TLS certificates."
+        },
+        {
+          "info": {
+            "name": "Upload a platform TLS bulk certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/tls/bulk/certificates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new platform TLS bulk certificate and corresponding intermediates for deployment across Fastly's edge network."
+        },
+        {
+          "info": {
+            "name": "Get a platform TLS bulk certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/bulk/certificates/:tls_bulk_certificate_id",
+            "params": [
+              {
+                "name": "tls_bulk_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the bulk TLS certificate."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific platform TLS bulk certificate."
+        },
+        {
+          "info": {
+            "name": "Update a platform TLS bulk certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/tls/bulk/certificates/:tls_bulk_certificate_id",
+            "params": [
+              {
+                "name": "tls_bulk_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the bulk TLS certificate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces a platform TLS bulk certificate with a new one."
+        },
+        {
+          "info": {
+            "name": "Delete a platform TLS bulk certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/tls/bulk/certificates/:tls_bulk_certificate_id",
+            "params": [
+              {
+                "name": "tls_bulk_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the bulk TLS certificate."
+              }
+            ]
+          },
+          "docs": "Deletes a platform TLS bulk certificate."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

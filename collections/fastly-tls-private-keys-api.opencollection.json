@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL TLS Private Keys API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TLS Private Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List TLS private keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/private_keys",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "filter[in_use]",
+                "value": "",
+                "type": "query",
+                "description": "Filter to show only keys currently in use."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all TLS private keys associated with the account."
+        },
+        {
+          "info": {
+            "name": "Create a TLS private key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/tls/private_keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new TLS private key. A key can be used to sign multiple certificates."
+        },
+        {
+          "info": {
+            "name": "Get a TLS private key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/private_keys/:tls_private_key_id",
+            "params": [
+              {
+                "name": "tls_private_key_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS private key."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific TLS private key."
+        },
+        {
+          "info": {
+            "name": "Delete a TLS private key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/tls/private_keys/:tls_private_key_id",
+            "params": [
+              {
+                "name": "tls_private_key_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS private key."
+              }
+            ]
+          },
+          "docs": "Deletes a TLS private key. The key must not be associated with any active certificates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

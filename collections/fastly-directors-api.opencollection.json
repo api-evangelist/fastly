@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Directors API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Directors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Directors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/director",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List Directors"
+        },
+        {
+          "info": {
+            "name": "Create Director",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/director",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create Director"
+        },
+        {
+          "info": {
+            "name": "Get Director",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/director/:director_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "director_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Director"
+        },
+        {
+          "info": {
+            "name": "Delete Director",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/service/:service_id/version/:version_id/director/:director_name",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "director_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Director"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Alerts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Alert Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/alerts/definitions"
+          },
+          "docs": "List Alert Definitions"
+        },
+        {
+          "info": {
+            "name": "Create Alert Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/alerts/definitions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Alert Definition"
+        },
+        {
+          "info": {
+            "name": "Get Alert Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/alerts/definitions/:definition_id",
+            "params": [
+              {
+                "name": "definition_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Alert Definition"
+        },
+        {
+          "info": {
+            "name": "Update Alert Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/alerts/definitions/:definition_id",
+            "params": [
+              {
+                "name": "definition_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update Alert Definition"
+        },
+        {
+          "info": {
+            "name": "Delete Alert Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/alerts/definitions/:definition_id",
+            "params": [
+              {
+                "name": "definition_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Alert Definition"
+        },
+        {
+          "info": {
+            "name": "List Alert History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/alerts/history"
+          },
+          "docs": "List Alert History"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,263 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Dictionary Item API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dictionary Item",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List dictionary items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/dictionary/:dictionary_id/items",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "dictionary_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the dictionary."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all key-value pairs within a specific dictionary."
+        },
+        {
+          "info": {
+            "name": "Bulk update dictionary items",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/service/:service_id/dictionary/:dictionary_id/items",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "dictionary_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the dictionary."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates multiple dictionary items in a single request. Supports create, update, upsert, and delete operations in the same batch."
+        },
+        {
+          "info": {
+            "name": "Create a dictionary item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/dictionary/:dictionary_id/item",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "dictionary_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the dictionary."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a new key-value pair within a specific dictionary. The item takes effect within approximately 30 seconds without requiring a new service version."
+        },
+        {
+          "info": {
+            "name": "Get a dictionary item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/dictionary/:dictionary_id/item/:dictionary_item_key",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "dictionary_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the dictionary."
+              },
+              {
+                "name": "dictionary_item_key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the dictionary item."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific key-value pair within a dictionary."
+        },
+        {
+          "info": {
+            "name": "Upsert a dictionary item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/service/:service_id/dictionary/:dictionary_id/item/:dictionary_item_key",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "dictionary_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the dictionary."
+              },
+              {
+                "name": "dictionary_item_key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the dictionary item."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "item_value",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Creates or updates a key-value pair within a specific dictionary."
+        },
+        {
+          "info": {
+            "name": "Update a dictionary item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/service/:service_id/dictionary/:dictionary_id/item/:dictionary_item_key",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "dictionary_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the dictionary."
+              },
+              {
+                "name": "dictionary_item_key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the dictionary item."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "item_value",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates a specific key-value pair within a dictionary."
+        },
+        {
+          "info": {
+            "name": "Delete a dictionary item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/service/:service_id/dictionary/:dictionary_id/item/:dictionary_item_key",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "dictionary_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the dictionary."
+              },
+              {
+                "name": "dictionary_item_key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the dictionary item."
+              }
+            ]
+          },
+          "docs": "Deletes a specific key-value pair from a dictionary."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

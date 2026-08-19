@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Image Optimizer API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Image Optimizer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Image Optimizer status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/enabled-products/v1/image_optimizer/services/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Checks the enablement status of the Image Optimizer product on a specific service."
+        },
+        {
+          "info": {
+            "name": "Enable Image Optimizer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/enabled-products/v1/image_optimizer/services/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Enables the Image Optimizer product on a specific service."
+        },
+        {
+          "info": {
+            "name": "Disable Image Optimizer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/enabled-products/v1/image_optimizer/services/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Disables the Image Optimizer product on a specific service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

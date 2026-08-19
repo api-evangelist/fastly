@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Servers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Servers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/pool/:pool_id/server",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List Servers"
+        },
+        {
+          "info": {
+            "name": "Create Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/service/:service_id/pool/:pool_id/server",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create Server"
+        },
+        {
+          "info": {
+            "name": "Get Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/pool/:pool_id/server/:server_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Server"
+        },
+        {
+          "info": {
+            "name": "Update Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/service/:service_id/pool/:pool_id/server/:server_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update Server"
+        },
+        {
+          "info": {
+            "name": "Delete Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/service/:service_id/pool/:pool_id/server/:server_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pool_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Server"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,337 @@
+{
+  "item": [
+    {
+      "id": "057b010d-76a3-46dd-95c9-d2505da763f8",
+      "name": "Domain Inspector",
+      "description": {
+        "content": "Domain-level analytics endpoints providing per-domain metrics for Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "35a3d2a8-6ba9-4ca2-8ba3-c0eeabef37ae",
+          "name": "Get real-time domain metrics",
+          "request": {
+            "name": "Get real-time domain metrics",
+            "description": {
+              "content": "Retrieves real-time per-domain analytics data for a specific domain on a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "channel",
+                ":service_id",
+                "ts",
+                "h",
+                "domains",
+                ":domain",
+                "limit",
+                ":max_entries"
+              ],
+              "host": [
+                "rt",
+                "fastly",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) The domain to retrieve metrics for."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "max_entries",
+                  "description": "(Required) The maximum number of entries to return."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5af1b29-c610-46ff-ad88-bfc0b4afe57f",
+              "name": "Successfully retrieved domain inspector real-time data.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "domains",
+                    ":domain",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The domain to retrieve metrics for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Timestamp\": 9537,\n  \"AggregateDelay\": 1320,\n  \"Data\": [\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 4807,\n          \"hits\": 199,\n          \"miss\": 1543,\n          \"pass\": 3578,\n          \"errors\": 2777,\n          \"bandwidth\": 4933,\n          \"header_size\": 2882,\n          \"body_size\": 3081,\n          \"status_1xx\": 3595,\n          \"status_2xx\": 5233,\n          \"status_3xx\": 1066,\n          \"status_4xx\": 8730,\n          \"status_5xx\": 2416,\n          \"hit_ratio\": 6684.721788790534\n        },\n        \"key_1\": {\n          \"requests\": 1806,\n          \"hits\": 3639,\n          \"miss\": 7257,\n          \"pass\": 173,\n          \"errors\": 7290,\n          \"bandwidth\": 2167,\n          \"header_size\": 6589,\n          \"body_size\": 5023,\n          \"status_1xx\": 3400,\n          \"status_2xx\": 9699,\n          \"status_3xx\": 194,\n          \"status_4xx\": 6703,\n          \"status_5xx\": 1288,\n          \"hit_ratio\": 9036.65478970218\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 4778,\n        \"hits\": 9415,\n        \"miss\": 9252,\n        \"pass\": 6417,\n        \"errors\": 3302,\n        \"bandwidth\": 2469,\n        \"header_size\": 9013,\n        \"body_size\": 4846,\n        \"status_1xx\": 6721,\n        \"status_2xx\": 7157,\n        \"status_3xx\": 288,\n        \"status_4xx\": 5931,\n        \"status_5xx\": 6372,\n        \"hit_ratio\": 9311.391782409619\n      },\n      \"recorded\": 7330\n    },\n    {\n      \"datacenter\": {\n        \"key_0\": {\n          \"requests\": 7330,\n          \"hits\": 3919,\n          \"miss\": 9081,\n          \"pass\": 7955,\n          \"errors\": 5979,\n          \"bandwidth\": 9999,\n          \"header_size\": 2266,\n          \"body_size\": 7676,\n          \"status_1xx\": 4602,\n          \"status_2xx\": 3433,\n          \"status_3xx\": 147,\n          \"status_4xx\": 3354,\n          \"status_5xx\": 803,\n          \"hit_ratio\": 9659.649133606308\n        }\n      },\n      \"aggregated\": {\n        \"requests\": 4177,\n        \"hits\": 6464,\n        \"miss\": 4017,\n        \"pass\": 8927,\n        \"errors\": 6985,\n        \"bandwidth\": 9926,\n        \"header_size\": 8165,\n        \"body_size\": 9711,\n        \"status_1xx\": 3135,\n        \"status_2xx\": 8040,\n        \"status_3xx\": 8599,\n        \"status_4xx\": 5566,\n        \"status_5xx\": 5650,\n        \"hit_ratio\": 3000.253779187604\n      },\n      \"recorded\": 1475\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "221b0018-4bec-4c6c-abf8-40dd66aa0c51",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "domains",
+                    ":domain",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The domain to retrieve metrics for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6abaa906-0ff2-44c9-83cc-a1df60e17a49",
+              "name": "Service or domain not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "channel",
+                    ":service_id",
+                    "ts",
+                    "h",
+                    "domains",
+                    ":domain",
+                    "limit",
+                    ":max_entries"
+                  ],
+                  "host": [
+                    "rt",
+                    "fastly",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The domain to retrieve metrics for."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "max_entries",
+                      "description": "(Required) The maximum number of entries to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fastly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1093b2d6-38f5-4d6d-ad6e-043127e1e168",
+    "name": "Fastly Account ACL Domain Inspector API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.\n\nContact Support:\n Name: Fastly Support",
+      "type": "text/plain"
+    }
+  }
+}

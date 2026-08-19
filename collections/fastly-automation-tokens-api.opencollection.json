@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Automation Tokens API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automation Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List automation tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/automation-tokens",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all automation tokens for the customer account. Automation tokens are not tied to a specific user and are designed for CI/CD pipelines and build systems."
+        },
+        {
+          "info": {
+            "name": "Create an automation token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/automation-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new automation token. Only users with the superuser role can create automation tokens and must be in sudo mode. Automation tokens can remain active indefinitely because they are not tied to a human user."
+        },
+        {
+          "info": {
+            "name": "Get an automation token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/automation-tokens/:automation_token_id",
+            "params": [
+              {
+                "name": "automation_token_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the automation token."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific automation token."
+        },
+        {
+          "info": {
+            "name": "Revoke an automation token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/automation-tokens/:automation_token_id",
+            "params": [
+              {
+                "name": "automation_token_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the automation token."
+              }
+            ]
+          },
+          "docs": "Revokes a specific automation token, immediately invalidating it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

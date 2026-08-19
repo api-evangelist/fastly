@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Origin Inspector API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Origin Inspector",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get real-time origin metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/v1/channel/:service_id/ts/h/origins/:origin/limit/:max_entries",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "origin",
+                "value": "",
+                "type": "path",
+                "description": "The origin host to retrieve metrics for."
+              },
+              {
+                "name": "max_entries",
+                "value": "",
+                "type": "path",
+                "description": "The maximum number of entries to return."
+              }
+            ]
+          },
+          "docs": "Retrieves real-time per-origin analytics data for a specific origin on a Fastly service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

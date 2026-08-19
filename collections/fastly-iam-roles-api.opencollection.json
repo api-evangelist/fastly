@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL IAM Roles API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IAM Roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List IAM roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/roles",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor for pagination."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all identity and access management roles. Supports cursor-based pagination."
+        },
+        {
+          "info": {
+            "name": "Get an IAM role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/roles/:role_id",
+            "params": [
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the IAM role."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific IAM role, optionally including its associated permissions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

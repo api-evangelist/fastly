@@ -1,0 +1,723 @@
+{
+  "item": [
+    {
+      "id": "bee03d31-556b-465e-85f1-042e24857611",
+      "name": "Logging BigQuery",
+      "description": {
+        "content": "Operations for managing Google BigQuery logging endpoints on Fastly services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3ec5a08c-c9a3-43b9-98f4-2235128eb2bc",
+          "name": "List BigQuery logging endpoints",
+          "request": {
+            "name": "List BigQuery logging endpoints",
+            "description": {
+              "content": "Retrieves a list of all Google BigQuery logging endpoints configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "bigquery"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9fd73720-7005-4405-99b3-45e383fcaca8",
+              "name": "Successfully retrieved the list of BigQuery logging endpoints.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"placement\": \"none\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"project_id\": \"string\",\n    \"dataset\": \"string\",\n    \"table\": \"string\",\n    \"user\": \"string\",\n    \"secret_key\": \"string\",\n    \"template_suffix\": \"string\",\n    \"account_name\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"placement\": \"null\",\n    \"format_version\": 1,\n    \"response_condition\": \"string\",\n    \"format\": \"string\",\n    \"project_id\": \"string\",\n    \"dataset\": \"string\",\n    \"table\": \"string\",\n    \"user\": \"string\",\n    \"secret_key\": \"string\",\n    \"template_suffix\": \"string\",\n    \"account_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8c4101d-7d65-4051-8136-a159f12356cd",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71fd094c-e4bc-4c3c-9197-d0414a5c3a14",
+          "name": "Create a BigQuery logging endpoint",
+          "request": {
+            "name": "Create a BigQuery logging endpoint",
+            "description": {
+              "content": "Creates a new Google BigQuery logging endpoint for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "logging",
+                "bigquery"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placement",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format_version",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_condition",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "table",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "secret_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "template_suffix",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_name",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aa5e3292-4901-4e0c-b367-6f950d8d0873",
+              "name": "Successfully created the BigQuery logging endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "none"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "2"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "secret_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "template_suffix",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"placement\": \"waf_debug\",\n  \"format_version\": 1,\n  \"response_condition\": \"string\",\n  \"format\": \"string\",\n  \"project_id\": \"string\",\n  \"dataset\": \"string\",\n  \"table\": \"string\",\n  \"user\": \"string\",\n  \"secret_key\": \"string\",\n  \"template_suffix\": \"string\",\n  \"account_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f83b93fc-3efd-4ab8-b9fe-526124e24da0",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "none"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "2"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "secret_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "template_suffix",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7a8bbdca-e22d-4897-a266-6f794b139484",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "logging",
+                    "bigquery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "placement",
+                      "value": "none"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format_version",
+                      "value": "2"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "response_condition",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "format",
+                      "value": "string"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "secret_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "template_suffix",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fastly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0567f7df-339a-434d-903b-7c9e23ec7d26",
+    "name": "Fastly Account ACL Logging BigQuery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.\n\nContact Support:\n Name: Fastly Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Real-Time Analytics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Real-Time Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get real-time analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/v1/channel/:service_id/ts/:start_timestamp",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "start_timestamp",
+                "value": "",
+                "type": "path",
+                "description": "The Unix timestamp to start retrieving analytics data from."
+              }
+            ]
+          },
+          "docs": "Retrieves real-time analytics data for a Fastly service starting from the specified Unix timestamp. Returns a list of records, each representing one second of time, with measurement data grouped in various ways. The real-time analytics API is rate limited internally and is cached behind Fastly with a 1-second expiration time."
+        },
+        {
+          "info": {
+            "name": "Get real-time analytics for the last 120 seconds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/v1/channel/:service_id/ts/h",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Retrieves real-time analytics data for the last 120 seconds for the specified Fastly service."
+        },
+        {
+          "info": {
+            "name": "Get real-time analytics with a limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/v1/channel/:service_id/ts/h/limit/:max_entries",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "max_entries",
+                "value": "",
+                "type": "path",
+                "description": "The maximum number of entries to return."
+              }
+            ]
+          },
+          "docs": "Retrieves real-time analytics data for the specified Fastly service limited to the most recent entries up to the specified maximum."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Dictionary Info API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dictionary Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get dictionary info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/service/:service_id/dictionary/:dictionary_id/info",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "dictionary_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the dictionary."
+              }
+            ]
+          },
+          "docs": "Retrieves metadata about a specific dictionary, including the number of items it contains."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

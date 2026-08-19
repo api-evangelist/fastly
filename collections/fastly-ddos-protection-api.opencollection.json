@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL DDoS Protection API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DDoS Protection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get DDoS Protection status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/enabled-products/v1/ddos_protection/services/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Checks the enablement status of the DDoS Protection product on a specific service."
+        },
+        {
+          "info": {
+            "name": "Enable DDoS Protection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fastly.com/enabled-products/v1/ddos_protection/services/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Enables the DDoS Protection product on a specific service."
+        },
+        {
+          "info": {
+            "name": "Disable DDoS Protection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/enabled-products/v1/ddos_protection/services/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Disables the DDoS Protection product on a specific service."
+        },
+        {
+          "info": {
+            "name": "Get DDoS Protection configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/enabled-products/v1/ddos_protection/services/:service_id/configuration",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              }
+            ]
+          },
+          "docs": "Retrieves the DDoS Protection configuration for a specific service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

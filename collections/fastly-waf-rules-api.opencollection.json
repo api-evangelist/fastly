@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL WAF Rules API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WAF Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List WAF rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/waf/rules",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "filter[waf_tags][name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter rules by tag name."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all available WAF rules."
+        },
+        {
+          "info": {
+            "name": "Get a WAF rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/waf/rules/:waf_rule_id",
+            "params": [
+              {
+                "name": "waf_rule_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF rule."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific WAF rule."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

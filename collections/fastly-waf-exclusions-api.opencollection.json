@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL WAF Exclusions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WAF Exclusions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List WAF exclusions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions",
+            "params": [
+              {
+                "name": "firewall_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF firewall."
+              },
+              {
+                "name": "firewall_version_number",
+                "value": "",
+                "type": "path",
+                "description": "The version number of the WAF firewall."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all WAF exclusions for a specific firewall version. Exclusions prevent requests matching a particular pattern from being flagged by the firewall."
+        },
+        {
+          "info": {
+            "name": "Create a WAF exclusion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/waf/firewalls/:firewall_id/versions/:firewall_version_number/exclusions",
+            "params": [
+              {
+                "name": "firewall_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the WAF firewall."
+              },
+              {
+                "name": "firewall_version_number",
+                "value": "",
+                "type": "path",
+                "description": "The version number of the WAF firewall."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new WAF exclusion for a specific firewall version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

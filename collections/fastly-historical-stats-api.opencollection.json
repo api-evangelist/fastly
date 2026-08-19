@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL Historical Stats API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Historical Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get historical stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/stats",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start date/time for the query in ISO 8601 or Unix timestamp format."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end date/time for the query in ISO 8601 or Unix timestamp format."
+              },
+              {
+                "name": "by",
+                "value": "",
+                "type": "query",
+                "description": "The duration of each time bucket in the response."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by Fastly POP region."
+              }
+            ]
+          },
+          "docs": "Retrieves historical statistics for all Fastly services associated with the account. Data with day resolution is bucketed based on UTC days and becomes available around 2 AM the following day. Hour resolution becomes available approximately 15 minutes after the end of each hour. Minute data usually becomes available two minutes after the end of the minute. Minutely data older than 35 days and hourly data older than 375 days are not available."
+        },
+        {
+          "info": {
+            "name": "Get historical stats for a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/stats/service/:service_id",
+            "params": [
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the Fastly service."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start date/time for the query."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end date/time for the query."
+              },
+              {
+                "name": "by",
+                "value": "",
+                "type": "query",
+                "description": "The duration of each time bucket in the response."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by Fastly POP region."
+              }
+            ]
+          },
+          "docs": "Retrieves historical statistics for a specific Fastly service over the specified time range and resolution."
+        },
+        {
+          "info": {
+            "name": "Get historical stats for a specific field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/stats/field/:field",
+            "params": [
+              {
+                "name": "field",
+                "value": "",
+                "type": "path",
+                "description": "The stats field to retrieve."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start date/time for the query."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end date/time for the query."
+              },
+              {
+                "name": "by",
+                "value": "",
+                "type": "query",
+                "description": "The duration of each time bucket in the response."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by Fastly POP region."
+              }
+            ]
+          },
+          "docs": "Retrieves a single historical statistics field for all services associated with the account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

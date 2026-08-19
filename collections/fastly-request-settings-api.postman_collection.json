@@ -1,0 +1,872 @@
+{
+  "item": [
+    {
+      "id": "ee725d77-2da0-4d73-9bab-9be236cc03b5",
+      "name": "Request Settings",
+      "description": {
+        "content": "Operations for managing request settings that modify inbound requests at the edge.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c83b5003-1437-4a4b-b752-c0d9de8b85e4",
+          "name": "List request settings",
+          "request": {
+            "name": "List request settings",
+            "description": {
+              "content": "Retrieves a list of all request settings configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "request_settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c167938-3baa-4de7-984f-e5ef7d2cccb2",
+              "name": "Successfully retrieved the list of request settings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "request_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"action\": \"pass\",\n    \"force_miss\": false,\n    \"force_ssl\": true,\n    \"bypass_busy_wait\": false,\n    \"max_stale_age\": 2481,\n    \"hash_keys\": \"string\",\n    \"xff\": \"clear\",\n    \"timer_support\": true,\n    \"geo_headers\": false,\n    \"default_host\": \"string\",\n    \"request_condition\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"action\": \"pass\",\n    \"force_miss\": false,\n    \"force_ssl\": false,\n    \"bypass_busy_wait\": false,\n    \"max_stale_age\": 6722,\n    \"hash_keys\": \"string\",\n    \"xff\": \"clear\",\n    \"timer_support\": false,\n    \"geo_headers\": false,\n    \"default_host\": \"string\",\n    \"request_condition\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f21daf11-f6e9-45cf-9a9c-2dc923d36bfe",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "request_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b87510d-4897-44c6-a5ba-1fe508d9f901",
+          "name": "Create request settings",
+          "request": {
+            "name": "Create request settings",
+            "description": {
+              "content": "Creates new request settings for a specific version of a Fastly service. Request settings modify inbound requests at the edge before they are processed or forwarded to origin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "request_settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "The name of the request settings rule."
+                },
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>",
+                  "description": "The action to take when request settings are applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "force_miss",
+                  "value": "<boolean>",
+                  "description": "Whether to force a cache miss for matching requests."
+                },
+                {
+                  "disabled": false,
+                  "key": "force_ssl",
+                  "value": "<boolean>",
+                  "description": "Whether to force SSL for matching requests."
+                },
+                {
+                  "disabled": false,
+                  "key": "bypass_busy_wait",
+                  "value": "<boolean>",
+                  "description": "Whether to disable collapsed forwarding for matching requests."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_stale_age",
+                  "value": "<integer>",
+                  "description": "The maximum stale age in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "hash_keys",
+                  "value": "<string>",
+                  "description": "A list of items to use as the cache hash key."
+                },
+                {
+                  "disabled": false,
+                  "key": "xff",
+                  "value": "<string>",
+                  "description": "How to handle the X-Forwarded-For header."
+                },
+                {
+                  "disabled": false,
+                  "key": "timer_support",
+                  "value": "<boolean>",
+                  "description": "Whether to inject Fastly-specific timing headers."
+                },
+                {
+                  "disabled": false,
+                  "key": "geo_headers",
+                  "value": "<boolean>",
+                  "description": "Whether to add geographic headers based on client IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "default_host",
+                  "value": "<string>",
+                  "description": "Sets the host header sent to the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "request_condition",
+                  "value": "<string>",
+                  "description": "The name of the condition that triggers these request settings."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "47b41f49-ac32-4033-bac3-a84114fbf1cf",
+              "name": "Successfully created the request settings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "request_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the request settings rule.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The action to take when request settings are applied.",
+                        "type": "text/plain"
+                      },
+                      "key": "action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to force a cache miss for matching requests.",
+                        "type": "text/plain"
+                      },
+                      "key": "force_miss",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to force SSL for matching requests.",
+                        "type": "text/plain"
+                      },
+                      "key": "force_ssl",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to disable collapsed forwarding for matching requests.",
+                        "type": "text/plain"
+                      },
+                      "key": "bypass_busy_wait",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The maximum stale age in seconds.",
+                        "type": "text/plain"
+                      },
+                      "key": "max_stale_age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A list of items to use as the cache hash key.",
+                        "type": "text/plain"
+                      },
+                      "key": "hash_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How to handle the X-Forwarded-For header.",
+                        "type": "text/plain"
+                      },
+                      "key": "xff",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to inject Fastly-specific timing headers.",
+                        "type": "text/plain"
+                      },
+                      "key": "timer_support",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to add geographic headers based on client IP.",
+                        "type": "text/plain"
+                      },
+                      "key": "geo_headers",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Sets the host header sent to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "default_host",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the condition that triggers these request settings.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_condition",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"action\": \"pass\",\n  \"force_miss\": false,\n  \"force_ssl\": false,\n  \"bypass_busy_wait\": true,\n  \"max_stale_age\": 4482,\n  \"hash_keys\": \"string\",\n  \"xff\": \"append\",\n  \"timer_support\": true,\n  \"geo_headers\": true,\n  \"default_host\": \"string\",\n  \"request_condition\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b213a2e-72eb-4b3b-99aa-a32fa3f99bc1",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "request_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the request settings rule.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The action to take when request settings are applied.",
+                        "type": "text/plain"
+                      },
+                      "key": "action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to force a cache miss for matching requests.",
+                        "type": "text/plain"
+                      },
+                      "key": "force_miss",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to force SSL for matching requests.",
+                        "type": "text/plain"
+                      },
+                      "key": "force_ssl",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to disable collapsed forwarding for matching requests.",
+                        "type": "text/plain"
+                      },
+                      "key": "bypass_busy_wait",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The maximum stale age in seconds.",
+                        "type": "text/plain"
+                      },
+                      "key": "max_stale_age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A list of items to use as the cache hash key.",
+                        "type": "text/plain"
+                      },
+                      "key": "hash_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How to handle the X-Forwarded-For header.",
+                        "type": "text/plain"
+                      },
+                      "key": "xff",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to inject Fastly-specific timing headers.",
+                        "type": "text/plain"
+                      },
+                      "key": "timer_support",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to add geographic headers based on client IP.",
+                        "type": "text/plain"
+                      },
+                      "key": "geo_headers",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Sets the host header sent to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "default_host",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the condition that triggers these request settings.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_condition",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "632e255b-799c-47e3-95cf-da92c2dba0c9",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "request_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the request settings rule.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The action to take when request settings are applied.",
+                        "type": "text/plain"
+                      },
+                      "key": "action",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to force a cache miss for matching requests.",
+                        "type": "text/plain"
+                      },
+                      "key": "force_miss",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to force SSL for matching requests.",
+                        "type": "text/plain"
+                      },
+                      "key": "force_ssl",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to disable collapsed forwarding for matching requests.",
+                        "type": "text/plain"
+                      },
+                      "key": "bypass_busy_wait",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The maximum stale age in seconds.",
+                        "type": "text/plain"
+                      },
+                      "key": "max_stale_age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A list of items to use as the cache hash key.",
+                        "type": "text/plain"
+                      },
+                      "key": "hash_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How to handle the X-Forwarded-For header.",
+                        "type": "text/plain"
+                      },
+                      "key": "xff",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to inject Fastly-specific timing headers.",
+                        "type": "text/plain"
+                      },
+                      "key": "timer_support",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to add geographic headers based on client IP.",
+                        "type": "text/plain"
+                      },
+                      "key": "geo_headers",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Sets the host header sent to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "default_host",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the condition that triggers these request settings.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_condition",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fastly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2e182fa8-0092-4de8-996c-2b85cc09e40d",
+    "name": "Fastly Account ACL Request Settings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.\n\nContact Support:\n Name: Fastly Support",
+      "type": "text/plain"
+    }
+  }
+}

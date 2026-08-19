@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fastly Account ACL TLS Certificates API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Fastly-Key",
+      "value": "{{Fastly-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TLS Certificates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List TLS certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/certificates",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "filter[tls_domains.id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter certificates by TLS domain ID."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all custom TLS certificates associated with the account."
+        },
+        {
+          "info": {
+            "name": "Create a TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fastly.com/tls/certificates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new custom TLS certificate. Uploading a new certificate automatically enables TLS for all domains listed as Subject Alternative Names (SAN entries) on the certificate. Certificate deployment takes approximately 20 minutes on average but may take up to an hour."
+        },
+        {
+          "info": {
+            "name": "Get a TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fastly.com/tls/certificates/:tls_certificate_id",
+            "params": [
+              {
+                "name": "tls_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS certificate."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific custom TLS certificate."
+        },
+        {
+          "info": {
+            "name": "Update a TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.fastly.com/tls/certificates/:tls_certificate_id",
+            "params": [
+              {
+                "name": "tls_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS certificate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces a TLS certificate with a new one. The new certificate must cover the same domains as the original."
+        },
+        {
+          "info": {
+            "name": "Delete a TLS certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fastly.com/tls/certificates/:tls_certificate_id",
+            "params": [
+              {
+                "name": "tls_certificate_id",
+                "value": "",
+                "type": "path",
+                "description": "The alphanumeric string identifying the TLS certificate."
+              }
+            ]
+          },
+          "docs": "Deletes a custom TLS certificate. The certificate must not have any active TLS activations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

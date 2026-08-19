@@ -1,0 +1,2411 @@
+{
+  "item": [
+    {
+      "id": "352a16ca-e70f-4911-b5da-323e2caf0792",
+      "name": "Backend",
+      "description": {
+        "content": "Operations for managing backends (origin servers) that a Fastly service routes requests to.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5fdb3df1-982a-46ac-b928-51ebd473e3f0",
+          "name": "List backends",
+          "request": {
+            "name": "List backends",
+            "description": {
+              "content": "Retrieves a list of all backends configured for a specific version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "backend"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "217cb2d3-5d1f-48ca-b7fc-f76cf1b3aba7",
+              "name": "Successfully retrieved the list of backends.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"address\": \"string\",\n    \"port\": 80,\n    \"use_ssl\": false,\n    \"ssl_hostname\": \"string\",\n    \"ssl_cert_hostname\": \"string\",\n    \"ssl_sni_hostname\": \"string\",\n    \"shield\": \"string\",\n    \"weight\": 7,\n    \"connect_timeout\": 2022,\n    \"first_byte_timeout\": 7876,\n    \"between_bytes_timeout\": 2534,\n    \"max_conn\": 3738,\n    \"healthcheck\": \"string\",\n    \"auto_loadbalance\": false,\n    \"request_condition\": \"string\",\n    \"comment\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"address\": \"string\",\n    \"port\": 80,\n    \"use_ssl\": true,\n    \"ssl_hostname\": \"string\",\n    \"ssl_cert_hostname\": \"string\",\n    \"ssl_sni_hostname\": \"string\",\n    \"shield\": \"string\",\n    \"weight\": 64,\n    \"connect_timeout\": 9391,\n    \"first_byte_timeout\": 4029,\n    \"between_bytes_timeout\": 8148,\n    \"max_conn\": 1323,\n    \"healthcheck\": \"string\",\n    \"auto_loadbalance\": true,\n    \"request_condition\": \"string\",\n    \"comment\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c21d6ea-3f8d-4ec8-9886-3bc79f5843ca",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d840e417-a8c0-4264-a45a-affcd2b5d2c5",
+          "name": "Create a backend",
+          "request": {
+            "name": "Create a backend",
+            "description": {
+              "content": "Creates a new backend for a specific version of a Fastly service. Backends define the origin servers that Fastly routes requests to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "backend"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "The name of the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "The hostname or IPv4 address of the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "port",
+                  "value": "80",
+                  "description": "The port number on the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "use_ssl",
+                  "value": "<boolean>",
+                  "description": "Whether to use SSL/TLS to connect to the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "ssl_hostname",
+                  "value": "<string>",
+                  "description": "The hostname to verify for SSL certificate validation."
+                },
+                {
+                  "disabled": false,
+                  "key": "ssl_cert_hostname",
+                  "value": "<string>",
+                  "description": "The hostname to use when checking the backend certificate."
+                },
+                {
+                  "disabled": false,
+                  "key": "ssl_sni_hostname",
+                  "value": "<string>",
+                  "description": "The SNI hostname to use for the backend connection."
+                },
+                {
+                  "disabled": false,
+                  "key": "shield",
+                  "value": "<string>",
+                  "description": "The data center to use as a shield POP."
+                },
+                {
+                  "disabled": false,
+                  "key": "weight",
+                  "value": "<integer>",
+                  "description": "The weight assigned to this backend for load balancing."
+                },
+                {
+                  "disabled": false,
+                  "key": "connect_timeout",
+                  "value": "<integer>",
+                  "description": "Maximum duration in milliseconds to wait for a connection."
+                },
+                {
+                  "disabled": false,
+                  "key": "first_byte_timeout",
+                  "value": "<integer>",
+                  "description": "Maximum duration in milliseconds to wait for the first byte."
+                },
+                {
+                  "disabled": false,
+                  "key": "between_bytes_timeout",
+                  "value": "<integer>",
+                  "description": "Maximum duration in milliseconds to wait between bytes."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_conn",
+                  "value": "<integer>",
+                  "description": "Maximum number of connections to the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "healthcheck",
+                  "value": "<string>",
+                  "description": "The name of the healthcheck to use with the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "auto_loadbalance",
+                  "value": "<boolean>",
+                  "description": "Whether to auto-load-balance this backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "request_condition",
+                  "value": "<string>",
+                  "description": "The name of a condition to apply to route requests to this backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "comment",
+                  "value": "<string>",
+                  "description": "A freeform descriptive note about the backend."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "afd6be16-6549-4d8a-92db-be4c84b293a7",
+              "name": "Successfully created the backend.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname or IPv4 address of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The port number on the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "port",
+                      "value": "80"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to use SSL/TLS to connect to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "use_ssl",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to verify for SSL certificate validation.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to use when checking the backend certificate.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_cert_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The SNI hostname to use for the backend connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_sni_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data center to use as a shield POP.",
+                        "type": "text/plain"
+                      },
+                      "key": "shield",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The weight assigned to this backend for load balancing.",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for a connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connect_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for the first byte.",
+                        "type": "text/plain"
+                      },
+                      "key": "first_byte_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait between bytes.",
+                        "type": "text/plain"
+                      },
+                      "key": "between_bytes_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of connections to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "max_conn",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the healthcheck to use with the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "healthcheck",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to auto-load-balance this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "auto_loadbalance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of a condition to apply to route requests to this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_condition",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A freeform descriptive note about the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"address\": \"string\",\n  \"port\": 80,\n  \"use_ssl\": true,\n  \"ssl_hostname\": \"string\",\n  \"ssl_cert_hostname\": \"string\",\n  \"ssl_sni_hostname\": \"string\",\n  \"shield\": \"string\",\n  \"weight\": 51,\n  \"connect_timeout\": 1375,\n  \"first_byte_timeout\": 2260,\n  \"between_bytes_timeout\": 3211,\n  \"max_conn\": 96,\n  \"healthcheck\": \"string\",\n  \"auto_loadbalance\": true,\n  \"request_condition\": \"string\",\n  \"comment\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a61b3e70-e05d-4cbe-b398-61eada218e8a",
+              "name": "Bad request. Missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname or IPv4 address of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The port number on the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "port",
+                      "value": "80"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to use SSL/TLS to connect to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "use_ssl",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to verify for SSL certificate validation.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to use when checking the backend certificate.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_cert_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The SNI hostname to use for the backend connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_sni_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data center to use as a shield POP.",
+                        "type": "text/plain"
+                      },
+                      "key": "shield",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The weight assigned to this backend for load balancing.",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for a connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connect_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for the first byte.",
+                        "type": "text/plain"
+                      },
+                      "key": "first_byte_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait between bytes.",
+                        "type": "text/plain"
+                      },
+                      "key": "between_bytes_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of connections to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "max_conn",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the healthcheck to use with the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "healthcheck",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to auto-load-balance this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "auto_loadbalance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of a condition to apply to route requests to this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_condition",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A freeform descriptive note about the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8678b4a3-a7af-41f2-b2c8-5513553d8d17",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname or IPv4 address of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The port number on the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "port",
+                      "value": "80"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to use SSL/TLS to connect to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "use_ssl",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to verify for SSL certificate validation.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to use when checking the backend certificate.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_cert_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The SNI hostname to use for the backend connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_sni_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data center to use as a shield POP.",
+                        "type": "text/plain"
+                      },
+                      "key": "shield",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The weight assigned to this backend for load balancing.",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for a connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connect_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for the first byte.",
+                        "type": "text/plain"
+                      },
+                      "key": "first_byte_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait between bytes.",
+                        "type": "text/plain"
+                      },
+                      "key": "between_bytes_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of connections to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "max_conn",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the healthcheck to use with the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "healthcheck",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to auto-load-balance this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "auto_loadbalance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of a condition to apply to route requests to this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_condition",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A freeform descriptive note about the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "450ab529-dd37-4f3a-afc4-24c18da6cd46",
+          "name": "Get a backend",
+          "request": {
+            "name": "Get a backend",
+            "description": {
+              "content": "Retrieves the details of a specific backend for a version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "backend",
+                ":backend_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "backend_name",
+                  "description": "(Required) The name of the backend."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0e284a22-a837-48f0-9805-fa50f9949f79",
+              "name": "Successfully retrieved the backend.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend",
+                    ":backend_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backend_name",
+                      "description": "(Required) The name of the backend."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"address\": \"string\",\n  \"port\": 80,\n  \"use_ssl\": true,\n  \"ssl_hostname\": \"string\",\n  \"ssl_cert_hostname\": \"string\",\n  \"ssl_sni_hostname\": \"string\",\n  \"shield\": \"string\",\n  \"weight\": 51,\n  \"connect_timeout\": 1375,\n  \"first_byte_timeout\": 2260,\n  \"between_bytes_timeout\": 3211,\n  \"max_conn\": 96,\n  \"healthcheck\": \"string\",\n  \"auto_loadbalance\": true,\n  \"request_condition\": \"string\",\n  \"comment\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "845ee639-525b-438a-b7c1-186d122410a1",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend",
+                    ":backend_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backend_name",
+                      "description": "(Required) The name of the backend."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "132c622e-6857-43c5-9268-5e595c5af684",
+              "name": "Backend not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend",
+                    ":backend_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backend_name",
+                      "description": "(Required) The name of the backend."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da16ac00-a208-4ace-8985-045fb66148af",
+          "name": "Update a backend",
+          "request": {
+            "name": "Update a backend",
+            "description": {
+              "content": "Updates a specific backend for a version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "backend",
+                ":backend_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "backend_name",
+                  "description": "(Required) The name of the backend."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "The name of the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "The hostname or IPv4 address of the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "port",
+                  "value": "80",
+                  "description": "The port number on the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "use_ssl",
+                  "value": "<boolean>",
+                  "description": "Whether to use SSL/TLS to connect to the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "ssl_hostname",
+                  "value": "<string>",
+                  "description": "The hostname to verify for SSL certificate validation."
+                },
+                {
+                  "disabled": false,
+                  "key": "ssl_cert_hostname",
+                  "value": "<string>",
+                  "description": "The hostname to use when checking the backend certificate."
+                },
+                {
+                  "disabled": false,
+                  "key": "ssl_sni_hostname",
+                  "value": "<string>",
+                  "description": "The SNI hostname to use for the backend connection."
+                },
+                {
+                  "disabled": false,
+                  "key": "shield",
+                  "value": "<string>",
+                  "description": "The data center to use as a shield POP."
+                },
+                {
+                  "disabled": false,
+                  "key": "weight",
+                  "value": "<integer>",
+                  "description": "The weight assigned to this backend for load balancing."
+                },
+                {
+                  "disabled": false,
+                  "key": "connect_timeout",
+                  "value": "<integer>",
+                  "description": "Maximum duration in milliseconds to wait for a connection."
+                },
+                {
+                  "disabled": false,
+                  "key": "first_byte_timeout",
+                  "value": "<integer>",
+                  "description": "Maximum duration in milliseconds to wait for the first byte."
+                },
+                {
+                  "disabled": false,
+                  "key": "between_bytes_timeout",
+                  "value": "<integer>",
+                  "description": "Maximum duration in milliseconds to wait between bytes."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_conn",
+                  "value": "<integer>",
+                  "description": "Maximum number of connections to the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "healthcheck",
+                  "value": "<string>",
+                  "description": "The name of the healthcheck to use with the backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "auto_loadbalance",
+                  "value": "<boolean>",
+                  "description": "Whether to auto-load-balance this backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "request_condition",
+                  "value": "<string>",
+                  "description": "The name of a condition to apply to route requests to this backend."
+                },
+                {
+                  "disabled": false,
+                  "key": "comment",
+                  "value": "<string>",
+                  "description": "A freeform descriptive note about the backend."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "010f16dd-28ee-43ef-bde5-270880ae7185",
+              "name": "Successfully updated the backend.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend",
+                    ":backend_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backend_name",
+                      "description": "(Required) The name of the backend."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname or IPv4 address of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The port number on the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "port",
+                      "value": "80"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to use SSL/TLS to connect to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "use_ssl",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to verify for SSL certificate validation.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to use when checking the backend certificate.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_cert_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The SNI hostname to use for the backend connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_sni_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data center to use as a shield POP.",
+                        "type": "text/plain"
+                      },
+                      "key": "shield",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The weight assigned to this backend for load balancing.",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for a connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connect_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for the first byte.",
+                        "type": "text/plain"
+                      },
+                      "key": "first_byte_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait between bytes.",
+                        "type": "text/plain"
+                      },
+                      "key": "between_bytes_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of connections to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "max_conn",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the healthcheck to use with the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "healthcheck",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to auto-load-balance this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "auto_loadbalance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of a condition to apply to route requests to this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_condition",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A freeform descriptive note about the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"address\": \"string\",\n  \"port\": 80,\n  \"use_ssl\": true,\n  \"ssl_hostname\": \"string\",\n  \"ssl_cert_hostname\": \"string\",\n  \"ssl_sni_hostname\": \"string\",\n  \"shield\": \"string\",\n  \"weight\": 51,\n  \"connect_timeout\": 1375,\n  \"first_byte_timeout\": 2260,\n  \"between_bytes_timeout\": 3211,\n  \"max_conn\": 96,\n  \"healthcheck\": \"string\",\n  \"auto_loadbalance\": true,\n  \"request_condition\": \"string\",\n  \"comment\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94ff0d0b-d5c9-4573-bd13-eee1cf627f42",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend",
+                    ":backend_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backend_name",
+                      "description": "(Required) The name of the backend."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname or IPv4 address of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The port number on the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "port",
+                      "value": "80"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to use SSL/TLS to connect to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "use_ssl",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to verify for SSL certificate validation.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to use when checking the backend certificate.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_cert_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The SNI hostname to use for the backend connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_sni_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data center to use as a shield POP.",
+                        "type": "text/plain"
+                      },
+                      "key": "shield",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The weight assigned to this backend for load balancing.",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for a connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connect_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for the first byte.",
+                        "type": "text/plain"
+                      },
+                      "key": "first_byte_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait between bytes.",
+                        "type": "text/plain"
+                      },
+                      "key": "between_bytes_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of connections to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "max_conn",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the healthcheck to use with the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "healthcheck",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to auto-load-balance this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "auto_loadbalance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of a condition to apply to route requests to this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_condition",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A freeform descriptive note about the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0bab337a-f7f1-4e15-b603-762faa22d7b6",
+              "name": "Backend not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend",
+                    ":backend_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backend_name",
+                      "description": "(Required) The name of the backend."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname or IPv4 address of the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The port number on the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "port",
+                      "value": "80"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to use SSL/TLS to connect to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "use_ssl",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to verify for SSL certificate validation.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The hostname to use when checking the backend certificate.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_cert_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The SNI hostname to use for the backend connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "ssl_sni_hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The data center to use as a shield POP.",
+                        "type": "text/plain"
+                      },
+                      "key": "shield",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The weight assigned to this backend for load balancing.",
+                        "type": "text/plain"
+                      },
+                      "key": "weight",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for a connection.",
+                        "type": "text/plain"
+                      },
+                      "key": "connect_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait for the first byte.",
+                        "type": "text/plain"
+                      },
+                      "key": "first_byte_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum duration in milliseconds to wait between bytes.",
+                        "type": "text/plain"
+                      },
+                      "key": "between_bytes_timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of connections to the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "max_conn",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of the healthcheck to use with the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "healthcheck",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to auto-load-balance this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "auto_loadbalance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The name of a condition to apply to route requests to this backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_condition",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A freeform descriptive note about the backend.",
+                        "type": "text/plain"
+                      },
+                      "key": "comment",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ccf8bec0-e900-465a-98b8-db388db457ae",
+          "name": "Delete a backend",
+          "request": {
+            "name": "Delete a backend",
+            "description": {
+              "content": "Deletes a specific backend from a version of a Fastly service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "service",
+                ":service_id",
+                "version",
+                ":version_id",
+                "backend",
+                ":backend_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "service_id",
+                  "description": "(Required) The alphanumeric string identifying the Fastly service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version_id",
+                  "description": "(Required) The integer identifying the service version."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "backend_name",
+                  "description": "(Required) The name of the backend."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "078e7759-e181-4838-84f9-6c53647fc838",
+              "name": "Successfully deleted the backend.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend",
+                    ":backend_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backend_name",
+                      "description": "(Required) The name of the backend."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb30146e-3c74-4c0d-87b9-d5954ebedc0f",
+              "name": "Unauthorized. The API token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend",
+                    ":backend_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backend_name",
+                      "description": "(Required) The name of the backend."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c408b67a-05d2-425b-a408-47153b73d47f",
+              "name": "Backend not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "service",
+                    ":service_id",
+                    "version",
+                    ":version_id",
+                    "backend",
+                    ":backend_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "service_id",
+                      "description": "(Required) The alphanumeric string identifying the Fastly service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version_id",
+                      "description": "(Required) The integer identifying the service version."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "backend_name",
+                      "description": "(Required) The name of the backend."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Fastly-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fastly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Fastly-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ff386c90-4490-40a0-9b81-102684a952ed",
+    "name": "Fastly Account ACL Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.\n\nContact Support:\n Name: Fastly Support",
+      "type": "text/plain"
+    }
+  }
+}
