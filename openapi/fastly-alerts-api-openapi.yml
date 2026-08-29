@@ -1,17 +1,26 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fastly Account ACL Alerts API
-  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
-  version: '1.0'
+  title: Fastly Observability Alerts API
+  description: 'The Fastly Observability APIs enable you to setup and manage Fastly''s
+
+    Observability features on your site, product or service across all Network
+
+    Services, Compute and Security product lines. Sub-resources include Alerts,
+
+    Custom Dashboards, Insights, Log Aggregations, Log Explorer, Notification
+
+    Service, and Timeseries.
+
+    '
+  version: 1.0.0
   contact:
     name: Fastly Support
     url: https://support.fastly.com
-  termsOfService: https://www.fastly.com/terms
 servers:
 - url: https://api.fastly.com
-  description: Fastly API Production Server
+  description: Fastly Production API
 security:
-- apiKeyAuth: []
+- FastlyKey: []
 tags:
 - name: Alerts
 paths:
@@ -110,11 +119,7 @@ components:
           type: string
           format: date-time
   securitySchemes:
-    apiKeyAuth:
+    FastlyKey:
       type: apiKey
       in: header
       name: Fastly-Key
-      description: API token used to authenticate requests to the Fastly API.
-externalDocs:
-  description: Fastly Account API Documentation
-  url: https://www.fastly.com/documentation/reference/api/account/

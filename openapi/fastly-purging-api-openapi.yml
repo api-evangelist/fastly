@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fastly Account ACL Purging API
-  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  title: Fastly Purging API
+  description: The Fastly Purging API enables developers to instantly remove cached content from Fastly's edge network so it can be refreshed from origin servers. It supports single URL purges, surrogate key purges for invalidating groups of related objects, and purge-all operations to clear an entire service cache. Surrogate key and URL purges are separately limited to an average of 100,000 purges per hour per customer and are not counted against the general API rate limit.
   version: '1.0'
   contact:
     name: Fastly Support
@@ -135,19 +135,6 @@ paths:
         '404':
           description: Service not found.
 components:
-  schemas:
-    PurgeResponse:
-      type: object
-      description: The response from a purge operation confirming the purge was accepted.
-      properties:
-        status:
-          type: string
-          description: The status of the purge operation.
-          enum:
-          - ok
-        id:
-          type: string
-          description: A unique identifier for the purge operation.
   parameters:
     serviceId:
       name: service_id
@@ -164,6 +151,19 @@ components:
         type: integer
         enum:
         - 1
+  schemas:
+    PurgeResponse:
+      type: object
+      description: The response from a purge operation confirming the purge was accepted.
+      properties:
+        status:
+          type: string
+          description: The status of the purge operation.
+          enum:
+          - ok
+        id:
+          type: string
+          description: A unique identifier for the purge operation.
   securitySchemes:
     apiKeyAuth:
       type: apiKey
@@ -171,5 +171,5 @@ components:
       name: Fastly-Key
       description: API token used to authenticate requests to the Fastly API.
 externalDocs:
-  description: Fastly Account API Documentation
-  url: https://www.fastly.com/documentation/reference/api/account/
+  description: Fastly Purging API Documentation
+  url: https://www.fastly.com/documentation/reference/api/purging/

@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fastly Account ACL WAF Exclusions API
-  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  title: Fastly Next-Gen WAF WAF Exclusions API
+  description: The Fastly Next-Gen WAF API provides programmatic access to configure and manage web application firewall rules that protect applications delivered through Fastly's edge network. It enables developers to manage WAF firewall configurations, rule sets, and exclusions to defend against common web attacks including SQL injection, cross-site scripting, and other OWASP Top 10 vulnerabilities. The API supports managing active rules, reviewing firewall events, and configuring response behaviors for detected threats.
   version: '1.0'
   contact:
     name: Fastly Support
@@ -104,21 +104,6 @@ paths:
         '401':
           description: Unauthorized. The API token is missing or invalid.
 components:
-  parameters:
-    firewallVersionNumber:
-      name: firewall_version_number
-      in: path
-      required: true
-      description: The version number of the WAF firewall.
-      schema:
-        type: integer
-    firewallId:
-      name: firewall_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the WAF firewall.
-      schema:
-        type: string
   schemas:
     WafExclusion:
       type: object
@@ -159,6 +144,21 @@ components:
               type: string
               format: date-time
               description: The date and time the exclusion was last updated.
+  parameters:
+    firewallId:
+      name: firewall_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the WAF firewall.
+      schema:
+        type: string
+    firewallVersionNumber:
+      name: firewall_version_number
+      in: path
+      required: true
+      description: The version number of the WAF firewall.
+      schema:
+        type: integer
   securitySchemes:
     apiKeyAuth:
       type: apiKey
@@ -166,5 +166,5 @@ components:
       name: Fastly-Key
       description: API token used to authenticate requests to the Fastly API.
 externalDocs:
-  description: Fastly Account API Documentation
-  url: https://www.fastly.com/documentation/reference/api/account/
+  description: Fastly Next-Gen WAF API Documentation
+  url: https://www.fastly.com/documentation/reference/api/waf/

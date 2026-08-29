@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fastly Account ACL Service API
-  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  title: Fastly Services Service API
+  description: The Fastly Services API allows developers to create, configure, and manage Fastly CDN services and their versions programmatically. Services are the primary organizational unit in Fastly, representing a configuration that maps domains to backends. The API supports creating service versions, activating and deactivating configurations, cloning versions, and managing the complete lifecycle of a CDN service deployment.
   version: '1.0'
   contact:
     name: Fastly Support
@@ -219,6 +219,47 @@ paths:
           description: Service not found.
 components:
   schemas:
+    ServiceVersion:
+      type: object
+      description: A version of a Fastly service. Versions represent distinct configurations that can be activated or deactivated independently.
+      properties:
+        number:
+          type: integer
+          description: The version number.
+        service_id:
+          type: string
+          description: The alphanumeric string identifying the service.
+        active:
+          type: boolean
+          description: Whether this version is currently active.
+        locked:
+          type: boolean
+          description: Whether this version is locked and cannot be modified.
+        deployed:
+          type: boolean
+          description: Whether this version has been deployed.
+        staging:
+          type: boolean
+          description: Whether this version is in the staging environment.
+        testing:
+          type: boolean
+          description: Whether this version is in the testing environment.
+        comment:
+          type: string
+          description: A freeform descriptive note about the version.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time in ISO 8601 format when the version was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time in ISO 8601 format when the version was last updated.
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time in ISO 8601 format when the version was deleted.
     Service:
       type: object
       description: A Fastly service represents the configuration for a website, app, API, or anything else to be served through Fastly.
@@ -273,56 +314,7 @@ components:
             type: object
             description: The full version object for the currently active version.
             nullable: true
-    ServiceVersion:
-      type: object
-      description: A version of a Fastly service. Versions represent distinct configurations that can be activated or deactivated independently.
-      properties:
-        number:
-          type: integer
-          description: The version number.
-        service_id:
-          type: string
-          description: The alphanumeric string identifying the service.
-        active:
-          type: boolean
-          description: Whether this version is currently active.
-        locked:
-          type: boolean
-          description: Whether this version is locked and cannot be modified.
-        deployed:
-          type: boolean
-          description: Whether this version has been deployed.
-        staging:
-          type: boolean
-          description: Whether this version is in the staging environment.
-        testing:
-          type: boolean
-          description: Whether this version is in the testing environment.
-        comment:
-          type: string
-          description: A freeform descriptive note about the version.
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time in ISO 8601 format when the version was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: The date and time in ISO 8601 format when the version was last updated.
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The date and time in ISO 8601 format when the version was deleted.
   parameters:
-    perPage:
-      name: per_page
-      in: query
-      description: The number of items to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
     serviceId:
       name: service_id
       in: path
@@ -337,12 +329,20 @@ components:
       schema:
         type: integer
         minimum: 1
+    perPage:
+      name: per_page
+      in: query
+      description: The number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
   securitySchemes:
     apiKeyAuth:
       type: apiKey
       in: header
       name: Fastly-Key
-      description: API token used to authenticate requests to the Fastly API.
+      description: API token used to authenticate requests to the Fastly API. Tokens can be created in the Fastly web interface or via the API.
 externalDocs:
-  description: Fastly Account API Documentation
-  url: https://www.fastly.com/documentation/reference/api/account/
+  description: Fastly Services API Documentation
+  url: https://www.fastly.com/documentation/reference/api/services/

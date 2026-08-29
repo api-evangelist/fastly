@@ -1,13 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fastly Account ACL Origin Inspector API
-  description: The Fastly Account API provides endpoints for managing customer accounts, users, and identity and access management (IAM) resources. Developers can programmatically manage user invitations, roles, permissions, and service groups to control access to Fastly resources. The API supports retrieving and updating customer information, managing user profiles, and configuring organizational settings for enterprise accounts.
+  title: Fastly Metrics and Stats Origin Inspector API
+  description: The Fastly Metrics and Stats API provides access to both real-time and historical analytics data for Fastly services. The real-time analytics endpoint, served on rt.fastly.com, delivers second-by-second stats including request counts, bandwidth, cache hit ratios, and error rates. Historical stats provide aggregated data over longer time periods. The API also includes the Domain Inspector for per-domain metrics and the Origin Inspector for origin-level performance data.
   version: '1.0'
   contact:
     name: Fastly Support
     url: https://support.fastly.com
   termsOfService: https://www.fastly.com/terms
 servers:
+- url: https://rt.fastly.com
+  description: Fastly Real-Time Analytics Server
 - url: https://api.fastly.com
   description: Fastly API Production Server
 security:
@@ -54,20 +56,21 @@ paths:
           description: Service or origin not found.
 components:
   schemas:
-    RealtimeRecord:
+    RealtimeResponse:
       type: object
-      description: A single second of real-time analytics data with measurements grouped by data center.
+      description: A response containing real-time analytics data with records representing one-second time intervals.
       properties:
-        datacenter:
-          type: object
-          description: A map of data center names to their respective measurement data.
-          additionalProperties:
-            $ref: '#/components/schemas/RealtimeMeasurements'
-        aggregated:
-          $ref: '#/components/schemas/RealtimeMeasurements'
-        recorded:
+        Timestamp:
           type: integer
-          description: The Unix timestamp when this record was recorded.
+          description: The Unix timestamp of the latest data point.
+        AggregateDelay:
+          type: integer
+          description: The offset of the latest data point from the current time.
+        Data:
+          type: array
+          description: A list of analytics records, each representing one second of data.
+          items:
+            $ref: '#/components/schemas/RealtimeRecord'
     RealtimeMeasurements:
       type: object
       description: A set of measurements for a specific time period and data center or aggregated across all data centers.
@@ -115,21 +118,20 @@ components:
           type: number
           format: float
           description: The ratio of cache hits to total requests.
-    RealtimeResponse:
+    RealtimeRecord:
       type: object
-      description: A response containing real-time analytics data with records representing one-second time intervals.
+      description: A single second of real-time analytics data with measurements grouped by data center.
       properties:
-        Timestamp:
+        datacenter:
+          type: object
+          description: A map of data center names to their respective measurement data.
+          additionalProperties:
+            $ref: '#/components/schemas/RealtimeMeasurements'
+        aggregated:
+          $ref: '#/components/schemas/RealtimeMeasurements'
+        recorded:
           type: integer
-          description: The Unix timestamp of the latest data point.
-        AggregateDelay:
-          type: integer
-          description: The offset of the latest data point from the current time.
-        Data:
-          type: array
-          description: A list of analytics records, each representing one second of data.
-          items:
-            $ref: '#/components/schemas/RealtimeRecord'
+          description: The Unix timestamp when this record was recorded.
   parameters:
     serviceId:
       name: service_id
@@ -145,5 +147,5 @@ components:
       name: Fastly-Key
       description: API token used to authenticate requests to the Fastly API.
 externalDocs:
-  description: Fastly Account API Documentation
-  url: https://www.fastly.com/documentation/reference/api/account/
+  description: Fastly Metrics and Stats API Documentation
+  url: https://www.fastly.com/documentation/reference/api/metrics-stats/
