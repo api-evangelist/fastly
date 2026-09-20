@@ -1,40 +1,18 @@
-specification: API Commons Rate Limits
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: Fastly
-providerId: fastly
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-22'
-reconciled: true
-tags:
-  - Rate Limiting
-  - CDN
-  - Purging
-description: Fastly REST API rate limits per token, with separate quota for purging (URL and surrogate-key) operations and product-level free-tier ceilings.
+# Rate limits transcribed from the provider's own documentation — see provenance. Quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.fastly.com/documentation/guides/security/rate-limiting/about-rate-limiting/
 sources:
-  - https://www.fastly.com/pricing
-  - https://www.fastly.com/documentation/reference/api/purging/
-  - https://docs.fastly.com/en/guides/api-rate-limiting
-headers:
-  limit: Fastly-RateLimit-Limit
-  remaining: Fastly-RateLimit-Remaining
-  reset: Fastly-RateLimit-Reset
-responseCodes:
-  throttled: 429
-limits:
-  - { name: REST API (read), scope: token, metric: requests_per_hour, limit: 1000, timeFrame: hour }
-  - { name: REST API (write), scope: token, metric: requests_per_hour, limit: 1000, timeFrame: hour }
-  - { name: URL Purges, scope: customer, metric: purges_per_hour, limit: 100000, timeFrame: hour }
-  - { name: Surrogate Key Purges, scope: customer, metric: purges_per_hour, limit: 100000, timeFrame: hour }
-  - { name: Logging configuration endpoints per service, scope: service, metric: endpoints, limit: 100, timeFrame: service }
-  - { name: CDN Free Tier bandwidth, scope: account, metric: GB_per_month, limit: 100, timeFrame: month }
-  - { name: CDN Free Tier requests, scope: account, metric: requests_per_month, limit: 1000000, timeFrame: month }
-  - { name: Compute Free Tier requests, scope: account, metric: requests_per_month, limit: 10000000, timeFrame: month }
-  - { name: Compute Free Tier vCPU ms, scope: account, metric: ms_per_month, limit: 100000000, timeFrame: month }
-  - { name: Object Storage Free Tier, scope: account, metric: GB_per_month, limit: 5, timeFrame: month }
-  - { name: Image Optimizer Free Tier, scope: account, metric: requests_per_month, limit: 100000, timeFrame: month }
-  - { name: AI Accelerator Free Tier, scope: account, metric: requests_per_month, limit: 20000, timeFrame: month }
-  - { name: Domain Research API Free Tier, scope: account, metric: requests_per_month, limit: 10000, timeFrame: month }
+- https://www.fastly.com/documentation/guides/security/rate-limiting/about-rate-limiting/
+provenance:
+  tool: planning/api-economics/harvest_ratelimits.py
+  run: 20260920T133210
+  grounding: every limit_text was found verbatim in the fetched page text
+published: false
+note: Page describes Fastly's Edge Rate Limiting product (customer-configurable rate counters and penalty
+  boxes), not rate limits imposed on consumers of a Fastly API. Numbers appearing (1s/10s/60s window sizes,
+  a '100 requests per second over a 10 second window' illustrative example, up to 10% under-counting,
+  2 minute minimum penalty box TTL) are configuration options or examples rather than provider-imposed
+  limits. No rate-limit headers or exceeded status documented.
+limit_count: 0
+limits: []
