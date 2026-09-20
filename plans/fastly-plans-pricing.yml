@@ -1,155 +1,155 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Fastly
-providerId: fastly
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-22'
-reconciled: true
-tags:
-  - CDN
-  - Edge Compute
-  - Security
-  - AI Accelerator
-  - Object Storage
-description: Fastly usage-based pricing for CDN, Compute, AI Accelerator, Object Storage, Image Optimizer, plus per-feature add-ons and bundled monthly packages. Volume discounts apply across most tiers.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.fastly.com/pricing
 sources:
-  - https://www.fastly.com/pricing
-  - https://www.fastly.com/products
+- https://www.fastly.com/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+published: true
+note: Fastly pricing page lists usage-based tiered rates per product with free tiers, plus named packages;
+  several security/observability products are 'Contact sales for pricing'.
+plan_count: 20
+currency: USD
 plans:
-  - id: fastly-cdn-free
-    name: CDN Free Tier
-    type: freemium
-    description: 100 GB bandwidth + 1M requests/month free.
-    entries:
-      - { label: Bandwidth, name: bandwidth, type: quota, metric: GB, limit: 100, timeFrame: month, geo: global, unit: 1, price: '0.00', userMultiplied: false }
-      - { label: Requests, name: requests, type: quota, metric: request, limit: 1000000, timeFrame: month, geo: global, unit: 1, price: '0.00', userMultiplied: false }
-    elements:
-      - { name: Full Site Delivery }
-      - { name: Configuration via VCL }
-      - { name: Real-time Logging }
-  - id: fastly-cdn-payg
-    name: CDN Pay-As-You-Go
-    type: usage-based
-    description: $0.08-$0.28/GB and $0.0095-$0.01 per 10K requests, region/volume-based.
-    entries:
-      - { label: Bandwidth tier 1 (100GB-10TB), name: bw_t1, type: metered, metric: GB, limit: -1, timeFrame: month, geo: global, unit: 1, price: 0.08-0.28, userMultiplied: false }
-      - { label: Bandwidth tier 2 (10TB+), name: bw_t2, type: metered, metric: GB, limit: -1, timeFrame: month, geo: global, unit: 1, price: 0.08-0.24, userMultiplied: false }
-      - { label: Requests tier 1 (1M-100M), name: req_t1, type: metered, metric: 10K_requests, limit: -1, timeFrame: month, geo: global, unit: 10000, price: '0.01', userMultiplied: false }
-      - { label: Requests tier 2 (100M+), name: req_t2, type: metered, metric: 10K_requests, limit: -1, timeFrame: month, geo: global, unit: 10000, price: '0.0095', userMultiplied: false }
-    elements:
-      - { name: Region-specific pricing }
-      - { name: Volume discounts }
-  - id: fastly-compute
-    name: Fastly Compute
-    type: usage-based
-    description: WebAssembly serverless compute with $0.20-$0.50 per 1M requests and $0.02-$0.05 per 1M vCPU ms; 10M requests + 100M vCPU ms free.
-    entries:
-      - { label: Requests free, name: req_free, type: quota, metric: request, limit: 10000000, timeFrame: month, geo: global, unit: 1, price: '0.00', userMultiplied: false }
-      - { label: Requests metered (per 1M), name: req_meter, type: metered, metric: million, limit: -1, timeFrame: month, geo: global, unit: 1000000, price: 0.20-0.50, userMultiplied: false }
-      - { label: vCPU ms free, name: cpu_free, type: quota, metric: ms, limit: 100000000, timeFrame: month, geo: global, unit: 1, price: '0.00', userMultiplied: false }
-      - { label: vCPU ms (per 1M), name: cpu_meter, type: metered, metric: million_ms, limit: -1, timeFrame: month, geo: global, unit: 1000000, price: 0.02-0.05, userMultiplied: false }
-    elements:
-      - { name: WebAssembly serverless }
-      - { name: Sub-millisecond cold start }
-      - { name: Rust, JavaScript, Go, TypeScript, Python }
-  - id: fastly-object-storage
-    name: Object Storage
-    type: usage-based
-    description: S3-compatible edge object storage with zero egress, 5 GB/month free.
-    entries:
-      - { label: Storage free, name: storage_free, type: quota, metric: GB, limit: 5, timeFrame: month, geo: global, unit: 1, price: '0.00', userMultiplied: false }
-      - { label: Storage metered, name: storage_meter, type: metered, metric: GB-month, limit: -1, timeFrame: month, geo: global, unit: 1, price: 0.017-0.02, userMultiplied: false }
-      - { label: Class A operations, name: class_a_ops, type: metered, metric: 1K_operations, limit: -1, timeFrame: month, geo: global, unit: 1000, price: '0.0025', userMultiplied: false }
-      - { label: Class B operations, name: class_b_ops, type: metered, metric: 1K_operations, limit: -1, timeFrame: month, geo: global, unit: 1000, price: '0.0004', userMultiplied: false }
-      - { label: Egress, name: egress, type: metered, metric: GB, limit: -1, timeFrame: month, geo: global, unit: 1, price: '0.00', userMultiplied: false }
-    elements:
-      - { name: S3-compatible API }
-      - { name: 11 9s durability }
-      - { name: Zero egress fees }
-  - id: fastly-ai-accelerator
-    name: AI Accelerator
-    type: usage-based
-    description: Semantic caching for OpenAI and Google Gemini, 20,000 requests/month free.
-    entries:
-      - { label: Requests free, name: req_free, type: quota, metric: request, limit: 20000, timeFrame: month, geo: global, unit: 1, price: '0.00', userMultiplied: false }
-      - { label: Requests metered (per 1K), name: req_meter, type: metered, metric: 1K_requests, limit: -1, timeFrame: month, geo: global, unit: 1000, price: 0.28-0.40, userMultiplied: false }
-    elements:
-      - { name: Semantic caching }
-      - { name: OpenAI-compatible endpoint }
-      - { name: Google Gemini-compatible endpoint }
-  - id: fastly-image-optimizer
-    name: Image Optimizer
-    type: usage-based
-    description: On-the-fly edge image transformations, 100,000 requests/month free.
-    entries:
-      - { label: Requests free, name: req_free, type: quota, metric: request, limit: 100000, timeFrame: month, geo: global, unit: 1, price: '0.00', userMultiplied: false }
-      - { label: Requests metered (per 10K), name: req_meter, type: metered, metric: 10K_requests, limit: -1, timeFrame: month, geo: global, unit: 10000, price: 0.01-0.50, userMultiplied: false }
-    elements:
-      - { name: Edge image transformations }
-      - { name: Format conversion }
-      - { name: Responsive variants }
-  - id: fastly-domain-research
-    name: Domain Research API
-    type: usage-based
-    description: Domain Research API with 10,000 free queries/month.
-    entries:
-      - { label: Requests free, name: req_free, type: quota, metric: request, limit: 10000, timeFrame: month, geo: global, unit: 1, price: '0.00', userMultiplied: false }
-      - { label: Requests metered, name: req_meter, type: metered, metric: request, limit: -1, timeFrame: month, geo: global, unit: 1, price: 0.0005-0.001, userMultiplied: false }
-    elements:
-      - { name: Bulk domain lookup }
-      - { name: Multiple query types }
-  - id: fastly-package-basic
-    name: 'Package: Basic'
-    type: paid
-    description: '$1,500/month: 100M requests, 20 TLS domains.'
-    entries:
-      - { label: Monthly, name: monthly, type: subscription, metric: month, limit: -1, timeFrame: month, geo: global, unit: 1, price: '1500.00', userMultiplied: false }
-    elements:
-      - { name: 100M requests }
-      - { name: 20 TLS domains }
-      - { name: Production support }
-  - id: fastly-package-starter
-    name: 'Package: Starter'
-    type: paid
-    description: '$6,000/month: 500M requests, 40 TLS domains.'
-    entries:
-      - { label: Monthly, name: monthly, type: subscription, metric: month, limit: -1, timeFrame: month, geo: global, unit: 1, price: '6000.00', userMultiplied: false }
-    elements:
-      - { name: 500M requests }
-      - { name: 40 TLS domains }
-      - { name: Production support }
-  - id: fastly-package-advantage
-    name: 'Package: Advantage'
-    type: enterprise
-    description: Advantage tier (contact sales).
-    entries:
-      - { label: Custom, name: custom, type: subscription, metric: month, limit: -1, timeFrame: month, geo: global, unit: 1, price: custom, userMultiplied: false }
-    elements:
-      - { name: Advanced security bundling }
-      - { name: Premium SLAs }
-  - id: fastly-package-ultimate
-    name: 'Package: Ultimate'
-    type: enterprise
-    description: Ultimate tier (contact sales).
-    entries:
-      - { label: Custom, name: custom, type: subscription, metric: month, limit: -1, timeFrame: month, geo: global, unit: 1, price: custom, userMultiplied: false }
-    elements:
-      - { name: Dedicated infrastructure options }
-      - { name: White-glove support }
-  - id: fastly-security-bundle
-    name: Security Add-Ons (Bot Mgmt, AI Bot Mgmt, NGWAF, API Security, CSP)
-    type: enterprise
-    description: Security products — Next-Gen WAF, Bot Management, AI Bot Management, API Security, Client-Side Protection, DDoS Protection — priced via sales.
-    entries:
-      - { label: Custom, name: custom, type: subscription, metric: month, limit: -1, timeFrame: month, geo: global, unit: 1, price: custom, userMultiplied: false }
-    elements:
-      - { name: Next-Gen WAF (Signal Sciences) }
-      - { name: Bot Management }
-      - { name: AI Bot Management }
-      - { name: API Security }
-      - { name: Client-Side Protection }
-      - { name: DDoS Protection }
+- name: Full Site Delivery - Bandwidth
+  price_text: 100 GB free
+  price: 100
+  currency: USD
+  period: month
+  unit: GB
+  included_quota: 100 GB free; North America/Europe $0.12 per GB for 100 GB - 10 TB
+  overage: Contact us for high-volume pricing
+- name: Full Site Delivery - Requests
+  price_text: $0.01
+  price: 0.01
+  currency: USD
+  period: month
+  unit: per 10,000 Requests
+  included_quota: 1 Million free
+  overage: Next 100 Million $0.0095
+- name: Managed TLS Commercial CA
+  price_text: $275.00
+  price: 275
+  currency: USD
+  period: month
+  unit: per domain
+- name: Image Optimizer
+  price_text: $0.50
+  price: 0.5
+  currency: USD
+  period: month
+  unit: per 10,000 Image Requests
+  included_quota: 100,000 free
+  overage: tiers down to $0.01
+- name: Domain Research API - Status-Precise
+  price_text: $0.001
+  price: 0.001
+  currency: USD
+  period: month
+  unit: per Request
+  included_quota: 10,000 free
+  overage: Beyond 25 Million $0.0005
+- name: Domain Research API - Status-Estimated
+  price_text: $0.0005
+  price: 0.0005
+  currency: USD
+  period: month
+  unit: per Request
+  included_quota: 10,000 free
+  overage: Beyond 25 Million $0.00025
+- name: Domain Research API - Suggest
+  price_text: $0.00001
+  price: 1.0e-05
+  currency: USD
+  period: month
+  unit: per Request
+  included_quota: 10,000 free
+- name: AI Accelerator
+  price_text: $0.40
+  price: 0.4
+  currency: USD
+  period: month
+  unit: per 1,000 Requests
+  included_quota: 20,000 free
+  overage: Beyond 20 Million $0.28
+- name: Compute Requests
+  price_text: $0.50
+  price: 0.5
+  currency: USD
+  period: month
+  unit: per 1 Million Compute requests
+  included_quota: 10 Million Compute requests free
+  overage: Beyond 500 Billion $0.20
+- name: Compute vCPU Milliseconds
+  price_text: $0.05
+  price: 0.05
+  currency: USD
+  period: month
+  unit: per 1 Million Compute vCPU milliseconds
+  included_quota: 100 Million free
+  overage: Beyond 5 Trillion $0.02
+- name: Object Storage
+  price_text: $0.02
+  price: 0.02
+  currency: USD
+  period: month
+  unit: per GB
+  included_quota: 5 GB free
+  overage: Beyond 500 TB $0.017
+- name: Key Value Store Storage
+  price_text: $0.50
+  price: 0.5
+  currency: USD
+  period: month
+  unit: per GB
+  included_quota: 1 GB free
+- name: DDoS Protection
+  price_text: $1.00
+  price: 1
+  currency: USD
+  period: month
+  unit: per 10,000 Requests
+  included_quota: 500,000 free
+  overage: Beyond 15 Billion $0.015
+- name: Network Services Basic
+  price_text: $1,500
+  price: 1500
+  currency: USD
+  period: month
+  included_quota: 100M Requests, 20 TLS domains, 30M Image Requests
+- name: Network Services Starter
+  price_text: $6,000
+  price: 6000
+  currency: USD
+  period: month
+  included_quota: 500M Requests, 40 domains, 150M Image Requests
+- name: Network Services Advantage
+  price_text: Contact sales
+  period: none
+  included_quota: 2B Requests
+- name: Network Services Ultimate
+  price_text: Contact sales
+  period: none
+  included_quota: 5B Requests
+- name: Compute Starter
+  price_text: $500
+  price: 500
+  currency: USD
+  period: month
+  included_quota: 500M Requests, 5B vCPU ms, 20 services
+- name: Observability Starter
+  price_text: $1,500
+  price: 1500
+  currency: USD
+  period: month
+  included_quota: 500M Requests, Edge Observer
+- name: Security Core / Core Plus / Total
+  price_text: Contact sales
+  period: none
+rate_limit_statements:
+- No more than 10% of traffic may originate in the African, Indian, or South Korean billing regions.
