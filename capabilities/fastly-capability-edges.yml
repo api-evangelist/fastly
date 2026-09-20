@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 17
+edge_count: 27
 edges:
 - tag: IAM Roles
   spec_file: fastly-iam-roles-api-openapi.yml
@@ -61,6 +61,16 @@ edges:
     applications delivered through Fastly's edge network"
   reason: CRUD over WAF firewall instances protecting web applications — a cybersecurity control capability
     rather than generic IT plumbing. L1 only as no specific L2 is evidenced.
+- tag: Secret Store
+  spec_file: fastly-secret-store-api-openapi.yml
+  capability_id: BC-4210.60
+  capability_id_l1: BC-4210
+  capability_name: Configuration & Secrets Management
+  confidence: 0.78
+  evidence: POST /resources/stores/secret  createSecretStore  Create a secret store; schema SecretStore
+  reason: Provisioning and deletion of secret stores holding runtime secrets consumed by edge compute
+    services maps directly to Configuration & Secrets Management.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: WAF Exclusions
   spec_file: fastly-waf-exclusions-api-openapi.yml
   capability_id: BC-620
@@ -71,6 +81,17 @@ edges:
     to defend against common web attacks"'
   reason: Tuning of WAF rule exclusions is web-application security control configuration, i.e. Cybersecurity
     Management. L2 not clearly determinable from the surface.
+- tag: Custom Dashboards
+  spec_file: fastly-custom-dashboards-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.75
+  evidence: GET /observability/dashboards  listCustomDashboards  List Custom Dashboards
+  reason: Operations manage dashboards under the /observability path, i.e. making the running service
+    understandable in production — Observability Management. Some ambiguity as dashboards could also be
+    read as analytics/BI.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Events
   spec_file: fastly-events-api-openapi.yml
   capability_id: BC-620.30
@@ -81,6 +102,26 @@ edges:
     events, rules, and traffic statistics"
   reason: Attack event listing and inspection for DDoS incidents is security threat detection and response;
     the 'Events' tag here is security attack events, not generic platform events.
+- tag: Log Aggregations
+  spec_file: fastly-log-aggregations-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.75
+  evidence: POST /observability/aggregations/logs  aggregateLogData  Aggregate Log Data
+  reason: Operation sits under /observability and aggregates service log data, which is log-based observability
+    of a running service.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Log Explorer
+  spec_file: fastly-log-explorer-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.75
+  evidence: POST /observability/logs  searchLogs  Search Logs
+  reason: Searching production service logs under an /observability path is log observability, not generic
+    search plumbing.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: WAF Rules
   spec_file: fastly-waf-rules-api-openapi.yml
   capability_id: BC-620
@@ -101,6 +142,17 @@ edges:
     statistics"; "Get All Rules For An Event"'
   reason: Rules here are DDoS mitigation rules tied to attack events — security detection and response,
     not business rules.
+- tag: Sudo Mode
+  spec_file: fastly-sudo-mode-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /sudo  enableSudoMode  Enable Sudo Mode
+  reason: Elevation of a session to privileged mode is privileged access management within identity &
+    access control; the spec description also frames the surface as 'identity and access management (IAM)
+    resources'.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: User
   spec_file: fastly-user-api-openapi.yml
   capability_id: BC-620.20
@@ -133,6 +185,17 @@ edges:
   reason: Managing IP allowlist/blocklist entries used to allow or deny edge requests is an access-control
     capability. Same caveat as the ACL container tag — it is edge service configuration, not enterprise
     identity governance.
+- tag: Alerts
+  spec_file: fastly-alerts-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.7
+  evidence: GET /alerts/definitions  listAlertDefinitions ... GET /alerts/history  listAlertHistory
+  reason: Alert definitions and alert history over Fastly service metrics constitute monitoring/observability
+    of a running service. Mapped to Observability Management with moderate confidence; could also be read
+    as generic IT operations monitoring.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: DDoS Protection
   spec_file: fastly-ddos-protection-api-openapi.yml
   capability_id: BC-620
@@ -165,6 +228,37 @@ edges:
     network"
   reason: Configuration of log streaming destinations is observability (log) management for the running
     platform.
+- tag: Logging Datadog
+  spec_file: fastly-logging-datadog-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.7
+  evidence: POST /service/{service_id}/version/{version_id}/logging/datadog  createLogDatadog  Create
+    a Datadog logging endpoint
+  reason: Creates/lists log-streaming endpoints to an observability backend; this is log observability
+    configuration.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Logging Splunk
+  spec_file: fastly-logging-splunk-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.7
+  evidence: POST /service/{service_id}/version/{version_id}/logging/splunk  createLogSplunk  Create a
+    Splunk logging endpoint
+  reason: Log forwarding to Splunk, a log analytics platform — observability log management.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Logging Syslog
+  spec_file: fastly-logging-syslog-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.7
+  evidence: GET /service/{service_id}/version/{version_id}/logging/syslog  listLogSyslog  List syslog
+    logging endpoints
+  reason: Full CRUD over syslog log-delivery endpoints for a service version; log observability configuration.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Objects
   spec_file: fastly-objects-api-openapi.yml
   capability_id: BC-600.50
@@ -185,3 +279,14 @@ edges:
     Server Pool", "Dynamic Server Pools that allow servers to be added or removed"'
   reason: Managing load-balancing pools of backend servers is network/compute infrastructure management,
     a Cross-Industry IT capability rather than anything telecom-network-specific.
+- tag: User Tokens
+  spec_file: fastly-user-tokens-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /tokens  createToken  Create an API token; DELETE /tokens/{token_id}  revokeToken  Revoke
+    an API token
+  reason: Issuance and revocation of API access credentials is access management. Ambiguity between enterprise
+    IAM and developer-credential stewardship on a developer platform keeps confidence moderate.
+  recovered_from: sweep-20260828T235257Z-edges.json
