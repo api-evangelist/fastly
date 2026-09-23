@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Fastly Products API Discovery API
-  description: The Fastly Products API provides endpoints for enabling and managing Fastly product features on services, including Bot Management, DDoS Protection, Image Optimizer, API Discovery, and other add-on capabilities. Developers can use this API to check which products are enabled for a service, enable or disable product features, and configure product-specific settings. The API Discovery product, for example, allows automated identification and cataloging of API endpoints in traffic flowing through Fastly services.
+  description: The Fastly Products API provides endpoints for enabling and managing Fastly product features on services, including Bot Management, DDoS Protection, Image Optimizer, API Discovery, and other add-on capabilities.
   version: '1.0'
   contact:
     name: Fastly Support
@@ -71,14 +71,6 @@ paths:
         '404':
           description: Service not found or product not enabled.
 components:
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   schemas:
     ProductStatus:
       type: object
@@ -114,6 +106,14 @@ components:
             service:
               type: string
               description: A link to the associated service.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

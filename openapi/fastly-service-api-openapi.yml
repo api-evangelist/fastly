@@ -218,48 +218,30 @@ paths:
         '404':
           description: Service not found.
 components:
+  parameters:
+    pageNumber:
+      name: page
+      in: query
+      description: The page number to return.
+      schema:
+        type: integer
+        minimum: 1
+    perPage:
+      name: per_page
+      in: query
+      description: The number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   schemas:
-    ServiceVersion:
-      type: object
-      description: A version of a Fastly service. Versions represent distinct configurations that can be activated or deactivated independently.
-      properties:
-        number:
-          type: integer
-          description: The version number.
-        service_id:
-          type: string
-          description: The alphanumeric string identifying the service.
-        active:
-          type: boolean
-          description: Whether this version is currently active.
-        locked:
-          type: boolean
-          description: Whether this version is locked and cannot be modified.
-        deployed:
-          type: boolean
-          description: Whether this version has been deployed.
-        staging:
-          type: boolean
-          description: Whether this version is in the staging environment.
-        testing:
-          type: boolean
-          description: Whether this version is in the testing environment.
-        comment:
-          type: string
-          description: A freeform descriptive note about the version.
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time in ISO 8601 format when the version was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: The date and time in ISO 8601 format when the version was last updated.
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The date and time in ISO 8601 format when the version was deleted.
     Service:
       type: object
       description: A Fastly service represents the configuration for a website, app, API, or anything else to be served through Fastly.
@@ -304,6 +286,47 @@ components:
           description: A list of version objects associated with the service.
           items:
             $ref: '#/components/schemas/ServiceVersion'
+    ServiceVersion:
+      type: object
+      description: A version of a Fastly service. Versions represent distinct configurations that can be activated or deactivated independently.
+      properties:
+        number:
+          type: integer
+          description: The version number.
+        service_id:
+          type: string
+          description: The alphanumeric string identifying the service.
+        active:
+          type: boolean
+          description: Whether this version is currently active.
+        locked:
+          type: boolean
+          description: Whether this version is locked and cannot be modified.
+        deployed:
+          type: boolean
+          description: Whether this version has been deployed.
+        staging:
+          type: boolean
+          description: Whether this version is in the staging environment.
+        testing:
+          type: boolean
+          description: Whether this version is in the testing environment.
+        comment:
+          type: string
+          description: A freeform descriptive note about the version.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time in ISO 8601 format when the version was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time in ISO 8601 format when the version was last updated.
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time in ISO 8601 format when the version was deleted.
     ServiceDetail:
       allOf:
       - $ref: '#/components/schemas/Service'
@@ -314,29 +337,6 @@ components:
             type: object
             description: The full version object for the currently active version.
             nullable: true
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
-    pageNumber:
-      name: page
-      in: query
-      description: The page number to return.
-      schema:
-        type: integer
-        minimum: 1
-    perPage:
-      name: per_page
-      in: query
-      description: The number of items to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
   securitySchemes:
     apiKeyAuth:
       type: apiKey

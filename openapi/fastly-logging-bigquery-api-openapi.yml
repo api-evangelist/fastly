@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Fastly Real-Time Logging Logging BigQuery API
-  description: The Fastly Real-Time Logging API allows developers to configure and manage logging endpoints that receive streamed log data from Fastly's edge network. Fastly supports logging to a variety of formats and platforms including syslog, Amazon S3, Google Cloud Storage, BigQuery, Datadog, Splunk, Elasticsearch, and many other providers. Developers can create, update, and delete logging configurations per service version, controlling the format, placement, and conditions under which log entries are generated.
+  description: The Fastly Real-Time Logging API allows developers to configure and manage logging endpoints that receive streamed log data from Fastly's edge network.
   version: '1.0'
   contact:
     name: Fastly Support
@@ -119,13 +119,6 @@ components:
             type: string
             description: The name of the Google Cloud Platform service account.
   parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
     versionId:
       name: version_id
       in: path
@@ -133,6 +126,13 @@ components:
       description: The integer identifying the service version.
       schema:
         type: integer
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

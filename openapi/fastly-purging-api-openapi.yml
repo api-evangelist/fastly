@@ -136,13 +136,6 @@ paths:
           description: Service not found.
 components:
   parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
     softPurge:
       name: Fastly-Soft-Purge
       in: header
@@ -151,6 +144,13 @@ components:
         type: integer
         enum:
         - 1
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   schemas:
     PurgeResponse:
       type: object

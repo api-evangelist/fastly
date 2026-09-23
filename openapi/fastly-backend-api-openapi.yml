@@ -138,6 +138,13 @@ paths:
           description: Backend not found.
 components:
   parameters:
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
     backendName:
       name: backend_name
       in: path
@@ -152,13 +159,6 @@ components:
       description: The alphanumeric string identifying the Fastly service.
       schema:
         type: string
-    versionId:
-      name: version_id
-      in: path
-      required: true
-      description: The integer identifying the service version.
-      schema:
-        type: integer
   schemas:
     Backend:
       type: object

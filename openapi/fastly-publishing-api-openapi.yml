@@ -9,9 +9,7 @@ info:
 
     application configurations. Messages can be delivered to subscribers across
 
-    HTTP responses, HTTP streams, and WebSocket connections.
-
-    '
+    HTTP responses, HTTP streams, and WebSocket connections.'
   version: 1.0.0
 servers:
 - url: https://api.fastly.com
@@ -45,13 +43,6 @@ paths:
           description: Authorization failed
 components:
   schemas:
-    PublishRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublishItem'
     PublishItem:
       type: object
       properties:
@@ -82,6 +73,13 @@ components:
               properties:
                 content:
                   type: string
+    PublishRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublishItem'
   securitySchemes:
     FastlyKey:
       type: apiKey

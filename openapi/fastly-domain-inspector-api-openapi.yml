@@ -56,21 +56,20 @@ paths:
           description: Service or domain not found.
 components:
   schemas:
-    RealtimeResponse:
+    RealtimeRecord:
       type: object
-      description: A response containing real-time analytics data with records representing one-second time intervals.
+      description: A single second of real-time analytics data with measurements grouped by data center.
       properties:
-        Timestamp:
+        datacenter:
+          type: object
+          description: A map of data center names to their respective measurement data.
+          additionalProperties:
+            $ref: '#/components/schemas/RealtimeMeasurements'
+        aggregated:
+          $ref: '#/components/schemas/RealtimeMeasurements'
+        recorded:
           type: integer
-          description: The Unix timestamp of the latest data point.
-        AggregateDelay:
-          type: integer
-          description: The offset of the latest data point from the current time.
-        Data:
-          type: array
-          description: A list of analytics records, each representing one second of data.
-          items:
-            $ref: '#/components/schemas/RealtimeRecord'
+          description: The Unix timestamp when this record was recorded.
     RealtimeMeasurements:
       type: object
       description: A set of measurements for a specific time period and data center or aggregated across all data centers.
@@ -118,20 +117,21 @@ components:
           type: number
           format: float
           description: The ratio of cache hits to total requests.
-    RealtimeRecord:
+    RealtimeResponse:
       type: object
-      description: A single second of real-time analytics data with measurements grouped by data center.
+      description: A response containing real-time analytics data with records representing one-second time intervals.
       properties:
-        datacenter:
-          type: object
-          description: A map of data center names to their respective measurement data.
-          additionalProperties:
-            $ref: '#/components/schemas/RealtimeMeasurements'
-        aggregated:
-          $ref: '#/components/schemas/RealtimeMeasurements'
-        recorded:
+        Timestamp:
           type: integer
-          description: The Unix timestamp when this record was recorded.
+          description: The Unix timestamp of the latest data point.
+        AggregateDelay:
+          type: integer
+          description: The offset of the latest data point from the current time.
+        Data:
+          type: array
+          description: A list of analytics records, each representing one second of data.
+          items:
+            $ref: '#/components/schemas/RealtimeRecord'
   parameters:
     serviceId:
       name: service_id

@@ -11,9 +11,7 @@ info:
 
     drop-in compatible chat completions endpoints that proxy to upstream
 
-    providers while serving cached responses from the edge.
-
-    '
+    providers while serving cached responses from the edge.'
   version: 1.0.0
 servers:
 - url: https://api.fastly.ai
@@ -61,36 +59,6 @@ paths:
           description: Gemini response
 components:
   schemas:
-    ChatCompletionRequest:
-      type: object
-      required:
-      - model
-      - messages
-      properties:
-        model:
-          type: string
-          example: gpt-4o-mini
-        messages:
-          type: array
-          items:
-            type: object
-            properties:
-              role:
-                type: string
-                enum:
-                - system
-                - user
-                - assistant
-                - tool
-              content:
-                type: string
-        temperature:
-          type: number
-          format: float
-        max_tokens:
-          type: integer
-        stream:
-          type: boolean
     ChatCompletionResponse:
       type: object
       properties:
@@ -140,6 +108,36 @@ components:
             similarity:
               type: number
               format: float
+    ChatCompletionRequest:
+      type: object
+      required:
+      - model
+      - messages
+      properties:
+        model:
+          type: string
+          example: gpt-4o-mini
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+                enum:
+                - system
+                - user
+                - assistant
+                - tool
+              content:
+                type: string
+        temperature:
+          type: number
+          format: float
+        max_tokens:
+          type: integer
+        stream:
+          type: boolean
   securitySchemes:
     FastlyKey:
       type: apiKey

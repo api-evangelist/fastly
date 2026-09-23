@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Fastly Compute Package API
-  description: The Fastly Compute platform enables developers to build and deploy serverless applications that run on Fastly's global edge network using WebAssembly. Compute services support custom application logic written in Rust, JavaScript, or Go using official Fastly SDKs. The platform provides access to edge primitives including KV stores, config stores, secret stores, dynamic backends, and real-time messaging, enabling developers to build full-featured applications that execute close to end users with sub-millisecond startup times.
+  description: The Fastly Compute platform enables developers to build and deploy serverless applications that run on Fastly's global edge network using WebAssembly.
   version: '1.0'
   contact:
     name: Fastly Support
@@ -71,6 +71,21 @@ paths:
         '401':
           description: Unauthorized. The API token is missing or invalid.
 components:
+  parameters:
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   schemas:
     Package:
       type: object
@@ -110,21 +125,6 @@ components:
           type: string
           format: date-time
           description: The date and time the package was created.
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
-    versionId:
-      name: version_id
-      in: path
-      required: true
-      description: The integer identifying the service version.
-      schema:
-        type: integer
   securitySchemes:
     apiKeyAuth:
       type: apiKey
