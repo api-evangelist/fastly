@@ -55,6 +55,14 @@ paths:
         '404':
           description: Service or domain not found.
 components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   schemas:
     RealtimeRecord:
       type: object
@@ -132,14 +140,6 @@ components:
           description: A list of analytics records, each representing one second of data.
           items:
             $ref: '#/components/schemas/RealtimeRecord'
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

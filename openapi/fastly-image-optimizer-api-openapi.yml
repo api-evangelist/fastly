@@ -71,6 +71,14 @@ paths:
         '404':
           description: Service not found or product not enabled.
 components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   schemas:
     ProductStatus:
       type: object
@@ -106,14 +114,6 @@ components:
             service:
               type: string
               description: A link to the associated service.
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
