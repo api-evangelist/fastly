@@ -91,14 +91,6 @@ paths:
         '404':
           description: Service not found or DDoS Protection not enabled.
 components:
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   schemas:
     ProductStatus:
       type: object
@@ -152,6 +144,14 @@ components:
             mode:
               type: string
               description: The operating mode of DDoS Protection.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -64,6 +64,20 @@ paths:
         '401':
           description: Unauthorized. The API token is missing or invalid.
 components:
+  schemas:
+    CustomVcl:
+      type: object
+      description: A full custom VCL file uploaded for a service version.
+      properties:
+        name:
+          type: string
+          description: The name of the custom VCL file.
+        content:
+          type: string
+          description: The VCL source code.
+        main:
+          type: boolean
+          description: Whether this is the main VCL file for the service version.
   parameters:
     versionId:
       name: version_id
@@ -79,20 +93,6 @@ components:
       description: The alphanumeric string identifying the Fastly service.
       schema:
         type: string
-  schemas:
-    CustomVcl:
-      type: object
-      description: A full custom VCL file uploaded for a service version.
-      properties:
-        name:
-          type: string
-          description: The name of the custom VCL file.
-        content:
-          type: string
-          description: The VCL source code.
-        main:
-          type: boolean
-          description: Whether this is the main VCL file for the service version.
   securitySchemes:
     apiKeyAuth:
       type: apiKey

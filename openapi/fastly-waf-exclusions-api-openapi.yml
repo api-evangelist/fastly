@@ -104,21 +104,6 @@ paths:
         '401':
           description: Unauthorized. The API token is missing or invalid.
 components:
-  parameters:
-    firewallId:
-      name: firewall_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the WAF firewall.
-      schema:
-        type: string
-    firewallVersionNumber:
-      name: firewall_version_number
-      in: path
-      required: true
-      description: The version number of the WAF firewall.
-      schema:
-        type: integer
   schemas:
     WafExclusion:
       type: object
@@ -159,6 +144,21 @@ components:
               type: string
               format: date-time
               description: The date and time the exclusion was last updated.
+  parameters:
+    firewallVersionNumber:
+      name: firewall_version_number
+      in: path
+      required: true
+      description: The version number of the WAF firewall.
+      schema:
+        type: integer
+    firewallId:
+      name: firewall_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the WAF firewall.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

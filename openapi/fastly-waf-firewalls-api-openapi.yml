@@ -214,14 +214,6 @@ paths:
         '404':
           description: WAF firewall not found.
 components:
-  parameters:
-    firewallId:
-      name: firewall_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the WAF firewall.
-      schema:
-        type: string
   schemas:
     WafFirewall:
       type: object
@@ -264,6 +256,14 @@ components:
               type: string
               format: date-time
               description: The date and time the firewall was last updated.
+  parameters:
+    firewallId:
+      name: firewall_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the WAF firewall.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

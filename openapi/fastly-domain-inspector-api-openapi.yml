@@ -55,29 +55,7 @@ paths:
         '404':
           description: Service or domain not found.
 components:
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   schemas:
-    RealtimeRecord:
-      type: object
-      description: A single second of real-time analytics data with measurements grouped by data center.
-      properties:
-        datacenter:
-          type: object
-          description: A map of data center names to their respective measurement data.
-          additionalProperties:
-            $ref: '#/components/schemas/RealtimeMeasurements'
-        aggregated:
-          $ref: '#/components/schemas/RealtimeMeasurements'
-        recorded:
-          type: integer
-          description: The Unix timestamp when this record was recorded.
     RealtimeMeasurements:
       type: object
       description: A set of measurements for a specific time period and data center or aggregated across all data centers.
@@ -140,6 +118,28 @@ components:
           description: A list of analytics records, each representing one second of data.
           items:
             $ref: '#/components/schemas/RealtimeRecord'
+    RealtimeRecord:
+      type: object
+      description: A single second of real-time analytics data with measurements grouped by data center.
+      properties:
+        datacenter:
+          type: object
+          description: A map of data center names to their respective measurement data.
+          additionalProperties:
+            $ref: '#/components/schemas/RealtimeMeasurements'
+        aggregated:
+          $ref: '#/components/schemas/RealtimeMeasurements'
+        recorded:
+          type: integer
+          description: The Unix timestamp when this record was recorded.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
