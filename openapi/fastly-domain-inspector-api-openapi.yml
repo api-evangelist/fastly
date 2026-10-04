@@ -103,6 +103,20 @@ components:
           type: number
           format: float
           description: The ratio of cache hits to total requests.
+    RealtimeRecord:
+      type: object
+      description: A single second of real-time analytics data with measurements grouped by data center.
+      properties:
+        datacenter:
+          type: object
+          description: A map of data center names to their respective measurement data.
+          additionalProperties:
+            $ref: '#/components/schemas/RealtimeMeasurements'
+        aggregated:
+          $ref: '#/components/schemas/RealtimeMeasurements'
+        recorded:
+          type: integer
+          description: The Unix timestamp when this record was recorded.
     RealtimeResponse:
       type: object
       description: A response containing real-time analytics data with records representing one-second time intervals.
@@ -118,20 +132,6 @@ components:
           description: A list of analytics records, each representing one second of data.
           items:
             $ref: '#/components/schemas/RealtimeRecord'
-    RealtimeRecord:
-      type: object
-      description: A single second of real-time analytics data with measurements grouped by data center.
-      properties:
-        datacenter:
-          type: object
-          description: A map of data center names to their respective measurement data.
-          additionalProperties:
-            $ref: '#/components/schemas/RealtimeMeasurements'
-        aggregated:
-          $ref: '#/components/schemas/RealtimeMeasurements'
-        recorded:
-          type: integer
-          description: The Unix timestamp when this record was recorded.
   parameters:
     serviceId:
       name: service_id

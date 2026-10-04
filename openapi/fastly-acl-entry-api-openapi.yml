@@ -255,6 +255,14 @@ paths:
         '404':
           description: ACL entry not found.
 components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   schemas:
     AclEntry:
       type: object
@@ -296,14 +304,6 @@ components:
           format: date-time
           nullable: true
           description: The date and time the entry was deleted.
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -43,13 +43,6 @@ paths:
           description: Authorization failed
 components:
   schemas:
-    PublishRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublishItem'
     PublishItem:
       type: object
       properties:
@@ -80,6 +73,13 @@ components:
               properties:
                 content:
                   type: string
+    PublishRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublishItem'
   securitySchemes:
     FastlyKey:
       type: apiKey

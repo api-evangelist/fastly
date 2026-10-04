@@ -160,6 +160,14 @@ paths:
         '401':
           description: Unauthorized. The API token is missing or invalid.
 components:
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   schemas:
     HistoricalStatsResponse:
       type: object
@@ -190,14 +198,6 @@ components:
           items:
             type: object
             additionalProperties: true
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
