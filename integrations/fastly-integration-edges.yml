@@ -39,3 +39,28 @@ edges:
     detected: '2026-10-13'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
+- partner_name: Amazon Web Services
+  partner: amazon-web-services
+  partner_match: shape-anchor
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  shape: aws-s3
+  type: docs
+  degree: declared-unqualified
+  evidence: https://docs.fastly.com/products/object-storage
+  evidence_kind: own-docs
+  evidence_file: https://github.com/api-evangelist/fastly/blob/main/evidence/compatibility/fastly-aws-s3-1.md
+  quote: Fastly Object Storage is an Amazon S3-compatible large object storage solution that works seamlessly with
+    both Deliver and Compute services. Using Fastly Object Storage, you can store larger file sizes with Fastly,
+    improving latency, increa
+  structural_match:
+    file: fastly/openapi/fastly-objects-api-openapi.yml
+    ops:
+    - DeleteObject
+    - GetObject
+    - HeadObject
+    - ListObjects
+    - PutObject
+  detected_by: sweep-shape-compat.py
+  first_seen: '2026-10-13'
