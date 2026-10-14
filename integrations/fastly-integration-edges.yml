@@ -2,6 +2,8 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://aws.amazon.com/marketplace/
+- new-relic/integrations/new-relic-integration-edges.yml
+- okta/integrations/okta-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -64,3 +66,49 @@ edges:
     - PutObject
   detected_by: sweep-shape-compat.py
   first_seen: '2026-10-13'
+- partner_name: New Relic (own)
+  partner: new-relic
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://newrelic.com/instant-observability/fastly-cdn
+  mirror_of: new-relic/integrations/new-relic-integration-edges.yml
+  apps:
+  - Fastly CDN
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Verified
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/fastlysaml/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Fastly
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Lifecycle Management
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - CREATE
+  - DEACTIVATE
+  - IDENTITY_SECURITY_POSTURE_MANAGEMENT
+  - SAML
+  - SWA
+  - UPDATE
+source:
+- new-relic/integrations/new-relic-integration-edges.yml
+- okta/integrations/okta-integration-edges.yml
