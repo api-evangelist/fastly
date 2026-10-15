@@ -22,25 +22,6 @@ edges:
   seller_name: Fastly
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
-- partner_name: OpenAI
-  partner: openai
-  partner_match: domain
-  type: contract
-  channel: provider-built
-  relationship: compatible
-  direction: provider-built
-  evidence: https://github.com/api-evangelist/fastly/blob/main/openapi/fastly-chat-completions-api-openapi.yml#L29
-  contract_reference:
-    repo: fastly
-    spec_file: fastly-chat-completions-api-openapi.yml
-    property: description
-    value: OpenAI-compatible
-    note: 'fastly declares OpenAI compatibility: ''description: OpenAI-compatible chat completion request, semantically
-      cached at the Fastly edge.'''
-    detected_by: sweep-model-routing.py
-    detected: '2026-10-13'
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
 - partner_name: Amazon Web Services
   partner: amazon-web-services
   partner_match: shape-anchor
@@ -109,6 +90,25 @@ edges:
   - SAML
   - SWA
   - UPDATE
+- partner_name: OpenAI
+  partner: openai
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  evidence: https://github.com/api-evangelist/fastly/blob/main/openapi/fastly-chat-completions-api-openapi.yml#L29
+  contract_reference:
+    repo: fastly
+    spec_file: fastly-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'fastly declares OpenAI compatibility: ''description: OpenAI-compatible chat completion request, semantically
+      cached at the Fastly edge.'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-15'
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
 source:
 - new-relic/integrations/new-relic-integration-edges.yml
 - okta/integrations/okta-integration-edges.yml
