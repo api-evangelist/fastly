@@ -64,21 +64,6 @@ paths:
         '401':
           description: Unauthorized. The API token is missing or invalid.
 components:
-  parameters:
-    versionId:
-      name: version_id
-      in: path
-      required: true
-      description: The integer identifying the service version.
-      schema:
-        type: integer
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   schemas:
     LoggingHttps:
       allOf:
@@ -153,6 +138,21 @@ components:
         format:
           type: string
           description: A Fastly log format string. Supports Apache Common Log variables.
+  parameters:
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

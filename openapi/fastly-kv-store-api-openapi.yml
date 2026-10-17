@@ -120,14 +120,6 @@ paths:
         '404':
           description: KV store not found.
 components:
-  parameters:
-    storeId:
-      name: store_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the store.
-      schema:
-        type: string
   schemas:
     KvStore:
       type: object
@@ -147,6 +139,14 @@ components:
           type: string
           format: date-time
           description: The date and time the KV store was last updated.
+  parameters:
+    storeId:
+      name: store_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the store.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

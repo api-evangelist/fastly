@@ -91,15 +91,25 @@ paths:
         '404':
           description: Service not found or DDoS Protection not enabled.
 components:
-  parameters:
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   schemas:
+    DdosProtectionConfiguration:
+      type: object
+      description: The DDoS Protection configuration for a Fastly service.
+      properties:
+        product:
+          type: object
+          description: Details about the DDoS Protection product.
+          properties:
+            id:
+              type: string
+              description: The product identifier.
+        configuration:
+          type: object
+          description: The DDoS Protection configuration settings.
+          properties:
+            mode:
+              type: string
+              description: The operating mode of DDoS Protection.
     ProductStatus:
       type: object
       description: The enablement status of a Fastly product on a service.
@@ -134,24 +144,14 @@ components:
             service:
               type: string
               description: A link to the associated service.
-    DdosProtectionConfiguration:
-      type: object
-      description: The DDoS Protection configuration for a Fastly service.
-      properties:
-        product:
-          type: object
-          description: Details about the DDoS Protection product.
-          properties:
-            id:
-              type: string
-              description: The product identifier.
-        configuration:
-          type: object
-          description: The DDoS Protection configuration settings.
-          properties:
-            mode:
-              type: string
-              description: The operating mode of DDoS Protection.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

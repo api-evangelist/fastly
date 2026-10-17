@@ -168,21 +168,6 @@ paths:
         '404':
           description: Dictionary not found.
 components:
-  parameters:
-    versionId:
-      name: version_id
-      in: path
-      required: true
-      description: The integer identifying the service version.
-      schema:
-        type: integer
-    serviceId:
-      name: service_id
-      in: path
-      required: true
-      description: The alphanumeric string identifying the Fastly service.
-      schema:
-        type: string
   schemas:
     Dictionary:
       type: object
@@ -216,6 +201,21 @@ components:
           format: date-time
           nullable: true
           description: The date and time the dictionary was deleted.
+  parameters:
+    serviceId:
+      name: service_id
+      in: path
+      required: true
+      description: The alphanumeric string identifying the Fastly service.
+      schema:
+        type: string
+    versionId:
+      name: version_id
+      in: path
+      required: true
+      description: The integer identifying the service version.
+      schema:
+        type: integer
   securitySchemes:
     apiKeyAuth:
       type: apiKey

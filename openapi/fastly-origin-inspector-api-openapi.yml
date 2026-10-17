@@ -56,6 +56,21 @@ paths:
           description: Service or origin not found.
 components:
   schemas:
+    RealtimeResponse:
+      type: object
+      description: A response containing real-time analytics data with records representing one-second time intervals.
+      properties:
+        Timestamp:
+          type: integer
+          description: The Unix timestamp of the latest data point.
+        AggregateDelay:
+          type: integer
+          description: The offset of the latest data point from the current time.
+        Data:
+          type: array
+          description: A list of analytics records, each representing one second of data.
+          items:
+            $ref: '#/components/schemas/RealtimeRecord'
     RealtimeMeasurements:
       type: object
       description: A set of measurements for a specific time period and data center or aggregated across all data centers.
@@ -117,21 +132,6 @@ components:
         recorded:
           type: integer
           description: The Unix timestamp when this record was recorded.
-    RealtimeResponse:
-      type: object
-      description: A response containing real-time analytics data with records representing one-second time intervals.
-      properties:
-        Timestamp:
-          type: integer
-          description: The Unix timestamp of the latest data point.
-        AggregateDelay:
-          type: integer
-          description: The offset of the latest data point from the current time.
-        Data:
-          type: array
-          description: A list of analytics records, each representing one second of data.
-          items:
-            $ref: '#/components/schemas/RealtimeRecord'
   parameters:
     serviceId:
       name: service_id
