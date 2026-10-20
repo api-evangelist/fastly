@@ -52,60 +52,6 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: fastly-openai
-  label: OpenAI
-  partner: openai
-  partner_name: OpenAI
-  type: contract
-  channel: provider-built
-  evidence: https://github.com/api-evangelist/fastly/blob/main/openapi/fastly-chat-completions-api-openapi.yml#L29
-  source: edge
-  relationship: compatible
-  contract_reference:
-    repo: fastly
-    spec_file: fastly-chat-completions-api-openapi.yml
-    property: description
-    value: OpenAI-compatible
-    note: 'fastly declares OpenAI compatibility: ''description: OpenAI-compatible chat completion request, semantically
-      cached at the Fastly edge.'''
-    detected_by: sweep-model-routing.py
-    detected: '2026-10-15'
-  status: not-a-workflow
-  arazzo: null
-- slug: fastly-cncf-cloud-native-landscape
-  label: CNCF (Cloud Native Landscape)
-  partner: cncf
-  partner_name: CNCF (Cloud Native Landscape)
-  category: Cloud native landscape
-  type: register
-  channel: standard-directory
-  evidence: https://github.com/cncf/landscape/blob/3a7d378b1824b82e729a453bb03fa6f1e37557e1/landscape.yml
-  source: edge
-  relationship: standard-participant
-  contract_reference:
-    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @3a7d378b18)
-    spec_file: null
-    standard: Cloud Native (CNCF)
-    role: landscape-listed
-    registered_name: Fastly Compute@Edge
-    registered_names:
-    - Fastly Compute@Edge
-    website: https://www.fastly.com/products/edge-compute
-    matched_domain: fastly.com
-    matched_by: domain
-    member_tier: null
-    joined: null
-    end_user: false
-    cncf_projects: []
-    landscape_categories:
-    - Wasm / Hosted Platforms
-    landscape_entries: 1
-    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
-      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
-    detected_by: sweep-cloud-native.py
-    detected: '2026-10-15'
-  status: not-a-workflow
-  arazzo: null
 - slug: fastly-wordpress-own
   label: WordPress (own)
   partner: wordpress
@@ -117,6 +63,31 @@
   evidence: https://wordpress.org/plugins/fastly/
   source: edge
   relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: fastly-streaming-video-technology-alliance
+  label: Streaming Video Technology Alliance
+  partner_name: Streaming Video Technology Alliance
+  category: streaming video technology alliance
+  type: register
+  channel: standard-directory
+  evidence: https://www.svta.org/svta-member-companies-list/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Streaming Video Technology Alliance member companies (svta.org, wp-json pages API)
+    standard: SVTA specifications (CDN interop, Open Caching, measurement)
+    spec_file: null
+    role: svta-member
+    registered_name: Fastly
+    register_id: Fastly
+    matched_domain: fastly.com
+    matched_by: domain
+    identity: wikidata Q34045622 'Fastly' P856 https://www.fastly.com
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+    signal_note: participation only; the list prints no tier
+    detected_by: sweep-streaming-video.py
+    detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
 - slug: fastly-airbyte
@@ -180,28 +151,57 @@
     builder: 'community (Meltano Hub variant maintainers: meltano, splitio)'
   status: not-a-workflow
   arazzo: null
-- slug: fastly-streaming-video-technology-alliance
-  label: Streaming Video Technology Alliance
-  partner_name: Streaming Video Technology Alliance
-  category: streaming video technology alliance
+- slug: fastly-openai
+  label: OpenAI
+  partner: openai
+  partner_name: OpenAI
+  type: contract
+  channel: provider-built
+  evidence: https://github.com/api-evangelist/fastly/blob/main/openapi/fastly-chat-completions-api-openapi.yml#L29
+  source: edge
+  relationship: compatible
+  contract_reference:
+    repo: fastly
+    spec_file: fastly-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'fastly declares OpenAI compatibility: ''description: OpenAI-compatible chat completion request, semantically
+      cached at the Fastly edge.'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: fastly-cncf-cloud-native-landscape
+  label: CNCF (Cloud Native Landscape)
+  partner: cncf
+  partner_name: CNCF (Cloud Native Landscape)
+  category: Cloud native landscape
   type: register
   channel: standard-directory
-  evidence: https://www.svta.org/svta-member-companies-list/
+  evidence: https://github.com/cncf/landscape/blob/42dd4cd91dad8ec8558ac02467a43f0805b9957a/landscape.yml
   source: edge
   relationship: standard-participant
   contract_reference:
-    register: Streaming Video Technology Alliance member companies (svta.org, wp-json pages API)
-    standard: SVTA specifications (CDN interop, Open Caching, measurement)
+    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @42dd4cd91d)
     spec_file: null
-    role: svta-member
-    registered_name: Fastly
-    register_id: Fastly
+    standard: Cloud Native (CNCF)
+    role: landscape-listed
+    registered_name: Fastly Compute@Edge
+    registered_names:
+    - Fastly Compute@Edge
+    website: https://www.fastly.com/products/edge-compute
     matched_domain: fastly.com
     matched_by: domain
-    identity: wikidata Q34045622 'Fastly' P856 https://www.fastly.com
-    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
-    signal_note: participation only; the list prints no tier
-    detected_by: sweep-streaming-video.py
-    detected: '2026-10-18'
+    member_tier: null
+    joined: null
+    end_user: false
+    cncf_projects: []
+    landscape_categories:
+    - Wasm / Hosted Platforms
+    landscape_entries: 1
+    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
+      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
+    detected_by: sweep-cloud-native.py
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
