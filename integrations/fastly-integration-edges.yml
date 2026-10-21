@@ -27,6 +27,8 @@ checked:
 - https://cloudsecurityalliance.org/membership/current
 - https://fidoalliance.org/certification/fido-certified-products/
 - https://www.cisa.gov/securebydesign/pledge/secure-design-pledge-signers
+- opentofu/integrations/opentofu-integration-edges.yml
+- terraform/integrations/terraform-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -70,66 +72,6 @@ edges:
     - PutObject
   detected_by: sweep-shape-compat.py
   first_seen: '2026-10-13'
-- partner_name: New Relic (own)
-  partner: new-relic
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://newrelic.com/instant-observability/fastly-cdn
-  mirror_of: new-relic/integrations/new-relic-integration-edges.yml
-  apps:
-  - Fastly CDN
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Verified
-- partner_name: Okta (own)
-  partner: okta
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.okta.com/integrations/fastlysaml/
-  mirror_of: okta/integrations/okta-integration-edges.yml
-  apps:
-  - Fastly
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Lifecycle Management
-  badges:
-  - OKTA_VERIFIED
-  features:
-  - CREATE
-  - DEACTIVATE
-  - IDENTITY_SECURITY_POSTURE_MANAGEMENT
-  - SAML
-  - SWA
-  - UPDATE
-- partner_name: WordPress (own)
-  partner: wordpress
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://wordpress.org/plugins/fastly/
-  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
-  apps:
-  - Fastly
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: WordPress plugin
 - partner_name: Streaming Video Technology Alliance
   partner: null
   partner_match: register
@@ -355,6 +297,103 @@ edges:
     identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
   detected_by: sweep-cloud-security-star.py
   first_seen: '2026-10-20'
+- partner_name: New Relic (own)
+  partner: new-relic
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://newrelic.com/instant-observability/fastly-cdn
+  mirror_of: new-relic/integrations/new-relic-integration-edges.yml
+  apps:
+  - Fastly CDN
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Verified
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/fastlysaml/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Fastly
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Lifecycle Management
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - CREATE
+  - DEACTIVATE
+  - IDENTITY_SECURITY_POSTURE_MANAGEMENT
+  - SAML
+  - SWA
+  - UPDATE
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/fastly/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Fastly
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
+- partner_name: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: opentofu-registry
+  evidence: https://search.opentofu.org/provider/fastly/fastly
+  mirror_of: opentofu/integrations/opentofu-integration-edges.yml
+  apps:
+  - fastly/fastly
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+- partner_name: Terraform (terraform-registry)
+  partner: terraform
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: terraform-registry
+  evidence: https://registry.terraform.io/providers/fastly/fastly
+  mirror_of: terraform/integrations/terraform-integration-edges.yml
+  apps:
+  - fastly/fastly
+  - fastly/fastly-beta
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (Terraform partner tier)
 source:
 - new-relic/integrations/new-relic-integration-edges.yml
 - okta/integrations/okta-integration-edges.yml
